@@ -78,7 +78,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SingletonTheory.Services.AuthServices\SingletonTheory.Services.AuthServices.csproj">
       <Project>{31880ae0-113c-4752-b552-192da98b6c1d}</Project>
-      <Name>Bridge.AuthenticationServices</Name>
+      <Name>SingletonTheory.Services.AuthServices</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
