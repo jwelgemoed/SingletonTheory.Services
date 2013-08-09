@@ -1,3 +1,5 @@
 ﻿################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
+/SingletonTheory.Services.AuthServices/obj/Debug
+/SingletonTheory.Services.HostServices/obj/Debug
