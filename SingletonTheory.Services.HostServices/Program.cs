@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingletonTheory.Services.Host
 {
@@ -14,18 +9,18 @@ namespace SingletonTheory.Services.Host
 		/// </summary>
 		static void Main()
 		{
-			var appHost = new StarterTemplateAppListenerHost();
+			//var appHost = new StarterTemplateAppListenerHost();
 
 			//Allow you to debug your Windows Service while you're deleloping it. 
 #if DEBUG
 			Console.WriteLine("Running WinServiceAppHost in Console mode");
 			try
 			{
-				appHost.Init();
-				appHost.Start(ListeningOn);
+				//appHost.Init();
+				//appHost.Start(ListeningOn);
 
-				Console.WriteLine("Press <CTRL>+C to stop.");
-				Thread.Sleep(Timeout.Infinite);
+				//Console.WriteLine("Press <CTRL>+C to stop.");
+				//Thread.Sleep(Timeout.Infinite);
 			}
 			catch (Exception ex)
 			{
@@ -34,7 +29,7 @@ namespace SingletonTheory.Services.Host
 			}
 			finally
 			{
-				appHost.Stop();
+				//appHost.Stop();
 			}
 
 			Console.WriteLine("WinServiceAppHost has finished");
