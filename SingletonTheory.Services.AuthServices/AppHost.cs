@@ -10,7 +10,7 @@ using SSAuthInterfaces = ServiceStack.ServiceInterface.Auth;
 
 namespace SingletonTheory.Services.AuthServices
 {
-	public class HelloAppHost : AppHostBase
+	public class AppHost : AppHostBase
 	{
 		#region Constants
 
@@ -28,7 +28,7 @@ namespace SingletonTheory.Services.AuthServices
 		/// <summary>
 		/// Tell Service Stack the name of your application and where to find your web services
 		/// </summary>
-		public HelloAppHost() : base("Hello Web Services", typeof(HelloService).Assembly) { }
+		public AppHost() : base("Hello Web Services", typeof(HelloService).Assembly) { }
 
 		public override void Configure(Funq.Container container)
 		{
@@ -44,6 +44,7 @@ namespace SingletonTheory.Services.AuthServices
 			//The IUserAuthRepository is used to store the user credentials etc.
 			//Implement this interface to adjust it to your application's data storage.
 			CreateUser(1, UserName, null, Password, new List<string> { "user" }, new List<string> { "ThePermission" });
+			CreateUser(2, "admin", null, Password, new List<string> { "admin" }, new List<string> { "ThePermission" });
 			//CreateUser(2, UserNameWithSessionRedirect, null, PasswordForSessionRedirect);
 			//CreateUser(3, null, EmailBasedUsername, PasswordForEmailBasedAccount);
 		}

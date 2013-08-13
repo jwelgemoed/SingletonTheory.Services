@@ -1,4 +1,5 @@
 ﻿using ServiceStack.ServiceClient.Web;
+using ServiceStack.ServiceInterface.Auth;
 
 namespace SingletonTheory.Services.AuthServices.Tests.Helpers
 {
@@ -27,6 +28,15 @@ namespace SingletonTheory.Services.AuthServices.Tests.Helpers
 			jsonClient.Password = Password;
 
 			return jsonClient;
+		}
+
+		public static AuthResponse Login()
+		{
+			JsonServiceClient client = HTTPClientHelpers.GetClient(HTTPClientHelpers.RootUrl, HTTPClientHelpers.UserName, HTTPClientHelpers.Password);
+			Auth request = new Auth { UserName = HTTPClientHelpers.UserName, Password = HTTPClientHelpers.Password };
+			AuthResponse response = client.Send<AuthResponse>(request);
+
+			return response;
 		}
 
 		#endregion Helper Methods

@@ -94,15 +94,18 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hello.cs" />
-    <Compile Include="HelloAppHost.cs" />
+    <Compile Include="AppHost.cs" />
     <Compile Include="HelloResponse.cs" />
     <Compile Include="HelloService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AuthProvider.cs" />
+    <Compile Include="TransferObjects\UserRoleRequest.cs" />
+    <Compile Include="TransferObjects\UserRoleResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -113,6 +116,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

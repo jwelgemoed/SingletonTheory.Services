@@ -8,7 +8,9 @@ namespace SingletonTheory.Services.AuthServices.Providers
 
 		public override bool TryAuthenticate(ServiceStack.ServiceInterface.IServiceBase authService, string userName, string password)
 		{
-			return base.TryAuthenticate(authService, userName, password);
+			bool auth = base.TryAuthenticate(authService, userName, password);
+
+			return auth;
 		}
 
 		protected override void SaveUserAuth(ServiceStack.ServiceInterface.IServiceBase authService, IAuthSession session, IUserAuthRepository authRepo, IOAuthTokens tokens)
@@ -38,17 +40,23 @@ namespace SingletonTheory.Services.AuthServices.Providers
 
 		public override bool IsAuthorized(IAuthSession session, IOAuthTokens tokens, Auth request = null)
 		{
-			return base.IsAuthorized(session, tokens, request);
+			bool isAuthorized = base.IsAuthorized(session, tokens, request);
+
+			return isAuthorized;
 		}
 
 		public override object Authenticate(ServiceStack.ServiceInterface.IServiceBase authService, IAuthSession session, Auth request)
 		{
-			return base.Authenticate(authService, session, request);
+			object auth = base.Authenticate(authService, session, request);
+
+			return auth;
 		}
 
 		public override object Logout(ServiceStack.ServiceInterface.IServiceBase service, Auth request)
 		{
-			return base.Logout(service, request);
+			object logout = base.Logout(service, request);
+
+			return logout;
 		}
 
 		#endregion Override Methods

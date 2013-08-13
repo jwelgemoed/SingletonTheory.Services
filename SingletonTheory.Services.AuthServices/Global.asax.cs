@@ -11,7 +11,7 @@ namespace SingletonTheory.Services.AuthServices
 		/// <param name="e"></param>
 		protected void Application_Start(object sender, EventArgs e)
 		{
-			new HelloAppHost().Init();
+			new AppHost().Init();
 		}
 	}
 }

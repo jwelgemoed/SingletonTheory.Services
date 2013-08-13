@@ -1,4 +1,5 @@
 ﻿using ServiceStack.ServiceHost;
+
 namespace SingletonTheory.Services.AuthServices
 {
 	[Route("/hello")]

@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="AuthenticationTests.cs" />
     <Compile Include="AuthorisationTests.cs" />
+    <Compile Include="AuthServiceTests.cs" />
     <Compile Include="HelloServiceTests.cs" />
     <Compile Include="Helpers\HTTPClientHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
