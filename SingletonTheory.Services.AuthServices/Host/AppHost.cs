@@ -8,46 +8,69 @@ using SingletonTheory.Services.AuthServices.Providers;
 using System.Collections.Generic;
 using SSAuthInterfaces = ServiceStack.ServiceInterface.Auth;
 
-namespace SingletonTheory.Services.AuthServices
+namespace SingletonTheory.Services.AuthServices.Host
 {
 	public class AppHost : AppHostBase
 	{
 		#region Constants
 
 		private const string UserName = "user";
+		private const string AdminUserName = "admin";
 		private const string Password = "123";
 
 		#endregion Constants
 
 		#region Fields & Properties
 
-		private SSAuthInterfaces.InMemoryAuthRepository _userRepository;
+		private static SSAuthInterfaces.IUserAuthRepository _userRepository;
+
+		public static SSAuthInterfaces.IUserAuthRepository UserRepository
+		{
+			get { return _userRepository; }
+			set { _userRepository = value; }
+		}
 
 		#endregion Fields & Properties
+
+		#region Constructors
 
 		/// <summary>
 		/// Tell Service Stack the name of your application and where to find your web services
 		/// </summary>
-		public AppHost() : base("Hello Web Services", typeof(HelloService).Assembly) { }
+		public AppHost() : base("Singleton Theory Auth Services", typeof(AuthService).Assembly) { }
+
+		#endregion Constructors
+
+		#region Override Methods
 
 		public override void Configure(Funq.Container container)
 		{
-			//register any dependencies your services use, e.g:
-			//container.Register<ICacheClient>(new MemoryCacheClient());
-
 			AddPlugins();
 
 			container.Register<ICacheClient>(new MemoryCacheClient());
-			_userRepository = new SSAuthInterfaces.InMemoryAuthRepository();
+			_userRepository = GetRepositoryProvider();
 			container.Register<SSAuthInterfaces.IUserAuthRepository>(_userRepository);
 
-			//The IUserAuthRepository is used to store the user credentials etc.
-			//Implement this interface to adjust it to your application's data storage.
 			CreateUser(1, UserName, null, Password, new List<string> { "user" }, new List<string> { "ThePermission" });
-			CreateUser(2, "admin", null, Password, new List<string> { "admin" }, new List<string> { "ThePermission" });
-			//CreateUser(2, UserNameWithSessionRedirect, null, PasswordForSessionRedirect);
-			//CreateUser(3, null, EmailBasedUsername, PasswordForEmailBasedAccount);
+			CreateUser(2, AdminUserName, null, Password, new List<string> { "admin" }, new List<string> { "ThePermission" });
 		}
+
+		#endregion Override Methods
+
+		#region Static Methods
+
+		private static SSAuthInterfaces.IUserAuthRepository GetRepositoryProvider()
+		{
+			// Enable the following lines to enable MongoDB
+			//MongoDatabase userDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, ConfigSettings.MongoUserDatabaseName);
+
+			//return new MongoAuthInterfaces.MongoDBAuthRepository(userDatabase, true);
+			return new SSAuthInterfaces.InMemoryAuthRepository();
+		}
+
+		#endregion Static Methods
+
+		#region Private Methods
 
 		private void CreateUser(int id, string username, string email, string password, List<string> roles = null, List<string> permissions = null)
 		{
@@ -69,7 +92,11 @@ namespace SingletonTheory.Services.AuthServices
 				Permissions = permissions
 			};
 
-			_userRepository.CreateUserAuth(userAuth, password);
+			try
+			{
+				_userRepository.CreateUserAuth(userAuth, password);
+			}
+			catch { }
 		}
 
 		private void AddPlugins()
@@ -83,5 +110,7 @@ namespace SingletonTheory.Services.AuthServices
 			Plugins.Add(new AuthFeature(() => authUserSession, authProviders) { }); //HtmlRedirect = "/login" }); // 
 			Plugins.Add(new RegistrationFeature());
 		}
+
+		#endregion Private Methods
 	}
 }

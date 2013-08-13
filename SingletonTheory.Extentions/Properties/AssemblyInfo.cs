@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SingletonTheory.Services.Host")]
+[assembly: AssemblyTitle("SingletonTheory.Extentions")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SingletonTheory.Services.Host")]
+[assembly: AssemblyProduct("SingletonTheory.Extentions")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("3c01616a-3d1f-41d8-bd16-70c20694cec0")]
+[assembly: Guid("6e8f1ecc-7630-4592-9e84-9935c90b0e88")]
 
 // Version information for an assembly consists of the following four values:
 //

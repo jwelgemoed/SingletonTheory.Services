@@ -1,8 +1,9 @@
-﻿using Bridge.AuthenticationServices.TransferObjects;
-using ServiceStack.ServiceInterface;
+﻿using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
+using SingletonTheory.Services.AuthServices.Host;
+using SingletonTheory.Services.AuthServices.TransferObjects;
 
-namespace Bridge.AuthenticationServices
+namespace SingletonTheory.Services.AuthServices
 {
 	public class AuthService : Service
 	{
@@ -17,6 +18,15 @@ namespace Bridge.AuthenticationServices
 			response.Roles = session.Roles;
 
 			return response;
+		}
+
+		public UserAuth Get(UserAuthRequest request)
+		{
+			MongoDBAuthRepository repository = AppHost.UserRepository;
+
+			UserAuth userAuth = repository.GetUserAuth(this.GetSession().UserAuthId);
+
+			return userAuth;
 		}
 
 		#endregion Public Methods

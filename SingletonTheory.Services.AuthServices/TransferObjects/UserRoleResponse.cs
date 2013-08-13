@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Bridge.AuthenticationServices.TransferObjects
+namespace SingletonTheory.Services.AuthServices.TransferObjects
 {
 	public class UserRoleResponse
 	{

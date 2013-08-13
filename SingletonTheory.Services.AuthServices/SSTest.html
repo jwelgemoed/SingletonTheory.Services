@@ -4,10 +4,18 @@
 	<title></title>
 </head>
 <body>
+	<h4>Login Request</h4>
 	<form action="http://localhost:54720/auth/credentials" method="post">
-		<input type="text" name="UserName" value="user" />
+		<select name="UserName">
+			<option value="admin">admin</option>
+			<option value="user">user</option>
+		</select>
 		<input type="password" name="Password" value="123" />
 		<input type="text" name="RememberMe" value="true" />
+		<input type="submit" />
+	</form>
+	<h4>Login Request</h4>
+	<form action="http://localhost:54720/auth/UserRequest" method="get">
 		<input type="submit" />
 	</form>
 </body>

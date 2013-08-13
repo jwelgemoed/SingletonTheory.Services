@@ -8,6 +8,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Helpers
 		#region Constants
 
 		public const string UserName = "user";
+		public const string AdminUserName = "admin";
 		public const string Password = "123";
 		public const string RootUrl = "http://localhost:54720/";
 

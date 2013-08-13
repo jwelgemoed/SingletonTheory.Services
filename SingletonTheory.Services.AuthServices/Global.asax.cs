@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SingletonTheory.Services.AuthServices.Host;
+using System;
 
 namespace SingletonTheory.Services.AuthServices
 {

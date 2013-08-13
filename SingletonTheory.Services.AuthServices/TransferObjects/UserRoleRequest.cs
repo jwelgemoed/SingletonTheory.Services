@@ -1,6 +1,6 @@
 ﻿using ServiceStack.ServiceHost;
 
-namespace Bridge.AuthenticationServices.TransferObjects
+namespace SingletonTheory.Services.AuthServices.TransferObjects
 {
 	public class UserRoleRequest : IReturn<UserRoleResponse>
 	{

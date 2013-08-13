@@ -1,10 +1,10 @@
-﻿using Bridge.AuthenticationServices.TransferObjects;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using ServiceStack.ServiceClient.Web;
 using ServiceStack.ServiceInterface.Auth;
 using SingletonTheory.Services.AuthServices.Tests.Helpers;
+using SingletonTheory.Services.AuthServices.TransferObjects;
 
-namespace Bridge.AuthenticationServices.Tests
+namespace SingletonTheory.Services.AuthServices.Tests
 {
 	[TestFixture]
 	public class AuthServiceTests
@@ -20,6 +20,22 @@ namespace Bridge.AuthenticationServices.Tests
 
 			// Act
 			UserRoleResponse response = client.Get(request);
+
+			// Assert
+			Assert.AreNotEqual(response.Roles.Count, 0);
+		}
+
+		[Test]
+		public void ShouldGetUsers()
+		{
+			// Arrange
+			JsonServiceClient client = HTTPClientHelpers.GetClient(HTTPClientHelpers.RootUrl, HTTPClientHelpers.AdminUserName, HTTPClientHelpers.Password);
+			AuthResponse authResponse = HTTPClientHelpers.Login();
+			UserAuthRequest request = new UserAuthRequest();
+			AuthService service = new AuthService();
+
+			// Act
+			UserAuth response = client.Get(request);
 
 			// Assert
 			Assert.AreNotEqual(response.Roles.Count, 0);
