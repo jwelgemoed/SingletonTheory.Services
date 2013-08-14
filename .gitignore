@@ -3,3 +3,7 @@
 ################################################################################
 /SingletonTheory.Services.AuthServices/obj/Debug
 /SingletonTheory.Services.HostServices/obj/Debug
+/SingletonTheory.Data/bin/Debug
+/SingletonTheory.Data/obj/Debug
+/SingletonTheory.Extentions/obj/Debug
+/SingletonTheory.Services.AuthServices/bin

@@ -22,7 +22,7 @@ namespace SingletonTheory.Services.AuthServices
 
 		public UserAuth Get(UserAuthRequest request)
 		{
-			MongoDBAuthRepository repository = AppHost.UserRepository;
+			IUserAuthRepository repository = AppHost.UserRepository;
 
 			UserAuth userAuth = repository.GetUserAuth(this.GetSession().UserAuthId);
 
