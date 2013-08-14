@@ -1,11 +1,15 @@
-﻿using ServiceStack.CacheAccess;
+﻿using MongoDB.Driver;
+using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Configuration;
 using ServiceStack.ServiceInterface;
 using ServiceStack.Text;
 using ServiceStack.WebHost.Endpoints;
+using SingletonTheory.Data;
+using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Providers;
 using System.Collections.Generic;
+using MongoAuthInterfaces = ServiceStack.ServiceInterface.Auth;
 using SSAuthInterfaces = ServiceStack.ServiceInterface.Auth;
 
 namespace SingletonTheory.Services.AuthServices.Host
@@ -62,10 +66,10 @@ namespace SingletonTheory.Services.AuthServices.Host
 		private static SSAuthInterfaces.IUserAuthRepository GetRepositoryProvider()
 		{
 			// Enable the following lines to enable MongoDB
-			//MongoDatabase userDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, ConfigSettings.MongoUserDatabaseName);
+			MongoDatabase userDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, ConfigSettings.MongoUserDatabaseName);
 
-			//return new MongoAuthInterfaces.MongoDBAuthRepository(userDatabase, true);
-			return new SSAuthInterfaces.InMemoryAuthRepository();
+			return new MongoAuthInterfaces.MongoDBAuthRepository(userDatabase, true);
+			//return new SSAuthInterfaces.InMemoryAuthRepository();
 		}
 
 		#endregion Static Methods
