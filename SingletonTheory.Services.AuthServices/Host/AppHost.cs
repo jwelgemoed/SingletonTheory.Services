@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using System;
+using MongoDB.Driver;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Configuration;
@@ -9,6 +10,7 @@ using SingletonTheory.Data;
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Providers;
 using System.Collections.Generic;
+using SingletonTheory.Services.AuthServices.Repositories;
 using MongoAuthInterfaces = ServiceStack.ServiceInterface.Auth;
 using SSAuthInterfaces = ServiceStack.ServiceInterface.Auth;
 
@@ -68,7 +70,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 			// Enable the following lines to enable MongoDB
 			MongoDatabase userDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, ConfigSettings.MongoUserDatabaseName);
 
-			return new MongoAuthInterfaces.MongoDBAuthRepository(userDatabase, true);
+			return new CustomMongoDBAuthRepository(userDatabase, true);
 			//return new SSAuthInterfaces.InMemoryAuthRepository();
 		}
 
@@ -96,11 +98,14 @@ namespace SingletonTheory.Services.AuthServices.Host
 				Permissions = permissions
 			};
 
-			try
-			{
-				_userRepository.CreateUserAuth(userAuth, password);
-			}
-			catch { }
+		    try
+		    {
+		        _userRepository.CreateUserAuth(userAuth, password);
+		    }
+		    catch (Exception ex)
+		    {
+		        var x = ex.Message;
+		    }
 		}
 
 		private void AddPlugins()

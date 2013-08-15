@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 using ServiceStack.ServiceClient.Web;
 using ServiceStack.ServiceInterface.Auth;
 using SingletonTheory.Services.AuthServices.Tests.Helpers;
@@ -40,5 +41,21 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			// Assert
 			Assert.AreNotEqual(response.Roles.Count, 0);
 		}
+
+	    [Test]
+	    public void ShouldGetAllUsers()
+	    {
+            // Arrange
+            var client = HTTPClientHelpers.GetClient(HTTPClientHelpers.RootUrl, HTTPClientHelpers.AdminUserName, HTTPClientHelpers.Password);
+            AuthResponse authResponse = HTTPClientHelpers.Login();
+            UserListRequest request = new UserListRequest();
+            AuthService service = new AuthService();
+
+            // Act
+            List<UserAuth> response = client.Get(request);
+
+            // Assert
+            Assert.AreNotEqual(response.Count, 0);
+	    }
 	}
 }
