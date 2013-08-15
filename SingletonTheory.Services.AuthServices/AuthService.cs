@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
+using ServiceStack.Text;
 using SingletonTheory.Services.AuthServices.Host;
+using SingletonTheory.Services.AuthServices.Interfaces;
 using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.TransferObjects;
 
@@ -31,10 +34,35 @@ namespace SingletonTheory.Services.AuthServices
             return userAuth;
         }
 
+        public UserAuth Post(UserRequest request)
+        {
+            string hash;
+            string salt;
+            new SaltedHash().GetHashAndSaltString(request.Password, out hash, out salt);
+            var userAuth = new UserAuth
+            {
+                Id = 0,
+                UserName = request.UserName,
+                PasswordHash = hash,
+                Salt = salt,
+                Roles = new List<string> { request.Role }
+            };
+            try
+            {
+                ICustomUserAuthRepository repository = (ICustomUserAuthRepository)AppHost.UserRepository;
+                repository.CreateUserAuth(userAuth, request.Password);
+            }
+            catch (Exception ex)
+            {
+                var x = ex.Message;
+            }
+            return userAuth;
+        }
+
         public List<UserAuth> Get(UserListRequest request)
         {
-            IUserAuthRepository repository = AppHost.UserRepository;
-            return ((CustomMongoDBAuthRepository)repository).GetAllUserAuths();
+            ICustomUserAuthRepository repository = (ICustomUserAuthRepository)AppHost.UserRepository;
+            return repository.GetAllUserAuths();
         }
 
         #endregion Public Methods

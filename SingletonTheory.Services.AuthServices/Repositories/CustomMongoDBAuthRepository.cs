@@ -4,10 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using SingletonTheory.Services.AuthServices.Interfaces;
 
 namespace SingletonTheory.Services.AuthServices.Repositories
 {
-    public class CustomMongoDBAuthRepository : MongoDBAuthRepository
+    public class CustomMongoDBAuthRepository :MongoDBAuthRepository, ICustomUserAuthRepository
     {
         private MongoDatabase _mongoDatabase;
         public CustomMongoDBAuthRepository(MongoDatabase mongoDatabase, bool createMissingCollections)

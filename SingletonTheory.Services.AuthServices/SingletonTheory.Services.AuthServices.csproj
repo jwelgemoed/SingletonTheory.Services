@@ -109,12 +109,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Host\AppHost.cs" />
+    <Compile Include="Interfaces\ICustomUserAuthRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AuthProvider.cs" />
     <Compile Include="Repositories\CustomMongoDBAuthRepository.cs" />
     <Compile Include="Repositories\CustomInMemoryAuthRepository.cs" />
     <Compile Include="TransferObjects\UserAuthRequest.cs" />
     <Compile Include="TransferObjects\UserListRequest.cs" />
+    <Compile Include="TransferObjects\UserRequest.cs" />
     <Compile Include="TransferObjects\UserRoleRequest.cs" />
     <Compile Include="TransferObjects\UserRoleResponse.cs" />
   </ItemGroup>
