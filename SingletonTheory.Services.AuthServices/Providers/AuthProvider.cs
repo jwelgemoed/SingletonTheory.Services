@@ -1,9 +1,17 @@
-﻿using ServiceStack.ServiceInterface.Auth;
+﻿using ServiceStack.ServiceInterface;
+using ServiceStack.ServiceInterface.Auth;
+using System.Collections.Generic;
 
 namespace SingletonTheory.Services.AuthServices.Providers
 {
 	public class AuthProvider : CredentialsAuthProvider
 	{
+		#region Fields & Properties
+
+		private List<string> _blacklist = new List<string>();
+
+		#endregion Fields & Properties
+
 		#region Override Methods
 
 		public override bool TryAuthenticate(ServiceStack.ServiceInterface.IServiceBase authService, string userName, string password)
@@ -40,6 +48,9 @@ namespace SingletonTheory.Services.AuthServices.Providers
 
 		public override bool IsAuthorized(IAuthSession session, IOAuthTokens tokens, Auth request = null)
 		{
+			if (_blacklist.Contains(session.Id))
+				return false;
+
 			bool isAuthorized = base.IsAuthorized(session, tokens, request);
 
 			return isAuthorized;
@@ -54,6 +65,8 @@ namespace SingletonTheory.Services.AuthServices.Providers
 
 		public override object Logout(ServiceStack.ServiceInterface.IServiceBase service, Auth request)
 		{
+			_blacklist.Add(service.GetSessionId());
+
 			object logout = base.Logout(service, request);
 
 			return logout;

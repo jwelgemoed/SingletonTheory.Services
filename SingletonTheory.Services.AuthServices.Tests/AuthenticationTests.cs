@@ -9,17 +9,54 @@ namespace SingletonTheory.Services.AuthServices.Tests
 	[TestFixture]
 	public class AuthenticationTests
 	{
+		#region Fields & Properties
+
+		private JsonServiceClient _client;
+
+		#endregion Fields & Properties
+
+		#region Setup & Teardown
+
+		[SetUp]
+		public void SetUp()
+		{
+			_client = HTTPClientHelpers.GetClient(HTTPClientHelpers.RootUrl);
+		}
+
+		[TearDownAttribute]
+		public void TearDown()
+		{
+			Logout();
+
+			_client.Dispose();
+			_client = null;
+		}
+
+		#endregion Setup & Teardown
+
 		#region Test Methods
 
 		[Test]
 		public void ShouldAuthenticateUser()
 		{
 			// Arrange
-			JsonServiceClient client = HTTPClientHelpers.GetClient(HTTPClientHelpers.RootUrl, HTTPClientHelpers.UserName, HTTPClientHelpers.Password);
 			Auth request = new Auth { UserName = HTTPClientHelpers.UserName, Password = HTTPClientHelpers.Password };
 
 			// Act
-			AuthResponse response = client.Send<AuthResponse>(request);
+			AuthResponse response = _client.Send<AuthResponse>(request);
+
+			// Assert
+			Assert.That(response.UserName, Is.EqualTo(request.UserName));
+		}
+
+		[Test]
+		public void ShouldAuthenticateAdminUser()
+		{
+			// Arrange
+			Auth request = new Auth { UserName = HTTPClientHelpers.AdminUserName, Password = HTTPClientHelpers.Password };
+
+			// Act
+			AuthResponse response = _client.Send<AuthResponse>(request);
 
 			// Assert
 			Assert.That(response.UserName, Is.EqualTo(request.UserName));
@@ -31,13 +68,11 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			try
 			{
 				// Arrange
-				string userName = "user";
-				string password = "wrongPassword";
-				JsonServiceClient client = HTTPClientHelpers.GetClient(HTTPClientHelpers.RootUrl, userName, password);
-				Auth request = new Auth { UserName = userName }; // Password = password
+				string password = "wrongpassword";
+				Auth request = new Auth { UserName = HTTPClientHelpers.UserName, Password = password };
 
 				// Act
-				AuthResponse response = client.Send<AuthResponse>(request);
+				AuthResponse response = _client.Send<AuthResponse>(request);
 
 				Assert.Fail("Shouldn't be allowed:  Invalid Credentials");
 			}
@@ -46,6 +81,21 @@ namespace SingletonTheory.Services.AuthServices.Tests
 				// Assert
 				Assert.That(webEx.StatusCode, Is.EqualTo((int)HttpStatusCode.Unauthorized));
 			}
+		}
+
+		[Test]
+		public void ShouldLogoutUser()
+		{
+			AuthResponse response = Logout();
+
+			Assert.That(response.UserName, Is.EqualTo(null));
+		}
+
+		private AuthResponse Logout()
+		{
+			Auth request = new Auth { provider = "logout" };
+
+			return _client.Send<AuthResponse>(request);
 		}
 
 		#endregion Test Methods
