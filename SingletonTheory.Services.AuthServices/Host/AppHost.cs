@@ -57,8 +57,8 @@ namespace SingletonTheory.Services.AuthServices.Host
 			_userRepository = GetRepositoryProvider();
 			container.Register<SSAuthInterfaces.IUserAuthRepository>(_userRepository);
 
-			CreateUser(1, UserName, null, Password, new List<string> { "user" }, new List<string> { "ThePermission" });
-			CreateUser(2, AdminUserName, null, Password, new List<string> { "admin" }, new List<string> { "ThePermission" });
+			CreateUser(0, UserName, null, Password, new List<string> { "user" }, new List<string> { "ThePermission" });
+			CreateUser(0, AdminUserName, null, Password, new List<string> { "admin" }, new List<string> { "ThePermission" });
 		}
 
 		#endregion Override Methods
@@ -88,7 +88,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 			{
 				Id = id,
 				DisplayName = "DisplayName",
-				Email = email ?? "as@if{0}.com".Fmt(id),
+				//Email = email ?? "as@if{0}.com".Fmt(id),
 				UserName = username,
 				FirstName = "FirstName",
 				LastName = "LastName",

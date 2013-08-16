@@ -57,5 +57,21 @@ namespace SingletonTheory.Services.AuthServices.Tests
             // Assert
             Assert.AreNotEqual(response.Count, 0);
 	    }
+
+        [Test]
+        public void ShouldAddUser()
+        {
+            // Arrange
+            var client = HTTPClientHelpers.GetClient(HTTPClientHelpers.RootUrl, HTTPClientHelpers.AdminUserName, HTTPClientHelpers.Password);
+            AuthResponse authResponse = HTTPClientHelpers.Login();
+            UserRequest request = new UserRequest(){UserName = "Fred",Password = "FredPass",Role = "Admin"};
+            AuthService service = new AuthService();
+
+            // Act
+            UserAuth response = client.Post(request);
+
+            // Assert
+           // Assert.AreNotEqual(response.Count, 0);
+        }
 	}
 }
