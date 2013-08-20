@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using ServiceStack.Common.Web;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.Text;
@@ -34,17 +35,23 @@ namespace SingletonTheory.Services.AuthServices
 
             return userAuth;
         }
-       
+
+        public UserAuth Get(UserRequest request)
+        {
+            ICustomUserAuthRepository repository = (ICustomUserAuthRepository)AppHost.UserRepository;
+            return repository.GetUserAuth(request.Id.ToString(CultureInfo.InvariantCulture));
+        }
+
         public UserAuth Put(UserRequest request)
         {
             ICustomUserAuthRepository repository = (ICustomUserAuthRepository)AppHost.UserRepository;
             var userToUpdate = repository.GetUserAuth(request.Id.ToString(CultureInfo.InvariantCulture));
+            Dictionary<string, string> meta = new Dictionary<string, string>();
+            meta.Add("Active", request.Active.ToString());
+            userToUpdate.Meta = meta;
+            userToUpdate.Roles = new List<string> { request.Role };
             try
             {
-                Dictionary<string, string> meta = new Dictionary<string, string>();
-                meta.Add("Active", request.Active.ToString());
-                userToUpdate.Meta = meta;
-                userToUpdate.Roles = new List<string> {request.Role};
                 repository.SaveUserAuth(userToUpdate);
             }
             catch (Exception ex)
@@ -53,14 +60,13 @@ namespace SingletonTheory.Services.AuthServices
             }
             return userToUpdate;
         }
-       
+
         public UserAuth Post(UserRequest request)
         {
             string hash;
             string salt;
             new SaltedHash().GetHashAndSaltString(request.Password, out hash, out salt);
-            Dictionary<string, string> meta = new Dictionary<string, string>();
-            meta.Add("Active", request.Active.ToString());
+            var meta = new Dictionary<string, string> { { "Active", request.Active.ToString() } };
             var userAuth = new UserAuth
             {
                 Id = 0,
@@ -70,21 +76,21 @@ namespace SingletonTheory.Services.AuthServices
                 Roles = new List<string> { request.Role },
                 Meta = meta
             };
+            var repository = (ICustomUserAuthRepository)AppHost.UserRepository;
             try
             {
-                ICustomUserAuthRepository repository = (ICustomUserAuthRepository)AppHost.UserRepository;
                 repository.CreateUserAuth(userAuth, request.Password);
             }
-            catch (Exception ex)
+            catch (ArgumentException ex)
             {
-                var x = ex.Message;
+                throw HttpError.Conflict(ex.Message);
             }
             return userAuth;
         }
 
         public List<UserAuth> Get(UserListRequest request)
         {
-            ICustomUserAuthRepository repository = (ICustomUserAuthRepository)AppHost.UserRepository;
+            var repository = (ICustomUserAuthRepository)AppHost.UserRepository;
             return repository.GetAllUserAuths();
         }
 
