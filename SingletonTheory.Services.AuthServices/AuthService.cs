@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.Text;
@@ -33,7 +34,26 @@ namespace SingletonTheory.Services.AuthServices
 
             return userAuth;
         }
-
+       
+        public UserAuth Put(UserRequest request)
+        {
+            ICustomUserAuthRepository repository = (ICustomUserAuthRepository)AppHost.UserRepository;
+            var userToUpdate = repository.GetUserAuth(request.Id.ToString(CultureInfo.InvariantCulture));
+            try
+            {
+                Dictionary<string, string> meta = new Dictionary<string, string>();
+                meta.Add("Active", request.Active.ToString());
+                userToUpdate.Meta = meta;
+                userToUpdate.Roles = new List<string> {request.Role};
+                repository.SaveUserAuth(userToUpdate);
+            }
+            catch (Exception ex)
+            {
+                var x = ex.Message;
+            }
+            return userToUpdate;
+        }
+       
         public UserAuth Post(UserRequest request)
         {
             string hash;
