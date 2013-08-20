@@ -39,13 +39,16 @@ namespace SingletonTheory.Services.AuthServices
             string hash;
             string salt;
             new SaltedHash().GetHashAndSaltString(request.Password, out hash, out salt);
+            Dictionary<string, string> meta = new Dictionary<string, string>();
+            meta.Add("Active", request.Active.ToString());
             var userAuth = new UserAuth
             {
                 Id = 0,
                 UserName = request.UserName,
                 PasswordHash = hash,
                 Salt = salt,
-                Roles = new List<string> { request.Role }
+                Roles = new List<string> { request.Role },
+                Meta = meta
             };
             try
             {

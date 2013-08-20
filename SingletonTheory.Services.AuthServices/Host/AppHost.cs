@@ -83,7 +83,8 @@ namespace SingletonTheory.Services.AuthServices.Host
 			string hash;
 			string salt;
 			new SSAuthInterfaces.SaltedHash().GetHashAndSaltString(password, out hash, out salt);
-
+            Dictionary<string, string> meta = new Dictionary<string, string>();
+            meta.Add("Active", true.ToString());
 			SSAuthInterfaces.UserAuth userAuth = new SSAuthInterfaces.UserAuth
 			{
 				Id = id,
@@ -95,7 +96,8 @@ namespace SingletonTheory.Services.AuthServices.Host
 				PasswordHash = hash,
 				Salt = salt,
 				Roles = roles,
-				Permissions = permissions
+				Permissions = permissions,
+                Meta = meta
 			};
 
 		    try
