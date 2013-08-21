@@ -46,6 +46,7 @@ namespace SingletonTheory.Services.AuthServices
         {
             ICustomUserAuthRepository repository = (ICustomUserAuthRepository)AppHost.UserRepository;
             var userToUpdate = repository.GetUserAuth(request.Id.ToString(CultureInfo.InvariantCulture));
+
             Dictionary<string, string> meta = new Dictionary<string, string>();
             meta.Add("Active", request.Active.ToString());
             userToUpdate.Meta = meta;

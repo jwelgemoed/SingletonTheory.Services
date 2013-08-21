@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Globalization;
 using System.Net;
 using MongoDB.Bson;
@@ -50,20 +51,7 @@ namespace SingletonTheory.Services.AuthServices.Tests
 
         #endregion Setup & Teardown
 
-
-        [Test]
-        public void ShouldGetAllUsers()
-        {
-            // Arrange
-            UserListRequest request = new UserListRequest();
-            AuthService service = new AuthService();
-
-            // Act
-            List<UserAuth> response = _client.Get(request);
-
-            // Assert
-            Assert.AreNotEqual(response.Count, 0);
-        }
+        # region Add User Tests and Validation Tests
 
         [Test]
         public void ShouldAddUser()
@@ -105,6 +93,86 @@ namespace SingletonTheory.Services.AuthServices.Tests
         }
 
         [Test]
+        public void ShouldValidateUserNameOnAdd()
+        {
+            //Arrange
+            WebServiceException webExceptionForEmptyUserName = null;
+            WebServiceException webExceptionForNullUserName = null;
+            UserRequest requestWithEmptyUserName = new UserRequest { UserName = "", Password = MongoHelpers.MongoTestUserPassword, Role = _currentRole, Active = _currentActivitySetting };
+            UserRequest requestWithNullUserName = new UserRequest { UserName = null, Password = MongoHelpers.MongoTestUserPassword, Role = _currentRole, Active = _currentActivitySetting };
+
+            //Act
+            try
+            {
+                UserAuth response = _client.Post(requestWithEmptyUserName);
+            }
+            catch (WebServiceException ex)
+            {
+                webExceptionForEmptyUserName = ex;
+            }
+            try
+            {
+                UserAuth response = _client.Post(requestWithNullUserName);
+            }
+            catch (WebServiceException ex)
+            {
+                webExceptionForNullUserName = ex;
+            }
+
+            //Assert
+            if (webExceptionForEmptyUserName == null || webExceptionForNullUserName == null)
+                Assert.Fail("Validation of incorrect values did not work correctly.");
+            Assert.AreEqual(webExceptionForEmptyUserName.ErrorCode, "NotEmpty", "Wrong error code returned.");
+            Assert.AreEqual(webExceptionForEmptyUserName.ErrorMessage, "'User Name' should not be empty.", "Wrong error messsage returned.");
+            Assert.AreEqual(webExceptionForEmptyUserName.StatusCode, 400, "Wrong status code returned" );
+            Assert.AreEqual(webExceptionForNullUserName.ErrorCode, "NotEmpty", "Wrong error code returned.");
+            Assert.AreEqual(webExceptionForNullUserName.ErrorMessage, "'User Name' should not be empty.", "Wrong error messsage returned.");
+            Assert.AreEqual(webExceptionForNullUserName.StatusCode, 400, "Wrong status code returned");
+        }
+
+        [Test]
+        public void ShouldValidatePasswordOnAdd()
+        {
+            //Arrange
+            WebServiceException webExceptionForEmptyPassword = null;
+            WebServiceException webExceptionForNullPassword = null;
+            UserRequest requestWithEmptyPassword = new UserRequest { UserName = MongoHelpers.MongoTestUsername, Password = "", Role = _currentRole, Active = _currentActivitySetting };
+            UserRequest requestWithNullPassword = new UserRequest { UserName = MongoHelpers.MongoTestUsername, Password = null, Role = _currentRole, Active = _currentActivitySetting };
+
+            //Act
+            try
+            {
+                UserAuth response = _client.Post(requestWithEmptyPassword);
+            }
+            catch (WebServiceException ex)
+            {
+                webExceptionForEmptyPassword = ex;
+            }
+            try
+            {
+                UserAuth response = _client.Post(requestWithNullPassword);
+            }
+            catch (WebServiceException ex)
+            {
+                webExceptionForNullPassword = ex;
+            }
+
+            //Assert
+            if (webExceptionForEmptyPassword == null || webExceptionForNullPassword == null)
+                Assert.Fail("Validation of incorrect values did not work correctly.");
+            Assert.AreEqual(webExceptionForEmptyPassword.ErrorCode, "NotEmpty", "Wrong error code returned.");
+            Assert.AreEqual(webExceptionForEmptyPassword.ErrorMessage, "'Password' should not be empty.", "Wrong error messsage returned.");
+            Assert.AreEqual(webExceptionForEmptyPassword.StatusCode, 400, "Wrong status code returned");
+            Assert.AreEqual(webExceptionForNullPassword.ErrorCode, "NotEmpty", "Wrong error code returned.");
+            Assert.AreEqual(webExceptionForNullPassword.ErrorMessage, "'Password' should not be empty.", "Wrong error messsage returned.");
+            Assert.AreEqual(webExceptionForNullPassword.StatusCode, 400, "Wrong status code returned");
+        }
+
+        # endregion
+
+        # region Add User Tests and Validation Tests
+
+        [Test]
         public void ShouldUpdateUser()
         {
             // Arrange
@@ -121,9 +189,23 @@ namespace SingletonTheory.Services.AuthServices.Tests
             Assert.AreEqual(checkResponse.Meta["Active"], _currentActivitySetting.ToString(), "Active value does not match expected");
         }
 
+        # endregion
 
+        # region Other Tests
 
+        [Test]
+        public void ShouldGetAllUsers()
+        {
+            // Arrange
+            UserListRequest request = new UserListRequest();
+            AuthService service = new AuthService();
 
+            // Act
+            List<UserAuth> response = _client.Get(request);
+
+            // Assert
+            Assert.AreNotEqual(response.Count, 0);
+        }
 
 
 
@@ -160,6 +242,9 @@ namespace SingletonTheory.Services.AuthServices.Tests
             // Assert
             Assert.AreNotEqual(response.Roles.Count, 0);
         }
+
+        # endregion
+
 
     }
 }

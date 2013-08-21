@@ -4,6 +4,7 @@ using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Configuration;
 using ServiceStack.ServiceInterface;
+using ServiceStack.ServiceInterface.Validation;
 using ServiceStack.Text;
 using ServiceStack.WebHost.Endpoints;
 using SingletonTheory.Data;
@@ -11,6 +12,7 @@ using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Providers;
 using System.Collections.Generic;
 using SingletonTheory.Services.AuthServices.Repositories;
+using SingletonTheory.Services.AuthServices.Validations;
 using MongoAuthInterfaces = ServiceStack.ServiceInterface.Auth;
 using SSAuthInterfaces = ServiceStack.ServiceInterface.Auth;
 
@@ -57,11 +59,18 @@ namespace SingletonTheory.Services.AuthServices.Host
 			_userRepository = GetRepositoryProvider();
 			container.Register<SSAuthInterfaces.IUserAuthRepository>(_userRepository);
 
+            RegisterValidations(container);
+
 			CreateUser(0, UserName, null, Password, new List<string> { "user" }, new List<string> { "ThePermission" });
 			CreateUser(0, AdminUserName, null, Password, new List<string> { "admin" }, new List<string> { "ThePermission" });
 		}
 
-		#endregion Override Methods
+	    private void RegisterValidations(Funq.Container container)
+	    {
+            container.RegisterValidators(typeof(UserRequestValidator).Assembly);
+	    }
+
+	    #endregion Override Methods
 
 		#region Static Methods
 
@@ -120,6 +129,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 
 			Plugins.Add(new AuthFeature(() => authUserSession, authProviders) { }); //HtmlRedirect = "/login" }); // 
 			Plugins.Add(new RegistrationFeature());
+            Plugins.Add(new ValidationFeature());
 		}
 
 		#endregion Private Methods
