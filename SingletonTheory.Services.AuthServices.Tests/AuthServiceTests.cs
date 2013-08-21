@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Configuration;
-using System.Globalization;
 using System.Net;
-using MongoDB.Bson;
-using MongoDB.Driver.Builders;
 using NUnit.Framework;
 using ServiceStack.ServiceClient.Web;
-using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface.Auth;
 using SingletonTheory.Services.AuthServices.Tests.Helpers;
 using SingletonTheory.Services.AuthServices.TransferObjects;
-using SingletonTheory.Data;
 using System.Collections.Generic;
-using MongoDB.Driver;
 
 namespace SingletonTheory.Services.AuthServices.Tests
 {
@@ -57,10 +50,10 @@ namespace SingletonTheory.Services.AuthServices.Tests
         public void ShouldAddUser()
         {
             // Arrange
-            UserRequest request = new UserRequest() { Id = _userId };
+            var request = new UserRequest { Id = _userId };
 
             // Act
-            UserAuth response = _client.Get(request);
+            var response = _client.Get(request);
 
             // Assert
             Assert.AreNotEqual(response.Id, 0, "Unable to find test user in database.");
@@ -74,12 +67,12 @@ namespace SingletonTheory.Services.AuthServices.Tests
         {
             //Arrange
             Exception webException = null;
-            UserRequest request = new UserRequest { UserName = MongoHelpers.MongoTestUsername, Password = MongoHelpers.MongoTestUserPassword, Role = _currentRole, Active = _currentActivitySetting };
+            var request = new UserRequest { UserName = MongoHelpers.MongoTestUsername, Password = MongoHelpers.MongoTestUserPassword, Role = _currentRole, Active = _currentActivitySetting };
            
             //Act
             try
             {
-                UserAuth response = _client.Post(request);
+                var response = _client.Post(request);
             }
             catch (Exception ex)
             {
@@ -98,13 +91,13 @@ namespace SingletonTheory.Services.AuthServices.Tests
             //Arrange
             WebServiceException webExceptionForEmptyUserName = null;
             WebServiceException webExceptionForNullUserName = null;
-            UserRequest requestWithEmptyUserName = new UserRequest { UserName = "", Password = MongoHelpers.MongoTestUserPassword, Role = _currentRole, Active = _currentActivitySetting };
-            UserRequest requestWithNullUserName = new UserRequest { UserName = null, Password = MongoHelpers.MongoTestUserPassword, Role = _currentRole, Active = _currentActivitySetting };
+            var requestWithEmptyUserName = new UserRequest { UserName = "", Password = MongoHelpers.MongoTestUserPassword, Role = _currentRole, Active = _currentActivitySetting };
+            var requestWithNullUserName = new UserRequest { UserName = null, Password = MongoHelpers.MongoTestUserPassword, Role = _currentRole, Active = _currentActivitySetting };
 
             //Act
             try
             {
-                UserAuth response = _client.Post(requestWithEmptyUserName);
+                var response = _client.Post(requestWithEmptyUserName);
             }
             catch (WebServiceException ex)
             {
@@ -112,7 +105,7 @@ namespace SingletonTheory.Services.AuthServices.Tests
             }
             try
             {
-                UserAuth response = _client.Post(requestWithNullUserName);
+                var response = _client.Post(requestWithNullUserName);
             }
             catch (WebServiceException ex)
             {
@@ -136,13 +129,13 @@ namespace SingletonTheory.Services.AuthServices.Tests
             //Arrange
             WebServiceException webExceptionForEmptyPassword = null;
             WebServiceException webExceptionForNullPassword = null;
-            UserRequest requestWithEmptyPassword = new UserRequest { UserName = MongoHelpers.MongoTestUsername, Password = "", Role = _currentRole, Active = _currentActivitySetting };
-            UserRequest requestWithNullPassword = new UserRequest { UserName = MongoHelpers.MongoTestUsername, Password = null, Role = _currentRole, Active = _currentActivitySetting };
+            var requestWithEmptyPassword = new UserRequest { UserName = MongoHelpers.MongoTestUsername, Password = "", Role = _currentRole, Active = _currentActivitySetting };
+            var requestWithNullPassword = new UserRequest { UserName = MongoHelpers.MongoTestUsername, Password = null, Role = _currentRole, Active = _currentActivitySetting };
 
             //Act
             try
             {
-                UserAuth response = _client.Post(requestWithEmptyPassword);
+                var response = _client.Post(requestWithEmptyPassword);
             }
             catch (WebServiceException ex)
             {
@@ -150,7 +143,7 @@ namespace SingletonTheory.Services.AuthServices.Tests
             }
             try
             {
-                UserAuth response = _client.Post(requestWithNullPassword);
+                var response = _client.Post(requestWithNullPassword);
             }
             catch (WebServiceException ex)
             {
@@ -168,6 +161,44 @@ namespace SingletonTheory.Services.AuthServices.Tests
             Assert.AreEqual(webExceptionForNullPassword.StatusCode, 400, "Wrong status code returned");
         }
 
+        [Test]
+        public void ShouldValidateRoleOnAdd()
+        {
+            //Arrange
+            WebServiceException webExceptionForEmptyRole = null;
+            WebServiceException webExceptionForNullRole= null;
+            var requestWithEmptyRole = new UserRequest { UserName = MongoHelpers.MongoTestUsername, Password = MongoHelpers.MongoTestUserPassword, Role = "", Active = _currentActivitySetting };
+            var requestWithNullRole = new UserRequest { UserName = MongoHelpers.MongoTestUsername, Password = MongoHelpers.MongoTestUserPassword, Role = null, Active = _currentActivitySetting };
+
+            //Act
+            try
+            {
+                var response = _client.Post(requestWithEmptyRole);
+            }
+            catch (WebServiceException ex)
+            {
+                webExceptionForEmptyRole = ex;
+            }
+            try
+            {
+                var response = _client.Post(requestWithNullRole);
+            }
+            catch (WebServiceException ex)
+            {
+                webExceptionForNullRole = ex;
+            }
+
+            //Assert
+            if (webExceptionForEmptyRole == null || webExceptionForNullRole == null)
+                Assert.Fail("Validation of incorrect values did not work correctly.");
+            Assert.AreEqual(webExceptionForEmptyRole.ErrorCode, "NotEmpty", "Wrong error code returned.");
+            Assert.AreEqual(webExceptionForEmptyRole.ErrorMessage, "'Role' should not be empty.", "Wrong error messsage returned.");
+            Assert.AreEqual(webExceptionForEmptyRole.StatusCode, 400, "Wrong status code returned");
+            Assert.AreEqual(webExceptionForNullRole.ErrorCode, "NotEmpty", "Wrong error code returned.");
+            Assert.AreEqual(webExceptionForNullRole.ErrorMessage, "'Role' should not be empty.", "Wrong error messsage returned.");
+            Assert.AreEqual(webExceptionForNullRole.StatusCode, 400, "Wrong status code returned");
+        }
+
         # endregion
 
         # region Add User Tests and Validation Tests
@@ -176,17 +207,111 @@ namespace SingletonTheory.Services.AuthServices.Tests
         public void ShouldUpdateUser()
         {
             // Arrange
-            UserRequest request = new UserRequest() { Id = _userId };
+            var request = new UserRequest() { Id = _userId };
 
             // Act
             _currentRole = request.Role = "user";
             _currentActivitySetting = request.Active = false;
-            UserAuth response = _client.Put(request);
+            var response = _client.Put(request);
 
             //Assert
-            UserAuth checkResponse = _client.Get(request);
+            var checkResponse = _client.Get(request);
             Assert.AreEqual(checkResponse.Roles[0], _currentRole, "Current role of user does not match expected");
             Assert.AreEqual(checkResponse.Meta["Active"], _currentActivitySetting.ToString(), "Active value does not match expected");
+        }
+
+        [Test]
+        public void ShouldReportCorrectlyOnUpdateIfUserDoesNotExist()
+        {
+            // Arrange
+            Exception webException = null;
+            var request = new UserRequest() { Id = 999999999 };
+
+            // Act
+            _currentRole = request.Role = "user";
+            _currentActivitySetting = request.Active = false;
+            try
+            {
+                var response = _client.Put(request);
+            }
+            catch (Exception ex)
+            {
+                webException = ex;
+            }
+          
+            //Assert
+            Assert.IsNotNull(webException, "Invalid user ID should generate an error");
+            Assert.That(((WebServiceException)webException).StatusCode, Is.EqualTo((int)HttpStatusCode.NotFound), "Incorrect status code for NotFound user");
+            Assert.AreEqual(webException.Message, "User not found in User Database.");
+        }
+
+        [Test]
+        public void ShouldValidateIdOnUpdate()
+        {
+            //Arrange
+            WebServiceException webException = null;
+            var request = new UserRequest { Id = 0 };
+
+            //Act
+            request.Role = "user";
+            request.Active = false;
+            try
+            {
+                var response = _client.Put(request);
+            }
+            catch (WebServiceException ex)
+            {
+                webException = ex;
+            }
+
+            //Assert
+            if (webException == null)
+                Assert.Fail("Validation of incorrect ID value did not work correctly.");
+            Assert.AreEqual(webException.ErrorCode, "GreaterThan", "Wrong error code returned.");
+            Assert.AreEqual(webException.ErrorMessage, "'Id' must be greater than '0'.", "Wrong error messsage returned.");
+            Assert.AreEqual(webException.StatusCode, 400, "Wrong status code returned");
+        }
+
+        [Test]
+        public void ShouldValidateRoleOnUpdate()
+        {
+            //Arrange
+            WebServiceException webExceptionForEmptyRole = null;
+            WebServiceException webExceptionForNullRole = null;
+            var requestForEmptyRole = new UserRequest { Id = _userId };
+            var requestForNullRole = new UserRequest { Id = _userId };
+
+            //Act
+            requestForEmptyRole.Role = "";
+            requestForEmptyRole.Active = false;
+            try
+            {
+                var response = _client.Put(requestForEmptyRole);
+            }
+            catch (WebServiceException ex)
+            {
+                webExceptionForEmptyRole = ex;
+            }
+            requestForNullRole.Role = null;
+            requestForNullRole.Active = false;
+            try
+            {
+                var response = _client.Put(requestForNullRole);
+            }
+            catch (WebServiceException ex)
+            {
+                webExceptionForNullRole = ex;
+            }
+
+            //Assert
+            if (webExceptionForEmptyRole == null || webExceptionForNullRole == null)
+                Assert.Fail("Validation of incorrect values did not work correctly.");
+            Assert.AreEqual(webExceptionForEmptyRole.ErrorCode, "NotEmpty", "Wrong error code returned.");
+            Assert.AreEqual(webExceptionForEmptyRole.ErrorMessage, "'Role' should not be empty.", "Wrong error messsage returned.");
+            Assert.AreEqual(webExceptionForEmptyRole.StatusCode, 400, "Wrong status code returned");
+            Assert.AreEqual(webExceptionForNullRole.ErrorCode, "NotEmpty", "Wrong error code returned.");
+            Assert.AreEqual(webExceptionForNullRole.ErrorMessage, "'Role' should not be empty.", "Wrong error messsage returned.");
+            Assert.AreEqual(webExceptionForNullRole.StatusCode, 400, "Wrong status code returned");
         }
 
         # endregion
@@ -244,7 +369,6 @@ namespace SingletonTheory.Services.AuthServices.Tests
         }
 
         # endregion
-
 
     }
 }

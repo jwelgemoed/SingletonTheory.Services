@@ -16,7 +16,13 @@ namespace SingletonTheory.Services.AuthServices.Validations
                                   {
                                       RuleFor(x => x.UserName).NotEmpty();
                                       RuleFor(x => x.Password).NotEmpty();
+                                      RuleFor(x => x.Role).NotEmpty();
                                   });
+            RuleSet(ApplyTo.Put, () =>
+                                 {
+                                     RuleFor(x => x.Id).GreaterThan(0);
+                                     RuleFor(x => x.Role).NotEmpty();
+                                 });
         }
     }
 }

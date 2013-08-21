@@ -45,20 +45,14 @@ namespace SingletonTheory.Services.AuthServices
         public UserAuth Put(UserRequest request)
         {
             ICustomUserAuthRepository repository = (ICustomUserAuthRepository)AppHost.UserRepository;
-            var userToUpdate = repository.GetUserAuth(request.Id.ToString(CultureInfo.InvariantCulture));
-
+            UserAuth userToUpdate = repository.GetUserAuth(request.Id.ToString(CultureInfo.InvariantCulture));
+            if (userToUpdate == null)
+                throw HttpError.NotFound("User not found in User Database.");
             Dictionary<string, string> meta = new Dictionary<string, string>();
             meta.Add("Active", request.Active.ToString());
             userToUpdate.Meta = meta;
             userToUpdate.Roles = new List<string> { request.Role };
-            try
-            {
-                repository.SaveUserAuth(userToUpdate);
-            }
-            catch (Exception ex)
-            {
-                var x = ex.Message;
-            }
+            repository.SaveUserAuth(userToUpdate);
             return userToUpdate;
         }
 
