@@ -115,6 +115,7 @@
     <Compile Include="Repositories\CustomMongoDBAuthRepository.cs" />
     <Compile Include="Repositories\CustomInMemoryAuthRepository.cs" />
     <Compile Include="TransferObjects\UserAuthRequest.cs" />
+    <Compile Include="TransferObjects\UserExistRequest.cs" />
     <Compile Include="TransferObjects\UserListRequest.cs" />
     <Compile Include="TransferObjects\UserRequest.cs" />
     <Compile Include="TransferObjects\UserRoleRequest.cs" />

@@ -94,6 +94,12 @@ namespace SingletonTheory.Services.AuthServices
             return repository.GetAllUserAuths();
         }
 
+        public bool Post(UserExistRequest request)
+        {
+            var repository = (ICustomUserAuthRepository)AppHost.UserRepository;
+            return repository.GetUserAuthByUserName(request.UserName) != null;
+        }
+
         #endregion Public Methods
     }
 }
