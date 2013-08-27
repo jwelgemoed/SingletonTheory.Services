@@ -7,8 +7,8 @@
     <ProjectGuid>{71BECC1A-4244-49A9-816A-6FF4901AFDA8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SingletonTheory.Services.Host</RootNamespace>
-    <AssemblyName>SingletonTheory.Services.Host</AssemblyName>
+    <RootNamespace>SingletonTheory.Services.Web.ServiceHost</RootNamespace>
+    <AssemblyName>SingletonTheory.Services.Web.ServiceHost</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

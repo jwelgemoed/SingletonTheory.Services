@@ -1,6 +1,6 @@
 ﻿using System.ServiceProcess;
 
-namespace SingletonTheory.Services.Host.Services
+namespace SingletonTheory.Services.Web.ServiceHost.Services
 {
 	public partial class Host : ServiceBase
 	{

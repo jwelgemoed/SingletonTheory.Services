@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SingletonTheory.Services.Host
+namespace SingletonTheory.Services.Web.ServiceHost
 {
 	static class Program
 	{

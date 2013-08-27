@@ -1,4 +1,4 @@
-﻿namespace SingletonTheory.Services.Host.Services
+﻿namespace SingletonTheory.Services.Web.ServiceHost.Services
 {
 	partial class Host
 	{
