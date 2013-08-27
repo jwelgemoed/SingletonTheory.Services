@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using SingletonTheory.Library.Interfaces;
 using SingletonTheory.Library.Tests.TestObjects;
 using SingletonTheory.Library.Utilities;
@@ -7,10 +7,10 @@ using System.Collections.Generic;
 
 namespace SingletonTheory.Library.Tests.Utilities
 {
-	[TestClass]
+	[TestFixture]
 	public class ReflectionUtilitiesTests
 	{
-		[TestMethod]
+		[Test]
 		public void ShouldLoadAllConcreteTypesImplementingIProcessor()
 		{
 			// Arrange

@@ -1,14 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using SingletonTheory.Library.Processes;
 using System.Collections.Generic;
 using System.Reflection;
 
 namespace SingletonTheory.Library.Tests
 {
-	[TestClass]
+	[TestFixture]
 	public class ServiceImplementation
 	{
-		[TestMethod]
+		[Test]
 		public void ShouldStartProcessEngine()
 		{
 			// Arrange

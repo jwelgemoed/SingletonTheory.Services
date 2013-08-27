@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using SingletonTheory.Library.Tests.TestObjects;
 using System;
 using System.Threading;
 
 namespace SingletonTheory.Library.Queuing.Tests
 {
-	[TestClass]
+	[TestFixture]
 	public class MemoryQueueTests
 	{
 		#region Fields & Properties
@@ -16,7 +16,7 @@ namespace SingletonTheory.Library.Queuing.Tests
 
 		#region Test Methods
 
-		[TestMethod]
+		[Test]
 		public void ShouldEnqueue()
 		{
 			MemoryQueue<MyTestObject> queue = new MemoryQueue<MyTestObject>();
@@ -26,7 +26,7 @@ namespace SingletonTheory.Library.Queuing.Tests
 			Assert.AreEqual(1, queue.Count);
 		}
 
-		[TestMethod]
+		[Test]
 		public void ShouldDequeue()
 		{
 			MemoryQueue<MyTestObject> queue = new MemoryQueue<MyTestObject>();
@@ -37,10 +37,10 @@ namespace SingletonTheory.Library.Queuing.Tests
 
 			object myObject = queue.Dequeue();
 
-			Assert.IsInstanceOfType(myObject, typeof(MyTestObject));
+			Assert.IsInstanceOf(typeof(MyTestObject), myObject);
 		}
 
-		[TestMethod]
+		[Test]
 		public void ShouldDequeueWithIntTimeout()
 		{
 			int expected = 1000;
@@ -60,7 +60,7 @@ namespace SingletonTheory.Library.Queuing.Tests
 			Assert.AreEqual(expected, actual);
 		}
 
-		[TestMethod]
+		[Test]
 		public void ShouldDequeueWithTimeSpanTimeout()
 		{
 			int expected = 1000;
@@ -78,7 +78,7 @@ namespace SingletonTheory.Library.Queuing.Tests
 			Assert.AreEqual(expected, actual);
 		}
 
-		[TestMethod]
+		[Test]
 		public void ShouldClear()
 		{
 			int expected = 0;
@@ -93,7 +93,7 @@ namespace SingletonTheory.Library.Queuing.Tests
 			Assert.AreEqual(expected, queue.Count);
 		}
 
-		[TestMethod]
+		[Test]
 		public void ShouldPeek()
 		{
 			MemoryQueue<MyTestObject> queue = new MemoryQueue<MyTestObject>();
@@ -109,7 +109,7 @@ namespace SingletonTheory.Library.Queuing.Tests
 			Assert.AreEqual(actualObj.SomeValue, testObj.SomeValue);
 		}
 
-		[TestMethod]
+		[Test]
 		public void ShouldReleaseWaitingThreads()
 		{
 			Thread thread = new Thread(new ThreadStart(ThreadMethod));

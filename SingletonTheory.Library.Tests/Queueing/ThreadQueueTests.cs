@@ -1,11 +1,11 @@
-﻿using System.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using SingletonTheory.Library.Tests.Commands;
 using SingletonTheory.Library.Tests.TestObjects;
+using System.Threading;
 
 namespace SingletonTheory.Library.Queuing.Tests
 {
-	[TestClass]
+	[TestFixture]
 	public class ThreadQueueTests
 	{
 		#region Fields & Properties
@@ -16,7 +16,7 @@ namespace SingletonTheory.Library.Queuing.Tests
 
 		#region Test Methods
 
-		[TestMethod]
+		[Test]
 		public void ShouldCallbackOnCommand()
 		{
 			ThreadCommand.OnExecute += new OnExecuteDelegate(ThreadCommand_OnExecute);
@@ -36,7 +36,7 @@ namespace SingletonTheory.Library.Queuing.Tests
 
 		private void ThreadCommand_OnExecute(object state)
 		{
-			Assert.IsInstanceOfType(state, typeof(TestObject));
+			Assert.IsInstanceOf(typeof(TestObject), state);
 
 			TestObject obj = state as TestObject;
 
