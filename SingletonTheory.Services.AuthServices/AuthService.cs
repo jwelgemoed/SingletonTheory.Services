@@ -103,14 +103,12 @@ namespace SingletonTheory.Services.AuthServices
 
 	    public LocalizationDictionaryResponse Post(LocalizationDictionaryRequest request)
 	    {
-				var x = new LocalizationDictionaryResponse();
-				return x;
+				throw new NotImplementedException();
 	    }
 
 	    public LocalizationDictionaryResponse Put(LocalizationDictionaryRequest request)
 	    {
-				var x = new LocalizationDictionaryResponse();
-				return x;
+				throw new NotImplementedException();
 	    }
 
 	    #endregion Public Methods
