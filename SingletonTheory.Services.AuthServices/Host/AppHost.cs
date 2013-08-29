@@ -31,12 +31,59 @@ namespace SingletonTheory.Services.AuthServices.Host
 		private LocalizationDictionaryRequest LocaleUSFile = new LocalizationDictionaryRequest()
 		{
 			Locale = "en-US",
-			LocalizationDictionary = new List<LocalizationItem>() { new LocalizationItem() { Key = "_TestTitle_", Value = "This comes from the English US file.", Description = "Test title description for US" } }
+			LocalizationDictionary = new List<LocalizationItem>()
+			                         {
+				                         new LocalizationItem()
+				                         {
+					                         Key = "_TestTitle_", 
+																	 Value = "This comes from the English US file.", 
+																	 Description = "Test title description for US"
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_LogInAnchor_", 
+																	 Value = "Log In", 
+																	 Description = "Main Nav Bar Login Item"
+				                         }
+			                         }
+		};
+		private LocalizationDictionaryRequest LocaleNLFile = new LocalizationDictionaryRequest()
+		{
+			Locale = "nl-nl",
+			LocalizationDictionary = new List<LocalizationItem>()
+			                         {
+				                         new LocalizationItem()
+				                         {
+					                         Key = "_TestTitle_", 
+																	 Value = "Deze komen van de Nederlandse bestand.", 
+																	 Description = "Test hoofd voor Nederlands"
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_LogInAnchor_", 
+																	 Value = "Inloggen", 
+																	 Description = "Hoofd navigatie inloggen item."
+				                         }
+			                         }
 		};
 		private LocalizationDictionaryRequest LocaleDefaultFile = new LocalizationDictionaryRequest()
 		{
 			Locale = "default",
-			LocalizationDictionary = new List<LocalizationItem>() { new LocalizationItem() { Key = "_TestTitle_", Value = "This comes from the Default file.", Description = "Test title description for default" } }
+			LocalizationDictionary = new List<LocalizationItem>()
+			                         {
+				                         new LocalizationItem()
+				                         {
+					                         Key = "_TestTitle_", 
+																	 Value = "This comes from the Default file.", 
+																	 Description = "Test title description for default"
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_LogInAnchor_", 
+																	 Value = "Log In", 
+																	 Description = "Main Nav Bar Login Item"
+				                         }
+			                         }
 		};
 
 		#endregion Constants
@@ -72,19 +119,19 @@ namespace SingletonTheory.Services.AuthServices.Host
 			_userRepository = GetRepositoryProvider();
 			container.Register<SSAuthInterfaces.IUserAuthRepository>(_userRepository);
 
-            RegisterValidations(container);
+			RegisterValidations(container);
 
 			CreateUser(0, UserName, null, Password, new List<string> { "user" }, new List<string> { "ThePermission" });
 			CreateUser(0, AdminUserName, null, Password, new List<string> { "admin" }, new List<string> { "ThePermission" });
 			CreateTestingLanguageFiles();
 		}
 
-	    private void RegisterValidations(Funq.Container container)
-	    {
-            container.RegisterValidators(typeof(UserRequestValidator).Assembly);
-	    }
+		private void RegisterValidations(Funq.Container container)
+		{
+			container.RegisterValidators(typeof(UserRequestValidator).Assembly);
+		}
 
-	    #endregion Override Methods
+		#endregion Override Methods
 
 		#region Static Methods
 
@@ -105,6 +152,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 		{
 			_userRepository.InsertLocalizationDictionary(LocaleDefaultFile);
 			_userRepository.InsertLocalizationDictionary(LocaleUSFile);
+			_userRepository.InsertLocalizationDictionary(LocaleNLFile);
 		}
 
 		private void CreateUser(int id, string username, string email, string password, List<string> roles = null, List<string> permissions = null)
@@ -112,8 +160,8 @@ namespace SingletonTheory.Services.AuthServices.Host
 			string hash;
 			string salt;
 			new SSAuthInterfaces.SaltedHash().GetHashAndSaltString(password, out hash, out salt);
-            Dictionary<string, string> meta = new Dictionary<string, string>();
-            meta.Add("Active", true.ToString());
+			Dictionary<string, string> meta = new Dictionary<string, string>();
+			meta.Add("Active", true.ToString());
 			SSAuthInterfaces.UserAuth userAuth = new SSAuthInterfaces.UserAuth
 			{
 				Id = id,
@@ -126,17 +174,17 @@ namespace SingletonTheory.Services.AuthServices.Host
 				Salt = salt,
 				Roles = roles,
 				Permissions = permissions,
-                Meta = meta
+				Meta = meta
 			};
 
-		    try
-		    {
-		        _userRepository.CreateUserAuth(userAuth, password);
-		    }
-		    catch (Exception ex)
-		    {
-		        var x = ex.Message;
-		    }
+			try
+			{
+				_userRepository.CreateUserAuth(userAuth, password);
+			}
+			catch (Exception ex)
+			{
+				var x = ex.Message;
+			}
 		}
 
 		private void AddPlugins()
@@ -149,7 +197,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 
 			Plugins.Add(new AuthFeature(() => authUserSession, authProviders) { }); //HtmlRedirect = "/login" }); // 
 			Plugins.Add(new RegistrationFeature());
-            Plugins.Add(new ValidationFeature());
+			Plugins.Add(new ValidationFeature());
 		}
 
 		#endregion Private Methods
