@@ -58,7 +58,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			}
 		}
 
-		public void InsertLocalizationDictionary(LocalizationDictionaryRequest record)
+		public LocalizationDictionaryResponse InsertLocalizationDictionary(LocalizationDictionaryRequest record)
 		{
 			try
 			{
@@ -68,18 +68,24 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 				if (dictionary == null)
 				{
 					locales.Insert(record);
+					dictionary = record;
 				}
 				else
 				{
 					dictionary.LocalizationDictionary = record.LocalizationDictionary;
 					locales.Save(dictionary);
 				}
+				return new LocalizationDictionaryResponse()
+				{
+					Id = dictionary.Id,
+					Locale = dictionary.Locale,
+					LocalizationDictionary = dictionary.LocalizationDictionary
+				};
 			}
 			catch (Exception ex)
 			{
 				throw new DataAccessException("Unable to insert record in the Mongo Database: " + ex.Message);
 			}
 		}
-
 	}
 }

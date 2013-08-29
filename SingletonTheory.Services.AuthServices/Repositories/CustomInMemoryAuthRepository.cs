@@ -25,7 +25,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 		    throw new NotImplementedException();
 	    }
 
-	    public void InsertLocalizationDictionary(LocalizationDictionaryRequest record)
+			public LocalizationDictionaryResponse InsertLocalizationDictionary(LocalizationDictionaryRequest record)
 	    {
 		    throw new NotImplementedException();
 	    }

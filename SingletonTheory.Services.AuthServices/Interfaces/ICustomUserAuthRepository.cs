@@ -11,6 +11,6 @@ namespace SingletonTheory.Services.AuthServices.Interfaces
 	{
 		List<UserAuth> GetAllUserAuths();
 		LocalizationDictionaryResponse GetLocalizationDictionary(string locale);
-		void InsertLocalizationDictionary(LocalizationDictionaryRequest record);
+		LocalizationDictionaryResponse InsertLocalizationDictionary(LocalizationDictionaryRequest record);
 	}
 }
