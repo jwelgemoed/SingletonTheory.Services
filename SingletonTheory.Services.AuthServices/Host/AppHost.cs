@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 using MongoDB.Driver;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
@@ -9,9 +10,11 @@ using ServiceStack.Text;
 using ServiceStack.WebHost.Endpoints;
 using SingletonTheory.Data;
 using SingletonTheory.Services.AuthServices.Config;
+using SingletonTheory.Services.AuthServices.Interfaces;
 using SingletonTheory.Services.AuthServices.Providers;
 using System.Collections.Generic;
 using SingletonTheory.Services.AuthServices.Repositories;
+using SingletonTheory.Services.AuthServices.TransferObjects;
 using SingletonTheory.Services.AuthServices.Validations;
 using MongoAuthInterfaces = ServiceStack.ServiceInterface.Auth;
 using SSAuthInterfaces = ServiceStack.ServiceInterface.Auth;
@@ -25,14 +28,24 @@ namespace SingletonTheory.Services.AuthServices.Host
 		private const string UserName = "user";
 		private const string AdminUserName = "admin";
 		private const string Password = "123";
+		private LocalizationDictionaryRequest LocaleUSFile = new LocalizationDictionaryRequest()
+		{
+			Locale = "en-US",
+			LocalizationDictionary = new List<LocalizationItem>() { new LocalizationItem() { Key = "_TestTitle_", Value = "This comes from the English US file.", Description = "Test title description for US" } }
+		};
+		private LocalizationDictionaryRequest LocaleDefaultFile = new LocalizationDictionaryRequest()
+		{
+			Locale = "default",
+			LocalizationDictionary = new List<LocalizationItem>() { new LocalizationItem() { Key = "_TestTitle_", Value = "This comes from the Default file.", Description = "Test title description for default" } }
+		};
 
 		#endregion Constants
 
 		#region Fields & Properties
 
-		private static SSAuthInterfaces.IUserAuthRepository _userRepository;
+		private static ICustomUserAuthRepository _userRepository;
 
-		public static SSAuthInterfaces.IUserAuthRepository UserRepository
+		public static ICustomUserAuthRepository UserRepository
 		{
 			get { return _userRepository; }
 			set { _userRepository = value; }
@@ -63,6 +76,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 
 			CreateUser(0, UserName, null, Password, new List<string> { "user" }, new List<string> { "ThePermission" });
 			CreateUser(0, AdminUserName, null, Password, new List<string> { "admin" }, new List<string> { "ThePermission" });
+			CreateTestingLanguageFiles();
 		}
 
 	    private void RegisterValidations(Funq.Container container)
@@ -74,7 +88,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 
 		#region Static Methods
 
-		private static SSAuthInterfaces.IUserAuthRepository GetRepositoryProvider()
+		private static ICustomUserAuthRepository GetRepositoryProvider()
 		{
 			// Enable the following lines to enable MongoDB
 			MongoDatabase userDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, ConfigSettings.MongoUserDatabaseName);
@@ -86,6 +100,12 @@ namespace SingletonTheory.Services.AuthServices.Host
 		#endregion Static Methods
 
 		#region Private Methods
+
+		private void CreateTestingLanguageFiles()
+		{
+			_userRepository.InsertLocalizationDictionary(LocaleDefaultFile);
+			_userRepository.InsertLocalizationDictionary(LocaleUSFile);
+		}
 
 		private void CreateUser(int id, string username, string email, string password, List<string> roles = null, List<string> permissions = null)
 		{

@@ -38,13 +38,13 @@ namespace SingletonTheory.Services.AuthServices
 
         public UserAuth Get(UserRequest request)
         {
-            ICustomUserAuthRepository repository = (ICustomUserAuthRepository)AppHost.UserRepository;
+            ICustomUserAuthRepository repository = AppHost.UserRepository;
             return repository.GetUserAuth(request.Id.ToString(CultureInfo.InvariantCulture));
         }
 
         public UserAuth Put(UserRequest request)
         {
-            ICustomUserAuthRepository repository = (ICustomUserAuthRepository)AppHost.UserRepository;
+            ICustomUserAuthRepository repository = AppHost.UserRepository;
             UserAuth userToUpdate = repository.GetUserAuth(request.Id.ToString(CultureInfo.InvariantCulture));
             if (userToUpdate == null)
                 throw HttpError.NotFound("User not found in User Database.");
@@ -71,7 +71,7 @@ namespace SingletonTheory.Services.AuthServices
                 Roles = new List<string> { request.Role },
                 Meta = meta
             };
-            var repository = (ICustomUserAuthRepository)AppHost.UserRepository;
+            var repository = AppHost.UserRepository;
             try
             {
                 repository.CreateUserAuth(userAuth, request.Password);
@@ -85,16 +85,34 @@ namespace SingletonTheory.Services.AuthServices
 
         public List<UserAuth> Get(UserListRequest request)
         {
-            var repository = (ICustomUserAuthRepository)AppHost.UserRepository;
+            var repository = AppHost.UserRepository;
             return repository.GetAllUserAuths();
         }
 
         public bool Post(UserExistRequest request)
         {
-            var repository = (ICustomUserAuthRepository)AppHost.UserRepository;
+            var repository = AppHost.UserRepository;
             return repository.GetUserAuthByUserName(request.UserName) != null;
         }
 
-        #endregion Public Methods
+	    public LocalizationDictionaryResponse Get(LocalizationDictionaryRequest request)
+	    {
+				var repository = AppHost.UserRepository;
+				return repository.GetLocalizationDictionary(request.Locale);
+	    }
+
+	    public LocalizationDictionaryResponse Post(LocalizationDictionaryRequest request)
+	    {
+				var x = new LocalizationDictionaryResponse();
+				return x;
+	    }
+
+	    public LocalizationDictionaryResponse Put(LocalizationDictionaryRequest request)
+	    {
+				var x = new LocalizationDictionaryResponse();
+				return x;
+	    }
+
+	    #endregion Public Methods
     }
 }
