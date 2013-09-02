@@ -42,9 +42,9 @@ namespace SingletonTheory.Services.AuthServices.Host
 				                         },
 																  new LocalizationItem()
 				                         {
-					                         Key = "_LogInAnchor_", 
+					                         Key = "_LogInHeading_", 
 																	 Value = "Log In", 
-																	 Description = "Main Nav Bar Login Item"
+																	 Description = "Log in heading for re-use."
 				                         },
 																  new LocalizationItem()
 				                         {
@@ -75,6 +75,24 @@ namespace SingletonTheory.Services.AuthServices.Host
 					                         Key = "_UserWelcomeMessage_", 
 																	 Value = "Welcome", 
 																	 Description = "Welcome message for logged in user."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_UserNameHeading_", 
+																	 Value = "Username", 
+																	 Description = "User name heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_PasswordHeading_", 
+																	 Value = "Password", 
+																	 Description = "Password heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_RememberMeHeading_", 
+																	 Value = "Remember Me", 
+																	 Description = "Rememberme heading for re-use."
 				                         }
 #endregion items
 			                         }
@@ -93,9 +111,9 @@ namespace SingletonTheory.Services.AuthServices.Host
 				                         },
 																  new LocalizationItem()
 				                         {
-					                         Key = "_LogInAnchor_", 
+					                         Key = "_LogInHeading_", 
 																	 Value = "Inloggen", 
-																	 Description = "Hoofd navigatie inloggen item."
+																	 Description = "Hoofd voor inloggen."
 				                         },
 																  new LocalizationItem()
 				                         {
@@ -126,6 +144,24 @@ namespace SingletonTheory.Services.AuthServices.Host
 					                         Key = "_UserWelcomeMessage_", 
 																	 Value = "Welkom", 
 																	 Description = "Welkom boodschap voor huidige gebruiker."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_UserNameHeading_", 
+																	 Value = "Gebruikersnaam", 
+																	 Description = "Gebruikersnaam hoofd voor hergebruik."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_PasswordHeading_", 
+																	 Value = "Wachtwoord", 
+																	 Description = "Wachtwoord hoofd voor hergebruik."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_RememberMeHeading_", 
+																	 Value = "Aangemeld Blijven", 
+																	 Description = "Aangemeld blijven hoofd voor hergebruik."
 				                         }
 #endregion
 			                         }
@@ -144,9 +180,9 @@ namespace SingletonTheory.Services.AuthServices.Host
 				                         },
 																  new LocalizationItem()
 				                         {
-					                         Key = "_LogInAnchor_", 
+					                          Key = "_LogInHeading_", 
 																	 Value = "Log In", 
-																	 Description = "Main Nav Bar Login Item"
+																	 Description = "Log in heading for re-use."
 				                         },
 																  new LocalizationItem()
 				                         {
@@ -177,6 +213,24 @@ namespace SingletonTheory.Services.AuthServices.Host
 					                         Key = "_UserWelcomeMessage_", 
 																	 Value = "Welcome", 
 																	 Description = "Welcome message for logged in user."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_UserNameHeading_", 
+																	 Value = "Username", 
+																	 Description = "User name heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_PasswordHeading_", 
+																	 Value = "Password", 
+																	 Description = "Password heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_RememberMeHeading_", 
+																	 Value = "Remember Me", 
+																	 Description = "Rememberme heading for re-use."
 				                         }
 #endregion
 			                         }
