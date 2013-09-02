@@ -33,18 +33,50 @@ namespace SingletonTheory.Services.AuthServices.Host
 			Locale = "en-US",
 			LocalizationDictionary = new List<LocalizationItem>()
 			                         {
+#region items
 				                         new LocalizationItem()
 				                         {
-					                         Key = "_TestTitle_", 
-																	 Value = "This comes from the English US file.", 
-																	 Description = "Test title description for US"
+					                         Key = "_MainTitle_", 
+																	 Value = "Singleton Theory Auth.", 
+																	 Description = "Main app title."
 				                         },
 																  new LocalizationItem()
 				                         {
 					                         Key = "_LogInAnchor_", 
 																	 Value = "Log In", 
 																	 Description = "Main Nav Bar Login Item"
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_HomeAnchor_", 
+																	 Value = "Home", 
+																	 Description = "Main Nav Bar Home Item"
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_AdminActionsAnchor_", 
+																	 Value = "Administrator Actions", 
+																	 Description = "Main Nav Bar Admin Actions Item"
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_AdminUsersDropDownAnchor_", 
+																	 Value = "Adminstrate Users", 
+																	 Description = "Admin Actions Dropdown Adminstrate Users Item"
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_LogOutAnchor_", 
+																	 Value = "Log Out", 
+																	 Description = "Main Nav Bar Logout Item"
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_UserWelcomeMessage_", 
+																	 Value = "Welcome", 
+																	 Description = "Welcome message for logged in user."
 				                         }
+#endregion items
 			                         }
 		};
 		private LocalizationDictionaryRequest LocaleNLFile = new LocalizationDictionaryRequest()
@@ -52,18 +84,50 @@ namespace SingletonTheory.Services.AuthServices.Host
 			Locale = "nl-nl",
 			LocalizationDictionary = new List<LocalizationItem>()
 			                         {
+#region items
 				                         new LocalizationItem()
 				                         {
-					                         Key = "_TestTitle_", 
-																	 Value = "Deze komen van de Nederlandse bestand.", 
-																	 Description = "Test hoofd voor Nederlands"
+					                         Key = "_MainTitle_", 
+																	 Value = "Singleton Theory Toegangsapplicatie.", 
+																	 Description = "Main app title."
 				                         },
 																  new LocalizationItem()
 				                         {
 					                         Key = "_LogInAnchor_", 
 																	 Value = "Inloggen", 
 																	 Description = "Hoofd navigatie inloggen item."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_HomeAnchor_", 
+																	 Value = "Thuis", 
+																	 Description = "Hoofd navigatie thuis item."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_AdminActionsAnchor_", 
+																	 Value = "Beheerder Acties", 
+																	 Description = "Hoofd navigatie beheerder item."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_AdminUsersDropDownAnchor_", 
+																	 Value = "Beheer Gebruikers", 
+																	 Description = "Beheerder navigatie item: Beheer gebruikers."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_LogOutAnchor_", 
+																	 Value = "Uitloggen", 
+																	 Description = "Hoofd navigatie uitloggen item."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_UserWelcomeMessage_", 
+																	 Value = "Welkom", 
+																	 Description = "Welkom boodschap voor huidige gebruiker."
 				                         }
+#endregion
 			                         }
 		};
 		private LocalizationDictionaryRequest LocaleDefaultFile = new LocalizationDictionaryRequest()
@@ -71,18 +135,50 @@ namespace SingletonTheory.Services.AuthServices.Host
 			Locale = "default",
 			LocalizationDictionary = new List<LocalizationItem>()
 			                         {
+#region items
 				                         new LocalizationItem()
 				                         {
-					                         Key = "_TestTitle_", 
-																	 Value = "This comes from the Default file.", 
-																	 Description = "Test title description for default"
+					                         Key = "_MainTitle_", 
+																	 Value = "Singleton Theory Auth.", 
+																	 Description = "Main app title."
 				                         },
 																  new LocalizationItem()
 				                         {
 					                         Key = "_LogInAnchor_", 
 																	 Value = "Log In", 
 																	 Description = "Main Nav Bar Login Item"
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_HomeAnchor_", 
+																	 Value = "Home", 
+																	 Description = "Main Nav Bar Home Item"
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_AdminActionsAnchor_", 
+																	 Value = "Administrator Actions", 
+																	 Description = "Main Nav Bar Admin Actions Item"
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_AdminUsersDropDownAnchor_", 
+																	 Value = "Adminstrate Users", 
+																	 Description = "Admin Actions Dropdown Adminstrate Users Item"
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_LogOutAnchor_", 
+																	 Value = "Log Out", 
+																	 Description = "Main Nav Bar Logout Item"
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_UserWelcomeMessage_", 
+																	 Value = "Welcome", 
+																	 Description = "Welcome message for logged in user."
 				                         }
+#endregion
 			                         }
 		};
 
