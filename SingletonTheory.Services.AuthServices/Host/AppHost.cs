@@ -84,6 +84,12 @@ namespace SingletonTheory.Services.AuthServices.Host
 				                         },
 																  new LocalizationItem()
 				                         {
+					                         Key = "_UserNameMessage_", 
+																	 Value = "Enter a unique username", 
+																	 Description = "User name message for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
 					                         Key = "_PasswordHeading_", 
 																	 Value = "Password", 
 																	 Description = "Password heading for re-use."
@@ -147,6 +153,36 @@ namespace SingletonTheory.Services.AuthServices.Host
 					                         Key = "_ActiveHeading_", 
 																	 Value = "Active", 
 																	 Description = "Active heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_AddUserHeading_", 
+																	 Value = "Add User", 
+																	 Description = "Add user heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_EditUserHeading_", 
+																	 Value = "Edit User", 
+																	 Description = "Edit user heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_SaveHeading_", 
+																	 Value = "Save", 
+																	 Description = "Save heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_UpdateHeading_", 
+																	 Value = "Update", 
+																	 Description = "Update heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_CancelHeading_", 
+																	 Value = "Cancel", 
+																	 Description = "Cancel heading for re-use."
 				                         }
 #endregion items
 			                         }
@@ -204,6 +240,12 @@ namespace SingletonTheory.Services.AuthServices.Host
 					                         Key = "_UserNameHeading_", 
 																	 Value = "Gebruikersnaam", 
 																	 Description = "Gebruikersnaam hoofd voor hergebruik."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_UserNameMessage_", 
+																	 Value = "Unieke gebruikersnaam AUB", 
+																	 Description = "Gebruikersnaam boodschap voor hergebruik."
 				                         },
 																  new LocalizationItem()
 				                         {
@@ -270,6 +312,36 @@ namespace SingletonTheory.Services.AuthServices.Host
 					                         Key = "_ActiveHeading_", 
 																	 Value = "Aktief", 
 																	 Description = "Aktief hoofd voor hergebruik."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_AddUserHeading_", 
+																	 Value = "Gebruiker Toevoegen", 
+																	 Description = "Gebruiker toevoegen hoofd voor hergebruik."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_EditUserHeading_", 
+																	 Value = "Gebruiker Redigeren", 
+																	 Description = "Gebruiker redigeren hoofd voor hergebruik."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_SaveHeading_", 
+																	 Value = "Opslaan", 
+																	 Description = "Opslaan hoofd voor hergebruik."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_UpdateHeading_", 
+																	 Value = "Opslaan", 
+																	 Description = "Opdateren hoofd voor hergebruik."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_CancelHeading_", 
+																	 Value = "Anuleer", 
+																	 Description = "Anuleer hoofd voor hergebruik."
 				                         }
 #endregion
 			                         }
@@ -327,6 +399,12 @@ namespace SingletonTheory.Services.AuthServices.Host
 					                         Key = "_UserNameHeading_", 
 																	 Value = "Username", 
 																	 Description = "User name heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_UserNameMessage_", 
+																	 Value = "Enter a unique username", 
+																	 Description = "User name message for re-use."
 				                         },
 																  new LocalizationItem()
 				                         {
@@ -393,6 +471,36 @@ namespace SingletonTheory.Services.AuthServices.Host
 					                         Key = "_ActiveHeading_", 
 																	 Value = "Active", 
 																	 Description = "Active heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_AddUserHeading_", 
+																	 Value = "Add User", 
+																	 Description = "Add user heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_EditUserHeading_", 
+																	 Value = "Edit User", 
+																	 Description = "Edit user heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_SaveHeading_", 
+																	 Value = "Save", 
+																	 Description = "Save heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_UpdateHeading_", 
+																	 Value = "Update", 
+																	 Description = "Update heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_CancelHeading_", 
+																	 Value = "Cancel", 
+																	 Description = "Cancel heading for re-use."
 				                         }
 #endregion
 			                         }
