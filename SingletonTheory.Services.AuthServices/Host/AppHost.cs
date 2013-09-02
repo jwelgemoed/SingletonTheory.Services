@@ -60,9 +60,9 @@ namespace SingletonTheory.Services.AuthServices.Host
 				                         },
 																  new LocalizationItem()
 				                         {
-					                         Key = "_AdminUsersDropDownAnchor_", 
+					                         Key = "_AdministrateUsersHeading_", 
 																	 Value = "Adminstrate Users", 
-																	 Description = "Admin Actions Dropdown Adminstrate Users Item"
+																	 Description = "Administrate Users heading for re-use."
 				                         },
 																  new LocalizationItem()
 				                         {
@@ -93,6 +93,60 @@ namespace SingletonTheory.Services.AuthServices.Host
 					                         Key = "_RememberMeHeading_", 
 																	 Value = "Remember Me", 
 																	 Description = "Rememberme heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_DashboardGreeting_", 
+																	 Value = "Welcome to the Dashboard.", 
+																	 Description = "Heading for dashboard screen."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_DashboardSplash_", 
+																	 Value = "This view will house the dashboard, initially visible to all logged in users.", 
+																	 Description = "Content holder for dashboard screen."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_AddHeading_", 
+																	 Value = "Add", 
+																	 Description = "Add heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_SearchMessage_", 
+																	 Value = "Start typing to Search", 
+																	 Description = "Search message for re-use"
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_RefreshHeading_", 
+																	 Value = "Refresh", 
+																	 Description = "Refresh heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_EditHeading_", 
+																	 Value = "Edit", 
+																	 Description = "Edit heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_IdentityHeading_", 
+																	 Value = "Id", 
+																	 Description = "Identity heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_RoleHeading_", 
+																	 Value = "Role", 
+																	 Description = "Role heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_ActiveHeading_", 
+																	 Value = "Active", 
+																	 Description = "Active heading for re-use."
 				                         }
 #endregion items
 			                         }
@@ -129,9 +183,9 @@ namespace SingletonTheory.Services.AuthServices.Host
 				                         },
 																  new LocalizationItem()
 				                         {
-					                         Key = "_AdminUsersDropDownAnchor_", 
+																	 Key = "_AdministrateUsersHeading_", 
 																	 Value = "Beheer Gebruikers", 
-																	 Description = "Beheerder navigatie item: Beheer gebruikers."
+																	 Description = "Hoofd voor gebruikersbeheer."
 				                         },
 																  new LocalizationItem()
 				                         {
@@ -162,6 +216,60 @@ namespace SingletonTheory.Services.AuthServices.Host
 					                         Key = "_RememberMeHeading_", 
 																	 Value = "Aangemeld Blijven", 
 																	 Description = "Aangemeld blijven hoofd voor hergebruik."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_DashboardGreeting_", 
+																	 Value = "Welkom bij het Dashboard", 
+																	 Description = "Heading for dashboard screen."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_DashboardSplash_", 
+																	 Value = "Deze pagina zal het dashboard huisvesten, aanvankelijk zichtbaar voor alle gebruikers die ingelogd zijn.", 
+																	 Description = "Content holder for dashboard screen."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_AddHeading_", 
+																	 Value = "Toevoegen", 
+																	 Description = "Toevoegen hoofd voor hergebruik."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_SearchMessage_", 
+																	 Value = "Typ om te zoeken", 
+																	 Description = "Zoeken hoofd voor hergebruik"
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_RefreshHeading_", 
+																	 Value = "Verversen", 
+																	 Description = "Verversen hoofd voor hergebruik."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_EditHeading_", 
+																	 Value = "Redigeren", 
+																	 Description = "Redigeren hoofd voor hergebruik."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_IdentityHeading_", 
+																	 Value = "Id", 
+																	 Description = "Identiteit hoofd voor hergebruik."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_RoleHeading_", 
+																	 Value = "Rol", 
+																	 Description = "Rol hoofd voor hergebruik."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_ActiveHeading_", 
+																	 Value = "Aktief", 
+																	 Description = "Aktief hoofd voor hergebruik."
 				                         }
 #endregion
 			                         }
@@ -198,9 +306,9 @@ namespace SingletonTheory.Services.AuthServices.Host
 				                         },
 																  new LocalizationItem()
 				                         {
-					                         Key = "_AdminUsersDropDownAnchor_", 
+					                          Key = "_AdministrateUsersHeading_", 
 																	 Value = "Adminstrate Users", 
-																	 Description = "Admin Actions Dropdown Adminstrate Users Item"
+																	 Description = "Administrate Users heading for re-use."
 				                         },
 																  new LocalizationItem()
 				                         {
@@ -231,6 +339,60 @@ namespace SingletonTheory.Services.AuthServices.Host
 					                         Key = "_RememberMeHeading_", 
 																	 Value = "Remember Me", 
 																	 Description = "Rememberme heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_DashboardGreeting_", 
+																	 Value = "Welcome to the Dashboard.", 
+																	 Description = "Heading for dashboard screen."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_DashboardSplash_", 
+																	 Value = "This view will house the dashboard, initially visible to all logged in users.", 
+																	 Description = "Content holder for dashboard screen."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_AddHeading_", 
+																	 Value = "Add", 
+																	 Description = "Add heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_SearchMessage_", 
+																	 Value = "Start typing to Search", 
+																	 Description = "Search message for re-use"
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_RefreshHeading_", 
+																	 Value = "Refresh", 
+																	 Description = "Refresh heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_EditHeading_", 
+																	 Value = "Edit", 
+																	 Description = "Edit heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_IdentityHeading_", 
+																	 Value = "Id", 
+																	 Description = "Identity heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_RoleHeading_", 
+																	 Value = "Role", 
+																	 Description = "Role heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_ActiveHeading_", 
+																	 Value = "Active", 
+																	 Description = "Active heading for re-use."
 				                         }
 #endregion
 			                         }
