@@ -183,6 +183,24 @@ namespace SingletonTheory.Services.AuthServices.Host
 					                         Key = "_CancelHeading_", 
 																	 Value = "Cancel", 
 																	 Description = "Cancel heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_AllUsersHeading_", 
+																	 Value = "All Users", 
+																	 Description = "All users heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_ActiveUsersHeading_", 
+																	 Value = "Active Users", 
+																	 Description = "Active users heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_InactiveUsersHeading_", 
+																	 Value = "In-Active Users", 
+																	 Description = "In-Active users heading for re-use."
 				                         }
 #endregion items
 			                         }
@@ -342,6 +360,24 @@ namespace SingletonTheory.Services.AuthServices.Host
 					                         Key = "_CancelHeading_", 
 																	 Value = "Anuleer", 
 																	 Description = "Anuleer hoofd voor hergebruik."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_AllUsersHeading_", 
+																	 Value = "Alle Gebruikers", 
+																	 Description = "All users heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_ActiveUsersHeading_", 
+																	 Value = "Aktieve Gebruikers", 
+																	 Description = "Active users heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_InactiveUsersHeading_", 
+																	 Value = "Onaktieve Gebruikers", 
+																	 Description = "In-Active users heading for re-use."
 				                         }
 #endregion
 			                         }
@@ -501,6 +537,24 @@ namespace SingletonTheory.Services.AuthServices.Host
 					                         Key = "_CancelHeading_", 
 																	 Value = "Cancel", 
 																	 Description = "Cancel heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_AllUsersHeading_", 
+																	 Value = "All Users", 
+																	 Description = "All users heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_ActiveUsersHeading_", 
+																	 Value = "Active Users", 
+																	 Description = "Active users heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_InactiveUsersHeading_", 
+																	 Value = "In-Active Users", 
+																	 Description = "In-Active users heading for re-use."
 				                         }
 #endregion
 			                         }
