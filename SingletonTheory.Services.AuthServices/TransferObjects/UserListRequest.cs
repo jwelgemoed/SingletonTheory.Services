@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using ServiceStack.ServiceHost;
+﻿using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface.Auth;
+using System.Collections.Generic;
 
 namespace SingletonTheory.Services.AuthServices.TransferObjects
 {
-    public class UserListRequest: IReturn<List<UserAuth>>
-    {
-    }
+	[Route("/UserRequest", Verbs = "GET")]
+	public class UserListRequest : IReturn<List<UserAuth>>
+	{
+	}
 }

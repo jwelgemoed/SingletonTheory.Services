@@ -26,7 +26,10 @@ namespace SingletonTheory.Services.AuthServices.Services
 				throw HttpError.NotFound("User not found in User Database.");
 
 			Dictionary<string, string> meta = new Dictionary<string, string>();
+
 			meta.Add("Active", request.Active.ToString());
+			meta.Add("Language", request.Language);
+
 			userToUpdate.Meta = meta;
 			userToUpdate.Roles = new List<string> { request.Role };
 			repository.SaveUserAuth(userToUpdate);
@@ -39,7 +42,10 @@ namespace SingletonTheory.Services.AuthServices.Services
 			string hash;
 			string salt;
 			new SaltedHash().GetHashAndSaltString(request.Password, out hash, out salt);
-			var meta = new Dictionary<string, string> { { "Active", request.Active.ToString() } };
+			var meta = new Dictionary<string, string>();
+
+			meta.Add("Active", request.Active.ToString());
+			meta.Add("Language", request.Language);
 
 			var userAuth = new UserAuth
 			{
