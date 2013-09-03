@@ -2,6 +2,7 @@
 using ServiceStack.ServiceInterface.Auth;
 using SingletonTheory.Services.AuthServices.Host;
 using SingletonTheory.Services.AuthServices.TransferObjects;
+using System.Collections.Generic;
 
 namespace SingletonTheory.Services.AuthServices.Services
 {
@@ -9,15 +10,15 @@ namespace SingletonTheory.Services.AuthServices.Services
 	{
 		#region Public Methods
 
-		public UserRoleResponse Get(UserRoleRequest request)
+		public UserAuth Get(UserRoleRequest request)
 		{
 			IAuthSession session = this.GetSession();
-			UserRoleResponse response = new UserRoleResponse();
+			UserService userService = new UserService();
+			List<UserAuth> response = userService.Get(new UserRequest() { UserName = session.UserName });
+			if (response.Count != 0)
+				return response[0];
 
-			response.UserName = session.UserName;
-			response.Roles = session.Roles;
-
-			return response;
+			return new UserAuth();
 		}
 
 		public UserAuth Get(UserAuthRequest request)

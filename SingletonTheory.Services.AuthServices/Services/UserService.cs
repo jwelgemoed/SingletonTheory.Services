@@ -17,17 +17,24 @@ namespace SingletonTheory.Services.AuthServices.Services
 			ICustomUserAuthRepository repository = AppHost.UserRepository;
 			List<UserAuth> response = new List<UserAuth>();
 
-			if (request.Id == 0)
+			if (!string.IsNullOrEmpty(request.UserName))
 			{
-				// Get all users
-				response = repository.GetAllUserAuths();
+				// Get user with UserName
+				UserAuth userAuth = repository.GetUserAuthByUserName(request.UserName);
+
+				response.Add(userAuth);
 			}
-			else
+			else if (request.Id != 0)
 			{
-				// Get user with id
+				// Get user with Id
 				UserAuth userAuth = repository.GetUserAuth(request.Id.ToString(CultureInfo.InvariantCulture));
 
 				response.Add(userAuth);
+			}
+			else
+			{
+				// Get all users
+				response = repository.GetAllUserAuths();
 			}
 
 			return response;
