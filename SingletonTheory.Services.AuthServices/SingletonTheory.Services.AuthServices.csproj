@@ -103,7 +103,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthService.cs" />
+    <Compile Include="Services\AuthService.cs" />
     <Compile Include="Config\ConfigSettings.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -114,6 +114,7 @@
     <Compile Include="Providers\AuthProvider.cs" />
     <Compile Include="Repositories\CustomMongoDBAuthRepository.cs" />
     <Compile Include="Repositories\CustomInMemoryAuthRepository.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="TransferObjects\LocalizationDictionaryRequest.cs" />
     <Compile Include="TransferObjects\LocalizationDictionaryResponse.cs" />
     <Compile Include="TransferObjects\LocalizationItem.cs" />

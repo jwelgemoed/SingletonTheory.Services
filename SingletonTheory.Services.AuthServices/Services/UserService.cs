@@ -1,41 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using ServiceStack.Common.Web;
+﻿using ServiceStack.Common.Web;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
-using ServiceStack.Text;
 using SingletonTheory.Services.AuthServices.Host;
 using SingletonTheory.Services.AuthServices.Interfaces;
-using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.TransferObjects;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 
-namespace SingletonTheory.Services.AuthServices
+namespace SingletonTheory.Services.AuthServices.Services
 {
-	public class AuthService : Service
+	public class UserService : Service
 	{
-		#region Public Methods
-
-		public UserRoleResponse Get(UserRoleRequest request)
-		{
-			IAuthSession session = this.GetSession();
-			UserRoleResponse response = new UserRoleResponse();
-
-			response.UserName = session.UserName;
-			response.Roles = session.Roles;
-
-			return response;
-		}
-
-		public UserAuth Get(UserAuthRequest request)
-		{
-			IUserAuthRepository repository = AppHost.UserRepository;
-
-			UserAuth userAuth = repository.GetUserAuth(this.GetSession().UserAuthId);
-
-			return userAuth;
-		}
-
 		public UserAuth Get(UserRequest request)
 		{
 			ICustomUserAuthRepository repository = AppHost.UserRepository;
@@ -48,11 +24,13 @@ namespace SingletonTheory.Services.AuthServices
 			UserAuth userToUpdate = repository.GetUserAuth(request.Id.ToString(CultureInfo.InvariantCulture));
 			if (userToUpdate == null)
 				throw HttpError.NotFound("User not found in User Database.");
+
 			Dictionary<string, string> meta = new Dictionary<string, string>();
 			meta.Add("Active", request.Active.ToString());
 			userToUpdate.Meta = meta;
 			userToUpdate.Roles = new List<string> { request.Role };
 			repository.SaveUserAuth(userToUpdate);
+
 			return userToUpdate;
 		}
 
@@ -62,6 +40,7 @@ namespace SingletonTheory.Services.AuthServices
 			string salt;
 			new SaltedHash().GetHashAndSaltString(request.Password, out hash, out salt);
 			var meta = new Dictionary<string, string> { { "Active", request.Active.ToString() } };
+
 			var userAuth = new UserAuth
 			{
 				Id = 0,
@@ -71,6 +50,7 @@ namespace SingletonTheory.Services.AuthServices
 				Roles = new List<string> { request.Role },
 				Meta = meta
 			};
+
 			var repository = AppHost.UserRepository;
 			try
 			{
@@ -80,6 +60,7 @@ namespace SingletonTheory.Services.AuthServices
 			{
 				throw HttpError.Conflict(ex.Message);
 			}
+
 			return userAuth;
 		}
 
@@ -88,39 +69,5 @@ namespace SingletonTheory.Services.AuthServices
 			var repository = AppHost.UserRepository;
 			return repository.GetAllUserAuths();
 		}
-
-		public bool Post(UserExistRequest request)
-		{
-			var repository = AppHost.UserRepository;
-			return repository.GetUserAuthByUserName(request.UserName) != null;
-		}
-
-		public LocalizationDictionaryResponse Get(LocalizationDictionaryRequest request)
-		{
-			var repository = AppHost.UserRepository;
-			return repository.GetLocalizationDictionary(request.Locale);
-		}
-
-		public LocalizationDictionaryResponse Post(LocalizationDictionaryRequest request)
-		{
-			return PutPostLocalizationDictionary(request);
-		}
-
-		public LocalizationDictionaryResponse Put(LocalizationDictionaryRequest request)
-		{
-			return PutPostLocalizationDictionary(request);
-		}
-		
-		#endregion Public Methods
-
-		#region Private Methods
-
-		private LocalizationDictionaryResponse PutPostLocalizationDictionary(LocalizationDictionaryRequest request)
-		{
-			var repository = AppHost.UserRepository;
-			return repository.InsertLocalizationDictionary(request);
-		}
-
-		#endregion
 	}
 }

@@ -1,22 +1,20 @@
-﻿using System;
-using System.Xml.Serialization;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Configuration;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Validation;
-using ServiceStack.Text;
 using ServiceStack.WebHost.Endpoints;
 using SingletonTheory.Data;
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Interfaces;
 using SingletonTheory.Services.AuthServices.Providers;
-using System.Collections.Generic;
 using SingletonTheory.Services.AuthServices.Repositories;
+using SingletonTheory.Services.AuthServices.Services;
 using SingletonTheory.Services.AuthServices.TransferObjects;
 using SingletonTheory.Services.AuthServices.Validations;
-using MongoAuthInterfaces = ServiceStack.ServiceInterface.Auth;
+using System;
+using System.Collections.Generic;
 using SSAuthInterfaces = ServiceStack.ServiceInterface.Auth;
 
 namespace SingletonTheory.Services.AuthServices.Host
