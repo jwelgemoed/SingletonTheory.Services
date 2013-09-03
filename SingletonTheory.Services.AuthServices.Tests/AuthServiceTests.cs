@@ -341,7 +341,7 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			AuthService service = new AuthService();
 
 			// Act
-			UserRoleResponse response = _client.Get(request);
+			UserAuth response = _client.Get(request);
 
 			// Assert
 			Assert.AreNotEqual(response.Roles.Count, 0);
