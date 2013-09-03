@@ -199,6 +199,24 @@ namespace SingletonTheory.Services.AuthServices.Host
 					                         Key = "_InactiveUsersHeading_", 
 																	 Value = "In-Active Users", 
 																	 Description = "In-Active users heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_LanguageHeading_", 
+																	 Value = "Language", 
+																	 Description = "Language heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_EnglishHeading_", 
+																	 Value = "English", 
+																	 Description = "English heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_DutchHeading_", 
+																	 Value = "Dutch", 
+																	 Description = "Dutch heading for re-use."
 				                         }
 #endregion items
 			                         }
@@ -363,19 +381,37 @@ namespace SingletonTheory.Services.AuthServices.Host
 				                         {
 					                         Key = "_AllUsersHeading_", 
 																	 Value = "Alle Gebruikers", 
-																	 Description = "All users heading for re-use."
+																	 Description = "Alle gebruikers hoofd voor hergebruik."
 				                         },
 																  new LocalizationItem()
 				                         {
 					                         Key = "_ActiveUsersHeading_", 
 																	 Value = "Aktieve Gebruikers", 
-																	 Description = "Active users heading for re-use."
+																	 Description = "Aktieve gebruikers hoofd voor hergebruik."
 				                         },
 																  new LocalizationItem()
 				                         {
 					                         Key = "_InactiveUsersHeading_", 
 																	 Value = "Onaktieve Gebruikers", 
-																	 Description = "In-Active users heading for re-use."
+																	 Description = "Onaktieve gebruikers hoofd voor hergebruik."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_LanguageHeading_", 
+																	 Value = "Taal", 
+																	 Description = "Taal hoofd voor hergebruik."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_EnglishHeading_", 
+																	 Value = "Engels", 
+																	 Description = "Engels hoofd voor hergebruik."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_DutchHeading_", 
+																	 Value = "Nederlands", 
+																	 Description = "Nederlands hoofd voor hergebruik."
 				                         }
 #endregion
 			                         }
@@ -553,6 +589,24 @@ namespace SingletonTheory.Services.AuthServices.Host
 					                         Key = "_InactiveUsersHeading_", 
 																	 Value = "In-Active Users", 
 																	 Description = "In-Active users heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_LanguageHeading_", 
+																	 Value = "Language", 
+																	 Description = "Language heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_EnglishHeading_", 
+																	 Value = "English", 
+																	 Description = "English heading for re-use."
+				                         },
+																  new LocalizationItem()
+				                         {
+					                         Key = "_DutchHeading_", 
+																	 Value = "Dutch", 
+																	 Description = "Dutch heading for re-use."
 				                         }
 #endregion
 			                         }
@@ -634,6 +688,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 			new SSAuthInterfaces.SaltedHash().GetHashAndSaltString(password, out hash, out salt);
 			Dictionary<string, string> meta = new Dictionary<string, string>();
 			meta.Add("Active", true.ToString());
+			meta.Add("Language","en-US");
 			SSAuthInterfaces.UserAuth userAuth = new SSAuthInterfaces.UserAuth
 			{
 				Id = id,
