@@ -120,7 +120,6 @@
     <Compile Include="TransferObjects\LocalizationItem.cs" />
     <Compile Include="TransferObjects\UserAuthRequest.cs" />
     <Compile Include="TransferObjects\UserExistRequest.cs" />
-    <Compile Include="TransferObjects\UserListRequest.cs" />
     <Compile Include="TransferObjects\UserRequest.cs" />
     <Compile Include="TransferObjects\UserRoleRequest.cs" />
     <Compile Include="TransferObjects\UserRoleResponse.cs" />

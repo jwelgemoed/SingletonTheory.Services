@@ -2,7 +2,6 @@
 using ServiceStack.ServiceInterface.Auth;
 using SingletonTheory.Services.AuthServices.Host;
 using SingletonTheory.Services.AuthServices.TransferObjects;
-using System.Collections.Generic;
 
 namespace SingletonTheory.Services.AuthServices.Services
 {
@@ -29,8 +28,6 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 			return userAuth;
 		}
-
-		
 
 		public bool Post(UserExistRequest request)
 		{

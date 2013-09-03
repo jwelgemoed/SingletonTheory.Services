@@ -12,10 +12,25 @@ namespace SingletonTheory.Services.AuthServices.Services
 {
 	public class UserService : Service
 	{
-		public UserAuth Get(UserRequest request)
+		public List<UserAuth> Get(UserRequest request)
 		{
 			ICustomUserAuthRepository repository = AppHost.UserRepository;
-			return repository.GetUserAuth(request.Id.ToString(CultureInfo.InvariantCulture));
+			List<UserAuth> response = new List<UserAuth>();
+
+			if (request.Id == 0)
+			{
+				// Get all users
+				response = repository.GetAllUserAuths();
+			}
+			else
+			{
+				// Get user with id
+				UserAuth userAuth = repository.GetUserAuth(request.Id.ToString(CultureInfo.InvariantCulture));
+
+				response.Add(userAuth);
+			}
+
+			return response;
 		}
 
 		public UserAuth Put(UserRequest request)
@@ -68,12 +83,6 @@ namespace SingletonTheory.Services.AuthServices.Services
 			}
 
 			return userAuth;
-		}
-
-		public List<UserAuth> Get(UserListRequest request)
-		{
-			var repository = AppHost.UserRepository;
-			return repository.GetAllUserAuths();
 		}
 	}
 }

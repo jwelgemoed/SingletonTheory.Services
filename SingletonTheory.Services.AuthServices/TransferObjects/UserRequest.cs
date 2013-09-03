@@ -1,9 +1,12 @@
 ﻿using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface.Auth;
+using System.Collections.Generic;
 
 namespace SingletonTheory.Services.AuthServices.TransferObjects
 {
-	public class UserRequest : IReturn<UserAuth>
+	[Route("/userapi")]
+	[Route("/userapi/{Id}")]
+	public class UserRequest : IReturn<List<UserAuth>>
 	{
 		public int Id { get; set; }
 		public string UserName { get; set; }

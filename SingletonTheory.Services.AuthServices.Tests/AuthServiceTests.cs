@@ -30,8 +30,8 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			_client = HTTPClientHelpers.GetClient(HTTPClientHelpers.RootUrl, HTTPClientHelpers.UserName, HTTPClientHelpers.Password);
 			AuthResponse authResponse = HTTPClientHelpers.Login();
 			UserRequest request = new UserRequest { UserName = MongoHelpers.MongoTestUsername, Password = MongoHelpers.MongoTestUserPassword, Role = _currentRole, Active = _currentActivitySetting };
-			UserAuth response = _client.Post(request);
-			_userId = response.Id;
+			List<UserAuth> response = _client.Post(request);
+			_userId = response[0].Id;
 		}
 
 		[TearDownAttribute]
@@ -44,7 +44,7 @@ namespace SingletonTheory.Services.AuthServices.Tests
 
 		#endregion Setup & Teardown
 
-		# region Add User Tests and Validation Tests
+		#region Add User Tests and Validation Tests
 
 		[Test]
 		public void ShouldAddUser()
@@ -56,10 +56,10 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			var response = _client.Get(request);
 
 			// Assert
-			Assert.AreNotEqual(response.Id, 0, "Unable to find test user in database.");
-			Assert.AreEqual(response.UserName, MongoHelpers.MongoTestUsername, "Test username does not match that of expected user entry.");
-			Assert.AreEqual(response.Roles[0], _currentRole, "Current role of user does not match expected");
-			Assert.AreEqual(response.Meta["Active"], _currentActivitySetting.ToString(), "Active value does not match expected");
+			Assert.AreNotEqual(response[0].Id, 0, "Unable to find test user in database.");
+			Assert.AreEqual(response[0].UserName, MongoHelpers.MongoTestUsername, "Test username does not match that of expected user entry.");
+			Assert.AreEqual(response[0].Roles[0], _currentRole, "Current role of user does not match expected");
+			Assert.AreEqual(response[0].Meta["Active"], _currentActivitySetting.ToString(), "Active value does not match expected");
 		}
 
 		[Test]
@@ -199,9 +199,9 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			Assert.AreEqual(webExceptionForNullRole.StatusCode, 400, "Wrong status code returned");
 		}
 
-		# endregion
+		#endregion Add User Tests and Validation Tests
 
-		# region Add User Tests and Validation Tests
+		#region Add User Tests and Validation Tests
 
 		[Test]
 		public void ShouldUpdateUser()
@@ -216,8 +216,8 @@ namespace SingletonTheory.Services.AuthServices.Tests
 
 			//Assert
 			var checkResponse = _client.Get(request);
-			Assert.AreEqual(checkResponse.Roles[0], _currentRole, "Current role of user does not match expected");
-			Assert.AreEqual(checkResponse.Meta["Active"], _currentActivitySetting.ToString(), "Active value does not match expected");
+			Assert.AreEqual(checkResponse[0].Roles[0], _currentRole, "Current role of user does not match expected");
+			Assert.AreEqual(checkResponse[0].Meta["Active"], _currentActivitySetting.ToString(), "Active value does not match expected");
 		}
 
 		[Test]
@@ -314,15 +314,15 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			Assert.AreEqual(webExceptionForNullRole.StatusCode, 400, "Wrong status code returned");
 		}
 
-		# endregion
+		#endregion Add User Tests and Validation Tests
 
-		# region Other Tests
+		#region Other Tests
 
 		[Test]
 		public void ShouldGetAllUsers()
 		{
 			// Arrange
-			UserListRequest request = new UserListRequest();
+			UserRequest request = new UserRequest();
 			AuthService service = new AuthService();
 
 			// Act
@@ -331,11 +331,6 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			// Assert
 			Assert.AreNotEqual(response.Count, 0);
 		}
-
-
-
-
-
 
 		[Test]
 		public void ShouldGetUserRoles()
@@ -368,7 +363,6 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			Assert.AreNotEqual(response.Roles.Count, 0);
 		}
 
-		# endregion
-
+		#endregion Other Tests
 	}
 }
