@@ -1,15 +1,12 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using ServiceStack.DataAccess;
 using ServiceStack.ServiceInterface.Auth;
+using SingletonTheory.Services.AuthServices.Interfaces;
+using SingletonTheory.Services.AuthServices.TransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using SingletonTheory.Services.AuthServices.Interfaces;
-using SingletonTheory.Services.AuthServices.TransferObjects;
 
 namespace SingletonTheory.Services.AuthServices.Repositories
 {
@@ -20,6 +17,12 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			: base(mongoDatabase, createMissingCollections)
 		{
 			_mongoDatabase = mongoDatabase;
+		}
+
+		public void ClearUserAuths()
+		{
+			if (_mongoDatabase.CollectionExists("UserAuth"))
+				_mongoDatabase.DropCollection("UserAuth");
 		}
 
 		public List<UserAuth> GetAllUserAuths()
@@ -44,11 +47,11 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 				if (dictionary != null)
 				{
 					return new LocalizationDictionaryResponse()
-					       {
-						       Id = dictionary.Id,
-						       Locale = dictionary.Locale,
-						       LocalizationDictionary = dictionary.LocalizationDictionary
-					       };
+								 {
+									 Id = dictionary.Id,
+									 Locale = dictionary.Locale,
+									 LocalizationDictionary = dictionary.LocalizationDictionary
+								 };
 				}
 				return null;
 			}

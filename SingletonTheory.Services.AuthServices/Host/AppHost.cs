@@ -647,8 +647,8 @@ namespace SingletonTheory.Services.AuthServices.Host
 			container.Register<SSAuthInterfaces.IUserAuthRepository>(_userRepository);
 
 			RegisterValidations(container);
-
-			CreateUser(0, UserName, null, Password,"en-US", new List<string> { "user" }, new List<string> { "ThePermission" });
+			ClearUsers();
+			CreateUser(0, UserName, null, Password, "en-US", new List<string> { "user" }, new List<string> { "ThePermission" });
 			CreateUser(0, AdminUserName, null, Password, "en-US", new List<string> { "admin" }, new List<string> { "ThePermission" });
 			CreateUser(0, DutchUserName, null, Password, "nl-nl", new List<string> { "admin" }, new List<string> { "ThePermission" });
 			CreateTestingLanguageFiles();
@@ -683,14 +683,19 @@ namespace SingletonTheory.Services.AuthServices.Host
 			_userRepository.InsertLocalizationDictionary(LocaleNLFile);
 		}
 
-		private void CreateUser(int id, string username, string email, string password, string language, List<string> roles = null, List<string> permissions = null )
+		private void ClearUsers()
+		{
+			_userRepository.ClearUserAuths();
+		}
+
+		private void CreateUser(int id, string username, string email, string password, string language, List<string> roles = null, List<string> permissions = null)
 		{
 			string hash;
 			string salt;
 			new SSAuthInterfaces.SaltedHash().GetHashAndSaltString(password, out hash, out salt);
 			Dictionary<string, string> meta = new Dictionary<string, string>();
 			meta.Add("Active", true.ToString());
-			meta.Add("Language",language);
+			meta.Add("Language", language);
 			SSAuthInterfaces.UserAuth userAuth = new SSAuthInterfaces.UserAuth
 			{
 				Id = id,

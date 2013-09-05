@@ -10,7 +10,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 	{
 		#region Public Methods
 
-		public UserAuth Get(UserRoleRequest request)
+		public UserAuth Get(CurrentUserRequest request)
 		{
 			IAuthSession session = this.GetSession();
 			UserService userService = new UserService();
@@ -19,21 +19,6 @@ namespace SingletonTheory.Services.AuthServices.Services
 				return response[0];
 
 			return new UserAuth();
-		}
-
-		public UserAuth Get(UserAuthRequest request)
-		{
-			IUserAuthRepository repository = AppHost.UserRepository;
-
-			UserAuth userAuth = repository.GetUserAuth(this.GetSession().UserAuthId);
-
-			return userAuth;
-		}
-
-		public bool Post(UserExistRequest request)
-		{
-			var repository = AppHost.UserRepository;
-			return repository.GetUserAuthByUserName(request.UserName) != null;
 		}
 
 		public LocalizationDictionaryResponse Get(LocalizationDictionaryRequest request)

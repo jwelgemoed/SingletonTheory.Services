@@ -118,11 +118,8 @@
     <Compile Include="TransferObjects\LocalizationDictionaryRequest.cs" />
     <Compile Include="TransferObjects\LocalizationDictionaryResponse.cs" />
     <Compile Include="TransferObjects\LocalizationItem.cs" />
-    <Compile Include="TransferObjects\UserAuthRequest.cs" />
-    <Compile Include="TransferObjects\UserExistRequest.cs" />
     <Compile Include="TransferObjects\UserRequest.cs" />
-    <Compile Include="TransferObjects\UserRoleRequest.cs" />
-    <Compile Include="TransferObjects\UserRoleResponse.cs" />
+    <Compile Include="TransferObjects\CurrentUserRequest.cs" />
     <Compile Include="Validations\UserRequestValidator.cs" />
   </ItemGroup>
   <ItemGroup>

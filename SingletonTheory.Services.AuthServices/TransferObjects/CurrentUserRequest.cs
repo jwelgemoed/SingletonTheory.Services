@@ -3,5 +3,6 @@ using ServiceStack.ServiceInterface.Auth;
 
 namespace SingletonTheory.Services.AuthServices.TransferObjects
 {
-	public class UserAuthRequest : IReturn<UserAuth> { }
+	[Route("/auth/currentuser")]
+	public class CurrentUserRequest : IReturn<UserAuth> { }
 }

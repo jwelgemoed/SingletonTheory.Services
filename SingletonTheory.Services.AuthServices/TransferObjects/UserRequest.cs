@@ -5,8 +5,8 @@ using System.Collections.Generic;
 namespace SingletonTheory.Services.AuthServices.TransferObjects
 {
 	[Route("/userapi")]
-	[Route("/userapi/{Id}")]
-	[Route("/userapi/{UserName}")]
+	[Route("/userapi/id/{Id}")]
+	[Route("/userapi/username/{UserName}")]
 	public class UserRequest : IReturn<List<UserAuth>>
 	{
 		public int Id { get; set; }
