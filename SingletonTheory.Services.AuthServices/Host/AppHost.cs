@@ -618,6 +618,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 		#region Fields & Properties
 
 		private static ICustomUserAuthRepository _userRepository;
+		private static LocalizationRepository _localizationRepository;
 
 		public static ICustomUserAuthRepository UserRepository
 		{
@@ -643,10 +644,18 @@ namespace SingletonTheory.Services.AuthServices.Host
 			AddPlugins();
 
 			container.Register<ICacheClient>(new MemoryCacheClient());
-			_userRepository = GetRepositoryProvider();
+			_userRepository = GetUserAuthRepositoryProvider();
+			_localizationRepository = GetLocalizationRepositoryProvider();
 			container.Register<SSAuthInterfaces.IUserAuthRepository>(_userRepository);
+			container.Register<LocalizationRepository>(_localizationRepository);
 
 			RegisterValidations(container);
+			// TODO:  Remove this and replace with permanent solutions.
+			CreateMockData();
+		}
+
+		private void CreateMockData()
+		{
 			ClearUsers();
 			CreateUser(0, UserName, null, Password, "en-US", new List<string> { "user" }, new List<string> { "ThePermission" });
 			CreateUser(0, AdminUserName, null, Password, "en-US", new List<string> { "admin" }, new List<string> { "ThePermission" });
@@ -663,7 +672,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 
 		#region Static Methods
 
-		private static ICustomUserAuthRepository GetRepositoryProvider()
+		private static ICustomUserAuthRepository GetUserAuthRepositoryProvider()
 		{
 			// Enable the following lines to enable MongoDB
 			MongoDatabase userDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, ConfigSettings.MongoUserDatabaseName);
@@ -672,15 +681,22 @@ namespace SingletonTheory.Services.AuthServices.Host
 			//return new SSAuthInterfaces.InMemoryAuthRepository();
 		}
 
+		private static LocalizationRepository GetLocalizationRepositoryProvider()
+		{
+			MongoDatabase database = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, ConfigSettings.MongoLocalizationDatabaseName);
+
+			return new LocalizationRepository(database);
+		}
+
 		#endregion Static Methods
 
 		#region Private Methods
 
 		private void CreateTestingLanguageFiles()
 		{
-			_userRepository.InsertLocalizationDictionary(LocaleDefaultFile);
-			_userRepository.InsertLocalizationDictionary(LocaleUSFile);
-			_userRepository.InsertLocalizationDictionary(LocaleNLFile);
+			_localizationRepository.InsertLocalizationDictionary(LocaleDefaultFile);
+			_localizationRepository.InsertLocalizationDictionary(LocaleUSFile);
+			_localizationRepository.InsertLocalizationDictionary(LocaleNLFile);
 		}
 
 		private void ClearUsers()

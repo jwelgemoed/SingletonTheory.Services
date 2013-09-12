@@ -1,10 +1,6 @@
 ﻿using MongoDB.Driver;
-using MongoDB.Driver.Builders;
-using ServiceStack.DataAccess;
 using ServiceStack.ServiceInterface.Auth;
 using SingletonTheory.Services.AuthServices.Interfaces;
-using SingletonTheory.Services.AuthServices.TransferObjects;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,65 +26,6 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			var users = _mongoDatabase.GetCollection<UserAuth>("UserAuth");
 			MongoCursor<UserAuth> cursor = users.FindAllAs<UserAuth>();
 			return cursor.ToList();
-		}
-
-		public LocalizationDictionaryResponse GetLocalizationDictionary(string locale)
-		{
-			try
-			{
-				var locales = _mongoDatabase.GetCollection<LocalizationDictionaryRequest>("LocaleFiles");
-				var localeQuery = Query<LocalizationDictionaryRequest>.EQ(e => e.Locale, locale);
-				var dictionary = locales.FindOne(localeQuery);
-				if (dictionary == null)
-				{
-					localeQuery = Query<LocalizationDictionaryRequest>.EQ(e => e.Locale, "default");
-					dictionary = locales.FindOne(localeQuery);
-				}
-				if (dictionary != null)
-				{
-					return new LocalizationDictionaryResponse()
-								 {
-									 Id = dictionary.Id,
-									 Locale = dictionary.Locale,
-									 LocalizationDictionary = dictionary.LocalizationDictionary
-								 };
-				}
-				return null;
-			}
-			catch (Exception ex)
-			{
-				throw new DataAccessException("Error querying Mongo Database: " + ex.Message);
-			}
-		}
-
-		public LocalizationDictionaryResponse InsertLocalizationDictionary(LocalizationDictionaryRequest record)
-		{
-			try
-			{
-				var locales = _mongoDatabase.GetCollection<LocalizationDictionaryRequest>("LocaleFiles");
-				var localeQuery = Query<LocalizationDictionaryRequest>.EQ(e => e.Locale, record.Locale);
-				var dictionary = locales.FindOne(localeQuery);
-				if (dictionary == null)
-				{
-					locales.Insert(record);
-					dictionary = record;
-				}
-				else
-				{
-					dictionary.LocalizationDictionary = record.LocalizationDictionary;
-					locales.Save(dictionary);
-				}
-				return new LocalizationDictionaryResponse()
-				{
-					Id = dictionary.Id,
-					Locale = dictionary.Locale,
-					LocalizationDictionary = dictionary.LocalizationDictionary
-				};
-			}
-			catch (Exception ex)
-			{
-				throw new DataAccessException("Unable to insert record in the Mongo Database: " + ex.Message);
-			}
 		}
 	}
 }
