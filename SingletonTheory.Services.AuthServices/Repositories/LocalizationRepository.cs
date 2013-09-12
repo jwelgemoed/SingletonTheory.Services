@@ -1,13 +1,19 @@
 ﻿using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using ServiceStack.DataAccess;
-using SingletonTheory.Services.AuthServices.TransferObjects;
+using SingletonTheory.Services.AuthServices.Entities;
 using System;
 
 namespace SingletonTheory.Services.AuthServices.Repositories
 {
 	public class LocalizationRepository
 	{
+		#region Constants
+
+		private string CollectionName = "LocaleFiles";
+
+		#endregion Constants
+
 		#region Fields & Properties
 
 		private MongoDatabase _mongoDatabase;
@@ -25,27 +31,26 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 
 		#region Public Methods
 
-		public LocalizationDictionaryResponse GetLocalizationDictionary(string locale)
+		public LocalizationCollectionEntity GetLocalizationDictionary(LocalizationCollectionEntity collection)
 		{
 			try
 			{
-				MongoCollection<LocalizationDictionaryRequest> locales = _mongoDatabase.GetCollection<LocalizationDictionaryRequest>("LocaleFiles");
-				IMongoQuery localeQuery = Query<LocalizationDictionaryRequest>.EQ(e => e.Locale, locale);
-				LocalizationDictionaryRequest dictionary = locales.FindOne(localeQuery);
-				if (dictionary == null)
-				{
-					localeQuery = Query<LocalizationDictionaryRequest>.EQ(e => e.Locale, "default");
-					dictionary = locales.FindOne(localeQuery);
-				}
+				LocalizationCollectionEntity fullCollection = GetLocalizationDictionary(collection.Locale);
 
-				if (dictionary != null)
+				if (fullCollection != null)
 				{
-					return new LocalizationDictionaryResponse()
+					for (int i = 0; i < collection.LocalizationItems.Count; i++)
 					{
-						Id = dictionary.Id,
-						Locale = dictionary.Locale,
-						LocalizationDictionary = dictionary.LocalizationDictionary
-					};
+						LocalizationEntity item = fullCollection.LocalizationItems.Find(x => x.Key == collection.LocalizationItems[i].Key);
+						if (item == null)
+						{
+							continue;
+						}
+
+						collection.LocalizationItems[i] = item;
+					}
+
+					return collection;
 				}
 
 				return null;
@@ -56,12 +61,33 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			}
 		}
 
-		public LocalizationDictionaryResponse InsertLocalizationDictionary(LocalizationDictionaryRequest record)
+		public LocalizationCollectionEntity GetLocalizationDictionary(string locale)
 		{
 			try
 			{
-				var locales = _mongoDatabase.GetCollection<LocalizationDictionaryRequest>("LocaleFiles");
-				var localeQuery = Query<LocalizationDictionaryRequest>.EQ(e => e.Locale, record.Locale);
+				MongoCollection<LocalizationCollectionEntity> locales = _mongoDatabase.GetCollection<LocalizationCollectionEntity>(CollectionName);
+				IMongoQuery localeQuery = Query<LocalizationCollectionEntity>.EQ(e => e.Locale, locale);
+				LocalizationCollectionEntity collection = locales.FindOne(localeQuery);
+				if (collection == null)
+				{
+					localeQuery = Query<LocalizationCollectionEntity>.EQ(e => e.Locale, "default");
+					collection = locales.FindOne(localeQuery);
+				}
+
+				return collection.LocalizationItems.Count == 0 ? null : collection;
+			}
+			catch (Exception ex)
+			{
+				throw new DataAccessException("Error querying Mongo Database: " + ex.Message);
+			}
+		}
+
+		public LocalizationCollectionEntity Add(LocalizationCollectionEntity record)
+		{
+			try
+			{
+				var locales = _mongoDatabase.GetCollection<LocalizationCollectionEntity>(CollectionName);
+				var localeQuery = Query<LocalizationCollectionEntity>.EQ(e => e.Locale, record.Locale);
 				var dictionary = locales.FindOne(localeQuery);
 				if (dictionary == null)
 				{
@@ -70,20 +96,23 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 				}
 				else
 				{
-					dictionary.LocalizationDictionary = record.LocalizationDictionary;
+					dictionary.LocalizationItems = record.LocalizationItems;
 					locales.Save(dictionary);
 				}
-				return new LocalizationDictionaryResponse()
-				{
-					Id = dictionary.Id,
-					Locale = dictionary.Locale,
-					LocalizationDictionary = dictionary.LocalizationDictionary
-				};
+
+				record.Id = dictionary.Id;
+
+				return record;
 			}
 			catch (Exception ex)
 			{
 				throw new DataAccessException("Unable to insert record in the Mongo Database: " + ex.Message);
 			}
+		}
+
+		public void ClearCollection()
+		{
+			_mongoDatabase.DropCollection(CollectionName);
 		}
 
 		#endregion Public Methods

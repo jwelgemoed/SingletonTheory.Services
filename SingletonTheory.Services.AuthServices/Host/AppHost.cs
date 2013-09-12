@@ -7,11 +7,11 @@ using ServiceStack.ServiceInterface.Validation;
 using ServiceStack.WebHost.Endpoints;
 using SingletonTheory.Data;
 using SingletonTheory.Services.AuthServices.Config;
+using SingletonTheory.Services.AuthServices.Entities;
 using SingletonTheory.Services.AuthServices.Interfaces;
 using SingletonTheory.Services.AuthServices.Providers;
 using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.Services;
-using SingletonTheory.Services.AuthServices.TransferObjects;
 using SingletonTheory.Services.AuthServices.Validations;
 using System;
 using System.Collections.Generic;
@@ -27,193 +27,193 @@ namespace SingletonTheory.Services.AuthServices.Host
 		private const string AdminUserName = "admin";
 		private const string DutchUserName = "nlgebruiker";
 		private const string Password = "123";
-		private LocalizationDictionaryRequest LocaleUSFile = new LocalizationDictionaryRequest()
+		private LocalizationCollectionEntity LocaleUSFile = new LocalizationCollectionEntity()
 		{
 			Locale = "en-US",
-			LocalizationDictionary = new List<LocalizationItem>()
+			LocalizationItems = new List<LocalizationEntity>()
 			                         {
 #region items
-				                         new LocalizationItem()
+				                         new LocalizationEntity()
 				                         {
 					                         Key = "_MainTitle_", 
 																	 Value = "Singleton Theory Auth.", 
 																	 Description = "Main app title."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_LogInHeading_", 
 																	 Value = "Log In", 
 																	 Description = "Log in heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_HomeAnchor_", 
 																	 Value = "Home", 
 																	 Description = "Main Nav Bar Home Item"
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_AdminActionsAnchor_", 
 																	 Value = "Administrator Actions", 
 																	 Description = "Main Nav Bar Admin Actions Item"
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_AdministrateUsersHeading_", 
 																	 Value = "Adminstrate Users", 
 																	 Description = "Administrate Users heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_LogOutAnchor_", 
 																	 Value = "Log Out", 
 																	 Description = "Main Nav Bar Logout Item"
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_UserWelcomeMessage_", 
 																	 Value = "Welcome", 
 																	 Description = "Welcome message for logged in user."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_UserNameHeading_", 
 																	 Value = "Username", 
 																	 Description = "User name heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_UserNameMessage_", 
 																	 Value = "Enter a unique username", 
 																	 Description = "User name message for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_PasswordHeading_", 
 																	 Value = "Password", 
 																	 Description = "Password heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_RememberMeHeading_", 
 																	 Value = "Remember Me", 
 																	 Description = "Rememberme heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_DashboardGreeting_", 
 																	 Value = "Welcome to the Dashboard.", 
 																	 Description = "Heading for dashboard screen."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_DashboardSplash_", 
 																	 Value = "This view will house the dashboard, initially visible to all logged in users.", 
 																	 Description = "Content holder for dashboard screen."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_AddHeading_", 
 																	 Value = "Add", 
 																	 Description = "Add heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_SearchMessage_", 
 																	 Value = "Start typing to Search", 
 																	 Description = "Search message for re-use"
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_RefreshHeading_", 
 																	 Value = "Refresh", 
 																	 Description = "Refresh heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_EditHeading_", 
 																	 Value = "Edit", 
 																	 Description = "Edit heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_IdentityHeading_", 
 																	 Value = "Id", 
 																	 Description = "Identity heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_RoleHeading_", 
 																	 Value = "Role", 
 																	 Description = "Role heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_ActiveHeading_", 
 																	 Value = "Active", 
 																	 Description = "Active heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_AddUserHeading_", 
 																	 Value = "Add User", 
 																	 Description = "Add user heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_EditUserHeading_", 
 																	 Value = "Edit User", 
 																	 Description = "Edit user heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_SaveHeading_", 
 																	 Value = "Save", 
 																	 Description = "Save heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_UpdateHeading_", 
 																	 Value = "Update", 
 																	 Description = "Update heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_CancelHeading_", 
 																	 Value = "Cancel", 
 																	 Description = "Cancel heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_AllUsersHeading_", 
 																	 Value = "All Users", 
 																	 Description = "All users heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_ActiveUsersHeading_", 
 																	 Value = "Active Users", 
 																	 Description = "Active users heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_InactiveUsersHeading_", 
 																	 Value = "In-Active Users", 
 																	 Description = "In-Active users heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_LanguageHeading_", 
 																	 Value = "Language", 
 																	 Description = "Language heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_EnglishHeading_", 
 																	 Value = "English", 
 																	 Description = "English heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_DutchHeading_", 
 																	 Value = "Dutch", 
@@ -222,193 +222,193 @@ namespace SingletonTheory.Services.AuthServices.Host
 #endregion items
 			                         }
 		};
-		private LocalizationDictionaryRequest LocaleNLFile = new LocalizationDictionaryRequest()
+		private LocalizationCollectionEntity LocaleNLFile = new LocalizationCollectionEntity()
 		{
 			Locale = "nl-nl",
-			LocalizationDictionary = new List<LocalizationItem>()
+			LocalizationItems = new List<LocalizationEntity>()
 			                         {
 #region items
-				                         new LocalizationItem()
+				                         new LocalizationEntity()
 				                         {
 					                         Key = "_MainTitle_", 
 																	 Value = "Singleton Theory Toegangsapplicatie.", 
 																	 Description = "Main app title."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_LogInHeading_", 
 																	 Value = "Inloggen", 
 																	 Description = "Hoofd voor inloggen."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_HomeAnchor_", 
 																	 Value = "Thuis", 
 																	 Description = "Hoofd navigatie thuis item."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_AdminActionsAnchor_", 
 																	 Value = "Beheerder Acties", 
 																	 Description = "Hoofd navigatie beheerder item."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 																	 Key = "_AdministrateUsersHeading_", 
 																	 Value = "Beheer Gebruikers", 
 																	 Description = "Hoofd voor gebruikersbeheer."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_LogOutAnchor_", 
 																	 Value = "Uitloggen", 
 																	 Description = "Hoofd navigatie uitloggen item."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_UserWelcomeMessage_", 
 																	 Value = "Welkom", 
 																	 Description = "Welkom boodschap voor huidige gebruiker."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_UserNameHeading_", 
 																	 Value = "Gebruikersnaam", 
 																	 Description = "Gebruikersnaam hoofd voor hergebruik."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_UserNameMessage_", 
 																	 Value = "Unieke gebruikersnaam AUB", 
 																	 Description = "Gebruikersnaam boodschap voor hergebruik."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_PasswordHeading_", 
 																	 Value = "Wachtwoord", 
 																	 Description = "Wachtwoord hoofd voor hergebruik."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_RememberMeHeading_", 
 																	 Value = "Aangemeld Blijven", 
 																	 Description = "Aangemeld blijven hoofd voor hergebruik."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_DashboardGreeting_", 
 																	 Value = "Welkom bij het Dashboard", 
 																	 Description = "Heading for dashboard screen."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_DashboardSplash_", 
 																	 Value = "Deze pagina zal het dashboard huisvesten, aanvankelijk zichtbaar voor alle gebruikers die ingelogd zijn.", 
 																	 Description = "Content holder for dashboard screen."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_AddHeading_", 
 																	 Value = "Toevoegen", 
 																	 Description = "Toevoegen hoofd voor hergebruik."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_SearchMessage_", 
 																	 Value = "Typ om te zoeken", 
 																	 Description = "Zoeken hoofd voor hergebruik"
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_RefreshHeading_", 
 																	 Value = "Verversen", 
 																	 Description = "Verversen hoofd voor hergebruik."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_EditHeading_", 
 																	 Value = "Redigeren", 
 																	 Description = "Redigeren hoofd voor hergebruik."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_IdentityHeading_", 
 																	 Value = "Id", 
 																	 Description = "Identiteit hoofd voor hergebruik."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_RoleHeading_", 
 																	 Value = "Rol", 
 																	 Description = "Rol hoofd voor hergebruik."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_ActiveHeading_", 
 																	 Value = "Aktief", 
 																	 Description = "Aktief hoofd voor hergebruik."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_AddUserHeading_", 
 																	 Value = "Gebruiker Toevoegen", 
 																	 Description = "Gebruiker toevoegen hoofd voor hergebruik."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_EditUserHeading_", 
 																	 Value = "Gebruiker Redigeren", 
 																	 Description = "Gebruiker redigeren hoofd voor hergebruik."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_SaveHeading_", 
 																	 Value = "Opslaan", 
 																	 Description = "Opslaan hoofd voor hergebruik."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_UpdateHeading_", 
 																	 Value = "Opslaan", 
 																	 Description = "Opdateren hoofd voor hergebruik."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_CancelHeading_", 
 																	 Value = "Anuleer", 
 																	 Description = "Anuleer hoofd voor hergebruik."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_AllUsersHeading_", 
 																	 Value = "Alle Gebruikers", 
 																	 Description = "Alle gebruikers hoofd voor hergebruik."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_ActiveUsersHeading_", 
 																	 Value = "Aktieve Gebruikers", 
 																	 Description = "Aktieve gebruikers hoofd voor hergebruik."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_InactiveUsersHeading_", 
 																	 Value = "Onaktieve Gebruikers", 
 																	 Description = "Onaktieve gebruikers hoofd voor hergebruik."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_LanguageHeading_", 
 																	 Value = "Taal", 
 																	 Description = "Taal hoofd voor hergebruik."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_EnglishHeading_", 
 																	 Value = "Engels", 
 																	 Description = "Engels hoofd voor hergebruik."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_DutchHeading_", 
 																	 Value = "Nederlands", 
@@ -417,193 +417,193 @@ namespace SingletonTheory.Services.AuthServices.Host
 #endregion
 			                         }
 		};
-		private LocalizationDictionaryRequest LocaleDefaultFile = new LocalizationDictionaryRequest()
+		private LocalizationCollectionEntity LocaleDefaultFile = new LocalizationCollectionEntity()
 		{
 			Locale = "default",
-			LocalizationDictionary = new List<LocalizationItem>()
+			LocalizationItems = new List<LocalizationEntity>()
 			                         {
 #region items
-				                         new LocalizationItem()
+				                         new LocalizationEntity()
 				                         {
 					                         Key = "_MainTitle_", 
 																	 Value = "Singleton Theory Auth.", 
 																	 Description = "Main app title."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                          Key = "_LogInHeading_", 
 																	 Value = "Log In", 
 																	 Description = "Log in heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_HomeAnchor_", 
 																	 Value = "Home", 
 																	 Description = "Main Nav Bar Home Item"
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_AdminActionsAnchor_", 
 																	 Value = "Administrator Actions", 
 																	 Description = "Main Nav Bar Admin Actions Item"
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                          Key = "_AdministrateUsersHeading_", 
 																	 Value = "Adminstrate Users", 
 																	 Description = "Administrate Users heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_LogOutAnchor_", 
 																	 Value = "Log Out", 
 																	 Description = "Main Nav Bar Logout Item"
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_UserWelcomeMessage_", 
 																	 Value = "Welcome", 
 																	 Description = "Welcome message for logged in user."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_UserNameHeading_", 
 																	 Value = "Username", 
 																	 Description = "User name heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_UserNameMessage_", 
 																	 Value = "Enter a unique username", 
 																	 Description = "User name message for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_PasswordHeading_", 
 																	 Value = "Password", 
 																	 Description = "Password heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_RememberMeHeading_", 
 																	 Value = "Remember Me", 
 																	 Description = "Rememberme heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_DashboardGreeting_", 
 																	 Value = "Welcome to the Dashboard.", 
 																	 Description = "Heading for dashboard screen."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_DashboardSplash_", 
 																	 Value = "This view will house the dashboard, initially visible to all logged in users.", 
 																	 Description = "Content holder for dashboard screen."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_AddHeading_", 
 																	 Value = "Add", 
 																	 Description = "Add heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_SearchMessage_", 
 																	 Value = "Start typing to Search", 
 																	 Description = "Search message for re-use"
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_RefreshHeading_", 
 																	 Value = "Refresh", 
 																	 Description = "Refresh heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_EditHeading_", 
 																	 Value = "Edit", 
 																	 Description = "Edit heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_IdentityHeading_", 
 																	 Value = "Id", 
 																	 Description = "Identity heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_RoleHeading_", 
 																	 Value = "Role", 
 																	 Description = "Role heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_ActiveHeading_", 
 																	 Value = "Active", 
 																	 Description = "Active heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_AddUserHeading_", 
 																	 Value = "Add User", 
 																	 Description = "Add user heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_EditUserHeading_", 
 																	 Value = "Edit User", 
 																	 Description = "Edit user heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_SaveHeading_", 
 																	 Value = "Save", 
 																	 Description = "Save heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_UpdateHeading_", 
 																	 Value = "Update", 
 																	 Description = "Update heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_CancelHeading_", 
 																	 Value = "Cancel", 
 																	 Description = "Cancel heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_AllUsersHeading_", 
 																	 Value = "All Users", 
 																	 Description = "All users heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_ActiveUsersHeading_", 
 																	 Value = "Active Users", 
 																	 Description = "Active users heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_InactiveUsersHeading_", 
 																	 Value = "In-Active Users", 
 																	 Description = "In-Active users heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_LanguageHeading_", 
 																	 Value = "Language", 
 																	 Description = "Language heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_EnglishHeading_", 
 																	 Value = "English", 
 																	 Description = "English heading for re-use."
 				                         },
-																  new LocalizationItem()
+																  new LocalizationEntity()
 				                         {
 					                         Key = "_DutchHeading_", 
 																	 Value = "Dutch", 
@@ -694,9 +694,10 @@ namespace SingletonTheory.Services.AuthServices.Host
 
 		private void CreateTestingLanguageFiles()
 		{
-			_localizationRepository.InsertLocalizationDictionary(LocaleDefaultFile);
-			_localizationRepository.InsertLocalizationDictionary(LocaleUSFile);
-			_localizationRepository.InsertLocalizationDictionary(LocaleNLFile);
+			_localizationRepository.ClearCollection();
+			_localizationRepository.Add(LocaleDefaultFile);
+			_localizationRepository.Add(LocaleUSFile);
+			_localizationRepository.Add(LocaleNLFile);
 		}
 
 		private void ClearUsers()
