@@ -1,6 +1,6 @@
-﻿namespace SingletonTheory.Services.AuthServices.TransferObjects
+﻿namespace SingletonTheory.Services.AuthServices.Entities
 {
-	public class LocalizationItem
+	public class LocalizationEntity
 	{
 		public string Key { get; set; }
 		public string Value { get; set; }

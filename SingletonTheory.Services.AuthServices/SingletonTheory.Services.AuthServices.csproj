@@ -105,6 +105,9 @@
   <ItemGroup>
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Services\AuthAdminService.cs" />
+    <Compile Include="Entities\LocalizationCollectionEntity.cs" />
+    <Compile Include="Entities\LocalizationEntity.cs" />
+    <Compile Include="Repositories\LocalizationRepository.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Config\ConfigSettings.cs" />
     <Compile Include="Global.asax.cs">
@@ -116,6 +119,7 @@
     <Compile Include="Providers\AuthProvider.cs" />
     <Compile Include="Repositories\CustomMongoDBAuthRepository.cs" />
     <Compile Include="Repositories\CustomInMemoryAuthRepository.cs" />
+    <Compile Include="Services\LocalizationService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="TransferObjects\GroupLvl1.cs" />
     <Compile Include="TransferObjects\GroupLvl2.cs" />

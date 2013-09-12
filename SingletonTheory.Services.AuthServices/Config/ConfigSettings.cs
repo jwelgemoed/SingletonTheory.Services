@@ -20,6 +20,14 @@ namespace SingletonTheory.Services.AuthServices.Config
 			}
 		}
 
+		public static string MongoLocalizationDatabaseName
+		{
+			get
+			{
+				return GetValue("MongoLocalizationDatabaseName");
+			}
+		}
+
 		private static string GetValue(string key)
 		{
 			return ConfigurationManager.AppSettings[key];

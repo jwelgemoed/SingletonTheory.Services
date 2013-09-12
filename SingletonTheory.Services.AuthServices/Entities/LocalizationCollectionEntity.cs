@@ -1,23 +1,23 @@
 ﻿using MongoDB.Bson;
 using System.Collections.Generic;
 
-namespace SingletonTheory.Services.AuthServices.TransferObjects
+namespace SingletonTheory.Services.AuthServices.Entities
 {
-	public class LocalizationDictionaryResponse
+	public class LocalizationCollectionEntity
 	{
 		#region Fields & Properties
 
 		public ObjectId Id { get; set; }
 		public string Locale { get; set; }
-		public List<LocalizationItem> LocalizationItems { get; set; }
+		public List<LocalizationEntity> LocalizationItems { get; set; }
 
 		#endregion Fields & Properties
 
 		#region Constructors
 
-		public LocalizationDictionaryResponse()
+		public LocalizationCollectionEntity()
 		{
-			LocalizationItems = new List<LocalizationItem>();
+			LocalizationItems = new List<LocalizationEntity>();
 		}
 
 		#endregion Constructors

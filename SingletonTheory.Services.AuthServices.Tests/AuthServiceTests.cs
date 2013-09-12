@@ -347,22 +347,6 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			Assert.AreNotEqual(response.Roles.Count, 0);
 		}
 
-		//[Test]
-		//public void ShouldGetUsers()
-		//{
-		//	// Arrange
-		//	//	AuthResponse authResponse = HTTPClientHelpers.Login();
-		//	UserAuthRequest request = new UserAuthRequest();
-		//	AuthService service = new AuthService();
-
-
-		//	// Act
-		//	UserAuth response = _client.Get(request);
-
-		//	// Assert
-		//	Assert.AreNotEqual(response.Roles.Count, 0);
-		//}
-
 		#endregion Other Tests
 	}
 }

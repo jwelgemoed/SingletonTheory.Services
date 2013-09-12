@@ -1,6 +1,5 @@
 ﻿using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
-using SingletonTheory.Services.AuthServices.Host;
 using SingletonTheory.Services.AuthServices.TransferObjects;
 using System.Collections.Generic;
 
@@ -21,32 +20,6 @@ namespace SingletonTheory.Services.AuthServices.Services
 			return new UserAuth();
 		}
 
-		public LocalizationDictionaryResponse Get(LocalizationDictionaryRequest request)
-		{
-			var repository = AppHost.UserRepository;
-			return repository.GetLocalizationDictionary(request.Locale);
-		}
-
-		public LocalizationDictionaryResponse Post(LocalizationDictionaryRequest request)
-		{
-			return PutPostLocalizationDictionary(request);
-		}
-
-		public LocalizationDictionaryResponse Put(LocalizationDictionaryRequest request)
-		{
-			return PutPostLocalizationDictionary(request);
-		}
-
 		#endregion Public Methods
-
-		#region Private Methods
-
-		private LocalizationDictionaryResponse PutPostLocalizationDictionary(LocalizationDictionaryRequest request)
-		{
-			var repository = AppHost.UserRepository;
-			return repository.InsertLocalizationDictionary(request);
-		}
-
-		#endregion Private Methods
 	}
 }
