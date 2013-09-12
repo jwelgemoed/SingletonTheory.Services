@@ -103,6 +103,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Services\AuthAdminService.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Config\ConfigSettings.cs" />
     <Compile Include="Global.asax.cs">
@@ -115,9 +117,13 @@
     <Compile Include="Repositories\CustomMongoDBAuthRepository.cs" />
     <Compile Include="Repositories\CustomInMemoryAuthRepository.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="TransferObjects\GroupLvl1.cs" />
+    <Compile Include="TransferObjects\GroupLvl2.cs" />
     <Compile Include="TransferObjects\LocalizationDictionaryRequest.cs" />
     <Compile Include="TransferObjects\LocalizationDictionaryResponse.cs" />
     <Compile Include="TransferObjects\LocalizationItem.cs" />
+    <Compile Include="TransferObjects\Permission.cs" />
+    <Compile Include="TransferObjects\Role.cs" />
     <Compile Include="TransferObjects\UserRequest.cs" />
     <Compile Include="TransferObjects\CurrentUserRequest.cs" />
     <Compile Include="Validations\UserRequestValidator.cs" />
