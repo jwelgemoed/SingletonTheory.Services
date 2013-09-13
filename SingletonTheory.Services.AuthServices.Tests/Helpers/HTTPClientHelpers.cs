@@ -40,6 +40,13 @@ namespace SingletonTheory.Services.AuthServices.Tests.Helpers
 			return response;
 		}
 
+		public static AuthResponse Logout(JsonServiceClient client)
+		{
+			Auth request = new Auth { provider = "logout" };
+
+			return client.Send<AuthResponse>(request);
+		}
+
 		#endregion Helper Methods
 	}
 }

@@ -206,7 +206,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 			var language = "default";
 			try
 			{
-				var currentUser = authService.Get(new CurrentUserRequest());
+				var currentUser = authService.Get(new CurrentUserAuthRequest());
 				language = currentUser.Meta["Language"];
 			}
 			catch (Exception){}

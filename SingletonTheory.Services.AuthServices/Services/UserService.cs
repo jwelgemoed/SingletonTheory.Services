@@ -1,95 +1,107 @@
-﻿using ServiceStack.Common.Web;
+﻿using ServiceStack.Common;
 using ServiceStack.ServiceInterface;
-using ServiceStack.ServiceInterface.Auth;
-using SingletonTheory.Services.AuthServices.Host;
-using SingletonTheory.Services.AuthServices.Interfaces;
+using SingletonTheory.Services.AuthServices.Entities;
+using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.TransferObjects;
-using System;
 using System.Collections.Generic;
-using System.Globalization;
 
 namespace SingletonTheory.Services.AuthServices.Services
 {
 	public class UserService : Service
 	{
-		public List<UserAuth> Get(UserRequest request)
+		#region Public Methods
+
+		public List<User> Get(User request)
 		{
-			ICustomUserAuthRepository repository = AppHost.UserRepository;
-			List<UserAuth> response = new List<UserAuth>();
+			UserRepository repository = GetRepository();
+			List<User> response;
 
 			if (!string.IsNullOrEmpty(request.UserName))
 			{
 				// Get user with UserName
-				UserAuth userAuth = repository.GetUserAuthByUserName(request.UserName);
+				UserEntity userEntity = repository.Read(request.UserName);
 
-				response.Add(userAuth);
-			}
-			else if (request.Id != 0)
-			{
-				// Get user with Id
-				UserAuth userAuth = repository.GetUserAuth(request.Id.ToString(CultureInfo.InvariantCulture));
+				if (userEntity == null)
+					return null;
 
-				response.Add(userAuth);
+				response = TranslateToResponse(userEntity);
 			}
+			//else if (request.Id != 0)
+			//{
+			//	// Get user with Id
+			//	SSAuthInterfaces.UserAuth userAuth = repository.Read(request.Id);
+
+			//	response.Add(userAuth);
+			//}
 			else
 			{
 				// Get all users
-				response = repository.GetAllUserAuths();
+				List<UserEntity> userEntities = repository.Read();
+				response = TranslateToResponse(userEntities);
 			}
 
 			return response;
 		}
 
-		public UserAuth Put(UserRequest request)
+		public List<User> Put(User request)
 		{
-			ICustomUserAuthRepository repository = AppHost.UserRepository;
-			UserAuth userToUpdate = repository.GetUserAuth(request.Id.ToString(CultureInfo.InvariantCulture));
-			if (userToUpdate == null)
-				throw HttpError.NotFound("User not found in User Database.");
+			UserRepository repository = GetRepository();
+			UserEntity userEntity = TranslateToEntity(request);
 
-			Dictionary<string, string> meta = new Dictionary<string, string>();
+			userEntity = repository.Update(userEntity);
 
-			meta.Add("Active", request.Active.ToString());
-			meta.Add("Language", request.Language);
+			List<User> response = TranslateToResponse(userEntity);
 
-			userToUpdate.Meta = meta;
-			userToUpdate.Roles = new List<string> { request.Role };
-			repository.SaveUserAuth(userToUpdate);
-
-			return userToUpdate;
+			return response;
 		}
 
-		public UserAuth Post(UserRequest request)
+		public List<User> Post(User request)
 		{
-			string hash;
-			string salt;
-			new SaltedHash().GetHashAndSaltString(request.Password, out hash, out salt);
-			var meta = new Dictionary<string, string>();
+			UserRepository repository = GetRepository();
+			UserEntity entity = TranslateToEntity(request);
 
-			meta.Add("Active", request.Active.ToString());
-			meta.Add("Language", request.Language);
+			entity = repository.Create(entity);
 
-			var userAuth = new UserAuth
-			{
-				Id = 0,
-				UserName = request.UserName,
-				PasswordHash = hash,
-				Salt = salt,
-				Roles = new List<string> { request.Role },
-				Meta = meta
-			};
-
-			var repository = AppHost.UserRepository;
-			try
-			{
-				repository.CreateUserAuth(userAuth, request.Password);
-			}
-			catch (ArgumentException ex)
-			{
-				throw HttpError.Conflict(ex.Message);
-			}
-
-			return userAuth;
+			return TranslateToResponse(entity);
 		}
+
+		#endregion Public Methods
+
+		#region Private Methods
+
+		private UserRepository GetRepository()
+		{
+			UserRepository repository = base.GetResolver().TryResolve<UserRepository>();
+			return repository;
+		}
+
+		private List<User> TranslateToResponse(UserEntity entity)
+		{
+			User response = entity.TranslateTo<User>();
+
+			return new List<User>() { response };
+		}
+
+		private List<User> TranslateToResponse(List<UserEntity> entities)
+		{
+			List<User> users = new List<User>();
+			for (int i = 0; i < entities.Count; i++)
+			{
+				users.AddRange(TranslateToResponse(entities[i]));
+			}
+
+			return users;
+		}
+
+		private static UserEntity TranslateToEntity(User request)
+		{
+			UserEntity response = request.TranslateTo<UserEntity>();
+
+			response.PasswordHash = request.Password;
+
+			return response;
+		}
+
+		#endregion Private Methods
 	}
 }

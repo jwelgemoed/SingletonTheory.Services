@@ -18,34 +18,16 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 			if (request.LocalizationDictionary.Count == 0)
 			{
-				collection = repository.GetLocalizationDictionary(request.Locale);
+				collection = repository.Read(request.Locale);
 				collection.Locale += "1";
 			}
 			else
 			{
-				LocalizationCollectionEntity collection2 = repository.GetLocalizationDictionary(collection);
+				LocalizationCollectionEntity collection2 = repository.Read(collection);
 				collection2.Locale += request.LocalizationDictionary.Count.ToString();
 			}
 
 			return TranslateToResponse(collection);
-		}
-
-		private LocalizationDictionaryResponse TranslateToResponse(LocalizationCollectionEntity collection)
-		{
-			LocalizationDictionaryResponse response = collection.TranslateTo<LocalizationDictionaryResponse>();
-
-			collection.LocalizationItems.ForEach(x => response.LocalizationItems.Add(x.TranslateTo<LocalizationItem>()));
-
-			return response;
-		}
-
-		private static LocalizationCollectionEntity TranslateToEntity(LocalizationDictionaryRequest request)
-		{
-			LocalizationCollectionEntity response = request.TranslateTo<LocalizationCollectionEntity>();
-
-			request.LocalizationDictionary.ForEach(x => response.LocalizationItems.Add(x.TranslateTo<LocalizationEntity>()));
-
-			return response;
 		}
 
 		public LocalizationDictionaryResponse Post(LocalizationDictionaryRequest request)
@@ -67,7 +49,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 			LocalizationCollectionEntity collection = TranslateToEntity(request);
 			LocalizationRepository repository = GetRepository();
 
-			return TranslateToResponse(repository.Add(collection));
+			return TranslateToResponse(repository.Create(collection));
 		}
 
 		private LocalizationRepository GetRepository()
@@ -76,6 +58,24 @@ namespace SingletonTheory.Services.AuthServices.Services
 			if (repository == null)
 				throw new InvalidOperationException("Localization Repository not defined in IoC Container");
 			return repository;
+		}
+
+		private LocalizationDictionaryResponse TranslateToResponse(LocalizationCollectionEntity collection)
+		{
+			LocalizationDictionaryResponse response = collection.TranslateTo<LocalizationDictionaryResponse>();
+
+			collection.LocalizationItems.ForEach(x => response.LocalizationItems.Add(x.TranslateTo<LocalizationItem>()));
+
+			return response;
+		}
+
+		private static LocalizationCollectionEntity TranslateToEntity(LocalizationDictionaryRequest request)
+		{
+			LocalizationCollectionEntity response = request.TranslateTo<LocalizationCollectionEntity>();
+
+			request.LocalizationDictionary.ForEach(x => response.LocalizationItems.Add(x.TranslateTo<LocalizationEntity>()));
+
+			return response;
 		}
 
 		#endregion Private Methods

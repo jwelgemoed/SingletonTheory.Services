@@ -13,9 +13,14 @@ namespace SingletonTheory.Services.AuthServices.Tests.Helpers
 		public const string MongoTestUsername = "STTestUser";
 		public const string MongoTestUserPassword = "STTestUserPass";
 
-		public static MongoDatabase GetMongoDatabase()
+		public static MongoDatabase GetLocalizationDatabase()
 		{
 			return MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, ConfigSettings.MongoLocalizationDatabaseName);
+		}
+
+		public static MongoDatabase GetUserDatabase()
+		{
+			return MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, ConfigSettings.MongoUserDatabaseName);
 		}
 
 		public static void DeleteAllTestUserEntries()

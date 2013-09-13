@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using MongoDB.Bson;
+using NUnit.Framework;
 using ServiceStack.ServiceClient.Web;
 using ServiceStack.ServiceInterface.Auth;
 using SingletonTheory.Services.AuthServices.Tests.Helpers;
@@ -15,7 +16,7 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		#region Fields & Properties
 
 		private JsonServiceClient _client;
-		private int _userId;
+		private ObjectId _userId;
 		private string _currentRole = "Admin";
 		private bool _currentActivitySetting = true;
 
@@ -29,8 +30,10 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			MongoHelpers.DeleteAllTestUserEntries();
 			_client = HTTPClientHelpers.GetClient(HTTPClientHelpers.RootUrl, HTTPClientHelpers.UserName, HTTPClientHelpers.Password);
 			AuthResponse authResponse = HTTPClientHelpers.Login();
-			UserRequest request = new UserRequest { UserName = MongoHelpers.MongoTestUsername, Password = MongoHelpers.MongoTestUserPassword, Role = _currentRole, Active = _currentActivitySetting };
-			List<UserAuth> response = _client.Post(request);
+			User request = new User { UserName = MongoHelpers.MongoTestUsername, Password = MongoHelpers.MongoTestUserPassword };
+			request.Meta.Add("Active", _currentActivitySetting.ToString());
+			request.Roles.Add(_currentRole);
+			List<User> response = _client.Post(request);
 			_userId = response[0].Id;
 		}
 
@@ -50,7 +53,7 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		public void ShouldAddUser()
 		{
 			// Arrange
-			var request = new UserRequest { Id = _userId };
+			var request = new User { Id = _userId };
 
 			// Act
 			var response = _client.Get(request);
@@ -67,8 +70,9 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		{
 			//Arrange
 			Exception webException = null;
-			var request = new UserRequest { UserName = MongoHelpers.MongoTestUsername, Password = MongoHelpers.MongoTestUserPassword, Role = _currentRole, Active = _currentActivitySetting };
-
+			var request = new User { UserName = MongoHelpers.MongoTestUsername, Password = MongoHelpers.MongoTestUserPassword };
+			request.Roles.Add(_currentRole);
+			request.Meta.Add("Active", _currentActivitySetting.ToString());
 			//Act
 			try
 			{
@@ -91,8 +95,14 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			//Arrange
 			WebServiceException webExceptionForEmptyUserName = null;
 			WebServiceException webExceptionForNullUserName = null;
-			var requestWithEmptyUserName = new UserRequest { UserName = "", Password = MongoHelpers.MongoTestUserPassword, Role = _currentRole, Active = _currentActivitySetting };
-			var requestWithNullUserName = new UserRequest { UserName = null, Password = MongoHelpers.MongoTestUserPassword, Role = _currentRole, Active = _currentActivitySetting };
+
+			var requestWithEmptyUserName = new User { UserName = "", Password = MongoHelpers.MongoTestUserPassword };
+			requestWithEmptyUserName.Roles.Add(_currentRole);
+			requestWithEmptyUserName.Meta.Add("Active", _currentActivitySetting.ToString());
+
+			var requestWithNullUserName = new User { UserName = null, Password = MongoHelpers.MongoTestUserPassword };
+			requestWithNullUserName.Roles.Add(_currentRole);
+			requestWithNullUserName.Meta.Add("Active", _currentActivitySetting.ToString());
 
 			//Act
 			try
@@ -129,8 +139,17 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			//Arrange
 			WebServiceException webExceptionForEmptyPassword = null;
 			WebServiceException webExceptionForNullPassword = null;
-			var requestWithEmptyPassword = new UserRequest { UserName = MongoHelpers.MongoTestUsername, Password = "", Role = _currentRole, Active = _currentActivitySetting };
-			var requestWithNullPassword = new UserRequest { UserName = MongoHelpers.MongoTestUsername, Password = null, Role = _currentRole, Active = _currentActivitySetting };
+
+			var requestWithEmptyPassword = new User { UserName = null, Password = "" };
+			requestWithEmptyPassword.Roles.Add(_currentRole);
+			requestWithEmptyPassword.Meta.Add("Active", _currentActivitySetting.ToString());
+
+			var requestWithNullPassword = new User { UserName = null, Password = null };
+			requestWithNullPassword.Roles.Add(_currentRole);
+			requestWithNullPassword.Meta.Add("Active", _currentActivitySetting.ToString());
+
+			//var requestWithEmptyPassword = new UserRequest { UserName = MongoHelpers.MongoTestUsername, Password = "", Role = _currentRole, Active = _currentActivitySetting };
+			//var requestWithNullPassword = new UserRequest { UserName = MongoHelpers.MongoTestUsername, Password = null, Role = _currentRole, Active = _currentActivitySetting };
 
 			//Act
 			try
@@ -167,8 +186,14 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			//Arrange
 			WebServiceException webExceptionForEmptyRole = null;
 			WebServiceException webExceptionForNullRole = null;
-			var requestWithEmptyRole = new UserRequest { UserName = MongoHelpers.MongoTestUsername, Password = MongoHelpers.MongoTestUserPassword, Role = "", Active = _currentActivitySetting };
-			var requestWithNullRole = new UserRequest { UserName = MongoHelpers.MongoTestUsername, Password = MongoHelpers.MongoTestUserPassword, Role = null, Active = _currentActivitySetting };
+
+			var requestWithEmptyRole = new User { UserName = MongoHelpers.MongoTestUsername, Password = MongoHelpers.MongoTestUserPassword };
+			requestWithEmptyRole.Roles.Add("");
+			requestWithEmptyRole.Meta.Add("Active", _currentActivitySetting.ToString());
+
+			var requestWithNullRole = new User { UserName = MongoHelpers.MongoTestUsername, Password = MongoHelpers.MongoTestUserPassword };
+			requestWithNullRole.Roles.Add(null);
+			requestWithNullRole.Meta.Add("Active", _currentActivitySetting.ToString());
 
 			//Act
 			try
@@ -207,11 +232,13 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		public void ShouldUpdateUser()
 		{
 			// Arrange
-			var request = new UserRequest() { Id = _userId };
+			var request = new User() { Id = _userId };
 
 			// Act
-			_currentRole = request.Role = "user";
-			_currentActivitySetting = request.Active = false;
+			_currentRole = "user";
+			request.Roles.Add(_currentRole);
+			_currentActivitySetting = false;
+			request.Meta.Add("Active", _currentActivitySetting.ToString());
 			var response = _client.Put(request);
 
 			//Assert
@@ -225,11 +252,13 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		{
 			// Arrange
 			Exception webException = null;
-			var request = new UserRequest() { Id = 999999999 };
+			var request = new User() { Id = new ObjectId() };
 
 			// Act
-			_currentRole = request.Role = "user";
-			_currentActivitySetting = request.Active = false;
+			_currentRole = "user";
+			request.Roles.Add(_currentRole);
+			_currentActivitySetting = false;
+			request.Meta.Add("Active", _currentActivitySetting.ToString());
 			try
 			{
 				var response = _client.Put(request);
@@ -250,11 +279,11 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		{
 			//Arrange
 			WebServiceException webException = null;
-			var request = new UserRequest { Id = 0 };
+			var request = new User { Id = ObjectId.Empty };
 
 			//Act
-			request.Role = "user";
-			request.Active = false;
+			request.Roles.Add("user");
+			request.Meta.Add("Active", false.ToString());
 			try
 			{
 				var response = _client.Put(request);
@@ -278,12 +307,12 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			//Arrange
 			WebServiceException webExceptionForEmptyRole = null;
 			WebServiceException webExceptionForNullRole = null;
-			var requestForEmptyRole = new UserRequest { Id = _userId };
-			var requestForNullRole = new UserRequest { Id = _userId };
+			var requestForEmptyRole = new User { Id = _userId };
+			var requestForNullRole = new User { Id = _userId };
 
 			//Act
-			requestForEmptyRole.Role = "";
-			requestForEmptyRole.Active = false;
+			requestForEmptyRole.Roles.Add("");
+			requestForEmptyRole.Meta.Add("Active", "false");
 			try
 			{
 				var response = _client.Put(requestForEmptyRole);
@@ -292,8 +321,8 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			{
 				webExceptionForEmptyRole = ex;
 			}
-			requestForNullRole.Role = null;
-			requestForNullRole.Active = false;
+			requestForNullRole.Roles = null;
+			requestForNullRole.Meta.Add("Active", "false");
 			try
 			{
 				var response = _client.Put(requestForNullRole);
@@ -319,25 +348,11 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		#region Other Tests
 
 		[Test]
-		public void ShouldGetAllUsers()
-		{
-			// Arrange
-			UserRequest request = new UserRequest();
-			AuthService service = new AuthService();
-
-			// Act
-			List<UserAuth> response = _client.Get(request);
-
-			// Assert
-			Assert.AreNotEqual(response.Count, 0);
-		}
-
-		[Test]
 		public void ShouldGetUserRoles()
 		{
 			// Arrange
 			//AuthResponse authResponse = HTTPClientHelpers.Login();
-			CurrentUserRequest request = new CurrentUserRequest { };
+			CurrentUserAuthRequest request = new CurrentUserAuthRequest { };
 			AuthService service = new AuthService();
 
 			// Act
