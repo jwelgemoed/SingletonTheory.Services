@@ -25,6 +25,26 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			return cursor.ToList();
 		}
 
+		public static List<T> GetItemByMongoQuery<T>(string dataBaseName, string collectionName, IMongoQuery query)
+		{
+			_mongoDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, dataBaseName);
+			var collection = _mongoDatabase.GetCollection<T>(collectionName);
+			
+			MongoCursor<T> cursor = collection.Find(query);
+
+			return cursor.ToList();
+		}
+
+		public static List<T> GetItemById<T>(string dataBaseName, string collectionName, int id)
+		{
+			_mongoDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, dataBaseName);
+			var collection = _mongoDatabase.GetCollection<T>(collectionName);
+
+			MongoCursor<T> cursor = collection.Find(Query.EQ("Id", id));
+
+			return cursor.ToList();
+		}
+
 		public static T Add<T>(string dataBaseName, string collectionName, T obj)
 		{
 			_mongoDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, dataBaseName);
@@ -39,8 +59,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			_mongoDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, dataBaseName);
 			var collection = _mongoDatabase.GetCollection<T>(collectionName);
 
-			var query = Query.EQ("Id", id); 
-			collection.Remove(query);
+			collection.Remove(Query.EQ("Id", id));
 			return true;
 		}
 
@@ -52,7 +71,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			MongoCursor<T> cursor = collection.FindAllAs<T>();
 			foreach (var col in cursor)
 			{
-				id = Math.Max(id, (int) col.GetId());
+				id = Math.Max(id, (int)col.GetId());
 			}
 
 			return id;

@@ -26,12 +26,21 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		public List<Role> Get(Role role)
 		{
-			return GenericRepository.GetList<Role>(AuthAdminDatabase, RolesCollection);
+			List<Role> responsList = new List<Role>();
+			if (role.Id != 0)
+			{
+				responsList = GenericRepository.GetItemById<Role>(AuthAdminDatabase, RolesCollection, role.Id);
+			}
+			else
+			{
+				responsList = GenericRepository.GetList<Role>(AuthAdminDatabase, RolesCollection);
+			}
+			return responsList;
 		}
 
 		public Role Post(Role role)
 		{
-			if (role.Id == -1)
+			if (role.Id == 0)
 				role.Id = GenericRepository.GetMaxId<Role>(AuthAdminDatabase, RolesCollection);
 
 			role = GenericRepository.Add(AuthAdminDatabase, RolesCollection, role);
@@ -57,7 +66,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		public GroupLvl2 Post(GroupLvl2 groupLvl2)
 		{
-			if (groupLvl2.Id == -1)
+			if (groupLvl2.Id == 0)
 				groupLvl2.Id = GenericRepository.GetMaxId<GroupLvl2>(AuthAdminDatabase, GroupsLvl2Collection);
 
 			groupLvl2 = GenericRepository.Add(AuthAdminDatabase, GroupsLvl2Collection, groupLvl2);
@@ -83,7 +92,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		public GroupLvl1 Post(GroupLvl1 groupLvl1)
 		{
-			if (groupLvl1.Id == -1)
+			if (groupLvl1.Id == 0)
 				groupLvl1.Id = GenericRepository.GetMaxId<GroupLvl1>(AuthAdminDatabase, GroupsLvl1Collection);
 
 			groupLvl1 = GenericRepository.Add(AuthAdminDatabase, GroupsLvl1Collection, groupLvl1);
@@ -109,7 +118,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		public Permission Post(Permission permission)
 		{
-			if (permission.Id == -1)
+			if (permission.Id == 0)
 				permission.Id = GenericRepository.GetMaxId<Permission>(AuthAdminDatabase, PermissionsCollection);
 
 			permission = GenericRepository.Add(AuthAdminDatabase, PermissionsCollection, permission);
