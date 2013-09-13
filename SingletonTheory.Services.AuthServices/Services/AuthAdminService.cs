@@ -61,7 +61,16 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		public List<GroupLvl2> Get(GroupLvl2 groupLvl2)
 		{
-			return GenericRepository.GetList<GroupLvl2>(AuthAdminDatabase, GroupsLvl2Collection);
+			var responseList = new List<GroupLvl2>();
+			if (groupLvl2.Id != 0)
+			{
+				responseList = GenericRepository.GetItemById<GroupLvl2>(AuthAdminDatabase, GroupsLvl2Collection, groupLvl2.Id);
+			}
+			else
+			{
+				responseList = GenericRepository.GetList<GroupLvl2>(AuthAdminDatabase, GroupsLvl2Collection);
+			}
+			return responseList;
 		}
 
 		public GroupLvl2 Post(GroupLvl2 groupLvl2)
@@ -87,7 +96,16 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		public List<GroupLvl1> Get(GroupLvl1 groupLvl1)
 		{
-			return GenericRepository.GetList<GroupLvl1>(AuthAdminDatabase, GroupsLvl1Collection);
+			var responseList = new List<GroupLvl1>();
+			if (groupLvl1.Id != 0)
+			{
+				responseList = GenericRepository.GetItemById<GroupLvl1>(AuthAdminDatabase, GroupsLvl1Collection, groupLvl1.Id);
+			}
+			else
+			{
+				responseList = GenericRepository.GetList<GroupLvl1>(AuthAdminDatabase, GroupsLvl1Collection);
+			}
+			return responseList;
 		}
 
 		public GroupLvl1 Post(GroupLvl1 groupLvl1)
@@ -113,7 +131,16 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		public List<Permission> Get(Permission permission)
 		{
-			return GenericRepository.GetList<Permission>(AuthAdminDatabase, PermissionsCollection);
+			var responseList = new List<Permission>();
+			if (permission.Id != 0)
+			{
+				responseList = GenericRepository.GetItemById<Permission>(AuthAdminDatabase, PermissionsCollection, permission.Id);
+			}
+			else
+			{
+				responseList = GenericRepository.GetList<Permission>(AuthAdminDatabase, PermissionsCollection);
+			}
+			return responseList;
 		}
 
 		public Permission Post(Permission permission)
