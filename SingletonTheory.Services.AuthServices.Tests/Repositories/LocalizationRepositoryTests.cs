@@ -9,16 +9,16 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories
 	public class LocalizationRepositoryTests
 	{
 		[Test]
-		public void ShouldGetLocalizationCollectionForSpecificItems()
+		public void ShouldGetLocalizationCollectionForSpecificItem()
 		{
 			// Arrange
-			LocalizationRepository repository = new LocalizationRepository(MongoHelpers.GetMongoDatabase());
+			LocalizationRepository repository = new LocalizationRepository(MongoHelpers.GetLocalizationDatabase());
 			LocalizationCollectionEntity request = new LocalizationCollectionEntity();
 			request.LocalizationItems.Add(new LocalizationEntity() { Key = "_MainTitle_" });
 			request.Locale = "nl-nl";
 
 			// Act
-			LocalizationCollectionEntity response = repository.GetLocalizationDictionary(request);
+			LocalizationCollectionEntity response = repository.Read(request);
 
 			// Assert
 			Assert.IsNotNull(response);
@@ -30,12 +30,12 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories
 		public void ShouldGetLocalizationCollectionForAllItems()
 		{
 			// Arrange
-			LocalizationRepository repository = new LocalizationRepository(MongoHelpers.GetMongoDatabase());
+			LocalizationRepository repository = new LocalizationRepository(MongoHelpers.GetLocalizationDatabase());
 			LocalizationCollectionEntity request = new LocalizationCollectionEntity();
 			request.Locale = "nl-nl";
 
 			// Act
-			LocalizationCollectionEntity response = repository.GetLocalizationDictionary(request.Locale);
+			LocalizationCollectionEntity response = repository.Read(request.Locale);
 
 			// Assert
 			Assert.IsNotNull(response);

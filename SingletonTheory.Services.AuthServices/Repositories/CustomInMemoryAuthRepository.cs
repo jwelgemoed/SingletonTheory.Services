@@ -1,12 +1,11 @@
 ﻿using ServiceStack.ServiceInterface.Auth;
-using SingletonTheory.Services.AuthServices.Interfaces;
 using SingletonTheory.Services.AuthServices.TransferObjects;
 using System;
 using System.Collections.Generic;
 
 namespace SingletonTheory.Services.AuthServices.Repositories
 {
-	public class CustomInMemoryAuthRepository : InMemoryAuthRepository, ICustomUserAuthRepository
+	public class CustomInMemoryAuthRepository : InMemoryAuthRepository
 	{
 		public override void LoadUserAuth(IAuthSession session, IOAuthTokens tokens)
 		{

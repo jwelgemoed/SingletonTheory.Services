@@ -4,7 +4,7 @@ using ServiceStack.ServiceInterface.Auth;
 using SingletonTheory.Services.AuthServices.Tests.Helpers;
 using System.Net;
 
-namespace SingletonTheory.Services.AuthServices.Tests
+namespace SingletonTheory.Services.AuthServices.Tests.Services
 {
 	[TestFixture]
 	public class AuthenticationTests
@@ -26,7 +26,7 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		[TearDownAttribute]
 		public void TearDown()
 		{
-			Logout();
+			HTTPClientHelpers.Logout(_client);
 
 			_client.Dispose();
 			_client = null;
@@ -86,16 +86,9 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		[Test]
 		public void ShouldLogoutUser()
 		{
-			AuthResponse response = Logout();
+			AuthResponse response = HTTPClientHelpers.Logout(_client);
 
 			Assert.That(response.UserName, Is.EqualTo(null));
-		}
-
-		private AuthResponse Logout()
-		{
-			Auth request = new Auth { provider = "logout" };
-
-			return _client.Send<AuthResponse>(request);
 		}
 
 		#endregion Test Methods

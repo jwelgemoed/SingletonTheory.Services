@@ -74,14 +74,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthenticationTests.cs" />
+    <Compile Include="Services\AuthenticationTests.cs" />
     <Compile Include="AuthorisationTests.cs" />
     <Compile Include="AuthServiceTests.cs" />
+    <Compile Include="Data\UserData.cs" />
     <Compile Include="Helpers\HTTPClientHelpers.cs" />
     <Compile Include="Helpers\MongoHelpers.cs" />
     <Compile Include="LocalizationServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\LocalizationRepositoryTests.cs" />
+    <Compile Include="Repositories\UserRepositoryTests.cs" />
+    <Compile Include="Services\UserServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

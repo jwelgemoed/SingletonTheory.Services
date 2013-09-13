@@ -1,4 +1,5 @@
-﻿using ServiceStack.ServiceInterface;
+﻿using ServiceStack.Common;
+using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 using SingletonTheory.Services.AuthServices.TransferObjects;
 using System.Collections.Generic;
@@ -9,17 +10,24 @@ namespace SingletonTheory.Services.AuthServices.Services
 	{
 		#region Public Methods
 
-		public UserAuth Get(CurrentUserRequest request)
+		public UserAuth Get(CurrentUserAuthRequest request)
 		{
 			IAuthSession session = this.GetSession();
-			UserService userService = new UserService();
-			List<UserAuth> response = userService.Get(new UserRequest() { UserName = session.UserName });
-			if (response.Count != 0)
-				return response[0];
+			IUserAuthRepository repository = GetRepository();
 
-			return new UserAuth();
+			return repository.GetUserAuthByUserName(session.UserName);
 		}
 
 		#endregion Public Methods
+
+		#region Private Methods
+
+		private IUserAuthRepository GetRepository()
+		{
+			IUserAuthRepository repository = base.GetResolver().TryResolve<IUserAuthRepository>();
+			return repository;
+		}
+
+		#endregion Private Methods
 	}
 }

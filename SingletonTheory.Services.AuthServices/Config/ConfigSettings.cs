@@ -20,6 +20,14 @@ namespace SingletonTheory.Services.AuthServices.Config
 			}
 		}
 
+		public static string MongoUserAuthDatabaseName
+		{
+			get
+			{
+				return GetValue("MongoUserAuthDatabaseName");
+			}
+		}
+
 		public static string MongoLocalizationDatabaseName
 		{
 			get

@@ -31,11 +31,11 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 
 		#region Public Methods
 
-		public LocalizationCollectionEntity GetLocalizationDictionary(LocalizationCollectionEntity collection)
+		public LocalizationCollectionEntity Read(LocalizationCollectionEntity collection)
 		{
 			try
 			{
-				LocalizationCollectionEntity fullCollection = GetLocalizationDictionary(collection.Locale);
+				LocalizationCollectionEntity fullCollection = Read(collection.Locale);
 
 				if (fullCollection != null)
 				{
@@ -61,7 +61,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			}
 		}
 
-		public LocalizationCollectionEntity GetLocalizationDictionary(string locale)
+		public LocalizationCollectionEntity Read(string locale)
 		{
 			try
 			{
@@ -82,7 +82,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			}
 		}
 
-		public LocalizationCollectionEntity Add(LocalizationCollectionEntity record)
+		public LocalizationCollectionEntity Create(LocalizationCollectionEntity record)
 		{
 			try
 			{
