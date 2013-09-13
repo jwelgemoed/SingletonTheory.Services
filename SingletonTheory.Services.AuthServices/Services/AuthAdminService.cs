@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+using ServiceStack.ServiceClient.Web;
 using ServiceStack.ServiceInterface;
+using SingletonTheory.Services.AuthServices.Config;
+using SingletonTheory.Services.AuthServices.Interfaces;
 using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.TransferObjects;
 
@@ -21,6 +24,25 @@ namespace SingletonTheory.Services.AuthServices.Services
 		private const string PermissionsCollection = "Permissions";
 
 		#endregion Constants
+
+		#region Fields
+
+		private JsonServiceClient _client;
+
+		#endregion Fields
+
+		#region Constructor
+
+		public AuthAdminService()
+		{
+			_client = new JsonServiceClient(ConfigSettings.ServiceRootUrl)
+			{
+				UserName = ConfigSettings.ServiceUserName,
+				Password = ConfigSettings.ServicePassword
+			};
+		}
+
+		#endregion Constructor
 
 		#region Role
 
@@ -105,6 +127,9 @@ namespace SingletonTheory.Services.AuthServices.Services
 			{
 				responseList = GenericRepository.GetList<GroupLvl1>(AuthAdminDatabase, GroupsLvl1Collection);
 			}
+
+			ApplyLanguagingToLabels(new List<INameLabel>(responseList));
+
 			return responseList;
 		}
 
@@ -140,6 +165,9 @@ namespace SingletonTheory.Services.AuthServices.Services
 			{
 				responseList = GenericRepository.GetList<Permission>(AuthAdminDatabase, PermissionsCollection);
 			}
+
+			ApplyLanguagingToLabels(new List<INameLabel>(responseList));
+
 			return responseList;
 		}
 
@@ -168,5 +196,44 @@ namespace SingletonTheory.Services.AuthServices.Services
 		}
 
 		#endregion Permission
+
+		#region Private Methods
+
+		private void ApplyLanguagingToLabels(List<INameLabel> responseList)
+		{
+			//Add l18n here
+			AuthService authService = new AuthService();
+			var language = "default";
+			try
+			{
+				var currentUser = authService.Get(new CurrentUserRequest());
+				language = currentUser.Meta["Language"];
+			}
+			catch (Exception){}
+
+			LocalizationDictionaryRequest request = new LocalizationDictionaryRequest();
+			request.Locale = language;
+			LocalizationDictionaryResponse localizationList = _client.Get<LocalizationDictionaryResponse>(request);
+
+			foreach (var obj in responseList)
+			{
+				obj.Label = GetLabelFromLocalizationList(localizationList, "_" + obj.Name + "_");
+			}
+		}
+
+		private string GetLabelFromLocalizationList(LocalizationDictionaryResponse localizationList, string name)
+		{
+			foreach (var obj in localizationList.LocalizationItems)
+			{
+				if (obj.Key.Equals(name))
+				{
+					return obj.Value;
+				}
+			}
+			return name;
+		}
+
+		#endregion Private Methods
+
 	}
 }

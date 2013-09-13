@@ -28,6 +28,30 @@ namespace SingletonTheory.Services.AuthServices.Config
 			}
 		}
 
+		public static string ServiceRootUrl
+		{
+			get
+			{
+				return GetValue("ServiceRootUrl");
+			}
+		}
+
+		public static string ServiceUserName
+		{
+			get
+			{
+				return GetValue("ServiceUserName");
+			}
+		}
+
+		public static string ServicePassword
+		{
+			get
+			{
+				return GetValue("ServicePassword");
+			}
+		}
+
 		private static string GetValue(string key)
 		{
 			return ConfigurationManager.AppSettings[key];

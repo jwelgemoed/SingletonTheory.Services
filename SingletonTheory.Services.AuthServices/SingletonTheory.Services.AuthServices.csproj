@@ -103,6 +103,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\INameLabel.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Services\AuthAdminService.cs" />
     <Compile Include="Entities\LocalizationCollectionEntity.cs" />
