@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using MongoDB.Bson;
+using NUnit.Framework;
 using ServiceStack.ServiceClient.Web;
 using ServiceStack.ServiceInterface.Auth;
 using SingletonTheory.Services.AuthServices.Services;
@@ -6,7 +7,6 @@ using SingletonTheory.Services.AuthServices.Tests.Helpers;
 using SingletonTheory.Services.AuthServices.TransferObjects;
 using System;
 using System.Collections.Generic;
-using System.Net;
 
 namespace SingletonTheory.Services.AuthServices.Tests
 {
@@ -16,7 +16,7 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		#region Fields & Properties
 
 		private JsonServiceClient _client;
-		private int _userId;
+		private ObjectId _userId;
 		private string _currentRole = "Admin";
 		private bool _currentActivitySetting = true;
 
@@ -32,8 +32,10 @@ namespace SingletonTheory.Services.AuthServices.Tests
 				MongoHelpers.DeleteAllTestUserEntries();
 				_client = HTTPClientHelpers.GetClient(HTTPClientHelpers.RootUrl, HTTPClientHelpers.UserName, HTTPClientHelpers.Password);
 				AuthResponse authResponse = HTTPClientHelpers.Login();
-				UserRequest request = new UserRequest { UserName = MongoHelpers.MongoTestUsername, Password = MongoHelpers.MongoTestUserPassword, Role = _currentRole, Active = _currentActivitySetting };
-				List<UserAuth> response = _client.Post(request);
+				User request = new User { UserName = MongoHelpers.MongoTestUsername, Password = MongoHelpers.MongoTestUserPassword };
+				request.Roles.Add(_currentRole);
+				request.Meta.Add("Active", _currentActivitySetting.ToString());
+				List<User> response = _client.Post(request);
 				_userId = response[0].Id;
 			}
 			catch (Exception ex)
@@ -193,7 +195,7 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			// Arrange
 			var admin = new Role { Id = 0, Name = "Admin" };
 			var user = new Role { Id = 1, Name = "User" };
-			
+
 			// Act
 			var adminR = _client.Post(admin);
 			var userR = _client.Post(user);

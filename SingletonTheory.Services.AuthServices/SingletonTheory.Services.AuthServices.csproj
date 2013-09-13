@@ -103,8 +103,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\LocalizationData.cs" />
+    <Compile Include="Data\UserData.cs" />
+    <Compile Include="Entities\UserEntity.cs" />
     <Compile Include="Interfaces\INameLabel.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\MongoDBAuthRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Services\AuthAdminService.cs" />
     <Compile Include="Entities\LocalizationCollectionEntity.cs" />
     <Compile Include="Entities\LocalizationEntity.cs" />
@@ -115,13 +120,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Host\AppHost.cs" />
-    <Compile Include="Interfaces\ICustomUserAuthRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AuthProvider.cs" />
-    <Compile Include="Repositories\CustomMongoDBAuthRepository.cs" />
     <Compile Include="Repositories\CustomInMemoryAuthRepository.cs" />
     <Compile Include="Services\LocalizationService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="TransferObjects\CurrentUserAuthRequest.cs" />
     <Compile Include="TransferObjects\GroupLvl1.cs" />
     <Compile Include="TransferObjects\GroupLvl2.cs" />
     <Compile Include="TransferObjects\LocalizationDictionaryRequest.cs" />
@@ -129,8 +133,7 @@
     <Compile Include="TransferObjects\LocalizationItem.cs" />
     <Compile Include="TransferObjects\Permission.cs" />
     <Compile Include="TransferObjects\Role.cs" />
-    <Compile Include="TransferObjects\UserRequest.cs" />
-    <Compile Include="TransferObjects\CurrentUserRequest.cs" />
+    <Compile Include="TransferObjects\User.cs" />
     <Compile Include="Validations\UserRequestValidator.cs" />
   </ItemGroup>
   <ItemGroup>
