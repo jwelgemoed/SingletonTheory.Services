@@ -218,7 +218,13 @@ namespace SingletonTheory.Services.AuthServices.Host
 					                         Key = "_DutchHeading_", 
 																	 Value = "Dutch", 
 																	 Description = "Dutch heading for re-use."
-				                         }
+				                         },
+																 new LocalizationEntity()
+																 {
+																	 Key = "_AuthAdminHeading_", 
+																	 Value = "Authorization Administration", 
+																	 Description = "Authadmin heading for re-use."
+																 }
 #endregion items
 			                         }
 		};
@@ -408,12 +414,12 @@ namespace SingletonTheory.Services.AuthServices.Host
 																	 Value = "Engels", 
 																	 Description = "Engels hoofd voor hergebruik."
 				                         },
-																  new LocalizationEntity()
-				                         {
-					                         Key = "_DutchHeading_", 
-																	 Value = "Nederlands", 
-																	 Description = "Nederlands hoofd voor hergebruik."
-				                         }
+																 new LocalizationEntity()
+																 {
+																	 Key = "_AuthAdminHeading_", 
+																	 Value = "Autorisatie Administratie", 
+																	 Description = "Autorisatie Administratie hoofd voor hergebruik."
+																 }
 #endregion
 			                         }
 		};
@@ -608,7 +614,13 @@ namespace SingletonTheory.Services.AuthServices.Host
 					                         Key = "_DutchHeading_", 
 																	 Value = "Dutch", 
 																	 Description = "Dutch heading for re-use."
-				                         }
+				                         },
+																 new LocalizationEntity()
+																 {
+																	 Key = "_AuthAdminHeading_", 
+																	 Value = "Authorization Administration", 
+																	 Description = "Authadmin heading for re-use."
+																 }
 #endregion
 			                         }
 		};
