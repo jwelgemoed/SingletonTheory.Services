@@ -154,8 +154,8 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		public void ShouldAddGroupLvl2()
 		{
 			// Arrange
-			var obj1 = new GroupLvl2 { Id = 0, Name = "UserAdmin" };
-			var obj2 = new GroupLvl2 { Id = 1, Name = "AuthAdmin" };
+			var obj1 = new GroupLvl2 { Id = 0, Name = "UserAdminGrp2", Description = "Groupies for life"};
+			var obj2 = new GroupLvl2 { Id = 1, Name = "AuthAdminGrp2", Description = "Groupei 2 for live" };
 
 			// Act
 			var obj1R = _client.Post(obj1);
@@ -191,8 +191,8 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		public void ShouldAddRole()
 		{
 			// Arrange
-			var admin = new Role { Id = 0, Name = "Admin" };
-			var user = new Role { Id = 1, Name = "User" };
+			var admin = new Role { Id = 0, Name = "Admin", Description = "Just a wuser" };
+			var user = new Role { Id = 1, Name = "User", Description = "Admin can do just about anything" };
 			
 			// Act
 			var adminR = _client.Post(admin);
