@@ -63,7 +63,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			return true;
 		}
 
-		public static int GetMaxId<T>(string dataBaseName, string collectionName)
+		public static int GetMaxIdIncrement<T>(string dataBaseName, string collectionName)
 		{
 			_mongoDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, dataBaseName);
 			var collection = _mongoDatabase.GetCollection<T>(collectionName);
@@ -74,7 +74,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 				id = Math.Max(id, (int)col.GetId());
 			}
 
-			return id;
+			return id + 1;
 		}
 
 	}
