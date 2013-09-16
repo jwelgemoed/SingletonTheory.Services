@@ -174,7 +174,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 		public Permission Post(Permission permission)
 		{
 			if (permission.Id == 0)
-				permission.Id = GenericRepository.GetMaxId<Permission>(AuthAdminDatabase, PermissionsCollection);
+				permission.Id = GenericRepository.GetMaxId<Permission>(AuthAdminDatabase, PermissionsCollection) +1;
 
 			permission = GenericRepository.Add(AuthAdminDatabase, PermissionsCollection, permission);
 
