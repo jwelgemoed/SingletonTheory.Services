@@ -271,6 +271,8 @@ namespace SingletonTheory.Services.AuthServices.Services
 				for (int i = 0; i < role.GroupLvl2Ids.Length; i++)
 				{
 					var obj = GenericRepository.GetItemTopById<GroupLvl2>(AuthAdminDatabase, GroupsLvl2Collection, role.GroupLvl2Ids[i]);
+					if (obj == null)
+						continue;
 					request.Assigned.Add(obj);
 					assigned[i] = obj.Id;
 				}
@@ -299,6 +301,8 @@ namespace SingletonTheory.Services.AuthServices.Services
 				for (int i = 0; i < groupLvl2.GroupLvl1Ids.Length; i++)
 				{
 					var obj = GenericRepository.GetItemTopById<GroupLvl1>(AuthAdminDatabase, GroupsLvl1Collection, groupLvl2.GroupLvl1Ids[i]);
+					if (obj == null)
+						continue;
 					request.Assigned.Add(obj);
 					assigned[i] = obj.Id;
 				}
@@ -327,6 +331,8 @@ namespace SingletonTheory.Services.AuthServices.Services
 				for (int i = 0; i < groupLvl1.PermissionIds.Length; i++)
 				{
 					var obj = GenericRepository.GetItemTopById<Permission>(AuthAdminDatabase, PermissionsCollection, groupLvl1.PermissionIds[i]);
+					if(obj == null)
+						continue;
 					request.Assigned.Add(obj);
 					assigned[i] = obj.Id;
 				}

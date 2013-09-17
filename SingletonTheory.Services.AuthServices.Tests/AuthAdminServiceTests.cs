@@ -139,8 +139,8 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		public void ShouldUpdateGroupLvl1()
 		{
 			// Arrange
-			var obj1 = new GroupLvl1 { Id = 1, PermissionIds = new[] { 1, 2 } };
-			var obj2 = new GroupLvl1 { Id = 2, PermissionIds = new[] { 1, 2 } };
+			var obj1 = new GroupLvl1 { Id = 1, PermissionIds = new[] { 1, 2 }, Name = "GroupLevel1_0" };
+			var obj2 = new GroupLvl1 { Id = 2, PermissionIds = new[] { 1, 2 }, Name = "GroupLevel1_1" };
 
 			// Act
 			var obj1R = _client.Post(obj1);
@@ -209,8 +209,8 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		public void ShouldUpdateGroupLvl2()
 		{
 			// Arrange
-			var obj1 = new GroupLvl2 { Id = 1, GroupLvl1Ids = new []{1,2} };
-			var obj2 = new GroupLvl2 { Id = 2, GroupLvl1Ids = new []{1,2} };
+			var obj1 = new GroupLvl2 { Id = 1, GroupLvl1Ids = new[] { 1, 2 }, Name = "UserAdminGrp2", Description = "Groupies for life" };
+			var obj2 = new GroupLvl2 { Id = 2, GroupLvl1Ids = new[] { 1, 2 }, Name = "AuthAdminGrp2", Description = "Groupies is 2 for live" };
 
 			// Act
 			var obj1R = _client.Post(obj1);
@@ -280,8 +280,8 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		public void ShouldUpdateRole()
 		{
 			// Arrange
-			var admin = new Role { Id = 1, GroupLvl2Ids = new []{1,2}};
-			var user = new Role { Id = 2, GroupLvl2Ids = new[] { 1, 2 } };
+			var admin = new Role { Id = 1, GroupLvl2Ids = new[] { 1, 2 }, Name = "User", Description = "Just a wuser" };
+			var user = new Role { Id = 2, GroupLvl2Ids = new[] { 1, 2 }, Name = "Admin", Description = "Admin can do just about anything" };
 
 			// Act
 			var adminR = _client.Post(admin);
