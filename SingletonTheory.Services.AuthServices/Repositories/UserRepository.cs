@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using ServiceStack.DataAccess;
 using SingletonTheory.Services.AuthServices.Entities;
@@ -51,6 +52,22 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			}
 		}
 
+		public UserEntity Read(ObjectId id)
+		{
+			try
+			{
+				MongoCollection<UserEntity> users = _mongoDatabase.GetCollection<UserEntity>(CollectionName);
+				IMongoQuery query = Query<UserEntity>.EQ(e => e.Id, id);
+				UserEntity entity = users.FindOne(query);
+
+				return entity == null ? null : entity;
+			}
+			catch (Exception ex)
+			{
+				throw new DataAccessException("Error querying Mongo Database: " + ex.Message);
+			}
+		}
+
 		public List<UserEntity> Read()
 		{
 			try
@@ -63,6 +80,32 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			{
 				throw new DataAccessException("Error querying Mongo Database: " + ex.Message);
 			}
+		}
+
+		public List<UserEntity> Read(List<string> userNames)
+		{
+			// TODO:  This should be rewritten to be optimal
+			List<UserEntity> entities = Read();
+			for (int i = entities.Count - 1; i >= 0; i--)
+			{
+				if (!userNames.Contains(entities[i].UserName))
+					entities.Remove(entities[i]);
+			}
+
+			return entities;
+		}
+
+		public List<UserEntity> Read(List<ObjectId> ids)
+		{
+			// TODO:  This should be rewritten to be optimal
+			List<UserEntity> entities = Read();
+			for (int i = 0; i < entities.Count; i++)
+			{
+				if (!ids.Contains(entities[i].Id))
+					entities.Remove(entities[i]);
+			}
+
+			return entities;
 		}
 
 		public UserEntity Create(UserEntity user)
@@ -115,12 +158,14 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 				if (userToUpdate == null)
 					throw new DataAccessException("User not found"); //  This should not happen seeing that validation should check.
 
-				WriteConcernResult result = users.Update(query, MongoDBBuilders.Update.Replace(user), UpdateFlags.Upsert);
+				userToUpdate = UpdateProperties(user, userToUpdate);
+
+				WriteConcernResult result = users.Update(query, MongoDBBuilders.Update.Replace(userToUpdate), UpdateFlags.Upsert);
 
 				if (!string.IsNullOrEmpty(result.ErrorMessage))
 					throw new DataAccessException("Data Update Error:  " + result.ErrorMessage);
 
-				return user;
+				return userToUpdate;
 			}
 			catch (Exception ex)
 			{
@@ -147,6 +192,18 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 		#endregion Public Methods
 
 		#region Private Methods
+
+		private UserEntity UpdateProperties(UserEntity user, UserEntity userToUpdate)
+		{
+			userToUpdate.Active = user.Active;
+			userToUpdate.Language = user.Language;
+			userToUpdate.Meta = user.Meta;
+			userToUpdate.ModifiedDate = DateTime.UtcNow;
+			userToUpdate.Permissions = user.Permissions;
+			userToUpdate.Roles = user.Roles;
+
+			return userToUpdate;
+		}
 
 		private static void EncryptPassword(UserEntity user)
 		{

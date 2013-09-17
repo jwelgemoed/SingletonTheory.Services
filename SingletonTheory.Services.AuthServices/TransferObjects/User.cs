@@ -5,10 +5,10 @@ using System.Collections.Generic;
 
 namespace SingletonTheory.Services.AuthServices.TransferObjects
 {
-	[Route("/userapi")]
-	[Route("/userapi/id/{Id}")]
-	[Route("/userapi/username/{UserName}")]
-	public class User : IReturn<List<User>>
+	[Route("/user")]
+	[Route("/user/id/{Id}")]
+	[Route("/user/username/{UserName}")]
+	public class User : IReturn<User>
 	{
 		#region Fields & Properties
 

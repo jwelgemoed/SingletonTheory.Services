@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Web;
-using ServiceStack.ServiceClient.Web;
+﻿using ServiceStack.ServiceClient.Web;
 using ServiceStack.ServiceInterface;
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Interfaces;
 using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.TransferObjects;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace SingletonTheory.Services.AuthServices.Services
 {
@@ -207,9 +205,9 @@ namespace SingletonTheory.Services.AuthServices.Services
 			try
 			{
 				var currentUser = authService.Get(new CurrentUserAuthRequest());
-				language = currentUser.Meta["Language"];
+				language = currentUser.Language;
 			}
-			catch (Exception){}
+			catch (Exception) { }
 
 			LocalizationDictionaryRequest request = new LocalizationDictionaryRequest();
 			request.Locale = language;

@@ -46,7 +46,7 @@ namespace SingletonTheory.Services.AuthServices.Data
 
 		private static void ClearUserAuths()
 		{
-			MongoDBAuthRepository repository = GetUserAuthRepository() as MongoDBAuthRepository;
+			UserAuthRepository repository = GetUserAuthRepository() as UserAuthRepository;
 			repository.Clear();
 		}
 
@@ -57,8 +57,8 @@ namespace SingletonTheory.Services.AuthServices.Data
 
 			entity.UserName = username;
 			entity.PasswordHash = password;
-			entity.Meta.Add("Language", language);
-			entity.Meta.Add("Active", true.ToString());
+			entity.Language = language;
+			entity.Active = true;
 			entity.Roles = roles;
 			entity.Permissions = permissions;
 			entity.Language = language;

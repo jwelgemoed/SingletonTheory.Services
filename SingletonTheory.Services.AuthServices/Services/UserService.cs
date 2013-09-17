@@ -1,4 +1,5 @@
-﻿using ServiceStack.Common;
+﻿using MongoDB.Bson;
+using ServiceStack.Common;
 using ServiceStack.ServiceInterface;
 using SingletonTheory.Services.AuthServices.Entities;
 using SingletonTheory.Services.AuthServices.Repositories;
@@ -11,10 +12,9 @@ namespace SingletonTheory.Services.AuthServices.Services
 	{
 		#region Public Methods
 
-		public List<User> Get(User request)
+		public User Get(User request)
 		{
 			UserRepository repository = GetRepository();
-			List<User> response;
 
 			if (!string.IsNullOrEmpty(request.UserName))
 			{
@@ -24,38 +24,57 @@ namespace SingletonTheory.Services.AuthServices.Services
 				if (userEntity == null)
 					return null;
 
-				response = TranslateToResponse(userEntity);
+				return TranslateToResponse(userEntity);
 			}
-			//else if (request.Id != 0)
-			//{
-			//	// Get user with Id
-			//	SSAuthInterfaces.UserAuth userAuth = repository.Read(request.Id);
-
-			//	response.Add(userAuth);
-			//}
-			else
+			else if (request.Id != ObjectId.Empty)
 			{
-				// Get all users
-				List<UserEntity> userEntities = repository.Read();
-				response = TranslateToResponse(userEntities);
+				// Get user with UserName
+				UserEntity userEntity = repository.Read(request.Id);
+
+				if (userEntity == null)
+					return null;
+
+				return TranslateToResponse(userEntity);
 			}
 
-			return response;
+			return null;
 		}
 
-		public List<User> Put(User request)
+		public List<User> Get(Users request)
+		{
+			UserRepository repository = GetRepository();
+			List<UserEntity> userEntities = repository.Read();
+
+			return TranslateToResponse(userEntities);
+		}
+
+		public List<User> Post(Users request)
+		{
+			UserRepository repository = GetRepository();
+			List<UserEntity> userEntities = null;
+			if (request.UserNames.Count != 0)
+			{
+				userEntities = repository.Read(request.UserNames);
+			}
+			else if (request.UserNames.Count != 0)
+			{
+				userEntities = repository.Read(request.UserIds);
+			}
+
+			return userEntities == null ? null : TranslateToResponse(userEntities);
+		}
+
+		public User Put(User request)
 		{
 			UserRepository repository = GetRepository();
 			UserEntity userEntity = TranslateToEntity(request);
 
 			userEntity = repository.Update(userEntity);
 
-			List<User> response = TranslateToResponse(userEntity);
-
-			return response;
+			return TranslateToResponse(userEntity);
 		}
 
-		public List<User> Post(User request)
+		public User Post(User request)
 		{
 			UserRepository repository = GetRepository();
 			UserEntity entity = TranslateToEntity(request);
@@ -75,11 +94,11 @@ namespace SingletonTheory.Services.AuthServices.Services
 			return repository;
 		}
 
-		private List<User> TranslateToResponse(UserEntity entity)
+		private User TranslateToResponse(UserEntity entity)
 		{
 			User response = entity.TranslateTo<User>();
 
-			return new List<User>() { response };
+			return response;
 		}
 
 		private List<User> TranslateToResponse(List<UserEntity> entities)
@@ -87,7 +106,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 			List<User> users = new List<User>();
 			for (int i = 0; i < entities.Count; i++)
 			{
-				users.AddRange(TranslateToResponse(entities[i]));
+				users.Add(TranslateToResponse(entities[i]));
 			}
 
 			return users;

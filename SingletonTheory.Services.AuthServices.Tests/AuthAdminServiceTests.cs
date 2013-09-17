@@ -7,7 +7,6 @@ using SingletonTheory.Services.AuthServices.Tests.Helpers;
 using SingletonTheory.Services.AuthServices.TransferObjects;
 using System;
 using System.Collections.Generic;
-using System.Net;
 
 namespace SingletonTheory.Services.AuthServices.Tests
 {
@@ -34,10 +33,10 @@ namespace SingletonTheory.Services.AuthServices.Tests
 				_client = HTTPClientHelpers.GetClient(HTTPClientHelpers.RootUrl, HTTPClientHelpers.UserName, HTTPClientHelpers.Password);
 				AuthResponse authResponse = HTTPClientHelpers.Login();
 				User request = new User { UserName = MongoHelpers.MongoTestUsername, Password = MongoHelpers.MongoTestUserPassword };
-				request.Meta.Add("Active", _currentActivitySetting.ToString());
+				request.Active = _currentActivitySetting;
 				request.Roles.Add(_currentRole);
-				List<User> response = _client.Post(request);
-				_userId = response[0].Id;
+				User response = _client.Post(request);
+				_userId = response.Id;
 			}
 			catch (Exception ex)
 			{
@@ -157,7 +156,7 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		public void ShouldAddGroupLvl2()
 		{
 			// Arrange
-			var obj1 = new GroupLvl2 { Id = 0, Name = "UserAdminGrp2", Description = "Groupies for life"};
+			var obj1 = new GroupLvl2 { Id = 0, Name = "UserAdminGrp2", Description = "Groupies for life" };
 			var obj2 = new GroupLvl2 { Id = 1, Name = "AuthAdminGrp2", Description = "Groupei 2 for live" };
 
 			// Act
@@ -196,7 +195,7 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			// Arrange
 			var admin = new Role { Id = 0, Name = "Admin", Description = "Just a wuser" };
 			var user = new Role { Id = 1, Name = "User", Description = "Admin can do just about anything" };
-			
+
 			// Act
 			var adminR = _client.Post(admin);
 			var userR = _client.Post(user);

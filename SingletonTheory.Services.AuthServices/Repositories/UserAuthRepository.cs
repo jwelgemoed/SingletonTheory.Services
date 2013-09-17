@@ -11,7 +11,7 @@ using SSAuthInterfaces = ServiceStack.ServiceInterface.Auth;
 
 namespace SingletonTheory.Services.AuthServices.Repositories
 {
-	public class MongoDBAuthRepository : SSAuthInterfaces.IUserAuthRepository, SSAuthInterfaces.IClearable
+	public class UserAuthRepository : SSAuthInterfaces.IUserAuthRepository, SSAuthInterfaces.IClearable
 	{
 		#region Fields & Properties
 
@@ -49,7 +49,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 
 		#region Constructors
 
-		public MongoDBAuthRepository(MongoDatabase mongoDatabase, bool createMissingCollections)
+		public UserAuthRepository(MongoDatabase mongoDatabase, bool createMissingCollections)
 		{
 			this._mongoDatabase = mongoDatabase;
 

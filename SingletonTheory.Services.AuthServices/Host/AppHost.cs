@@ -69,7 +69,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 		{
 			MongoDatabase userDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, ConfigSettings.MongoUserAuthDatabaseName);
 
-			return new MongoDBAuthRepository(userDatabase, true);
+			return new UserAuthRepository(userDatabase, true);
 		}
 
 		private static LocalizationRepository GetLocalizationRepositoryProvider()

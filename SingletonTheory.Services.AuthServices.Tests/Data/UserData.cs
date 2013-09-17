@@ -22,8 +22,8 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 				UserName = HTTPClientHelpers.AdminUserName
 			};
 
-			entity.Meta.Add("Active", true.ToString());
-			entity.Meta.Add("Language", "en-US");
+			entity.Active = true;
+			entity.Language = "en-US";
 			entity.Permissions.Add("SomePermission");
 			entity.Roles.Add("admin");
 

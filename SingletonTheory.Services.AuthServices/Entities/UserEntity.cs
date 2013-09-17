@@ -16,6 +16,7 @@ namespace SingletonTheory.Services.AuthServices.Entities
 		public virtual List<string> Permissions { get; set; }
 		public virtual List<string> Roles { get; set; }
 		public virtual string Language { get; set; }
+		public virtual bool Active { get; set; }
 		public virtual Dictionary<string, string> Meta { get; set; }
 
 		#endregion Fields & Properties
