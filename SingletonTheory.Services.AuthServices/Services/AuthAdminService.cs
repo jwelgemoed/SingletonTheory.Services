@@ -7,6 +7,7 @@ using SingletonTheory.Services.AuthServices.TransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace SingletonTheory.Services.AuthServices.Services
 {
@@ -199,7 +200,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		public LevelLists Get(LevelLists request)
 		{
-			if (request.RoleId != 0 )
+			if (request.RoleId != 0)
 			{
 				//Get The Role
 				GetRoleLevelLists(request);
@@ -214,7 +215,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 				//Get The Role
 				GetGroupLvl1LevelLists(request);
 			}
-		//	ApplyLanguagingToLabels(new List<INameLabel>(responseList));
+			//	ApplyLanguagingToLabels(new List<INameLabel>(responseList));
 
 			return request;
 		}
@@ -329,7 +330,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 				for (int i = 0; i < groupLvl1.PermissionIds.Length; i++)
 				{
 					var obj = GenericRepository.GetItemTopById<Permission>(AuthAdminDatabase, PermissionsCollection, groupLvl1.PermissionIds[i]);
-					if(obj == null)
+					if (obj == null)
 						continue;
 					request.Assigned.Add(obj);
 					assigned[i] = obj.Id;
