@@ -101,7 +101,9 @@
     <Content Include=".gitignore" />
     <Content Include="Global.asax" />
     <Content Include="SSTest.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\LocalizationData.cs" />
@@ -126,6 +128,7 @@
     <Compile Include="Repositories\CustomInMemoryAuthRepository.cs" />
     <Compile Include="Services\LocalizationService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="TransferObjects\LevelLists.cs" />
     <Compile Include="TransferObjects\CurrentUserAuthRequest.cs" />
     <Compile Include="TransferObjects\GroupLvl1.cs" />
     <Compile Include="TransferObjects\GroupLvl2.cs" />

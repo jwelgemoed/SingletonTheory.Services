@@ -197,6 +197,32 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		#endregion Permission
 
+		#region Assigned Unassigned List
+
+		public LevelLists Get(LevelLists request)
+		{
+			if (request.RoleId != 0 )
+			{
+				//Get The Role
+				GetRoleLevelLists(request);
+			}
+			else if (request.DomainPermissionId != 0)
+			{
+				//Get The Role
+				GetGroupLvl2LevelLists(request);
+			}
+			else if (request.FunctionalPermissionId != 0)
+			{
+				//Get The Role
+				GetGroupLvl1LevelLists(request);
+			}
+		//	ApplyLanguagingToLabels(new List<INameLabel>(responseList));
+
+			return request;
+		}
+
+		#endregion Assigned Unassigned List
+
 		#region Private Methods
 
 		private void ApplyLanguagingToLabels(List<INameLabel> responseList)
@@ -231,6 +257,90 @@ namespace SingletonTheory.Services.AuthServices.Services
 				}
 			}
 			return name;
+		}
+
+		private static void GetRoleLevelLists(LevelLists request)
+		{
+			Role role = GenericRepository.GetItemTopById<Role>(AuthAdminDatabase, RolesCollection, request.RoleId);
+			int[] assigned;
+
+			if (role != null && role.GroupLvl2Ids != null)
+			{
+				assigned = new int[role.GroupLvl2Ids.Length];
+				//Set assigned roles
+				for (int i = 0; i < role.GroupLvl2Ids.Length; i++)
+				{
+					var obj = GenericRepository.GetItemTopById<GroupLvl2>(AuthAdminDatabase, GroupsLvl2Collection, role.GroupLvl2Ids[i]);
+					request.Assigned.Add(obj);
+					assigned[i] = obj.Id;
+				}
+
+				//Set unassigned roles
+				var allGroupLvl2s = GenericRepository.GetList<GroupLvl2>(AuthAdminDatabase, GroupsLvl2Collection);
+				for (int i = 0; i < allGroupLvl2s.Count; i++)
+				{
+					if (!assigned.Contains(allGroupLvl2s[i].Id))
+					{
+						request.UnAssigned.Add(allGroupLvl2s[i]);
+					}
+				}
+			}
+		}
+
+		private static void GetGroupLvl2LevelLists(LevelLists request)
+		{
+			GroupLvl2 groupLvl2 = GenericRepository.GetItemTopById<GroupLvl2>(AuthAdminDatabase, GroupsLvl2Collection, request.DomainPermissionId);
+			int[] assigned;
+
+			if (groupLvl2 != null && groupLvl2.GroupLvl1Ids != null)
+			{
+				assigned = new int[groupLvl2.GroupLvl1Ids.Length];
+				//Set assigned roles
+				for (int i = 0; i < groupLvl2.GroupLvl1Ids.Length; i++)
+				{
+					var obj = GenericRepository.GetItemTopById<GroupLvl1>(AuthAdminDatabase, GroupsLvl1Collection, groupLvl2.GroupLvl1Ids[i]);
+					request.Assigned.Add(obj);
+					assigned[i] = obj.Id;
+				}
+
+				//Set unassigned roles
+				var allGroupLvl1s = GenericRepository.GetList<GroupLvl1>(AuthAdminDatabase, GroupsLvl1Collection);
+				for (int i = 0; i < allGroupLvl1s.Count; i++)
+				{
+					if (!assigned.Contains(allGroupLvl1s[i].Id))
+					{
+						request.UnAssigned.Add(allGroupLvl1s[i]);
+					}
+				}
+			}
+		}
+
+		private static void GetGroupLvl1LevelLists(LevelLists request)
+		{
+			GroupLvl1 groupLvl1 = GenericRepository.GetItemTopById<GroupLvl1>(AuthAdminDatabase, GroupsLvl1Collection, request.FunctionalPermissionId);
+			int[] assigned;
+
+			if (groupLvl1 != null && groupLvl1.PermissionIds != null)
+			{
+				assigned = new int[groupLvl1.PermissionIds.Length];
+				//Set assigned roles
+				for (int i = 0; i < groupLvl1.PermissionIds.Length; i++)
+				{
+					var obj = GenericRepository.GetItemTopById<Permission>(AuthAdminDatabase, PermissionsCollection, groupLvl1.PermissionIds[i]);
+					request.Assigned.Add(obj);
+					assigned[i] = obj.Id;
+				}
+
+				//Set unassigned roles
+				var permisssions = GenericRepository.GetList<Permission>(AuthAdminDatabase, PermissionsCollection);
+				for (int i = 0; i < permisssions.Count; i++)
+				{
+					if (!assigned.Contains(permisssions[i].Id))
+					{
+						request.UnAssigned.Add(permisssions[i]);
+					}
+				}
+			}
 		}
 
 		#endregion Private Methods

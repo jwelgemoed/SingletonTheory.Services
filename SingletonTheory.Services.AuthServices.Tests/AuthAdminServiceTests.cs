@@ -136,6 +136,24 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		}
 
 		[Test]
+		public void ShouldUpdateGroupLvl1()
+		{
+			// Arrange
+			var obj1 = new GroupLvl1 { Id = 1, PermissionIds = new[] { 1, 2 } };
+			var obj2 = new GroupLvl1 { Id = 2, PermissionIds = new[] { 1, 2 } };
+
+			// Act
+			var obj1R = _client.Post(obj1);
+			var obj2R = _client.Post(obj2);
+
+
+			// Assert
+			//Todo:
+			//Assert.AreEqual(obj1R[0].Id, 0, "Unable to find ... in database.");
+			//Assert.AreEqual(obj2R[0].Id, 1, "Unable to find ... in database.");
+		}
+
+		[Test]
 		public void ShouldGetAllGroupLvl1()
 		{
 			// Arrange
@@ -149,6 +167,20 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			Assert.AreNotEqual(response.Count, 0);
 		}
 
+		[Test]
+		public void ShouldGetAssignedAndUnassignedGroupLvl1Permissions()
+		{
+			// Arrange
+			LevelLists request = new LevelLists();
+			request.FunctionalPermissionId = 1;
+			AuthAdminService service = new AuthAdminService();
+
+			// Act
+			var response = _client.Get(request);
+
+			// Assert
+			Assert.AreNotEqual(response.Assigned.Count, 0);
+		}
 		//TODO: add get and delete
 
 		#endregion GroupLvl1 CRUD
@@ -174,6 +206,24 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		}
 
 		[Test]
+		public void ShouldUpdateGroupLvl2()
+		{
+			// Arrange
+			var obj1 = new GroupLvl2 { Id = 1, GroupLvl1Ids = new []{1,2} };
+			var obj2 = new GroupLvl2 { Id = 2, GroupLvl1Ids = new []{1,2} };
+
+			// Act
+			var obj1R = _client.Post(obj1);
+			var obj2R = _client.Post(obj2);
+
+
+			// Assert
+			//TODO
+			//Assert.AreEqual(obj1R[0].Id, 0, "Unable to find ... in database.");
+			//Assert.AreEqual(obj2R[0].Id, 1, "Unable to find ... in database.");
+		}
+
+		[Test]
 		public void ShouldGetAllGroupLvl2()
 		{
 			// Arrange
@@ -185,6 +235,21 @@ namespace SingletonTheory.Services.AuthServices.Tests
 
 			// Assert
 			Assert.AreNotEqual(response.Count, 0);
+		}
+
+		[Test]
+		public void ShouldGetAssignedAndUnassignedGroupLvl2Level1Groups()
+		{
+			// Arrange
+			LevelLists request = new LevelLists();
+			request.DomainPermissionId = 1;
+			AuthAdminService service = new AuthAdminService();
+
+			// Act
+			var response = _client.Get(request);
+
+			// Assert
+			Assert.AreNotEqual(response.Assigned.Count, 0);
 		}
 
 		//TODO: add get and delete
@@ -212,6 +277,24 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		}
 
 		[Test]
+		public void ShouldUpdateRole()
+		{
+			// Arrange
+			var admin = new Role { Id = 1, GroupLvl2Ids = new []{1,2}};
+			var user = new Role { Id = 2, GroupLvl2Ids = new[] { 1, 2 } };
+
+			// Act
+			var adminR = _client.Post(admin);
+			var userR = _client.Post(user);
+
+
+			// Assert
+			//TODO
+			//Assert.AreEqual(adminR[0].Id, 0, "Unable to find ... in database.");
+			//Assert.AreEqual(userR[0].Id, 1, "Unable to find ... in database.");
+		}
+
+		[Test]
 		public void ShouldGetAllRoles()
 		{
 			// Arrange
@@ -223,6 +306,21 @@ namespace SingletonTheory.Services.AuthServices.Tests
 
 			// Assert
 			Assert.AreNotEqual(response.Count, 0);
+		}
+
+		[Test]
+		public void ShouldGetAssignedAndUnassignedRoleLevel2Groups()
+		{		
+			// Arrange
+			LevelLists request = new LevelLists();
+			request.RoleId = 1;
+			AuthAdminService service = new AuthAdminService();
+
+			// Act
+			var response = _client.Get(request);
+
+			// Assert
+			Assert.AreNotEqual(response.Assigned.Count, 0);
 		}
 
 		//TODO: add get and delete
