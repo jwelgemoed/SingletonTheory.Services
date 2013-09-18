@@ -6,12 +6,12 @@ using ServiceStack.ServiceHost;
 
 namespace SingletonTheory.Services.AuthServices.TransferObjects
 {
-	[Route("/auth/admin/groupLvl2")]
-	public class GroupLvl2 : IReturn<List<GroupLvl2>>
+	[Route("/auth/admin/domainpermission")]
+	public class DomainPermission : IReturn<DomainPermission>
 	{
 		public int Id { get; set; }
-		public string Name { get; set; }
+		public string Label { get; set; }
 		public string Description { get; set; }
-		public int[] GroupLvl1Ids { get; set; }
+		public int[] FunctionalPermissionIds { get; set; }
 	}
 }

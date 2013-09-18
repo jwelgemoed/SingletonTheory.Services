@@ -8,7 +8,7 @@ using SingletonTheory.Services.AuthServices.Interfaces;
 namespace SingletonTheory.Services.AuthServices.TransferObjects
 {
 	[Route("/auth/admin/permission")]
-	public class Permission : INameLabel, IReturn<List<Permission>>
+	public class Permission : INameLabel, IReturn<Permission>
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }

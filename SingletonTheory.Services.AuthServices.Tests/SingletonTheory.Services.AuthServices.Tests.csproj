@@ -85,6 +85,10 @@
     <Compile Include="Repositories\LocalizationRepositoryTests.cs" />
     <Compile Include="Repositories\UserRepositoryTests.cs" />
     <Compile Include="Services\AuthenticationTests.cs" />
+    <Compile Include="Services\DomainPermissionServiceTests.cs" />
+    <Compile Include="Services\FunctionalPermissionServiceTests.cs" />
+    <Compile Include="Services\PermissionServiceTests.cs" />
+    <Compile Include="Services\RoleServiceTests.cs" />
     <Compile Include="Services\UserServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using ServiceStack.ServiceHost;
 
-namespace SingletonTheory.Services.AuthServices.TransferObjects
+namespace SingletonTheory.Services.AuthServices.Entities
 {
-	[Route("/auth/admin/role")]
-	public class Role : IReturn<Role>
+	public class RoleEntity
 	{
 		public int Id { get; set; }
 		public string Label { get; set; }

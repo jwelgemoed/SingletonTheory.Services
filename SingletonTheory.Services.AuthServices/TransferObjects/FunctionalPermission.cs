@@ -7,8 +7,8 @@ using SingletonTheory.Services.AuthServices.Interfaces;
 
 namespace SingletonTheory.Services.AuthServices.TransferObjects
 {
-	[Route("/auth/admin/grouplvl1")]
-	public class GroupLvl1 : INameLabel, IReturn<List<GroupLvl1>>
+	[Route("/auth/admin/functionalpermission")]
+	public class FunctionalPermission : INameLabel, IReturn<FunctionalPermission>
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }

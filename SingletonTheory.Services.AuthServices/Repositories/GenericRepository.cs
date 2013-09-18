@@ -64,12 +64,11 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			return obj;
 		}
 
-		public static bool DeleteById<T>(string dataBaseName, string collectionName, string id)
+		public static bool DeleteById<T>(string dataBaseName, string collectionName, int id)
 		{
 			_mongoDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, dataBaseName);
-			var collection = _mongoDatabase.GetCollection<T>(collectionName);
+			_mongoDatabase.GetCollection<T>(collectionName).Remove(Query.EQ("_id", id));
 
-			collection.Remove(Query.EQ("Id", id));
 			return true;
 		}
 
