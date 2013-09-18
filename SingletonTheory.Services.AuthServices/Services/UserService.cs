@@ -4,6 +4,7 @@ using ServiceStack.ServiceInterface;
 using SingletonTheory.Services.AuthServices.Entities;
 using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.TransferObjects;
+using System;
 using System.Collections.Generic;
 
 namespace SingletonTheory.Services.AuthServices.Services
@@ -91,6 +92,18 @@ namespace SingletonTheory.Services.AuthServices.Services
 		private UserRepository GetRepository()
 		{
 			UserRepository repository = base.GetResolver().TryResolve<UserRepository>();
+			if (repository == null)
+				throw new InvalidOperationException("Localization Repository not defined in IoC Container");
+
+			return repository;
+		}
+
+		private UserRepository GetDatabase()
+		{
+			UserRepository repository = base.GetResolver().TryResolve<UserRepository>();
+			if (repository == null)
+				throw new InvalidOperationException("Localization Repository not defined in IoC Container");
+
 			return repository;
 		}
 

@@ -83,6 +83,7 @@
     <Compile Include="LocalizationServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\LocalizationRepositoryTests.cs" />
+    <Compile Include="Repositories\UserAuthRepositoryTests.cs" />
     <Compile Include="Repositories\UserRepositoryTests.cs" />
     <Compile Include="Services\AuthenticationTests.cs" />
     <Compile Include="Services\DomainPermissionServiceTests.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Services\PermissionServiceTests.cs" />
     <Compile Include="Services\RoleServiceTests.cs" />
     <Compile Include="Services\UserServiceTests.cs" />
+    <Compile Include="Utilities\IoCUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -24,9 +24,9 @@ namespace SingletonTheory.Services.AuthServices.Data
 		public static void CreateUsers()
 		{
 			ClearUserAuths();
-			CreateUserAuth(0, UserName, null, Password, "en-US", new List<string> { "user" }, new List<string> { "ThePermission" });
-			CreateUserAuth(0, AdminUserName, null, Password, "en-US", new List<string> { "admin" }, new List<string> { "ThePermission" });
-			CreateUserAuth(0, DutchUserName, null, Password, "nl-nl", new List<string> { "admin" }, new List<string> { "ThePermission" });
+			//CreateUserAuth(0, UserName, null, Password, "en-US", new List<string> { "user" }, new List<string> { "ThePermission" });
+			//CreateUserAuth(0, AdminUserName, null, Password, "en-US", new List<string> { "admin" }, new List<string> { "ThePermission" });
+			//CreateUserAuth(0, DutchUserName, null, Password, "nl-nl", new List<string> { "admin" }, new List<string> { "ThePermission" });
 
 			ClearUsers();
 			CreateUser(0, UserName, null, Password, "en-US", new List<string> { "user" }, new List<string> { "ThePermission" });

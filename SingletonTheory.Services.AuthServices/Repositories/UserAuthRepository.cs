@@ -1,7 +1,10 @@
-﻿using MongoDB.Driver;
+﻿using Funq;
+using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using ServiceStack.Common;
 using ServiceStack.Text;
+using ServiceStack.WebHost.Endpoints;
+using SingletonTheory.Services.AuthServices.Entities;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -20,14 +23,6 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 
 		private readonly MongoDatabase _mongoDatabase;
 
-		// UserAuth collection name
-		private static string UserAuth_Col
-		{
-			get
-			{
-				return typeof(SSAuthInterfaces.UserAuth).Name;
-			}
-		}
 		// UserOAuthProvider collection name
 		private static string UserOAuthProvider_Col
 		{
@@ -70,45 +65,6 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 
 		#region Public Methods
 
-		public bool CollectionsExists()
-		{
-			return (_mongoDatabase.CollectionExists(UserAuth_Col))
-					&& (_mongoDatabase.CollectionExists(UserOAuthProvider_Col))
-					&& (_mongoDatabase.CollectionExists(Counters_Col));
-		}
-
-		public void CreateMissingCollections()
-		{
-			if (!_mongoDatabase.CollectionExists(UserAuth_Col))
-				_mongoDatabase.CreateCollection(UserAuth_Col);
-
-			if (!_mongoDatabase.CollectionExists(UserOAuthProvider_Col))
-				_mongoDatabase.CreateCollection(UserOAuthProvider_Col);
-
-			if (!_mongoDatabase.CollectionExists(Counters_Col))
-			{
-				_mongoDatabase.CreateCollection(Counters_Col);
-
-				var countersCollection = _mongoDatabase.GetCollection<Counters>(Counters_Col);
-				Counters counters = new Counters();
-				countersCollection.Save(counters);
-			}
-		}
-
-		public void DropAndReCreateCollections()
-		{
-			if (_mongoDatabase.CollectionExists(UserAuth_Col))
-				_mongoDatabase.DropCollection(UserAuth_Col);
-
-			if (_mongoDatabase.CollectionExists(UserOAuthProvider_Col))
-				_mongoDatabase.DropCollection(UserOAuthProvider_Col);
-
-			if (_mongoDatabase.CollectionExists(Counters_Col))
-				_mongoDatabase.DropCollection(Counters_Col);
-
-			CreateMissingCollections();
-		}
-
 		private void ValidateNewUser(SSAuthInterfaces.UserAuth user, string password)
 		{
 			user.ThrowIfNull("newUser");
@@ -126,46 +82,35 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 
 		public SSAuthInterfaces.UserAuth CreateUserAuth(SSAuthInterfaces.UserAuth user, string password)
 		{
-			ValidateNewUser(user, password);
-			AssertNoExistingUser(_mongoDatabase, user);
-
-			var saltedHash = new SSAuthInterfaces.SaltedHash();
-			string salt;
-			string hash;
-			saltedHash.GetHashAndSaltString(password, out hash, out salt);
-			var digestHelper = new SSAuthInterfaces.DigestAuthFunctions();
-			user.DigestHA1Hash = digestHelper.CreateHa1(user.UserName, SSAuthInterfaces.DigestAuthProvider.Realm, password);
-			user.PasswordHash = hash;
-			user.Salt = salt;
-			user.CreatedDate = DateTime.UtcNow;
-			user.ModifiedDate = user.CreatedDate;
-
-			SaveUser(user);
-			return user;
+			throw new NotImplementedException();
 		}
 
 		public SSAuthInterfaces.UserAuth GetUserAuth(string userAuthId)
 		{
-			var collection = _mongoDatabase.GetCollection<SSAuthInterfaces.UserAuth>(UserAuth_Col);
-			SSAuthInterfaces.UserAuth userAuth = collection.FindOneById(int.Parse(userAuthId));
-			return userAuth;
+			//var collection = _mongoDatabase.GetCollection<SSAuthInterfaces.UserAuth>(UserAuth_Col);
+			//SSAuthInterfaces.UserAuth userAuth = collection.FindOneById(int.Parse(userAuthId));
+			//return userAuth;
+
+			return null;
 		}
 
 		public void SaveUserAuth(SSAuthInterfaces.IAuthSession authSession)
 		{
-			var userAuth = !authSession.UserAuthId.IsNullOrEmpty()
-				? GetUserAuth(authSession.UserAuthId)
-				: authSession.TranslateTo<SSAuthInterfaces.UserAuth>();
+			//var userAuth = !authSession.UserAuthId.IsNullOrEmpty()
+			//	? GetUserAuth(authSession.UserAuthId)
+			//	: authSession.TranslateTo<SSAuthInterfaces.UserAuth>();
 
-			if (userAuth.Id == default(int) && !authSession.UserAuthId.IsNullOrEmpty())
-				userAuth.Id = int.Parse(authSession.UserAuthId);
+			//if (userAuth.Id == default(int) && !authSession.UserAuthId.IsNullOrEmpty())
+			//	userAuth.Id = int.Parse(authSession.UserAuthId);
 
-			userAuth.ModifiedDate = DateTime.UtcNow;
-			if (userAuth.CreatedDate == default(DateTime))
-				userAuth.CreatedDate = userAuth.ModifiedDate;
+			//userAuth.ModifiedDate = DateTime.UtcNow;
+			//if (userAuth.CreatedDate == default(DateTime))
+			//	userAuth.CreatedDate = userAuth.ModifiedDate;
 
-			var collection = _mongoDatabase.GetCollection<SSAuthInterfaces.UserAuth>(UserAuth_Col);
-			SaveUser(userAuth);
+			//var collection = _mongoDatabase.GetCollection<SSAuthInterfaces.UserAuth>(UserAuth_Col);
+			//SaveUser(userAuth);
+
+			throw new NotImplementedException();
 		}
 
 		public void SaveUserAuth(SSAuthInterfaces.UserAuth userAuth)
@@ -191,9 +136,15 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 
 		public SSAuthInterfaces.UserAuth GetUserAuth(SSAuthInterfaces.IAuthSession authSession, SSAuthInterfaces.IOAuthTokens tokens)
 		{
-			if (!authSession.UserAuthId.IsNullOrEmpty())
+			//if (!authSession.UserAuthId.IsNullOrEmpty())
+			//{
+			//	var userAuth = GetUserAuth(authSession.UserName);
+			//	if (userAuth != null) return userAuth;
+			//}
+
+			if (!authSession.UserName.IsNullOrEmpty())
 			{
-				var userAuth = GetUserAuth(authSession.UserAuthId);
+				var userAuth = GetUserAuthByUserName(authSession.UserName);
 				if (userAuth != null) return userAuth;
 			}
 
@@ -216,9 +167,11 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 
 			if (oAuthProvider != null)
 			{
-				var userAuthCollection = _mongoDatabase.GetCollection<SSAuthInterfaces.UserAuth>(UserAuth_Col);
-				var userAuth = userAuthCollection.FindOneById(oAuthProvider.UserAuthId);
-				return userAuth;
+				//var userAuthCollection = _mongoDatabase.GetCollection<SSAuthInterfaces.UserAuth>(UserAuth_Col);
+				//var userAuth = userAuthCollection.FindOneById(oAuthProvider.UserAuthId);
+				//return userAuth;
+
+				return GetUserAuthByUserName(oAuthProvider.UserName);
 			}
 
 			return null;
@@ -275,6 +228,11 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 		public SSAuthInterfaces.UserAuth GetUserAuthByUserName(string userNameOrEmail)
 		{
 			return GetUserAuthByUserName(_mongoDatabase, userNameOrEmail);
+		}
+
+		public SSAuthInterfaces.UserAuth GetUserAuthByUserName(string userNameOrEmail, UserRepository userRepository)
+		{
+			return GetUserAuthByUserName(_mongoDatabase, userNameOrEmail, userRepository);
 		}
 
 		public bool TryAuthenticate(string userName, string password, out SSAuthInterfaces.UserAuth userAuth)
@@ -357,16 +315,16 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 
 		private void SaveUser(SSAuthInterfaces.UserAuth userAuth)
 		{
-			if (userAuth.Id == default(int))
-				userAuth.Id = IncUserAuthCounter();
-			var usersCollection = _mongoDatabase.GetCollection<SSAuthInterfaces.UserAuth>(UserAuth_Col);
-			usersCollection.Save(userAuth);
+			//if (userAuth.Id == default(int))
+			//	userAuth.Id = IncUserAuthCounter();
+			//var usersCollection = _mongoDatabase.GetCollection<SSAuthInterfaces.UserAuth>(UserAuth_Col);
+			//usersCollection.Save(userAuth);
 		}
 
-		private int IncUserAuthCounter()
-		{
-			return IncCounter("UserAuthCounter").UserAuthCounter;
-		}
+		//private int IncUserAuthCounter()
+		//{
+		//	return IncCounter("UserAuthCounter").UserAuthCounter;
+		//}
 
 		private int IncUserOAuthProviderCounter()
 		{
@@ -402,16 +360,74 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			}
 		}
 
-		private static SSAuthInterfaces.UserAuth GetUserAuthByUserName(MongoDatabase mongoDatabase, string userNameOrEmail)
+		private static SSAuthInterfaces.UserAuth GetUserAuthByUserName(MongoDatabase mongoDatabase, string userNameOrEmail, UserRepository userRepository = null)
 		{
-			var isEmail = userNameOrEmail.Contains("@");
-			var collection = mongoDatabase.GetCollection<SSAuthInterfaces.UserAuth>(UserAuth_Col);
+			if (userRepository == null)
+			{
+				// TODO:  Inject UserRepository from Top Level
+				Container container = EndpointHost.Config.ServiceManager.Container;
+				userRepository = container.Resolve<UserRepository>();
+			}
 
-			IMongoQuery query = isEmail
-				? Query.EQ("Email", userNameOrEmail)
-				: Query.EQ("UserName", userNameOrEmail);
+			UserEntity userEntity = userRepository.Read(userNameOrEmail);
 
-			SSAuthInterfaces.UserAuth userAuth = collection.FindOne(query);
+			SSAuthInterfaces.UserAuth userAuth = TranslateToUserAuth(userEntity);
+
+			//var isEmail = userNameOrEmail.Contains("@");
+			//var collection = mongoDatabase.GetCollection<SSAuthInterfaces.UserAuth>(UserAuth_Col);
+
+			//IMongoQuery query = isEmail
+			//	? Query.EQ("Email", userNameOrEmail)
+			//	: Query.EQ("UserName", userNameOrEmail);
+
+			//SSAuthInterfaces.UserAuth userAuth = collection.FindOne(query);
+			return userAuth;
+		}
+
+		public void DropAndReCreateCollections()
+		{
+			//if (_mongoDatabase.CollectionExists(CollectionName))
+			//	_mongoDatabase.DropCollection(CollectionName);
+
+			if (_mongoDatabase.CollectionExists(UserOAuthProvider_Col))
+				_mongoDatabase.DropCollection(UserOAuthProvider_Col);
+
+			if (_mongoDatabase.CollectionExists(typeof(Counters).Name))
+				_mongoDatabase.DropCollection(typeof(Counters).Name);
+
+			CreateMissingCollections();
+		}
+
+		public void CreateMissingCollections()
+		{
+			//if (!_mongoDatabase.CollectionExists(CollectionName))
+			//	_mongoDatabase.CreateCollection(CollectionName);
+
+			if (!_mongoDatabase.CollectionExists(UserOAuthProvider_Col))
+				_mongoDatabase.CreateCollection(UserOAuthProvider_Col);
+
+			if (!_mongoDatabase.CollectionExists(typeof(Counters).Name))
+			{
+				_mongoDatabase.CreateCollection(typeof(Counters).Name);
+
+				var countersCollection = _mongoDatabase.GetCollection<Counters>(typeof(Counters).Name);
+				Counters counters = new Counters();
+				countersCollection.Save(counters);
+			}
+		}
+
+		public bool CollectionsExists()
+		{
+			//return (_mongoDatabase.CollectionExists(CollectionName))
+			//	&& (_mongoDatabase.CollectionExists(UserOAuthProvider_Col))
+			//		&& (_mongoDatabase.CollectionExists(typeof(Counters).Name));
+			return (_mongoDatabase.CollectionExists(typeof(Counters).Name));
+		}
+
+		private static SSAuthInterfaces.UserAuth TranslateToUserAuth(UserEntity userEntity)
+		{
+			SSAuthInterfaces.UserAuth userAuth = userEntity.TranslateTo<SSAuthInterfaces.UserAuth>();
+
 			return userAuth;
 		}
 

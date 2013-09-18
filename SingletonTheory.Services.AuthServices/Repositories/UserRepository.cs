@@ -1,11 +1,11 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
-using MongoDB.Driver.Builders;
 using ServiceStack.DataAccess;
 using SingletonTheory.Services.AuthServices.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MongoBuilders = MongoDB.Driver.Builders;
 using MongoDBBuilders = MongoDB.Driver.Builders;
 using SSAuthInterfaces = ServiceStack.ServiceInterface.Auth;
 
@@ -30,6 +30,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 		public UserRepository(MongoDatabase mongoDatabase)
 		{
 			_mongoDatabase = mongoDatabase;
+			CreateMissingCollections();
 		}
 
 		#endregion Constructors
@@ -41,7 +42,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			try
 			{
 				MongoCollection<UserEntity> users = _mongoDatabase.GetCollection<UserEntity>(CollectionName);
-				IMongoQuery query = Query<UserEntity>.EQ(e => e.UserName, userName);
+				IMongoQuery query = MongoBuilders.Query<UserEntity>.EQ(e => e.UserName, userName);
 				UserEntity entity = users.FindOne(query);
 
 				return entity == null ? null : entity;
@@ -57,7 +58,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			try
 			{
 				MongoCollection<UserEntity> users = _mongoDatabase.GetCollection<UserEntity>(CollectionName);
-				IMongoQuery query = Query<UserEntity>.EQ(e => e.Id, id);
+				IMongoQuery query = MongoBuilders.Query<UserEntity>.EQ(e => e.Id, id);
 				UserEntity entity = users.FindOne(query);
 
 				return entity == null ? null : entity;
@@ -115,7 +116,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 				EncryptPassword(user);
 
 				MongoCollection<UserEntity> users = _mongoDatabase.GetCollection<UserEntity>(CollectionName);
-				IMongoQuery query = Query<UserEntity>.EQ(e => e.UserName, user.UserName);
+				IMongoQuery query = MongoBuilders.Query<UserEntity>.EQ(e => e.UserName, user.UserName);
 				UserEntity duplicate = users.FindOne(query);
 
 				if (duplicate != null)
@@ -152,7 +153,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			try
 			{
 				MongoCollection<UserEntity> users = _mongoDatabase.GetCollection<UserEntity>(CollectionName);
-				IMongoQuery query = Query<UserEntity>.EQ(e => e.UserName, user.UserName);
+				IMongoQuery query = MongoBuilders.Query<UserEntity>.EQ(e => e.UserName, user.UserName);
 				UserEntity userToUpdate = users.FindOne(query);
 
 				if (userToUpdate == null)
@@ -205,6 +206,45 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			return userToUpdate;
 		}
 
+		public void DropAndReCreateCollections()
+		{
+			if (_mongoDatabase.CollectionExists(CollectionName))
+				_mongoDatabase.DropCollection(CollectionName);
+
+			//if (_mongoDatabase.CollectionExists(UserOAuthProvider_Col))
+			//	_mongoDatabase.DropCollection(UserOAuthProvider_Col);
+
+			if (_mongoDatabase.CollectionExists(typeof(Counters).Name))
+				_mongoDatabase.DropCollection(typeof(Counters).Name);
+
+			CreateMissingCollections();
+		}
+
+		public void CreateMissingCollections()
+		{
+			if (!_mongoDatabase.CollectionExists(CollectionName))
+				_mongoDatabase.CreateCollection(CollectionName);
+
+			//if (!_mongoDatabase.CollectionExists(UserOAuthProvider_Col))
+			//	_mongoDatabase.CreateCollection(UserOAuthProvider_Col);
+
+			if (!_mongoDatabase.CollectionExists(typeof(Counters).Name))
+			{
+				_mongoDatabase.CreateCollection(typeof(Counters).Name);
+
+				var countersCollection = _mongoDatabase.GetCollection<Counters>(typeof(Counters).Name);
+				Counters counters = new Counters();
+				countersCollection.Save(counters);
+			}
+		}
+
+		public bool CollectionsExists()
+		{
+			return (_mongoDatabase.CollectionExists(CollectionName))
+				//&& (_mongoDatabase.CollectionExists(UserOAuthProvider_Col))
+					&& (_mongoDatabase.CollectionExists(typeof(Counters).Name));
+		}
+
 		private static void EncryptPassword(UserEntity user)
 		{
 			string hash;
@@ -224,8 +264,8 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 		{
 			var CountersCollection = _mongoDatabase.GetCollection<Counters>(typeof(Counters).Name);
 			var incId = MongoDBBuilders.Update.Inc(counterName, 1);
-			var query = Query.Null;
-			FindAndModifyResult counterIncResult = CountersCollection.FindAndModify(query, SortBy.Null, incId, true);
+			var query = MongoDBBuilders.Query.Null;
+			FindAndModifyResult counterIncResult = CountersCollection.FindAndModify(query, MongoDBBuilders.SortBy.Null, incId, true);
 			Counters updatedCounters = counterIncResult.GetModifiedDocumentAs<Counters>();
 
 			return updatedCounters;
