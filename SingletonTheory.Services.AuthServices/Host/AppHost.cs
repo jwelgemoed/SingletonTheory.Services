@@ -60,16 +60,16 @@ namespace SingletonTheory.Services.AuthServices.Host
 
 		private static UserRepository GetUserRepositoryProvider()
 		{
-			MongoDatabase userDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, ConfigSettings.MongoUserDatabaseName);
+			MongoDatabase database = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, ConfigSettings.MongoUserDatabaseName);
 
-			return new UserRepository(userDatabase);
+			return new UserRepository(database);
 		}
 
 		private static SSAuthInterfaces.IUserAuthRepository GetUserAuthRepositoryProvider()
 		{
-			MongoDatabase userDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, ConfigSettings.MongoUserAuthDatabaseName);
+			MongoDatabase database = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, ConfigSettings.MongoUserAuthDatabaseName);
 
-			return new UserAuthRepository(userDatabase, true);
+			return new UserAuthRepository(database, true);
 		}
 
 		private static LocalizationRepository GetLocalizationRepositoryProvider()
