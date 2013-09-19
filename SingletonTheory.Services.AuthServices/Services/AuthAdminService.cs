@@ -77,26 +77,30 @@ namespace SingletonTheory.Services.AuthServices.Services
 		private static void GetRoleLevelLists(LevelLists request)
 		{
 			RoleEntity roleEntity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, request.RoleId);
-			int[] assigned;
+			int[] assigned = new int[] {};
 
-			if (roleEntity != null && roleEntity.DomainPermissionIds != null)
+			if (roleEntity != null)
 			{
-				assigned = new int[roleEntity.DomainPermissionIds.Length];
-				//Set assigned roles
-				for (int i = 0; i < roleEntity.DomainPermissionIds.Length; i++)
+				if (roleEntity.DomainPermissionIds != null)
 				{
-					var obj = GenericRepository.GetItemTopById<DomainPermissionEntity>(AuthAdminDatabase, DomainPermissionsCollection, roleEntity.DomainPermissionIds[i]);
-					if (obj == null)
-						continue;
-					request.Assigned.Add(obj.TranslateToResponse());
-					assigned[i] = obj.Id;
+					assigned = new int[roleEntity.DomainPermissionIds.Length];
+					//Set assigned roles
+					for (int i = 0; i < roleEntity.DomainPermissionIds.Length; i++)
+					{
+						var obj = GenericRepository.GetItemTopById<DomainPermissionEntity>(AuthAdminDatabase, DomainPermissionsCollection,
+							roleEntity.DomainPermissionIds[i]);
+						if (obj == null)
+							continue;
+						request.Assigned.Add(obj.TranslateToResponse());
+						assigned[i] = obj.Id;
+					}
 				}
 
 				//Set unassigned roles
 				var domainPermissions = GenericRepository.GetList<DomainPermissionEntity>(AuthAdminDatabase, DomainPermissionsCollection);
 				for (int i = 0; i < domainPermissions.Count; i++)
 				{
-					if (!assigned.Contains(domainPermissions[i].Id))
+					if (roleEntity.DomainPermissionIds == null || !assigned.Contains(domainPermissions[i].Id))
 					{
 						request.UnAssigned.Add(domainPermissions[i].TranslateToResponse());
 					}
@@ -130,26 +134,30 @@ namespace SingletonTheory.Services.AuthServices.Services
 		private static void GetDomainPermissionLists(LevelLists request)
 		{
 			DomainPermissionEntity domainPermissionEntity = GenericRepository.GetItemTopById<DomainPermissionEntity>(AuthAdminDatabase, DomainPermissionsCollection, request.DomainPermissionId);
-			int[] assigned;
+			int[] assigned = new int[] { };
 
 			if (domainPermissionEntity != null)
 			{
-				assigned = new int[domainPermissionEntity.FunctionalPermissionIds.Length];
-				//Set assigned
-				for (int i = 0; i < domainPermissionEntity.FunctionalPermissionIds.Length; i++)
+				if (domainPermissionEntity.FunctionalPermissionIds != null)
 				{
-					var obj = GenericRepository.GetItemTopById<FunctionalPermissionEntity>(AuthAdminDatabase, FunctionalPermissionsCollection, domainPermissionEntity.FunctionalPermissionIds[i]);
-					if (obj == null)
-						continue;
-					request.Assigned.Add(obj.TranslateToResponse());
-					assigned[i] = obj.Id;
+					assigned = new int[domainPermissionEntity.FunctionalPermissionIds.Length];
+					//Set assigned
+					for (int i = 0; i < domainPermissionEntity.FunctionalPermissionIds.Length; i++)
+					{
+						var obj = GenericRepository.GetItemTopById<FunctionalPermissionEntity>(AuthAdminDatabase,
+							FunctionalPermissionsCollection, domainPermissionEntity.FunctionalPermissionIds[i]);
+						if (obj == null)
+							continue;
+						request.Assigned.Add(obj.TranslateToResponse());
+						assigned[i] = obj.Id;
+					}
 				}
 
 				//Set unassigned
 				var functionalPermissions = GenericRepository.GetList<FunctionalPermissionEntity>(AuthAdminDatabase, FunctionalPermissionsCollection);
 				for (int i = 0; i < functionalPermissions.Count; i++)
 				{
-					if (!assigned.Contains(functionalPermissions[i].Id))
+					if (domainPermissionEntity.FunctionalPermissionIds == null || !assigned.Contains(functionalPermissions[i].Id))
 					{
 						request.UnAssigned.Add(functionalPermissions[i].TranslateToResponse());
 					}
@@ -183,26 +191,30 @@ namespace SingletonTheory.Services.AuthServices.Services
 		private static void GetFunctionalPermissionLists(LevelLists request)
 		{
 			FunctionalPermissionEntity functionalPermissionEntity = GenericRepository.GetItemTopById<FunctionalPermissionEntity>(AuthAdminDatabase, FunctionalPermissionsCollection, request.FunctionalPermissionId);
-			int[] assigned;
+			int[] assigned = new int[] {};
 
-			if (functionalPermissionEntity != null && functionalPermissionEntity.PermissionIds != null)
+			if (functionalPermissionEntity != null)
 			{
-				assigned = new int[functionalPermissionEntity.PermissionIds.Length];
-				//Set assigned roles
-				for (int i = 0; i < functionalPermissionEntity.PermissionIds.Length; i++)
+				if (functionalPermissionEntity.PermissionIds != null)
 				{
-					var obj = GenericRepository.GetItemTopById<PermissionEntity>(AuthAdminDatabase, PermissionsCollection, functionalPermissionEntity.PermissionIds[i]);
-					if (obj == null)
-						continue;
-					request.Assigned.Add(obj.TranslateToResponse());
-					assigned[i] = obj.Id;
+					assigned = new int[functionalPermissionEntity.PermissionIds.Length];
+					//Set assigned roles
+					for (int i = 0; i < functionalPermissionEntity.PermissionIds.Length; i++)
+					{
+						var obj = GenericRepository.GetItemTopById<PermissionEntity>(AuthAdminDatabase, PermissionsCollection,
+							functionalPermissionEntity.PermissionIds[i]);
+						if (obj == null)
+							continue;
+						request.Assigned.Add(obj.TranslateToResponse());
+						assigned[i] = obj.Id;
+					}
 				}
 
 				//Set unassigned roles
 				var permisssions = GenericRepository.GetList<PermissionEntity>(AuthAdminDatabase, PermissionsCollection);
 				for (int i = 0; i < permisssions.Count; i++)
 				{
-					if (!assigned.Contains(permisssions[i].Id))
+					if (functionalPermissionEntity.PermissionIds == null || !assigned.Contains(permisssions[i].Id))
 					{
 						request.UnAssigned.Add(permisssions[i].TranslateToResponse());
 					}

@@ -35,7 +35,7 @@ namespace SingletonTheory.Services.AuthServices.Extensions
 		public static RoleEntity TranslateToEntity(this Role request)
 		{
 			RoleEntity response = request.TranslateTo<RoleEntity>();
-
+			
 			return response;
 		}
 
@@ -131,7 +131,7 @@ namespace SingletonTheory.Services.AuthServices.Extensions
 		public static PermissionEntity TranslateToEntity(this Permission request)
 		{
 			PermissionEntity response = request.TranslateTo<PermissionEntity>();
-
+			
 			return response;
 		}
 
