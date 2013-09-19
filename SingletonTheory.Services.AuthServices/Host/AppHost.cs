@@ -2,6 +2,8 @@
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Configuration;
+using ServiceStack.Logging;
+using ServiceStack.Logging.Log4Net;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Admin;
 using ServiceStack.ServiceInterface.Validation;
@@ -33,31 +35,41 @@ namespace SingletonTheory.Services.AuthServices.Host
 		public override void Configure(Funq.Container container)
 		{
 			AddPlugins();
-
-			container.Register<ICacheClient>(new MemoryCacheClient());
-			container.Register<SSAuthInterfaces.IUserAuthRepository>(GetUserAuthRepositoryProvider());
-			container.Register<LocalizationRepository>(GetLocalizationRepositoryProvider());
-			container.Register<UserRepository>(GetUserRepositoryProvider());
-
+			RegisterContainerItems(container);
 			RegisterValidations(container);
+			RegisterLogProvider();
+
 			// TODO:  Remove this and replace with permanent solutions.
 			CreateMockData();
-		}
-
-		private void CreateMockData()
-		{
-			UserData.CreateUsers();
-			LocalizationData.CreateLanguageFiles();
-		}
-
-		private void RegisterValidations(Funq.Container container)
-		{
-			container.RegisterValidators(typeof(UserRequestValidator).Assembly);
 		}
 
 		#endregion Override Methods
 
 		#region Static Methods
+
+		private static void RegisterLogProvider()
+		{
+			LogManager.LogFactory = new Log4NetFactory(true);
+		}
+
+		private static void RegisterContainerItems(Funq.Container container)
+		{
+			container.Register<ICacheClient>(new MemoryCacheClient());
+			container.Register<SSAuthInterfaces.IUserAuthRepository>(GetUserAuthRepositoryProvider());
+			container.Register<LocalizationRepository>(GetLocalizationRepositoryProvider());
+			container.Register<UserRepository>(GetUserRepositoryProvider());
+		}
+
+		private static void CreateMockData()
+		{
+			UserData.CreateUsers();
+			LocalizationData.CreateLanguageFiles();
+		}
+
+		private static void RegisterValidations(Funq.Container container)
+		{
+			container.RegisterValidators(typeof(UserRequestValidator).Assembly);
+		}
 
 		private static UserRepository GetUserRepositoryProvider()
 		{
