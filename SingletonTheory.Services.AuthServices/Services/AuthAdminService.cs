@@ -1,6 +1,8 @@
 ﻿using ServiceStack.ServiceClient.Web;
 using ServiceStack.ServiceInterface;
 using SingletonTheory.Services.AuthServices.Config;
+using SingletonTheory.Services.AuthServices.Entities;
+using SingletonTheory.Services.AuthServices.Extensions;
 using SingletonTheory.Services.AuthServices.Interfaces;
 using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.TransferObjects;
@@ -25,23 +27,20 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		#endregion Constants
 
-		#region Assigned Unassigned List
+		#region Get Put
 
 		public LevelLists Get(LevelLists request)
 		{
 			if (request.RoleId != 0)
 			{
-				//Get The Role
 				GetRoleLevelLists(request);
 			}
 			else if (request.DomainPermissionId != 0)
 			{
-				//Get The Role
 				GetDomainPermissionLists(request);
 			}
 			else if (request.FunctionalPermissionId != 0)
 			{
-				//Get The Role
 				GetFunctionalPermissionLists(request);
 			}
 			//	ApplyLanguagingToLabels(new List<INameLabel>(responseList));
@@ -49,100 +48,187 @@ namespace SingletonTheory.Services.AuthServices.Services
 			return request;
 		}
 
-		#endregion Assigned Unassigned List
+		public LevelLists Put(LevelLists request)
+		{
+			if (request.RoleId != 0)
+			{
+				SetRoleLevelLists(request);
+				GetRoleLevelLists(request);
+			}
+			else if (request.DomainPermissionId != 0)
+			{
+				SetDomainPermissionLists(request);
+				GetDomainPermissionLists(request);
+			}
+			else if (request.FunctionalPermissionId != 0)
+			{
+				SetFunctionalPermissionLists(request);
+				GetFunctionalPermissionLists(request);
+			}
+			//	ApplyLanguagingToLabels(new List<INameLabel>(responseList));
 
-		#region Private Methods
+			return request;
+		}
+
+		#endregion Get Put
+
+		#region Role
 
 		private static void GetRoleLevelLists(LevelLists request)
 		{
-			Role role = GenericRepository.GetItemTopById<Role>(AuthAdminDatabase, RolesCollection, request.RoleId);
+			RoleEntity roleEntity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, request.RoleId);
 			int[] assigned;
 
-			if (role != null && role.DomainPermissionIds != null)
+			if (roleEntity != null && roleEntity.DomainPermissionIds != null)
 			{
-				assigned = new int[role.DomainPermissionIds.Length];
+				assigned = new int[roleEntity.DomainPermissionIds.Length];
 				//Set assigned roles
-				for (int i = 0; i < role.DomainPermissionIds.Length; i++)
+				for (int i = 0; i < roleEntity.DomainPermissionIds.Length; i++)
 				{
-					var obj = GenericRepository.GetItemTopById<DomainPermission>(AuthAdminDatabase, DomainPermissionsCollection, role.DomainPermissionIds[i]);
+					var obj = GenericRepository.GetItemTopById<DomainPermissionEntity>(AuthAdminDatabase, DomainPermissionsCollection, roleEntity.DomainPermissionIds[i]);
 					if (obj == null)
 						continue;
-					request.Assigned.Add(obj);
+					request.Assigned.Add(obj.TranslateToResponse());
 					assigned[i] = obj.Id;
 				}
 
 				//Set unassigned roles
-				var domainPermissions = GenericRepository.GetList<DomainPermission>(AuthAdminDatabase, DomainPermissionsCollection);
+				var domainPermissions = GenericRepository.GetList<DomainPermissionEntity>(AuthAdminDatabase, DomainPermissionsCollection);
 				for (int i = 0; i < domainPermissions.Count; i++)
 				{
 					if (!assigned.Contains(domainPermissions[i].Id))
 					{
-						request.UnAssigned.Add(domainPermissions[i]);
+						request.UnAssigned.Add(domainPermissions[i].TranslateToResponse());
 					}
 				}
 			}
 		}
 
-		private static void GetDomainPermissionLists(LevelLists request)
+		private static void SetRoleLevelLists(LevelLists request)
 		{
-			DomainPermission domainPermission = GenericRepository.GetItemTopById<DomainPermission>(AuthAdminDatabase, FunctionalPermissionsCollection, request.DomainPermissionId);
+			RoleEntity entity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, request.RoleId);
 			int[] assigned;
 
-			if (domainPermission != null && domainPermission.FunctionalPermissionIds != null)
+			if (entity != null)
 			{
-				assigned = new int[domainPermission.FunctionalPermissionIds.Length];
-				//Set assigned roles
-				for (int i = 0; i < domainPermission.FunctionalPermissionIds.Length; i++)
+				assigned = new int[request.Assigned.Count];
+
+				for (int i = 0; i < request.Assigned.Count; i++)
 				{
-					var obj = GenericRepository.GetItemTopById<FunctionalPermission>(AuthAdminDatabase, FunctionalPermissionsCollection, domainPermission.FunctionalPermissionIds[i]);
+					var obj = (Role)request.Assigned[i];
+					assigned[i] = obj.Id;
+				}
+				entity.DomainPermissionIds = assigned;
+				GenericRepository.Add(AuthAdminDatabase, RolesCollection, entity);
+			}
+		}
+
+		#endregion Role
+
+		#region DomainPermission
+
+		private static void GetDomainPermissionLists(LevelLists request)
+		{
+			DomainPermissionEntity domainPermissionEntity = GenericRepository.GetItemTopById<DomainPermissionEntity>(AuthAdminDatabase, DomainPermissionsCollection, request.DomainPermissionId);
+			int[] assigned;
+
+			if (domainPermissionEntity != null)
+			{
+				assigned = new int[domainPermissionEntity.FunctionalPermissionIds.Length];
+				//Set assigned
+				for (int i = 0; i < domainPermissionEntity.FunctionalPermissionIds.Length; i++)
+				{
+					var obj = GenericRepository.GetItemTopById<FunctionalPermissionEntity>(AuthAdminDatabase, FunctionalPermissionsCollection, domainPermissionEntity.FunctionalPermissionIds[i]);
 					if (obj == null)
 						continue;
-					request.Assigned.Add(obj);
+					request.Assigned.Add(obj.TranslateToResponse());
 					assigned[i] = obj.Id;
 				}
 
-				//Set unassigned roles
-				var functionalPermissions = GenericRepository.GetList<FunctionalPermission>(AuthAdminDatabase, FunctionalPermissionsCollection);
+				//Set unassigned
+				var functionalPermissions = GenericRepository.GetList<FunctionalPermissionEntity>(AuthAdminDatabase, FunctionalPermissionsCollection);
 				for (int i = 0; i < functionalPermissions.Count; i++)
 				{
 					if (!assigned.Contains(functionalPermissions[i].Id))
 					{
-						request.UnAssigned.Add(functionalPermissions[i]);
+						request.UnAssigned.Add(functionalPermissions[i].TranslateToResponse());
 					}
 				}
 			}
 		}
 
-		private static void GetFunctionalPermissionLists(LevelLists request)
+		private static void SetDomainPermissionLists(LevelLists request)
 		{
-			FunctionalPermission functional = GenericRepository.GetItemTopById<FunctionalPermission>(AuthAdminDatabase, DomainPermissionsCollection, request.FunctionalPermissionId);
+			DomainPermissionEntity entity = GenericRepository.GetItemTopById<DomainPermissionEntity>(AuthAdminDatabase, DomainPermissionsCollection, request.DomainPermissionId);
 			int[] assigned;
 
-			if (functional != null && functional.PermissionIds != null)
+			if (entity != null)
 			{
-				assigned = new int[functional.PermissionIds.Length];
-				//Set assigned roles
-				for (int i = 0; i < functional.PermissionIds.Length; i++)
+				assigned = new int[request.Assigned.Count];
+
+				for (int i = 0; i < request.Assigned.Count; i++)
 				{
-					var obj = GenericRepository.GetItemTopById<Permission>(AuthAdminDatabase, PermissionsCollection, functional.PermissionIds[i]);
+					var obj = (Role)request.Assigned[i];
+					assigned[i] = obj.Id;
+				}
+				entity.FunctionalPermissionIds = assigned;
+				GenericRepository.Add(AuthAdminDatabase, DomainPermissionsCollection, entity);
+			}
+		}
+
+		#endregion DomainPermission
+
+		#region FunctionalPermission
+
+		private static void GetFunctionalPermissionLists(LevelLists request)
+		{
+			FunctionalPermissionEntity functionalPermissionEntity = GenericRepository.GetItemTopById<FunctionalPermissionEntity>(AuthAdminDatabase, FunctionalPermissionsCollection, request.FunctionalPermissionId);
+			int[] assigned;
+
+			if (functionalPermissionEntity != null && functionalPermissionEntity.PermissionIds != null)
+			{
+				assigned = new int[functionalPermissionEntity.PermissionIds.Length];
+				//Set assigned roles
+				for (int i = 0; i < functionalPermissionEntity.PermissionIds.Length; i++)
+				{
+					var obj = GenericRepository.GetItemTopById<PermissionEntity>(AuthAdminDatabase, PermissionsCollection, functionalPermissionEntity.PermissionIds[i]);
 					if (obj == null)
 						continue;
-					request.Assigned.Add(obj);
+					request.Assigned.Add(obj.TranslateToResponse());
 					assigned[i] = obj.Id;
 				}
 
 				//Set unassigned roles
-				var permisssions = GenericRepository.GetList<Permission>(AuthAdminDatabase, PermissionsCollection);
+				var permisssions = GenericRepository.GetList<PermissionEntity>(AuthAdminDatabase, PermissionsCollection);
 				for (int i = 0; i < permisssions.Count; i++)
 				{
 					if (!assigned.Contains(permisssions[i].Id))
 					{
-						request.UnAssigned.Add(permisssions[i]);
+						request.UnAssigned.Add(permisssions[i].TranslateToResponse());
 					}
 				}
 			}
 		}
 
-		#endregion Private Methods
+		private static void SetFunctionalPermissionLists(LevelLists request)
+		{
+			FunctionalPermissionEntity entity = GenericRepository.GetItemTopById<FunctionalPermissionEntity>(AuthAdminDatabase, FunctionalPermissionsCollection, request.FunctionalPermissionId);
+			int[] assigned;
+
+			if (entity != null)
+			{
+				assigned = new int[request.Assigned.Count];
+
+				for (int i = 0; i < request.Assigned.Count; i++)
+				{
+					var obj = (Role)request.Assigned[i];
+					assigned[i] = obj.Id;
+				}
+				entity.PermissionIds = assigned;
+				GenericRepository.Add(AuthAdminDatabase, FunctionalPermissionsCollection, entity);
+			}
+		}
+
+		#endregion FunctionalPermission
 	}
 }

@@ -7,6 +7,7 @@ using ServiceStack.ServiceClient.Web;
 using ServiceStack.ServiceInterface;
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities;
+using SingletonTheory.Services.AuthServices.Extensions;
 using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.TransferObjects;
 
@@ -32,7 +33,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 				if (entity == null)
 					return null;
 
-				return TranslateToResponse(entity);
+				return entity.TranslateToResponse();
 			}
 
 			return null;
@@ -40,23 +41,23 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		public DomainPermission Post(DomainPermission request)
 		{
-			DomainPermissionEntity entity = TranslateToEntity(request);
+			DomainPermissionEntity entity = request.TranslateToEntity();
 
 			if (entity.Id == 0)
 				entity.Id = GenericRepository.GetMaxIdIncrement<DomainPermissionEntity>(AuthAdminDatabase, DomainPermissionsCollection);
 
 			entity = GenericRepository.Add(AuthAdminDatabase, DomainPermissionsCollection, entity);
 
-			return TranslateToResponse(entity);
+			return entity.TranslateToResponse();
 		}
 
 		public DomainPermission Put(DomainPermission request)
 		{
-			DomainPermissionEntity entity = TranslateToEntity(request);
+			DomainPermissionEntity entity = request.TranslateToEntity();
 
 			entity = GenericRepository.Add(AuthAdminDatabase, DomainPermissionsCollection, entity);
 
-			return TranslateToResponse(entity);
+			return entity.TranslateToResponse();
 		}
 
 		public DomainPermission Delete(DomainPermission request)
@@ -79,44 +80,10 @@ namespace SingletonTheory.Services.AuthServices.Services
 			if (entities == null)
 				return null;
 
-			return TranslateToResponse(entities);
+			return entities.TranslateToResponse();
 		}
 
 		#endregion DomainPermissions
 
-		#region Private Methods
-
-		//private UserRepository GetRepository()
-		//{
-		//	UserRepository repository = base.GetResolver().TryResolve<UserRepository>();
-		//	return repository;
-		//}
-
-		private DomainPermission TranslateToResponse(DomainPermissionEntity entity)
-		{
-			DomainPermission response = entity.TranslateTo<DomainPermission>();
-
-			return response;
-		}
-
-		private List<DomainPermission> TranslateToResponse(List<DomainPermissionEntity> entities)
-		{
-			List<DomainPermission> response = new List<DomainPermission>();
-			for (int i = 0; i < entities.Count; i++)
-			{
-				response.Add(TranslateToResponse(entities[i]));
-			}
-
-			return response;
-		}
-
-		private static DomainPermissionEntity TranslateToEntity(DomainPermission request)
-		{
-			DomainPermissionEntity response = request.TranslateTo<DomainPermissionEntity>();
-
-			return response;
-		}
-
-		#endregion Private Methods
 	}
 }
