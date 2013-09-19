@@ -3,6 +3,7 @@ using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Configuration;
 using ServiceStack.ServiceInterface;
+using ServiceStack.ServiceInterface.Admin;
 using ServiceStack.ServiceInterface.Validation;
 using ServiceStack.WebHost.Endpoints;
 using SingletonTheory.Data;
@@ -89,8 +90,12 @@ namespace SingletonTheory.Services.AuthServices.Host
 			SSAuthInterfaces.AuthUserSession authUserSession = new SSAuthInterfaces.AuthUserSession();
 			AuthProvider authProvider = new AuthProvider();
 			SSAuthInterfaces.IAuthProvider[] authProviders = new SSAuthInterfaces.IAuthProvider[] { authProvider };
+			RequestLogsFeature requestLogsFeature = new RequestLogsFeature();
+
+			requestLogsFeature.RequiredRoles = new string[] { };
 
 			Plugins.Add(new AuthFeature(() => authUserSession, authProviders) { });
+			Plugins.Add(requestLogsFeature);
 			Plugins.Add(new RegistrationFeature());
 			Plugins.Add(new ValidationFeature());
 		}
