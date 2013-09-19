@@ -182,7 +182,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		private static void GetFunctionalPermissionLists(LevelLists request)
 		{
-			FunctionalPermissionEntity functionalPermissionEntity = GenericRepository.GetItemTopById<FunctionalPermissionEntity>(AuthAdminDatabase, DomainPermissionsCollection, request.FunctionalPermissionId);
+			FunctionalPermissionEntity functionalPermissionEntity = GenericRepository.GetItemTopById<FunctionalPermissionEntity>(AuthAdminDatabase, FunctionalPermissionsCollection, request.FunctionalPermissionId);
 			int[] assigned;
 
 			if (functionalPermissionEntity != null && functionalPermissionEntity.PermissionIds != null)
@@ -212,7 +212,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		private static void SetFunctionalPermissionLists(LevelLists request)
 		{
-			FunctionalPermissionEntity entity = GenericRepository.GetItemTopById<FunctionalPermissionEntity>(AuthAdminDatabase, DomainPermissionsCollection, request.FunctionalPermissionId);
+			FunctionalPermissionEntity entity = GenericRepository.GetItemTopById<FunctionalPermissionEntity>(AuthAdminDatabase, FunctionalPermissionsCollection, request.FunctionalPermissionId);
 			int[] assigned;
 
 			if (entity != null)
@@ -225,7 +225,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 					assigned[i] = obj.Id;
 				}
 				entity.PermissionIds = assigned;
-				GenericRepository.Add(AuthAdminDatabase, DomainPermissionsCollection, entity);
+				GenericRepository.Add(AuthAdminDatabase, FunctionalPermissionsCollection, entity);
 			}
 		}
 
