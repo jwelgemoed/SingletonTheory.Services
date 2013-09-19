@@ -7,6 +7,7 @@ using ServiceStack.ServiceClient.Web;
 using ServiceStack.ServiceInterface;
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities;
+using SingletonTheory.Services.AuthServices.Extensions;
 using SingletonTheory.Services.AuthServices.Interfaces;
 using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.TransferObjects;
@@ -34,7 +35,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 				if (entity == null)
 					return null;
 
-				return TranslateToResponse(entity);
+				return entity.TranslateToResponse();
 			}
 
 			return null;
@@ -42,23 +43,23 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		public FunctionalPermission Post(FunctionalPermission request)
 		{
-			FunctionalPermissionEntity entity = TranslateToEntity(request);
+			FunctionalPermissionEntity entity = request.TranslateToEntity();
 
 			if (entity.Id == 0)
 				entity.Id = GenericRepository.GetMaxIdIncrement<FunctionalPermissionEntity>(AuthAdminDatabase, FunctionalPermissionsCollection);
 
 			entity = GenericRepository.Add(AuthAdminDatabase, FunctionalPermissionsCollection, entity);
 
-			return TranslateToResponse(entity);
+			return entity.TranslateToResponse();
 		}
 
 		public FunctionalPermission Put(FunctionalPermission request)
 		{
-			FunctionalPermissionEntity entity = TranslateToEntity(request);
+			FunctionalPermissionEntity entity = request.TranslateToEntity();
 
 			entity = GenericRepository.Add(AuthAdminDatabase, FunctionalPermissionsCollection, entity);
 
-			return TranslateToResponse(entity);
+			return entity.TranslateToResponse();
 		}
 
 		public FunctionalPermission Delete(FunctionalPermission request)
@@ -81,48 +82,10 @@ namespace SingletonTheory.Services.AuthServices.Services
 			if (entities == null)
 				return null;
 
-			return TranslateToResponse(entities);
+			return entities.TranslateToResponse();
 		}
 
 		#endregion FunctionalPermissions
 
-		#region Private Methods
-
-		//private UserRepository GetRepository()
-		//{
-		//	UserRepository repository = base.GetResolver().TryResolve<UserRepository>();
-		//	return repository;
-		//}
-
-		private FunctionalPermission TranslateToResponse(FunctionalPermissionEntity entity)
-		{
-			FunctionalPermission response = entity.TranslateTo<FunctionalPermission>();
-
-			//language name to label
-			response.Label = LocalizationUtility.GetL18nLabel(response.Name);
-			return response;
-		}
-
-		private List<FunctionalPermission> TranslateToResponse(List<FunctionalPermissionEntity> entities)
-		{
-			List<FunctionalPermission> response = new List<FunctionalPermission>();
-			for (int i = 0; i < entities.Count; i++)
-			{
-				response.Add(TranslateToResponse(entities[i]));
-			}
-
-			LocalizationUtility.ApplyLanguagingToLabels(new List<INameLabel>(response));
-
-			return response;
-		}
-
-		private static FunctionalPermissionEntity TranslateToEntity(FunctionalPermission request)
-		{
-			FunctionalPermissionEntity response = request.TranslateTo<FunctionalPermissionEntity>();
-
-			return response;
-		}
-
-		#endregion Private Methods
 	}
 }

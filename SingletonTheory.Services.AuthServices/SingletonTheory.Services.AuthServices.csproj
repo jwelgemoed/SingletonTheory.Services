@@ -113,6 +113,7 @@
     <Compile Include="Entities\PermissionEntity.cs" />
     <Compile Include="Entities\RoleEntity.cs" />
     <Compile Include="Entities\UserEntity.cs" />
+    <Compile Include="Extensions\TranslationExtensions.cs" />
     <Compile Include="Interfaces\INameLabel.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\UserAuthRepository.cs" />
@@ -168,7 +169,9 @@
       <Name>SingletonTheory.Data</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Translations\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

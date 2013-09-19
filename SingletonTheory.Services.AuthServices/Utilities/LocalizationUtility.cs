@@ -74,7 +74,7 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 			request.Locale = language;
 			LocalizationDictionaryResponse localizationList = _client.Get<LocalizationDictionaryResponse>(request);
 
-			return localizationList.LocalizationItems[0].Value;
+			return localizationList.LocalizationItems[0].Value ?? name;
 		}
 
 		public static string GetLabelFromLocalizationList(LocalizationDictionaryResponse localizationList, string name)

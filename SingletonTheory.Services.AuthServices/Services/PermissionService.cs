@@ -8,6 +8,7 @@ using ServiceStack.ServiceClient.Web;
 using ServiceStack.ServiceInterface;
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities;
+using SingletonTheory.Services.AuthServices.Extensions;
 using SingletonTheory.Services.AuthServices.Interfaces;
 using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.TransferObjects;
@@ -35,7 +36,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 				if (entity == null)
 					return null;
 
-				return TranslateToResponse(entity);
+				return entity.TranslateToResponse();
 			}
 
 			return null;
@@ -43,23 +44,23 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		public Permission Post(Permission request)
 		{
-			PermissionEntity entity = TranslateToEntity(request);
+			PermissionEntity entity = request.TranslateToEntity();
 
 			if (entity.Id == 0)
 				entity.Id = GenericRepository.GetMaxIdIncrement<PermissionEntity>(AuthAdminDatabase, PermissionsCollection);
 
 			entity = GenericRepository.Add(AuthAdminDatabase, PermissionsCollection, entity);
 
-			return TranslateToResponse(entity);
+			return entity.TranslateToResponse();
 		}
 
 		public Permission Put(Permission request)
 		{
-			PermissionEntity entity = TranslateToEntity(request);
+			PermissionEntity entity = request.TranslateToEntity();
 
 			entity = GenericRepository.Add(AuthAdminDatabase, PermissionsCollection, entity);
 
-			return TranslateToResponse(entity);
+			return entity.TranslateToResponse();
 		}
 
 		public Permission Delete(Permission request)
@@ -82,48 +83,9 @@ namespace SingletonTheory.Services.AuthServices.Services
 			if (entities == null)
 				return null;
 
-			return TranslateToResponse(entities);
+			return entities.TranslateToResponse();
 		}
 
 		#endregion Permissions
-
-		#region Private Methods
-
-		//private UserRepository GetRepository()
-		//{
-		//	UserRepository repository = base.GetResolver().TryResolve<UserRepository>();
-		//	return repository;
-		//}
-
-		private Permission TranslateToResponse(PermissionEntity entity)
-		{
-			Permission response = entity.TranslateTo<Permission>();
-
-			//language name to label
-			response.Label = LocalizationUtility.GetL18nLabel(response.Name);
-			return response;
-		}
-
-		private List<Permission> TranslateToResponse(List<PermissionEntity> entities)
-		{
-			List<Permission> response = new List<Permission>();
-			for (int i = 0; i < entities.Count; i++)
-			{
-				response.Add(TranslateToResponse(entities[i]));
-			}
-
-			LocalizationUtility.ApplyLanguagingToLabels(new List<INameLabel>(response));
-
-			return response;
-		}
-
-		private static PermissionEntity TranslateToEntity(Permission request)
-		{
-			PermissionEntity response = request.TranslateTo<PermissionEntity>();
-
-			return response;
-		}
-
-		#endregion Private Methods
 	}
 }
