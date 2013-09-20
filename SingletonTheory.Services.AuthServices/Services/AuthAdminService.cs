@@ -119,7 +119,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 				for (int i = 0; i < request.Assigned.Count; i++)
 				{
-					var obj = (Role)request.Assigned[i];
+					var obj = (DomainPermission)request.Assigned[i];
 					assigned[i] = obj.Id;
 				}
 				entity.DomainPermissionIds = assigned;
@@ -176,7 +176,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 				for (int i = 0; i < request.Assigned.Count; i++)
 				{
-					var obj = (Role)request.Assigned[i];
+					var obj = (FunctionalPermission)request.Assigned[i];
 					assigned[i] = obj.Id;
 				}
 				entity.FunctionalPermissionIds = assigned;
@@ -233,7 +233,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 				for (int i = 0; i < request.Assigned.Count; i++)
 				{
-					var obj = (Role)request.Assigned[i];
+					var obj = (Permission)request.Assigned[i];
 					assigned[i] = obj.Id;
 				}
 				entity.PermissionIds = assigned;
