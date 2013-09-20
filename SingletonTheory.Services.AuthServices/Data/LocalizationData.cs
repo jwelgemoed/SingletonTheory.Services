@@ -199,7 +199,38 @@ namespace SingletonTheory.Services.AuthServices.Data
 					                         Key = "_DutchHeading_", 
 																	 Value = "Dutch", 
 																	 Description = "Dutch heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AuthAdminHeading_", 
+																	 Value = "Authorization Administration", 
+																	 Description = "AuthAdmin heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_ElementHeading_", 
+																	 Value = "Permission Element", 
+																	 Description = "Element heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_DomainPermissionHeading_", 
+																	 Value = "Domain Permission", 
+																	 Description = "Domain Permission heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_FunctionalPermissionHeading_", 
+																	 Value = "Functional Permission", 
+																	 Description = "Function Permission heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_PermissionHeading_", 
+																	 Value = "Permission", 
+																	 Description = "Permission heading for re-use."
 				                         }
+																 
 #endregion items
 			                         }
 		};
@@ -394,6 +425,36 @@ namespace SingletonTheory.Services.AuthServices.Data
 					                         Key = "_DutchHeading_", 
 																	 Value = "Nederlands", 
 																	 Description = "Nederlands hoofd voor hergebruik."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AuthAdminHeading_", 
+																	 Value = "Autorisatie Administratie", 
+																	 Description = "AuthAdmin hoofd voor hergebruik."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_ElementHeading_", 
+																	 Value = "Permissie Element", 
+																	 Description = "Element hoofd voor hergebruik."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_DomainPermissionHeading_", 
+																	 Value = "Domein Permissie", 
+																	 Description = "Domein Permissie hoofd voor hergebruik."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_FunctionalPermissionHeading_", 
+																	 Value = "Functionele Permissie", 
+																	 Description = "Functionele Permissie hoofd voor hergebruik."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_PermissionHeading_", 
+																	 Value = "Permissie", 
+																	 Description = "Permissie hoofd voor hergebruik."
 				                         }
 #endregion
 			                         }
@@ -590,6 +651,36 @@ namespace SingletonTheory.Services.AuthServices.Data
 					                         Key = "_DutchHeading_", 
 																	 Value = "Dutch", 
 																	 Description = "Dutch heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AuthAdminHeading_", 
+																	 Value = "Authorization Administration", 
+																	 Description = "AuthAdmin heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_ElementHeading_", 
+																	 Value = "Permission Element", 
+																	 Description = "Element heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_DomainPermissionHeading_", 
+																	 Value = "Domain Permission", 
+																	 Description = "Domain Permission heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_FunctionalPermissionHeading_", 
+																	 Value = "Functional Permission", 
+																	 Description = "Function Permission heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_PermissionHeading_", 
+																	 Value = "Permission", 
+																	 Description = "Permission heading for re-use."
 				                         }
 #endregion
 			                         }
