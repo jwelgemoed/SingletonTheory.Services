@@ -50,6 +50,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		public LevelLists Put(LevelLists request)
 		{
+			
 			if (request.RoleId != 0)
 			{
 				SetRoleLevelLists(request);
@@ -78,7 +79,8 @@ namespace SingletonTheory.Services.AuthServices.Services
 		{
 			RoleEntity roleEntity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, request.RoleId);
 			int[] assigned = new int[] {};
-
+			request.Assigned.Clear();
+			request.UnAssigned.Clear();
 			if (roleEntity != null)
 			{
 				if (roleEntity.DomainPermissionIds != null)
@@ -135,6 +137,8 @@ namespace SingletonTheory.Services.AuthServices.Services
 		{
 			DomainPermissionEntity domainPermissionEntity = GenericRepository.GetItemTopById<DomainPermissionEntity>(AuthAdminDatabase, DomainPermissionsCollection, request.DomainPermissionId);
 			int[] assigned = new int[] { };
+			request.Assigned.Clear();
+			request.UnAssigned.Clear();
 
 			if (domainPermissionEntity != null)
 			{
@@ -192,6 +196,8 @@ namespace SingletonTheory.Services.AuthServices.Services
 		{
 			FunctionalPermissionEntity functionalPermissionEntity = GenericRepository.GetItemTopById<FunctionalPermissionEntity>(AuthAdminDatabase, FunctionalPermissionsCollection, request.FunctionalPermissionId);
 			int[] assigned = new int[] {};
+			request.Assigned.Clear();
+			request.UnAssigned.Clear();
 
 			if (functionalPermissionEntity != null)
 			{
