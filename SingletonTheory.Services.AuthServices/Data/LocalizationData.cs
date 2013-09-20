@@ -229,6 +229,78 @@ namespace SingletonTheory.Services.AuthServices.Data
 					                         Key = "_PermissionHeading_", 
 																	 Value = "Permission", 
 																	 Description = "Permission heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_SortHeading_", 
+																	 Value = "Click to Sort", 
+																	 Description = "Sort heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AssignedDomainPermissionHeading_", 
+																	 Value = "Assigned Domain Permissions", 
+																	 Description = "AssignedDomainPermissionHeading heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AvailableDomainPermissionHeading_", 
+																	 Value = "Available Domain Permissions", 
+																	 Description = "AvailableDomainPermissionHeading heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AssignedFunctionalPermissionHeading_", 
+																	 Value = "Assigned Functional Permissions", 
+																	 Description = "AssignedFunctionalPermissionHeading heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AvailableFunctionalPermissionHeading_", 
+																	 Value = "Available Functional Permissions", 
+																	 Description = "AvailableFunctionalPermissionHeading heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AssignedPermissionHeading_", 
+																	 Value = "Assigned Permissions", 
+																	 Description = "AssignedPermissionHeading heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AvailablePermissionHeading_", 
+																	 Value = "Available Permissions", 
+																	 Description = "AvailablePermissionHeading heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AssignButtonHeading_", 
+																	 Value = "Assign Selected", 
+																	 Description = "Assign Button heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_UnAssignButtonHeading_", 
+																	 Value = "Unassign Selected", 
+																	 Description = "Assign Button heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_Name5MinCharsHeading_", 
+																	 Value = "Name (min. 5 characters)", 
+																	 Description = "Name with min 5 chars heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_Label5MinCharsHeading_", 
+																	 Value = "Label (min. 5 characters)", 
+																	 Description = "Label with min 5 chars heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_DescriptionHeading_", 
+																	 Value = "Description", 
+																	 Description = "Description heading for re-use."
 				                         }
 																 
 #endregion items
@@ -455,6 +527,78 @@ namespace SingletonTheory.Services.AuthServices.Data
 					                         Key = "_PermissionHeading_", 
 																	 Value = "Permissie", 
 																	 Description = "Permissie hoofd voor hergebruik."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_SortHeading_", 
+																	 Value = "Klik om te Sorteren", 
+																	 Description = "Sort hoofd voor hergebruik."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AssignedDomainPermissionHeading_", 
+																	 Value = "Toegewezen Domein Permissies", 
+																	 Description = "AssignedDomainPermissionHeading hoofd voor hergebruik."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AvailableDomainPermissionHeading_", 
+																	 Value = "Beschikbare Domein Permissies", 
+																	 Description = "AvailableDomainPermissionHeading hoofd voor hergebruik."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AssignedFunctionalPermissionHeading_", 
+																	 Value = "Toegewezen Functionele Permissies", 
+																	 Description = "AssignedFunctionalPermissionHeading hoofd voor hergebruik."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AvailableFunctionalPermissionHeading_", 
+																	 Value = "Beschikbare Functionele Permissies", 
+																	 Description = "AvailableFunctionalPermissionHeading hoofd voor hergebruik."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AssignedPermissionHeading_", 
+																	 Value = "Toegewezen Permissies", 
+																	 Description = "AssignedPermissionHeading hoofd voor hergebruik."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AvailablePermissionHeading_", 
+																	 Value = "Beschikbare Permissies", 
+																	 Description = "AvailablePermissionHeading hoofd voor hergebruik."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AssignButtonHeading_", 
+																	 Value = "Geselecteerde Toewijzen", 
+																	 Description = "Assign Button hoofd voor hergebruik."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_UnAssignButtonHeading_", 
+																	 Value = "Geselecteerde Toewijzing Ongedaan Maken", 
+																	 Description = "Assign Button hoofd voor hergebruik."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_Name5MinCharsHeading_", 
+																	 Value = "Naam (min. 5 karakters)", 
+																	 Description = "Naam met min 5 karakters hoofd voor hergebruik."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_Label5MinCharsHeading_", 
+																	 Value = "Label (min. 5 karakters)", 
+																	 Description = "Label met min 5 karakters hoofd voor hergebruik."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_DescriptionHeading_", 
+																	 Value = "Omschrijving", 
+																	 Description = "Omschrijving hoofd voor hergebruik."
 				                         }
 #endregion
 			                         }
@@ -681,6 +825,78 @@ namespace SingletonTheory.Services.AuthServices.Data
 					                         Key = "_PermissionHeading_", 
 																	 Value = "Permission", 
 																	 Description = "Permission heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_SortHeading_", 
+																	 Value = "Click to Sort", 
+																	 Description = "Sort heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AssignedDomainPermissionHeading_", 
+																	 Value = "Assigned Domain Permissions", 
+																	 Description = "AssignedDomainPermissionHeading heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AvailableDomainPermissionHeading_", 
+																	 Value = "Available Domain Permissions", 
+																	 Description = "AvailableDomainPermissionHeading heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AssignedFunctionalPermissionHeading_", 
+																	 Value = "Assigned Functional Permissions", 
+																	 Description = "AssignedFunctionalPermissionHeading heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AvailableFunctionalPermissionHeading_", 
+																	 Value = "Available Functional Permissions", 
+																	 Description = "AvailableFunctionalPermissionHeading heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AssignedPermissionHeading_", 
+																	 Value = "Assigned Permissions", 
+																	 Description = "AssignedPermissionHeading heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AvailablePermissionHeading_", 
+																	 Value = "Available Permissions", 
+																	 Description = "AvailablePermissionHeading heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_AssignButtonHeading_", 
+																	 Value = "Assign Selected", 
+																	 Description = "Assign Button heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_UnAssignButtonHeading_", 
+																	 Value = "Unassign Selected", 
+																	 Description = "Assign Button heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_Name5MinCharsHeading_", 
+																	 Value = "Name (min. 5 characters)", 
+																	 Description = "Name with min 5 chars heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_Label5MinCharsHeading_", 
+																	 Value = "Label (min. 5 characters)", 
+																	 Description = "Label with min 5 chars heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_DescriptionHeading_", 
+																	 Value = "Description", 
+																	 Description = "Description heading for re-use."
 				                         }
 #endregion
 			                         }
