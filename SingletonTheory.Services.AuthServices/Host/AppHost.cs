@@ -2,8 +2,6 @@
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Configuration;
-using ServiceStack.Logging;
-using ServiceStack.Logging.Log4Net;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Admin;
 using ServiceStack.ServiceInterface.Validation;
@@ -49,7 +47,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 
 		private static void RegisterLogProvider()
 		{
-			LogManager.LogFactory = new Log4NetFactory(true);
+			//LogManager.LogFactory = new Log4NetFactory(true);
 		}
 
 		private static void RegisterContainerItems(Funq.Container container)
