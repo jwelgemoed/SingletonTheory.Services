@@ -118,6 +118,7 @@
     <Compile Include="Entities\UserEntity.cs" />
     <Compile Include="Extensions\TranslationExtensions.cs" />
     <Compile Include="Interfaces\INameLabel.cs" />
+    <Compile Include="Repositories\BlackListRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\UserAuthRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />

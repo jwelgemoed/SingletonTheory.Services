@@ -1,8 +1,7 @@
-﻿using ServiceStack.Common;
-using ServiceStack.ServiceInterface;
+﻿using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
+using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.TransferObjects;
-using System.Collections.Generic;
 
 namespace SingletonTheory.Services.AuthServices.Services
 {
@@ -13,6 +12,9 @@ namespace SingletonTheory.Services.AuthServices.Services
 		public UserAuth Get(CurrentUserAuthRequest request)
 		{
 			IAuthSession session = this.GetSession();
+			if (BlackListRepository.Blacklist.Contains(session.Id))
+				return null;
+
 			IUserAuthRepository repository = GetRepository();
 
 			return repository.GetUserAuthByUserName(session.UserName);
