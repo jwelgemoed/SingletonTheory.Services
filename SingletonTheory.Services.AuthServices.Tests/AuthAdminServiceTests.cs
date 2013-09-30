@@ -17,7 +17,7 @@ namespace SingletonTheory.Services.AuthServices.Tests
 
 		private JsonServiceClient _client;
 		private ObjectId _userId;
-		private string _currentRole = "Admin";
+		private int _currentRole = 1;
 		private bool _currentActivitySetting = true;
 
 		#endregion Fields & Properties

@@ -15,7 +15,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Services
 		#region Fields & Properties
 
 		private JsonServiceClient _client;
-		private string _currentRole = "Admin";
+		private int _currentRole = 1;
 		private bool _currentActivitySetting = true;
 		private ObjectId _userId;
 
@@ -187,11 +187,11 @@ namespace SingletonTheory.Services.AuthServices.Tests.Services
 			WebServiceException webExceptionForNullRole = null;
 
 			var requestWithEmptyRole = new User { UserName = MongoHelpers.MongoTestUsername, Password = MongoHelpers.MongoTestUserPassword };
-			requestWithEmptyRole.Roles.Add("");
+			requestWithEmptyRole.Roles.Add(0);
 			requestWithEmptyRole.Active = _currentActivitySetting;
 
 			var requestWithNullRole = new User { UserName = MongoHelpers.MongoTestUsername, Password = MongoHelpers.MongoTestUserPassword };
-			requestWithNullRole.Roles.Add(null);
+			requestWithNullRole.Roles.Add(0);
 			requestWithNullRole.Active = _currentActivitySetting;
 
 			//Act

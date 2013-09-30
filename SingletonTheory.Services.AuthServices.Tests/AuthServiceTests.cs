@@ -16,7 +16,7 @@ namespace SingletonTheory.Services.AuthServices.Tests
 
 		private JsonServiceClient _client;
 		private ObjectId _userId;
-		private string _currentRole = "Admin";
+		private int _currentRole = 1;
 		private bool _currentActivitySetting = true;
 
 		#endregion Fields & Properties
@@ -55,7 +55,7 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			var request = new User() { Id = _userId };
 
 			// Act
-			_currentRole = "user";
+			_currentRole = 2;
 			request.Roles.Add(_currentRole);
 			_currentActivitySetting = false;
 			request.Active = _currentActivitySetting;
@@ -75,7 +75,7 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			var request = new User() { Id = new ObjectId() };
 
 			// Act
-			_currentRole = "user";
+			_currentRole = 2;
 			request.Roles.Add(_currentRole);
 			_currentActivitySetting = false;
 			request.Active = _currentActivitySetting;
@@ -102,7 +102,7 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			var request = new User { Id = ObjectId.Empty };
 
 			//Act
-			request.Roles.Add("user");
+			request.Roles.Add(2);
 			request.Active = false;
 			try
 			{
@@ -131,7 +131,7 @@ namespace SingletonTheory.Services.AuthServices.Tests
 			var requestForNullRole = new User { Id = _userId };
 
 			//Act
-			requestForEmptyRole.Roles.Add("");
+			requestForEmptyRole.Roles.Add(0);
 			requestForEmptyRole.Active = false;
 			try
 			{
