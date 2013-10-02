@@ -200,6 +200,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			userToUpdate.Language = user.Language;
 			userToUpdate.Meta = user.Meta;
 			userToUpdate.ModifiedDate = DateTime.UtcNow;
+			userToUpdate.DomainPermissions = user.DomainPermissions;
 			userToUpdate.Permissions = user.Permissions;
 			userToUpdate.Roles = user.Roles;
 
