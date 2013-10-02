@@ -286,21 +286,39 @@ namespace SingletonTheory.Services.AuthServices.Data
 				                         },
 																  new LocalizationEntity()
 				                         {
-					                         Key = "_Name5MinCharsHeading_", 
-																	 Value = "Name (min. 5 characters)", 
-																	 Description = "Name with min 5 chars heading for re-use."
+					                         Key = "_NameHeading_", 
+																	 Value = "Name:", 
+																	 Description = "Name heading for re-use."
 				                         },
 																  new LocalizationEntity()
 				                         {
-					                         Key = "_Label5MinCharsHeading_", 
-																	 Value = "Label (min. 5 characters)", 
-																	 Description = "Label with min 5 chars heading for re-use."
+					                         Key = "_LabelHeading_", 
+																	 Value = "Label:", 
+																	 Description = "Label heading for re-use."
 				                         },
 																  new LocalizationEntity()
 				                         {
 					                         Key = "_DescriptionHeading_", 
 																	 Value = "Description", 
 																	 Description = "Description heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_requiredFieldDescription_", 
+																	 Value = "This is a required field.", 
+																	 Description = "Required field error display description."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_minLengthDescription_", 
+																	 Value = "Please enter a minimum of {0} characters.", 
+																	 Description = "Minimum length error display description."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_maxLengthDescription_", 
+																	 Value = "Please do not exceed {0} characters.", 
+																	 Description = "Maximum length error display description."
 				                         }
 																 
 #endregion items
@@ -584,21 +602,39 @@ namespace SingletonTheory.Services.AuthServices.Data
 				                         },
 																  new LocalizationEntity()
 				                         {
-					                         Key = "_Name5MinCharsHeading_", 
-																	 Value = "Naam (min. 5 karakters)", 
-																	 Description = "Naam met min 5 karakters hoofd voor hergebruik."
+					                         Key = "_NameHeading_", 
+																	 Value = "Naam:", 
+																	 Description = "Naam hoofd voor hergebruik."
 				                         },
 																  new LocalizationEntity()
 				                         {
-					                         Key = "_Label5MinCharsHeading_", 
-																	 Value = "Label (min. 5 karakters)", 
-																	 Description = "Label met min 5 karakters hoofd voor hergebruik."
+					                         Key = "_LabelHeading_", 
+																	 Value = "Label:", 
+																	 Description = "Label hoofd voor hergebruik."
 				                         },
 																  new LocalizationEntity()
 				                         {
 					                         Key = "_DescriptionHeading_", 
 																	 Value = "Omschrijving", 
 																	 Description = "Omschrijving hoofd voor hergebruik."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_requiredFieldDescription_", 
+																	 Value = "Dit is een verplicht veld.", 
+																	 Description = "Verplicht veld foutmelding omschrijving."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_minLengthDescription_", 
+																	 Value = "Vul minimaal {0} karakters", 
+																	 Description = "Minimum lengte foutmelding omschrijving."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_maxLengthDescription_", 
+																	 Value = "Vul maximaal {0} karakters", 
+																	 Description = "Maximum lengte foutmelding omschrijving."
 				                         }
 #endregion
 			                         }
@@ -882,21 +918,39 @@ namespace SingletonTheory.Services.AuthServices.Data
 				                         },
 																  new LocalizationEntity()
 				                         {
-					                         Key = "_Name5MinCharsHeading_", 
-																	 Value = "Name (min. 5 characters)", 
-																	 Description = "Name with min 5 chars heading for re-use."
+					                         Key = "_NameHeading_", 
+																	 Value = "Name:", 
+																	 Description = "Name heading for re-use."
 				                         },
 																  new LocalizationEntity()
 				                         {
-					                         Key = "_Label5MinCharsHeading_", 
-																	 Value = "Label (min. 5 characters)", 
-																	 Description = "Label with min 5 chars heading for re-use."
+					                         Key = "_LabelHeading_", 
+																	 Value = "Label:", 
+																	 Description = "Label heading for re-use."
 				                         },
 																  new LocalizationEntity()
 				                         {
 					                         Key = "_DescriptionHeading_", 
 																	 Value = "Description", 
 																	 Description = "Description heading for re-use."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_requiredFieldDescription_", 
+																	 Value = "This is a required field.", 
+																	 Description = "Required field error display description."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_minLengthDescription_", 
+																	 Value = "Please enter a minimum of {0} characters.", 
+																	 Description = "Minimum length error display description."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_maxLengthDescription_", 
+																	 Value = "Please do not exceed {0} characters.", 
+																	 Description = "Maximum length error display description."
 				                         }
 #endregion
 			                         }
