@@ -319,6 +319,12 @@ namespace SingletonTheory.Services.AuthServices.Data
 					                         Key = "_maxLengthDescription_", 
 																	 Value = "Please do not exceed {0} characters.", 
 																	 Description = "Maximum length error display description."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_userAvailabilityDescription_", 
+																	 Value = "The user name should be unique.", 
+																	 Description = "User availability error display description."
 				                         }
 																 
 #endregion items
@@ -635,6 +641,12 @@ namespace SingletonTheory.Services.AuthServices.Data
 					                         Key = "_maxLengthDescription_", 
 																	 Value = "Vul maximaal {0} karakters", 
 																	 Description = "Maximum lengte foutmelding omschrijving."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_userAvailabilityDescription_", 
+																	 Value = "De gebruikersnaam moet uniek zijn.", 
+																	 Description = "Unieke Gebruikersnaam foutmelding omschrijving."
 				                         }
 #endregion
 			                         }
@@ -951,6 +963,12 @@ namespace SingletonTheory.Services.AuthServices.Data
 					                         Key = "_maxLengthDescription_", 
 																	 Value = "Please do not exceed {0} characters.", 
 																	 Description = "Maximum length error display description."
+				                         },
+																  new LocalizationEntity()
+				                         {
+					                         Key = "_userAvailabilityDescription_", 
+																	 Value = "The user name should be unique.", 
+																	 Description = "User availability error display description."
 				                         }
 #endregion
 			                         }
