@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 
 namespace SingletonTheory.Services.AuthServices.Config
 {
@@ -60,9 +61,27 @@ namespace SingletonTheory.Services.AuthServices.Config
 			}
 		}
 
-		private static string GetValue(string key)
+		public static string LocalizationFilePath
 		{
-			return ConfigurationManager.AppSettings[key];
+			get
+			{
+				return GetValue("LocalizationFilePath", string.Format(@"{0}Data\LocalizationFiles", BaseDirectory));
+			}
+		}
+
+		public static string BaseDirectory
+		{
+			get
+			{
+				return AppDomain.CurrentDomain.BaseDirectory;
+			}
+		}
+
+		private static string GetValue(string key, string defaultValue = "")
+		{
+			string returnValue = ConfigurationManager.AppSettings[key];
+
+			return string.IsNullOrEmpty(returnValue) ? defaultValue : returnValue;
 		}
 	}
 }

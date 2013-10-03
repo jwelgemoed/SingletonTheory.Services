@@ -2,8 +2,6 @@
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Configuration;
-using ServiceStack.Logging;
-using ServiceStack.Logging.Log4Net;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Admin;
 using ServiceStack.ServiceInterface.Validation;
@@ -15,6 +13,7 @@ using SingletonTheory.Services.AuthServices.Providers;
 using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.Services;
 using SingletonTheory.Services.AuthServices.Validations;
+using System;
 using SSAuthInterfaces = ServiceStack.ServiceInterface.Auth;
 
 namespace SingletonTheory.Services.AuthServices.Host
@@ -40,7 +39,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 			RegisterLogProvider();
 
 			// TODO:  Remove this and replace with permanent solutions.
-			CreateMockData();
+			CreateMockData(container);
 		}
 
 		#endregion Override Methods
@@ -60,10 +59,15 @@ namespace SingletonTheory.Services.AuthServices.Host
 			container.Register<UserRepository>(GetUserRepositoryProvider());
 		}
 
-		private static void CreateMockData()
+		private static void CreateMockData(Funq.Container container)
 		{
+			LocalizationRepository repository = container.Resolve<LocalizationRepository>();
+			if (repository == null)
+				throw new InvalidOperationException("LocalizationRepository not defined in IoC Container");
+
+			LocalizationData.CreateLanguageFiles(repository, ConfigSettings.LocalizationFilePath);
+
 			UserData.CreateUsers();
-			LocalizationData.CreateLanguageFiles();
 		}
 
 		private static void RegisterValidations(Funq.Container container)
