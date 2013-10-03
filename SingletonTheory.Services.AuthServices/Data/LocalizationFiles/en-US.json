@@ -248,6 +248,26 @@
 			Key: _ErrorAlert_,
 			Value: Error!,
 			Description: Description heading for re-use.
+		},
+		{
+			Key: _requiredFieldDescription_, 
+			Value: This is a required field., 
+			Description: Required field error display description.
+		},
+		{
+			Key: _minLengthDescription_, 
+			Value: "Please enter a minimum of {0} characters.", 
+			Description: Minimum length error display description.
+		},
+		{
+			Key: _maxLengthDescription_, 
+			Value: "Please do not exceed {0} characters.", 
+			Description: Maximum length error display description.
+		},
+		{
+			Key: _userAvailabilityDescription_, 
+			Value: The user name should be unique., 
+			Description: User availability error display description.
 		}
 	]
 }

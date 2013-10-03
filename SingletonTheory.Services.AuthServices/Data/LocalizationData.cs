@@ -1,10 +1,7 @@
-﻿using ServiceStack.Text;
-using SingletonTheory.Library.IO;
+﻿using SingletonTheory.Library.IO;
 using SingletonTheory.Services.AuthServices.Entities;
 using SingletonTheory.Services.AuthServices.Repositories;
-using System;
 using System.IO;
-using System.Text;
 
 namespace SingletonTheory.Services.AuthServices.Data
 {

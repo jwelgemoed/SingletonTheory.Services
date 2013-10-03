@@ -188,6 +188,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Data\AuthAdmin\" />
     <Folder Include="Translations\" />
   </ItemGroup>
   <PropertyGroup>

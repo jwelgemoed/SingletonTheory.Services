@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\ThreadCommand.cs" />
+    <Compile Include="IO\SerializationUtilitiesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queueing\MemoryQueueTests.cs" />
     <Compile Include="Queueing\ThreadQueueTests.cs" />

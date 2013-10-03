@@ -103,6 +103,10 @@
       <Project>{d4debe86-c4f3-4cc8-be22-b03ea978f719}</Project>
       <Name>SingletonTheory.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SingletonTheory.Library\SingletonTheory.Library.csproj">
+      <Project>{520ab5a5-69f2-406b-8ed4-df85198c3f95}</Project>
+      <Name>SingletonTheory.Library</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SingletonTheory.Services.AuthServices\SingletonTheory.Services.AuthServices.csproj">
       <Project>{31880ae0-113c-4752-b552-192da98b6c1d}</Project>
       <Name>SingletonTheory.Services.AuthServices</Name>
