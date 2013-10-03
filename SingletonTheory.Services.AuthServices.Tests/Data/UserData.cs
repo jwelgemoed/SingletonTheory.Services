@@ -25,7 +25,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 			entity.Active = true;
 			entity.Language = "en-US";
 			entity.Permissions.Add("SomePermission");
-			entity.Roles.Add("admin");
+			entity.Roles.Add(1);
 
 			return entity;
 		}

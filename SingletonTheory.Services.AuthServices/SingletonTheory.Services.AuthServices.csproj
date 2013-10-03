@@ -112,6 +112,7 @@
     <Compile Include="Data\LocalizationData.cs" />
     <Compile Include="Data\UserData.cs" />
     <Compile Include="Entities\DomainPermissionEntity.cs" />
+    <Compile Include="Entities\DomainPermissionObject.cs" />
     <Compile Include="Entities\FunctionalPermissionEntity.cs" />
     <Compile Include="Entities\PermissionEntity.cs" />
     <Compile Include="Entities\RoleEntity.cs" />

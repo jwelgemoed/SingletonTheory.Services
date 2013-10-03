@@ -29,9 +29,9 @@ namespace SingletonTheory.Services.AuthServices.Data
 			//CreateUserAuth(0, DutchUserName, null, Password, "nl-nl", new List<string> { "admin" }, new List<string> { "ThePermission" });
 
 			ClearUsers();
-			CreateUser(0, UserName, null, Password, "en-US", new List<string> { "user" }, new List<string> { "ThePermission" });
-			CreateUser(0, AdminUserName, null, Password, "en-US", new List<string> { "admin" }, new List<string> { "ThePermission" });
-			CreateUser(0, DutchUserName, null, Password, "nl-nl", new List<string> { "admin" }, new List<string> { "ThePermission" });
+			CreateUser(0, UserName, null, Password, "en-US", new List<int> { 2 }, new List<string> { "ThePermission" });
+			CreateUser(0, AdminUserName, null, Password, "en-US", new List<int> { 1 }, new List<string> { "ThePermission" });
+			CreateUser(0, DutchUserName, null, Password, "nl-nl", new List<int> { 1 }, new List<string> { "ThePermission" });
 		}
 
 		#endregion Public Methods
@@ -50,7 +50,7 @@ namespace SingletonTheory.Services.AuthServices.Data
 			repository.Clear();
 		}
 
-		private static void CreateUser(int id, string username, string email, string password, string language, List<string> roles = null, List<string> permissions = null)
+		private static void CreateUser(int id, string username, string email, string password, string language, List<int> roles = null, List<string> permissions = null)
 		{
 			UserRepository repository = GetUserRepository();
 			UserEntity entity = new UserEntity();

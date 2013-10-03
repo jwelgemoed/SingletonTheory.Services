@@ -1,0 +1,253 @@
+{
+	Id: 000000000000000000000000,
+	Locale: nl-nl,
+	LocalizationItems: 
+	[
+		{
+			Key: _MainTitle_,
+			Value: Singleton Theory Toegangsapplicatie.,
+			Description: Main app title.
+		},
+		{
+			Key: _LogInHeading_,
+			Value: Inloggen,
+			Description: Hoofd voor inloggen.
+		},
+		{
+			Key: _HomeAnchor_,
+			Value: Thuis,
+			Description: Hoofd navigatie thuis item.
+		},
+		{
+			Key: _AdminActionsAnchor_,
+			Value: Beheerder Acties,
+			Description: Hoofd navigatie beheerder item.
+		},
+		{
+			Key: _AdministrateUsersHeading_,
+			Value: Beheer Gebruikers,
+			Description: Hoofd voor gebruikersbeheer.
+		},
+		{
+			Key: _LogOutAnchor_,
+			Value: Uitloggen,
+			Description: Hoofd navigatie uitloggen item.
+		},
+		{
+			Key: _UserWelcomeMessage_,
+			Value: Welkom,
+			Description: Welkom boodschap voor huidige gebruiker.
+		},
+		{
+			Key: _UserNameHeading_,
+			Value: Gebruikersnaam,
+			Description: Gebruikersnaam hoofd voor hergebruik.
+		},
+		{
+			Key: _UserNameMessage_,
+			Value: Unieke gebruikersnaam AUB,
+			Description: Gebruikersnaam boodschap voor hergebruik.
+		},
+		{
+			Key: _PasswordHeading_,
+			Value: Wachtwoord,
+			Description: Wachtwoord hoofd voor hergebruik.
+		},
+		{
+			Key: _RememberMeHeading_,
+			Value: Aangemeld Blijven,
+			Description: Aangemeld blijven hoofd voor hergebruik.
+		},
+		{
+			Key: _DashboardGreeting_,
+			Value: Welkom bij het Dashboard,
+			Description: Heading for dashboard screen.
+		},
+		{
+			Key: _DashboardSplash_,
+			Value: "Deze pagina zal het dashboard huisvesten,
+			 aanvankelijk zichtbaar voor alle gebruikers die ingelogd zijn.",
+			Description: Content holder for dashboard screen.
+		},
+		{
+			Key: _AddHeading_,
+			Value: Toevoegen,
+			Description: Toevoegen hoofd voor hergebruik.
+		},
+		{
+			Key: _SearchMessage_,
+			Value: Typ om te zoeken,
+			Description: Zoeken hoofd voor hergebruik
+		},
+		{
+			Key: _RefreshHeading_,
+			Value: Verversen,
+			Description: Verversen hoofd voor hergebruik.
+		},
+		{
+			Key: _EditHeading_,
+			Value: Redigeren,
+			Description: Redigeren hoofd voor hergebruik.
+		},
+		{
+			Key: _IdentityHeading_,
+			Value: Id,
+			Description: Identiteit hoofd voor hergebruik.
+		},
+		{
+			Key: _RoleHeading_,
+			Value: Rol,
+			Description: Rol hoofd voor hergebruik.
+		},
+		{
+			Key: _ActiveHeading_,
+			Value: Aktief,
+			Description: Aktief hoofd voor hergebruik.
+		},
+		{
+			Key: _AddUserHeading_,
+			Value: Gebruiker Toevoegen,
+			Description: Gebruiker toevoegen hoofd voor hergebruik.
+		},
+		{
+			Key: _EditUserHeading_,
+			Value: Gebruiker Redigeren,
+			Description: Gebruiker redigeren hoofd voor hergebruik.
+		},
+		{
+			Key: _SaveHeading_,
+			Value: Opslaan,
+			Description: Opslaan hoofd voor hergebruik.
+		},
+		{
+			Key: _UpdateHeading_,
+			Value: Opslaan,
+			Description: Opdateren hoofd voor hergebruik.
+		},
+		{
+			Key: _CancelHeading_,
+			Value: Anuleer,
+			Description: Anuleer hoofd voor hergebruik.
+		},
+		{
+			Key: _AllUsersHeading_,
+			Value: Alle Gebruikers,
+			Description: Alle gebruikers hoofd voor hergebruik.
+		},
+		{
+			Key: _ActiveUsersHeading_,
+			Value: Aktieve Gebruikers,
+			Description: Aktieve gebruikers hoofd voor hergebruik.
+		},
+		{
+			Key: _InactiveUsersHeading_,
+			Value: Onaktieve Gebruikers,
+			Description: Onaktieve gebruikers hoofd voor hergebruik.
+		},
+		{
+			Key: _LanguageHeading_,
+			Value: Taal,
+			Description: Taal hoofd voor hergebruik.
+		},
+		{
+			Key: _EnglishHeading_,
+			Value: Engels,
+			Description: Engels hoofd voor hergebruik.
+		},
+		{
+			Key: _DutchHeading_,
+			Value: Nederlands,
+			Description: Nederlands hoofd voor hergebruik.
+		},
+		{
+			Key: _AuthAdminHeading_,
+			Value: Autorisatie Administratie,
+			Description: AuthAdmin hoofd voor hergebruik.
+		},
+		{
+			Key: _ElementHeading_,
+			Value: Permissie Element,
+			Description: Element hoofd voor hergebruik.
+		},
+		{
+			Key: _DomainPermissionHeading_,
+			Value: Domein Permissie,
+			Description: Domein Permissie hoofd voor hergebruik.
+		},
+		{
+			Key: _FunctionalPermissionHeading_,
+			Value: Functionele Permissie,
+			Description: Functionele Permissie hoofd voor hergebruik.
+		},
+		{
+			Key: _PermissionHeading_,
+			Value: Permissie,
+			Description: Permissie hoofd voor hergebruik.
+		},
+		{
+			Key: _SortHeading_,
+			Value: Klik om te Sorteren,
+			Description: Sort hoofd voor hergebruik.
+		},
+		{
+			Key: _AssignedDomainPermissionHeading_,
+			Value: Toegewezen Domein Permissies,
+			Description: AssignedDomainPermissionHeading hoofd voor hergebruik.
+		},
+		{
+			Key: _AvailableDomainPermissionHeading_,
+			Value: Beschikbare Domein Permissies,
+			Description: AvailableDomainPermissionHeading hoofd voor hergebruik.
+		},
+		{
+			Key: _AssignedFunctionalPermissionHeading_,
+			Value: Toegewezen Functionele Permissies,
+			Description: AssignedFunctionalPermissionHeading hoofd voor hergebruik.
+		},
+		{
+			Key: _AvailableFunctionalPermissionHeading_,
+			Value: Beschikbare Functionele Permissies,
+			Description: AvailableFunctionalPermissionHeading hoofd voor hergebruik.
+		},
+		{
+			Key: _AssignedPermissionHeading_,
+			Value: Toegewezen Permissies,
+			Description: AssignedPermissionHeading hoofd voor hergebruik.
+		},
+		{
+			Key: _AvailablePermissionHeading_,
+			Value: Beschikbare Permissies,
+			Description: AvailablePermissionHeading hoofd voor hergebruik.
+		},
+		{
+			Key: _AssignButtonHeading_,
+			Value: Geselecteerde Toewijzen,
+			Description: Assign Button hoofd voor hergebruik.
+		},
+		{
+			Key: _UnAssignButtonHeading_,
+			Value: Geselecteerde Toewijzing Ongedaan Maken,
+			Description: Assign Button hoofd voor hergebruik.
+		},
+		{
+			Key: _Name5MinCharsHeading_,
+			Value: Naam (min. 5 karakters),
+			Description: Naam met min 5 karakters hoofd voor hergebruik.
+		},
+		{
+			Key: _Label5MinCharsHeading_,
+			Value: Label (min. 5 karakters),
+			Description: Label met min 5 karakters hoofd voor hergebruik.
+		},
+		{
+			Key: _DescriptionHeading_,
+			Value: Omschrijving,
+			Description: Omschrijving hoofd voor hergebruik.
+		},
+		{
+			Key: _ErrorAlert_,
+			Value: Fout!,
+			Description: Description heading for re-use.
+		}
+	]
+}
