@@ -1,14 +1,18 @@
 ﻿using MongoDB.Bson;
 using ServiceStack.ServiceHost;
+using ServiceStack.ServiceInterface;
+using SingletonTheory.Services.AuthServices.Entities;
 using System;
 using System.Collections.Generic;
-using SingletonTheory.Services.AuthServices.Entities;
 
 namespace SingletonTheory.Services.AuthServices.TransferObjects
 {
 	[Route("/user")]
 	[Route("/user/id/{Id}")]
 	[Route("/user/username/{UserName}")]
+	[RequiredPermission(ApplyTo.Get, "User_Get")]
+	[RequiredPermission(ApplyTo.Put, "User_Put")]
+	[RequiredPermission(ApplyTo.Post, "User_Post")]
 	public class User : IReturn<User>
 	{
 		#region Fields & Properties
@@ -17,7 +21,7 @@ namespace SingletonTheory.Services.AuthServices.TransferObjects
 		public virtual string UserName { get; set; }
 		public virtual DateTime ModifiedDate { get; set; }
 		public virtual string Password { get; set; }
-		public virtual List<DomainPermissionObject> DomainPermissions { get; set; } 
+		public virtual List<DomainPermissionObject> DomainPermissions { get; set; }
 		public virtual List<string> Permissions { get; set; }
 		public virtual List<int> Roles { get; set; }
 		public virtual string Language { get; set; }

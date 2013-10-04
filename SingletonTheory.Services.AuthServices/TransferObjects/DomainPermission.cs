@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using ServiceStack.ServiceHost;
+﻿using ServiceStack.ServiceHost;
+using ServiceStack.ServiceInterface;
 
 namespace SingletonTheory.Services.AuthServices.TransferObjects
 {
 	[Route("/auth/admin/domainpermission")]
+	[RequiredPermission(ApplyTo.Get, "DomainPermission_Get")]
+	[RequiredPermission(ApplyTo.Put, "DomainPermission_Put")]
+	[RequiredPermission(ApplyTo.Post, "DomainPermission_Post")]
+	[RequiredPermission(ApplyTo.Delete, "DomainPermission_Delete")]
 	public class DomainPermission : IReturn<DomainPermission>
 	{
 		public int Id { get; set; }
