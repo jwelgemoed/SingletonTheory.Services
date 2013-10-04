@@ -2,19 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Funq;
 using ServiceStack.Common;
 using ServiceStack.ServiceClient.Web;
 using ServiceStack.ServiceInterface;
+using ServiceStack.ServiceInterface.Auth;
+using ServiceStack.WebHost.Endpoints;
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities;
 using SingletonTheory.Services.AuthServices.Extensions;
 using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.TransferObjects;
+using SingletonTheory.Services.AuthServices.Utilities;
 
 namespace SingletonTheory.Services.AuthServices.Services
 {
 	public class DomainPermissionService : Service
 	{
+		private UserRepository _userRepository;
+
 		#region Constants
 
 		private const string AuthAdminDatabase = "AuthAdminDatabase";
@@ -74,13 +80,38 @@ namespace SingletonTheory.Services.AuthServices.Services
 		public List<DomainPermission> Get(DomainPermissions role)
 		{
 			List<DomainPermissionEntity> entities = new List<DomainPermissionEntity>();
+			List<DomainPermissionEntity> entitiesToReturn = new List<DomainPermissionEntity>();
 
 			entities = GenericRepository.GetList<DomainPermissionEntity>(AuthAdminDatabase, DomainPermissionsCollection);
 
 			if (entities == null)
 				return null;
 
-			return entities.TranslateToResponse();
+			IAuthSession session = this.GetSession();
+			
+			if (_userRepository == null)
+			{
+				// TODO:  Inject UserRepository from Top Level
+				Container container = EndpointHost.Config.ServiceManager.Container;
+				_userRepository = container.Resolve<UserRepository>();
+			}
+
+			UserEntity userEntity = _userRepository.Read(session.UserName);
+			
+			if (userEntity != null)
+			{
+				List<int> domainPermissionIds = PermissionUtility.GetDomainPermissionIdsForRoleId(userEntity.Roles);
+
+				foreach (var domainPermissionEntity in entities)
+				{
+					if (domainPermissionIds.Contains(domainPermissionEntity.Id))
+					{
+						entitiesToReturn.Add(domainPermissionEntity);
+					}
+				}
+			}
+
+			return entitiesToReturn.TranslateToResponse();
 		}
 
 		#endregion DomainPermissions

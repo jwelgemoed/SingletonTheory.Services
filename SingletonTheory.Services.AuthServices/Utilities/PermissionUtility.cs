@@ -66,6 +66,15 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 			return persmissionNameList;
 		}
 
+		public static List<int> GetDomainPermissionIdsForRoleId(List<int> roleIds)
+		{
+			List<int> domainPermissionIds = new List<int>();
+			//Get domainpermission ids for roles
+			AddDomainPermissionIdsForRoleIds(roleIds, domainPermissionIds);
+
+			return domainPermissionIds;
+		}
+
 		#endregion  Public Methods
 
 		#region Private Methods
