@@ -1,94 +1,175 @@
 [
 	{
-		Id: 2,
-		Name: Administrator_Access
+		Id: 1,
+		Name: General_Access,
+		PermissionIds: []
 	},
 	{
-		Id: 3,
-		Name: UserAdministration_Access
+		Id: 2,
+		Name: Administrator_Access,
+		PermissionIds: []
 	},
 	{
 		Id: 4,
-		Name: AuthorizationAdministration_Access
+		Name: AuthorizationAdministration_Access,
+		PermissionIds: 
+		[
+			23,
+			5
+		]
 	},
 	{
-		Id: 5,
-		Name: RoleAdministration_Access
-	},
-	{
-		Id: 6,
-		Name: DomainPermissionAdministration_Access
-	},
-	{
-		Id: 7,
-		Name: FunctionalPermissionAdministration_Access
-	},
-	{
-		Id: 8,
-		Name: PermissionAdministration_Access
-	},
-	{
-		Id: 9,
-		Name: RoleAdministration_Create
-	},
-	{
-		Id: 10,
-		Name: DomainPermissionAdministration_Create
-	},
-	{
-		Id: 11,
-		Name: FunctionalPermissionAdministration_Create
-	},
-	{
-		Id: 12,
-		Name: PermissionAdministration_Create
-	},
-	{
-		Id: 13,
-		Name: RoleAdministration_Update
-	},
-	{
-		Id: 14,
-		Name: DomainPermissionAdministration_Update
-	},
-	{
-		Id: 15,
-		Name: FunctionalPermissionAdministration_Update
-	},
-	{
-		Id: 16,
-		Name: PermissionAdministration_Update
-	},
-	{
-		Id: 17,
-		Name: UserAdministrationUser_Create
-	},
-	{
-		Id: 18,
-		Name: UserAdministrationDomainPermissionLink_Create
+		Id: 3,
+		Name: UserAdministration_Access,
+		PermissionIds: 
+		[
+			27,
+			23,
+			5
+		]
 	},
 	{
 		Id: 19,
-		Name: UserAdministrationUser_Update
+		Name: UserAdministrationUser_Update,
+		PermissionIds: 
+		[
+			24,
+			25
+		]
+	},
+	{
+		Id: 17,
+		Name: UserAdministrationUser_Create,
+		PermissionIds: 
+		[
+			24,
+			26
+		]
+	},
+	{
+		Id: 18,
+		Name: UserAdministrationDomainPermissionLink_Create,
+		PermissionIds: 
+		[
+			25
+		]
 	},
 	{
 		Id: 20,
-		Name: UserAdministrationDomainPermissionLink_Update
-	},
-	{
-		Id: 1,
-		Name: General_Access,
+		Name: UserAdministrationDomainPermissionLink_Update,
 		PermissionIds: 
 		[
-			9,
-			8,
-			7,
-			6,
+			25
+		]
+	},
+	{
+		Id: 9,
+		Name: RoleAdministration_Create,
+		PermissionIds: 
+		[
+			21
+		]
+	},
+	{
+		Id: 13,
+		Name: RoleAdministration_Update,
+		PermissionIds: 
+		[
+			20
+		]
+	},
+	{
+		Id: 5,
+		Name: RoleAdministration_Access,
+		PermissionIds: 
+		[
+			23,
+			5
+		]
+	},
+	{
+		Id: 6,
+		Name: DomainPermissionAdministration_Access,
+		PermissionIds: 
+		[
 			5,
-			4,
-			3,
-			2,
-			1
+			29
+		]
+	},
+	{
+		Id: 7,
+		Name: FunctionalPermissionAdministration_Access,
+		PermissionIds: 
+		[
+			18,
+			29
+		]
+	},
+	{
+		Id: 8,
+		Name: PermissionAdministration_Access,
+		PermissionIds: 
+		[
+			18
+		]
+	},
+	{
+		Id: 10,
+		Name: DomainPermissionAdministration_Create,
+		PermissionIds: 
+		[
+			2
+		]
+	},
+	{
+		Id: 11,
+		Name: FunctionalPermissionAdministration_Create,
+		PermissionIds: 
+		[
+			8
+		]
+	},
+	{
+		Id: 12,
+		Name: PermissionAdministration_Create,
+		PermissionIds: 
+		[
+			17
+		]
+	},
+	{
+		Id: 14,
+		Name: DomainPermissionAdministration_Update,
+		PermissionIds: 
+		[
+			3
+		]
+	},
+	{
+		Id: 15,
+		Name: FunctionalPermissionAdministration_Update,
+		PermissionIds: 
+		[
+			7
+		]
+	},
+	{
+		Id: 16,
+		Name: PermissionAdministration_Update,
+		PermissionIds: 
+		[
+			16
+		]
+	}
+]ds: 
+		[
+			16
+		]
+	}
+]ssionAdministration_Update,
+		PermissionIds: 
+		[
+			16
 		]
 	}
 ]
