@@ -21,7 +21,7 @@ namespace SingletonTheory.Library.IO
 			return readObject;
 		}
 
-		public static string SerializeToJson(object objectToWrite, bool prettyPrint = false)
+		public static string SerializeToJson(object objectToWrite, bool prettyPrint = true)
 		{
 			if (prettyPrint)
 				return TypeSerializer.SerializeAndFormat(objectToWrite);
