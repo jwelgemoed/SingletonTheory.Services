@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using SingletonTheory.Services.AuthServices.Utilities;
 using SSAuthInterfaces = ServiceStack.ServiceInterface.Auth;
 
 namespace SingletonTheory.Services.AuthServices.Repositories
@@ -384,6 +385,33 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			return userAuth;
 		}
 
+		public SSAuthInterfaces.UserAuth GetUserAuthByUserNameWithFunctionalPermissions(string userName)
+		{
+			return GetUserAuthByUserNameWithFunctionalPermissions(_mongoDatabase, userName);
+		}
+
+		private static SSAuthInterfaces.UserAuth GetUserAuthByUserNameWithFunctionalPermissions(MongoDatabase mongoDatabase, string userNameOrEmail, UserRepository userRepository = null)
+		{
+			if (userRepository == null)
+			{
+				// TODO:  Inject UserRepository from Top Level
+				Container container = EndpointHost.Config.ServiceManager.Container;
+				userRepository = container.Resolve<UserRepository>();
+			}
+
+			UserEntity userEntity = userRepository.Read(userNameOrEmail);
+
+			SSAuthInterfaces.UserAuth userAuth = TranslateToUserAuth(userEntity);
+
+			if(userAuth != null)
+			{
+				FunctionalPermissionUtility.GetFunctionalPermissionNamesForRoleIdsAndDomainPermissions(userEntity.Roles,
+				userEntity.DomainPermissions);
+			}
+
+			return userAuth;
+		}
+
 		public void DropAndReCreateCollections()
 		{
 			//if (_mongoDatabase.CollectionExists(CollectionName))
@@ -454,5 +482,6 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 		}
 
 		#endregion Internal Classes
+
 	}
 }
