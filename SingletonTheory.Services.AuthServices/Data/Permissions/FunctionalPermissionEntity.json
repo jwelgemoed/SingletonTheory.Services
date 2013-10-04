@@ -10,15 +10,6 @@
 		PermissionIds: []
 	},
 	{
-		Id: 4,
-		Name: AuthorizationAdministration_Access,
-		PermissionIds: 
-		[
-			23,
-			5
-		]
-	},
-	{
 		Id: 3,
 		Name: UserAdministration_Access,
 		PermissionIds: 
@@ -159,6 +150,16 @@
 		PermissionIds: 
 		[
 			16
+		]
+	},
+	{
+		Id: 4,
+		Name: AuthorizationAdministration_Access,
+		PermissionIds: 
+		[
+			23,
+			5,
+			10
 		]
 	}
 ]
