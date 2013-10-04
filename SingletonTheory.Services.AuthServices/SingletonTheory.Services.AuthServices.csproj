@@ -173,6 +173,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\Permissions\PermissionEntity.json" />
+    <Content Include="Data\Permissions\RoleEntity.json" />
+    <Content Include="Data\Permissions\DomainPermissionEntity.json" />
+    <Content Include="Data\Permissions\FunctionalPermissionEntity.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
