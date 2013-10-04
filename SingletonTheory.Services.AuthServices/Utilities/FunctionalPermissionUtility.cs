@@ -7,7 +7,7 @@ using SingletonTheory.Services.AuthServices.Repositories;
 
 namespace SingletonTheory.Services.AuthServices.Utilities
 {
-	public static class FunctionalPermissionUtility
+	public static class PermissionUtility
 	{
 		#region Constants
 
@@ -16,8 +16,10 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 		private const string RolesCollection = "Roles";
 		private const string FunctionalPermissionsCollection = "FunctionalPermissions";
 		private const string DomainPermissionsCollection = "DomainPermissions";
-		
+		private const string PermissionsCollection = "Permissions";
 		#endregion Constants
+
+		#region Public Methods
 
 		public static List<string> GetFunctionalPermissionNamesForRoleIdsAndDomainPermissions(List<int> roleIds, List<DomainPermissionObject> domainPermissionObjects)
 		{
@@ -39,6 +41,91 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 			return functionalPersmissionNameList;
 		}
 
+		public static List<string> GetPermissionNamesForRoleIdsAndDomainPermissions(List<int> roleIds, List<DomainPermissionObject> domainPermissionObjects)
+		{
+			List<string> persmissionNameList = new List<string>();
+			List<int> domainPermissionIds = new List<int>();
+			List<int> functionalPermissionIds = new List<int>();
+			List<int> permissionIds = new List<int>();
+
+			//Get domainpermission ids for roles
+			AddDomainPermissionIdsForRoleIds(roleIds, domainPermissionIds);
+
+			//get active domain permissionids from DomainPermissionObjects
+			AddDomainPermissionIdsForDomainPermissionObjects(domainPermissionObjects, domainPermissionIds);
+
+			//Get all functional permissions ids for domainpermissions
+			GetFunctionalPermissionIdsForDomainPermissionIds(domainPermissionIds, functionalPermissionIds);
+
+			// Get all user permissions ids for functional permission ids
+			GetPermissionIdsForFunctionalPermissionIds(functionalPermissionIds, permissionIds);
+
+			// Get all user permissions names
+			GetPermissionNames(permissionIds, persmissionNameList);
+
+			return persmissionNameList;
+		}
+
+		#endregion  Public Methods
+
+		#region Private Methods
+
+		private static void GetPermissionNames(List<int> permissionIds, List<string> permissionNameList)
+		{
+			try
+			{
+				var permissionEntities = new List<PermissionEntity>();
+
+				permissionEntities = GenericRepository.GetList<PermissionEntity>(AuthAdminDatabase, PermissionsCollection);
+
+
+				if (permissionEntities != null)
+				{
+					for (int i = 0; i < permissionEntities.Count; i++)
+					{
+						var permissionEntity = permissionEntities[i];
+						if (permissionIds.Contains(permissionEntity.Id))
+						{
+							if (!permissionNameList.Contains(permissionEntity.Name))
+								permissionNameList.Add(permissionEntity.Name);
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+		}
+
+		private static void GetPermissionIdsForFunctionalPermissionIds(List<int> functionalPermissionIds, List<int> permissionIdList)
+		{
+			try
+			{
+				var functionalPermissionEntities = new List<FunctionalPermissionEntity>();
+
+				functionalPermissionEntities = GenericRepository.GetList<FunctionalPermissionEntity>(AuthAdminDatabase,
+					FunctionalPermissionsCollection);
+
+				if (functionalPermissionEntities != null)
+				{
+					for (int i = 0; i < functionalPermissionEntities.Count; i++)
+					{
+						var functionalPermissionEntity = functionalPermissionEntities[i];
+						if (functionalPermissionIds.Contains(functionalPermissionEntity.Id))
+						{
+							if (functionalPermissionEntity.PermissionIds != null && functionalPermissionEntity.PermissionIds.Length > 0)
+								permissionIdList.AddRange(functionalPermissionEntity.PermissionIds);
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+		}
+
 		private static void GetFunctionalPermissionNames(List<int> functionalPermissionIds, List<string> functionalPersmissionNameList)
 		{
 			try
@@ -55,7 +142,8 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 						var functionalPermissionEntity = functionalPermissionEntities[i];
 						if (functionalPermissionIds.Contains(functionalPermissionEntity.Id))
 						{
-							functionalPersmissionNameList.Add(functionalPermissionEntity.Name);
+							if (!functionalPersmissionNameList.Contains(functionalPermissionEntity.Name))
+								functionalPersmissionNameList.Add(functionalPermissionEntity.Name);
 						}
 					}
 				}
@@ -144,5 +232,7 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 				Console.WriteLine(ex);
 			}
 		}
+
+		#endregion  Private Methods
 	}
 }
