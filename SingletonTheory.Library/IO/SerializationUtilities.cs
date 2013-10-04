@@ -6,7 +6,7 @@ namespace SingletonTheory.Library.IO
 {
 	public static class SerializationUtilities
 	{
-		public static T ReadLocaleFromFile<T>(string fileName)
+		public static T ReadFile<T>(string fileName)
 		{
 			string serializedString = File.ReadAllText(fileName);
 

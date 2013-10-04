@@ -69,6 +69,14 @@ namespace SingletonTheory.Services.AuthServices.Config
 			}
 		}
 
+		public static string PermissionsDirectory
+		{
+			get
+			{
+				return GetValue("PermissionsDirectory", string.Format(@"{0}Data\Permissions", BaseDirectory));
+			}
+		}
+
 		public static string BaseDirectory
 		{
 			get

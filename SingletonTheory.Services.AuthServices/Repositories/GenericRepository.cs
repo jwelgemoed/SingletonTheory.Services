@@ -1,20 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using MongoDB.Bson;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using ServiceStack.Common.Utils;
 using SingletonTheory.Data;
+using SingletonTheory.Library.IO;
 using SingletonTheory.Services.AuthServices.Config;
-using SingletonTheory.Services.AuthServices.TransferObjects;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SingletonTheory.Services.AuthServices.Repositories
 {
 	public class GenericRepository
 	{
+		#region Fields & Properties
+
 		private static MongoDatabase _mongoDatabase;
+
+		#endregion Fields & Properties
+
+		#region Public Methods
 
 		public static List<T> GetList<T>(string dataBaseName, string collectionName)
 		{
@@ -29,7 +33,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 		{
 			_mongoDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, dataBaseName);
 			var collection = _mongoDatabase.GetCollection<T>(collectionName);
-			
+
 			MongoCursor<T> cursor = collection.Find(query);
 
 			return cursor.ToList();
@@ -61,7 +65,16 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			var collection = _mongoDatabase.GetCollection<T>(collectionName);
 
 			collection.Save(obj);
+
+			List<T> listToWrite = GetList<T>(dataBaseName, collectionName);
+			WriteToFile(listToWrite, typeof(T).Name + ".json");
+
 			return obj;
+		}
+
+		private static void WriteToFile(object obj, string fileName)
+		{
+			SerializationUtilities.WriteToFile(ConfigSettings.PermissionsDirectory + @"\" + fileName, obj);
 		}
 
 		public static bool DeleteById<T>(string dataBaseName, string collectionName, int id)
@@ -86,5 +99,6 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			return id + 1;
 		}
 
+		#endregion Public Methods
 	}
 }
