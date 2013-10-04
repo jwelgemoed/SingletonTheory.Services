@@ -5,7 +5,6 @@
 		Description: Admin can do just about anything,
 		DomainPermissionIds: 
 		[
-			1,
 			2
 		]
 	},
@@ -15,13 +14,8 @@
 		Description: Een persoon die tekeningen aanmaak,
 		DomainPermissionIds: 
 		[
-			1,
-			3
+			2
 		]
-	},
-	{
-		Id: 4,
-		Label: Engineering Manager
 	},
 	{
 		Id: 5,
@@ -49,5 +43,17 @@
 			3,
 			2
 		]
+	},
+	{
+		Id: 4,
+		Label: Engineering Manager,
+		DomainPermissionIds: 
+		[
+			4,
+			2,
+			3
+		]
+	}
+]
 	}
 ]
