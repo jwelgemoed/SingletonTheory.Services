@@ -230,14 +230,14 @@
 			Description: Assign Button hoofd voor hergebruik.
 		},
 		{
-			Key: _Name5MinCharsHeading_,
-			Value: Naam (min. 5 karakters),
-			Description: Naam met min 5 karakters hoofd voor hergebruik.
+			Key: _NameHeading_,
+			Value: Naam:,
+			Description: Naam hoofd voor hergebruik.
 		},
 		{
-			Key: _Label5MinCharsHeading_,
-			Value: Label (min. 5 karakters),
-			Description: Label met min 5 karakters hoofd voor hergebruik.
+			Key: _LabelHeading_,
+			Value: Label:,
+			Description: Label hoofd voor hergebruik.
 		},
 		{
 			Key: _DescriptionHeading_,

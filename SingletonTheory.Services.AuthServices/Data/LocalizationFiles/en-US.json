@@ -230,14 +230,14 @@
 			Description: Assign Button heading for re-use.
 		},
 		{
-			Key: _Name5MinCharsHeading_,
-			Value: Name (min. 5 characters),
-			Description: Name with min 5 chars heading for re-use.
+			Key: _NameHeading_,
+			Value: Name:,
+			Description: Name heading for re-use.
 		},
 		{
-			Key: _Label5MinCharsHeading_,
-			Value: Label (min. 5 characters),
-			Description: Label with min 5 chars heading for re-use.
+			Key: _LabelHeading_,
+			Value: Label:,
+			Description: Label heading for re-use.
 		},
 		{
 			Key: _DescriptionHeading_,
