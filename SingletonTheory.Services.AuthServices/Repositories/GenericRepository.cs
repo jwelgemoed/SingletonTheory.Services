@@ -68,15 +68,18 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			return cursor;
 		}
 
-		public static T Add<T>(string dataBaseName, string collectionName, T obj)
+		public static T Add<T>(string dataBaseName, string collectionName, T obj, bool writeFile = true)
 		{
 			_mongoDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, dataBaseName);
 			var collection = _mongoDatabase.GetCollection<T>(collectionName);
 
 			collection.Save(obj);
 
-			List<T> listToWrite = GetList<T>(dataBaseName, collectionName);
-			WriteToFile(listToWrite, typeof(T).Name + ".json");
+			if (writeFile)
+			{
+				List<T> listToWrite = GetList<T>(dataBaseName, collectionName);
+				WriteToFile(listToWrite, typeof(T).Name + ".json");
+			}
 
 			return obj;
 		}

@@ -2,7 +2,6 @@
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities;
 using SingletonTheory.Services.AuthServices.Repositories;
-using SingletonTheory.Services.AuthServices.Services;
 using System.Collections.Generic;
 using System.IO;
 
@@ -45,7 +44,7 @@ namespace SingletonTheory.Services.AuthServices.Data
 			List<T> entities = SerializationUtilities.ReadFile<List<T>>(fileName);
 			for (int i = 0; i < entities.Count; i++)
 			{
-				GenericRepository.Add<T>(ConfigSettings.MongoAuthAdminDatabaseName, collectionName, entities[i]);
+				GenericRepository.Add<T>(ConfigSettings.MongoAuthAdminDatabaseName, collectionName, entities[i], false);
 			}
 		}
 	}
