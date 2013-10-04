@@ -10,15 +10,6 @@
 		PermissionIds: []
 	},
 	{
-		Id: 4,
-		Name: AuthorizationAdministration_Access,
-		PermissionIds: 
-		[
-			23,
-			5
-		]
-	},
-	{
 		Id: 3,
 		Name: UserAdministration_Access,
 		PermissionIds: 
@@ -68,14 +59,6 @@
 		PermissionIds: 
 		[
 			21
-		]
-	},
-	{
-		Id: 13,
-		Name: RoleAdministration_Update,
-		PermissionIds: 
-		[
-			20
 		]
 	},
 	{
@@ -142,7 +125,27 @@
 		Name: DomainPermissionAdministration_Update,
 		PermissionIds: 
 		[
-			3
+			3,
+			11
+		]
+	},
+	{
+		Id: 4,
+		Name: AuthorizationAdministration_Access,
+		PermissionIds: 
+		[
+			23,
+			5,
+			10
+		]
+	},
+	{
+		Id: 13,
+		Name: RoleAdministration_Update,
+		PermissionIds: 
+		[
+			20,
+			11
 		]
 	},
 	{
@@ -150,7 +153,8 @@
 		Name: FunctionalPermissionAdministration_Update,
 		PermissionIds: 
 		[
-			7
+			7,
+			11
 		]
 	},
 	{
@@ -158,7 +162,8 @@
 		Name: PermissionAdministration_Update,
 		PermissionIds: 
 		[
-			16
+			16,
+			11
 		]
 	}
 ]
