@@ -405,7 +405,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 
 			if(userAuth != null)
 			{
-				FunctionalPermissionUtility.GetFunctionalPermissionNamesForRoleIdsAndDomainPermissions(userEntity.Roles,
+				userAuth.Permissions = FunctionalPermissionUtility.GetFunctionalPermissionNamesForRoleIdsAndDomainPermissions(userEntity.Roles,
 				userEntity.DomainPermissions);
 			}
 

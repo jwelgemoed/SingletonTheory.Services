@@ -41,79 +41,107 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 
 		private static void GetFunctionalPermissionNames(List<int> functionalPermissionIds, List<string> functionalPersmissionNameList)
 		{
-			var functionalPermissionEntities = new List<FunctionalPermissionEntity>();
-
-			functionalPermissionEntities = GenericRepository.GetList<FunctionalPermissionEntity>(AuthAdminDatabase,
-				FunctionalPermissionsCollection);
-
-			if (functionalPermissionEntities != null)
+			try
 			{
-				for (int i = 0; i < functionalPermissionEntities.Count; i++)
+				var functionalPermissionEntities = new List<FunctionalPermissionEntity>();
+
+				functionalPermissionEntities = GenericRepository.GetList<FunctionalPermissionEntity>(AuthAdminDatabase,
+					FunctionalPermissionsCollection);
+
+				if (functionalPermissionEntities != null)
 				{
-					var functionalPermissionEntity = functionalPermissionEntities[i];
-					if (functionalPermissionIds.Contains(functionalPermissionEntity.Id))
+					for (int i = 0; i < functionalPermissionEntities.Count; i++)
 					{
-						functionalPersmissionNameList.Add(functionalPermissionEntity.Name);
+						var functionalPermissionEntity = functionalPermissionEntities[i];
+						if (functionalPermissionIds.Contains(functionalPermissionEntity.Id))
+						{
+							functionalPersmissionNameList.Add(functionalPermissionEntity.Name);
+						}
 					}
 				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
 			}
 		}
 
 		private static void GetFunctionalPermissionIdsForDomainPermissionIds(List<int> domainPermissionIds,
 			List<int> functionalPermissionIds)
 		{
-			var domainPermissionEntities = new List<DomainPermissionEntity>();
-			domainPermissionEntities = GenericRepository.GetList<DomainPermissionEntity>(AuthAdminDatabase,
-				DomainPermissionsCollection);
-
-			if (domainPermissionEntities != null)
+			try
 			{
-				for (int j = 0; j < domainPermissionEntities.Count; j++)
+				var domainPermissionEntities = new List<DomainPermissionEntity>();
+				domainPermissionEntities = GenericRepository.GetList<DomainPermissionEntity>(AuthAdminDatabase,
+					DomainPermissionsCollection);
+
+				if (domainPermissionEntities != null)
 				{
-					var domainPermissionEntity = domainPermissionEntities[j];
-					if (domainPermissionIds.Contains(domainPermissionEntity.Id) &&
-					    domainPermissionEntity.FunctionalPermissionIds.Length > 0)
+					for (int j = 0; j < domainPermissionEntities.Count; j++)
 					{
-						for (int i = 0; i < domainPermissionEntity.FunctionalPermissionIds.Length; i++)
+						var domainPermissionEntity = domainPermissionEntities[j];
+						if (domainPermissionIds.Contains(domainPermissionEntity.Id) && domainPermissionEntity.FunctionalPermissionIds != null && domainPermissionEntity.FunctionalPermissionIds.Length > 0)
 						{
-							var fId = domainPermissionEntity.FunctionalPermissionIds[i];
-							if (!functionalPermissionIds.Contains(fId))
-								functionalPermissionIds.Add(fId);
+							for (int i = 0; i < domainPermissionEntity.FunctionalPermissionIds.Length; i++)
+							{
+								var fId = domainPermissionEntity.FunctionalPermissionIds[i];
+								if (!functionalPermissionIds.Contains(fId))
+									functionalPermissionIds.Add(fId);
+							}
 						}
 					}
 				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
 			}
 		}
 
 		private static void AddDomainPermissionIdsForDomainPermissionObjects(List<DomainPermissionObject> domainPermissionObjects,
 			List<int> domainPermissionIds)
 		{
-			for (int index = 0; index < domainPermissionObjects.Count; index++)
+			try
 			{
-				var domainPermissionObject = domainPermissionObjects[index];
-//TODO: date usage to be defined
-				if (domainPermissionObject.ActiveTimeSpan.StartDate >= DateTime.UtcNow &&
-				    domainPermissionObject.ActiveTimeSpan.EndDate >= DateTime.UtcNow)
+				for (int index = 0; index < domainPermissionObjects.Count; index++)
 				{
-					if (!domainPermissionIds.Contains(domainPermissionObject.DomainPermissionId))
-						domainPermissionIds.Add(domainPermissionObject.DomainPermissionId);
+					var domainPermissionObject = domainPermissionObjects[index];
+					//TODO: date usage to be defined
+					if (domainPermissionObject.ActiveTimeSpan.StartDate >= DateTime.UtcNow &&
+							domainPermissionObject.ActiveTimeSpan.EndDate >= DateTime.UtcNow)
+					{
+						if (!domainPermissionIds.Contains(domainPermissionObject.DomainPermissionId))
+							domainPermissionIds.Add(domainPermissionObject.DomainPermissionId);
+					}
 				}
 			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+		
 		}
 
 		private static void AddDomainPermissionIdsForRoleIds(List<int> roleIds, List<int> domainPermissionIds)
 		{
-			for (int i = 0; i < roleIds.Count; i++)
+			try
 			{
-				RoleEntity entity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, roleIds[i]);
-
-				if (entity != null)
+				for (int i = 0; i < roleIds.Count; i++)
 				{
-					if (entity.DomainPermissionIds != null && entity.DomainPermissionIds.Length > 0)
+					RoleEntity entity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, roleIds[i]);
+
+					if (entity != null)
 					{
-						domainPermissionIds.AddRange(entity.DomainPermissionIds);
+						if (entity.DomainPermissionIds != null && entity.DomainPermissionIds.Length > 0)
+						{
+							domainPermissionIds.AddRange(entity.DomainPermissionIds);
+						}
 					}
 				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
 			}
 		}
 	}
