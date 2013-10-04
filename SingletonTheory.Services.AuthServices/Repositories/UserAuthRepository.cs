@@ -5,6 +5,7 @@ using ServiceStack.Common;
 using ServiceStack.Text;
 using ServiceStack.WebHost.Endpoints;
 using SingletonTheory.Services.AuthServices.Entities;
+using SingletonTheory.Services.AuthServices.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -373,14 +374,67 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 
 			SSAuthInterfaces.UserAuth userAuth = TranslateToUserAuth(userEntity);
 
-			//var isEmail = userNameOrEmail.Contains("@");
-			//var collection = mongoDatabase.GetCollection<SSAuthInterfaces.UserAuth>(UserAuth_Col);
+			if (userAuth != null)
+			{
+				userAuth.Permissions = new List<string>();
+				userAuth.Permissions.Add("DomainPermission_Get");
+				userAuth.Permissions.Add("DomainPermission_Put");
+				userAuth.Permissions.Add("DomainPermission_Post");
+				userAuth.Permissions.Add("DomainPermission_Delete");
+				userAuth.Permissions.Add("DomainPermissions_Get");
+				userAuth.Permissions.Add("FunctionalPermission_Get");
+				userAuth.Permissions.Add("FunctionalPermission_Put");
+				userAuth.Permissions.Add("FunctionalPermission_Post");
+				userAuth.Permissions.Add("FunctionalPermission_Delete");
+				userAuth.Permissions.Add("CurrentUserAuthRequest_Get");
+				userAuth.Permissions.Add("LevelLists_Get");
+				userAuth.Permissions.Add("LevelLists_Put");
+				userAuth.Permissions.Add("LocalizationDictionaryRequest_Get");
+				userAuth.Permissions.Add("LocalizationDictionaryRequest_Put");
+				userAuth.Permissions.Add("LocalizationDictionaryRequest_Post");
+				userAuth.Permissions.Add("Permission_Get");
+				userAuth.Permissions.Add("Permission_Put");
+				userAuth.Permissions.Add("Permission_Post");
+				userAuth.Permissions.Add("Permissions_Get");
+				userAuth.Permissions.Add("Role_Get");
+				userAuth.Permissions.Add("Role_Put");
+				userAuth.Permissions.Add("Role_Post");
+				userAuth.Permissions.Add("Role_Delete");
+				userAuth.Permissions.Add("Roles_Get");
+				userAuth.Permissions.Add("User_Get");
+				userAuth.Permissions.Add("User_Put");
+				userAuth.Permissions.Add("User_Post");
+				userAuth.Permissions.Add("Users_Get");
+				userAuth.Permissions.Add("Users_Post");
+			}
 
-			//IMongoQuery query = isEmail
-			//	? Query.EQ("Email", userNameOrEmail)
-			//	: Query.EQ("UserName", userNameOrEmail);
+			return userAuth;
+		}
 
-			//SSAuthInterfaces.UserAuth userAuth = collection.FindOne(query);
+		public SSAuthInterfaces.UserAuth GetUserAuthByUserNameWithFunctionalPermissions(string userName)
+		{
+			return GetUserAuthByUserNameWithFunctionalPermissions(_mongoDatabase, userName);
+		}
+
+		private static SSAuthInterfaces.UserAuth GetUserAuthByUserNameWithFunctionalPermissions(MongoDatabase mongoDatabase, string userNameOrEmail, UserRepository userRepository = null)
+		{
+			if (userRepository == null)
+			{
+				// TODO:  Inject UserRepository from Top Level
+				Container container = EndpointHost.Config.ServiceManager.Container;
+				userRepository = container.Resolve<UserRepository>();
+			}
+
+			UserEntity userEntity = userRepository.Read(userNameOrEmail);
+
+			SSAuthInterfaces.UserAuth userAuth = TranslateToUserAuth(userEntity);
+
+			if (userAuth != null)
+			{
+				userAuth.Permissions = FunctionalPermissionUtility.GetFunctionalPermissionNamesForRoleIdsAndDomainPermissions(userEntity.Roles,
+				userEntity.DomainPermissions);
+			}
+
 			return userAuth;
 		}
 
@@ -454,5 +508,6 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 		}
 
 		#endregion Internal Classes
+
 	}
 }

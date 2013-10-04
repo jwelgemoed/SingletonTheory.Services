@@ -1,38 +1,102 @@
 [
 	{
-		Id: 1,
-		Name: Permissions_CanPost
+		Id: 4,
+		Name: DomainPermission_Delete
 	},
 	{
-		Id: 2,
-		Name: Permission_CanPut
+		Id: 1,
+		Name: DomainPermission_Get
 	},
 	{
 		Id: 3,
-		Name: Permission_CanGet
+		Name: DomainPermission_Put
 	},
 	{
-		Id: 4,
-		Name: Permission_CanDelete
+		Id: 2,
+		Name: DomainPermission_Post
 	},
 	{
 		Id: 5,
-		Name: CurrentUser_Get
+		Name: DomainPermissions_Get
 	},
 	{
 		Id: 6,
-		Name: CurrentUser_Get
+		Name: FunctionalPermission_Get
 	},
 	{
 		Id: 7,
-		Name: CurrentUser_Get
+		Name: FunctionalPermission_Put
 	},
 	{
 		Id: 8,
-		Name: CurrentUser_GET
+		Name: FunctionalPermission_Post
 	},
 	{
 		Id: 9,
-		Name: CurrentUser_GET
+		Name: FunctionalPermission_Delete
+	},
+	{
+		Id: 10,
+		Name: LevelLists_Get
+	},
+	{
+		Id: 11,
+		Name: LevelLists_Put
+	},
+	{
+		Id: 15,
+		Name: Permission_Get
+	},
+	{
+		Id: 16,
+		Name: Permission_Put
+	},
+	{
+		Id: 17,
+		Name: Permission_Post
+	},
+	{
+		Id: 18,
+		Name: Permissions_Get
+	},
+	{
+		Id: 19,
+		Name: Role_Get
+	},
+	{
+		Id: 20,
+		Name: Role_Put
+	},
+	{
+		Id: 21,
+		Name: Role_Post
+	},
+	{
+		Id: 22,
+		Name: Role_Delete
+	},
+	{
+		Id: 23,
+		Name: Roles_Get
+	},
+	{
+		Id: 24,
+		Name: User_Get
+	},
+	{
+		Id: 25,
+		Name: User_Put
+	},
+	{
+		Id: 26,
+		Name: User_Post
+	},
+	{
+		Id: 27,
+		Name: Users_Get
+	},
+	{
+		Id: 28,
+		Name: Users_Post
 	}
 ]

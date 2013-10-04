@@ -1,12 +1,11 @@
 ﻿using ServiceStack.ServiceHost;
+using ServiceStack.ServiceInterface;
 using System.Collections.Generic;
 
 namespace SingletonTheory.Services.AuthServices.TransferObjects
 {
-	//[RequiredPermission(ApplyTo.Post, "LevelLists_Post")]
-	//[RequiredPermission(ApplyTo.Get, "LevelLists_Get")]
-	//[RequiredPermission(ApplyTo.Put, "LevelLists_Put")]
-	//[RequiredPermission(ApplyTo.Delete, "LevelLists_Delete")]
+	[RequiredPermission(ApplyTo.Get, "LevelLists_Get")]
+	[RequiredPermission(ApplyTo.Put, "LevelLists_Put")]
 	[Route("/auth/admin/role/{RoleId}/domainpermissions")]
 	[Route("/auth/admin/domainpermission/{DomainPermissionId}/functionalpermissions")]
 	[Route("/auth/admin/functionalpermission/{FunctionalPermissionId}/permissions")]

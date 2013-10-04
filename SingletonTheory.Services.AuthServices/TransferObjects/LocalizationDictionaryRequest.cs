@@ -6,6 +6,9 @@ namespace SingletonTheory.Services.AuthServices.TransferObjects
 {
 	[Route("/localize")]
 	[Route("/localize/{Locale}")]
+	//[RequiredPermission(ApplyTo.Get, "LocalizationDictionaryRequest_Get")]
+	//[RequiredPermission(ApplyTo.Put, "LocalizationDictionaryRequest_Put")]
+	//[RequiredPermission(ApplyTo.Post, "LocalizationDictionaryRequest_Post")]
 	public class LocalizationDictionaryRequest : IReturn<LocalizationDictionaryResponse>
 	{
 		#region Fields & Properties

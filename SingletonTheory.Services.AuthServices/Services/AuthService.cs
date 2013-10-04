@@ -15,9 +15,9 @@ namespace SingletonTheory.Services.AuthServices.Services
 			if (BlackListRepository.Blacklist.Contains(session.Id))
 				return null;
 
-			IUserAuthRepository repository = GetRepository();
+			UserAuthRepository repository = GetRepository() as UserAuthRepository;
 
-			return repository.GetUserAuthByUserName(session.UserName);
+			return repository.GetUserAuthByUserNameWithFunctionalPermissions(session.UserName);
 		}
 
 		#endregion Public Methods

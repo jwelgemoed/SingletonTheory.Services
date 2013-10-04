@@ -1,10 +1,5 @@
 [
 	{
-		Id: 1,
-		Label: Admin,
-		Description: Just a wuser
-	},
-	{
 		Id: 2,
 		Label: User,
 		Description: Admin can do just about anything,
@@ -42,5 +37,17 @@
 		Id: 7,
 		Label: SomeNewRole,
 		Description: This is a test role
+	},
+	{
+		Id: 1,
+		Label: Admin,
+		Description: Just a wuser,
+		DomainPermissionIds: 
+		[
+			1,
+			4,
+			3,
+			2
+		]
 	}
 ]
