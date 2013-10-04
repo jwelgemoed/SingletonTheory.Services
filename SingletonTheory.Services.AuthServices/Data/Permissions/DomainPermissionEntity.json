@@ -1,15 +1,5 @@
 [
 	{
-		Id: 1,
-		Label: DomainPermission1,
-		Description: Groupies for life,
-		FunctionalPermissionIds: 
-		[
-			1,
-			2
-		]
-	},
-	{
 		Id: 2,
 		Label: DomainPermission2,
 		Description: Groupei 2 for live,
@@ -28,5 +18,25 @@
 		Id: 4,
 		Label: SomeDomainPermission,
 		Description: Some domain permission for testing
+	},
+	{
+		Id: 1,
+		Label: DomainPermission1,
+		Description: Groupies for life,
+		FunctionalPermissionIds: 
+		[
+			1,
+			2,
+			7,
+			8,
+			6,
+			5,
+			5,
+			6,
+			7,
+			8,
+			10,
+			12
+		]
 	}
 ]
