@@ -65,8 +65,8 @@
 		},
 		{
 			Key: _DashboardSplash_,
-			Value: "Deze pagina zal het dashboard huisvesten,
-			 aanvankelijk zichtbaar voor alle gebruikers die ingelogd zijn.",
+			Value: Deze pagina zal het dashboard huisvesten,
+			 aanvankelijk zichtbaar voor alle gebruikers die ingelogd zijn.,
 			Description: Content holder for dashboard screen.
 		},
 		{
@@ -230,14 +230,14 @@
 			Description: Assign Button hoofd voor hergebruik.
 		},
 		{
-			Key: _Name5MinCharsHeading_,
-			Value: Naam (min. 5 karakters),
-			Description: Naam met min 5 karakters hoofd voor hergebruik.
+			Key: _NameHeading_,
+			Value: Naam:,
+			Description: Naam hoofd voor hergebruik.
 		},
 		{
-			Key: _Label5MinCharsHeading_,
-			Value: Label (min. 5 karakters),
-			Description: Label met min 5 karakters hoofd voor hergebruik.
+			Key: _LabelHeading_,
+			Value: Label:,
+			Description: Label hoofd voor hergebruik.
 		},
 		{
 			Key: _DescriptionHeading_,
@@ -248,6 +248,26 @@
 			Key: _ErrorAlert_,
 			Value: Fout!,
 			Description: Description heading for re-use.
+		},
+		{
+			Key: _requiredFieldDescription_,
+			Value: Dit is een verplicht veld.,
+			Description: Verplicht veld foutmelding omschrijving.
+		},
+		{
+			Key: _minLengthDescription_,
+			Value: "Vul minimaal {0} karakters.",
+			Description: Minimum lengte foutmelding omschrijving.
+		},
+		{
+			Key: _maxLengthDescription_,
+			Value: "Vul maximaal {0} karakters.",
+			Description: Maximum lengte foutmelding omschrijving.
+		},
+		{
+			Key: _userAvailabilityDescription_,
+			Value: De gebruikersnaam moet uniek zijn.,
+			Description: Unieke Gebruikersnaam foutmelding omschrijving.
 		}
 	]
 }

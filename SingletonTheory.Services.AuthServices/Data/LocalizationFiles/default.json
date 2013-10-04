@@ -65,8 +65,8 @@
 		},
 		{
 			Key: _DashboardSplash_,
-			Value: "This view will house the dashboard,
-			 initially visible to all logged in users.",
+			Value: This view will house the dashboard,
+			 initially visible to all logged in users.,
 			Description: Content holder for dashboard screen.
 		},
 		{
@@ -230,14 +230,14 @@
 			Description: Assign Button heading for re-use.
 		},
 		{
-			Key: _Name5MinCharsHeading_,
-			Value: Name (min. 5 characters),
-			Description: Name with min 5 chars heading for re-use.
+			Key: _NameHeading_,
+			Value: Name:,
+			Description: Name heading for re-use.
 		},
 		{
-			Key: _Label5MinCharsHeading_,
-			Value: Label (min. 5 characters),
-			Description: Label with min 5 chars heading for re-use.
+			Key: _LabelHeading_,
+			Value: Label:,
+			Description: Label heading for re-use.
 		},
 		{
 			Key: _DescriptionHeading_,
@@ -248,6 +248,26 @@
 			Key: _ErrorAlert_,
 			Value: Error!,
 			Description: Description heading for re-use.
+		},
+		{
+			Key: _requiredFieldDescription_, 
+			Value: This is a required field., 
+			Description: Required field error display description.
+		},
+		{
+			Key: _minLengthDescription_, 
+			Value: "Please enter a minimum of {0} characters.", 
+			Description: Minimum length error display description.
+		},
+		{
+			Key: _maxLengthDescription_, 
+			Value: "Please do not exceed {0} characters.", 
+			Description: Maximum length error display description.
+		},
+		{
+			Key: _userAvailabilityDescription_, 
+			Value: The user name should be unique., 
+			Description: User availability error display description.
 		}
 	]
 }

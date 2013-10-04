@@ -29,6 +29,14 @@ namespace SingletonTheory.Services.AuthServices.Config
 			}
 		}
 
+		public static string MongoAuthAdminDatabaseName
+		{
+			get
+			{
+				return GetValue("MongoAuthAdminDatabaseName", "AuthAdminDatabase");
+			}
+		}
+
 		public static string MongoLocalizationDatabaseName
 		{
 			get
@@ -66,6 +74,14 @@ namespace SingletonTheory.Services.AuthServices.Config
 			get
 			{
 				return GetValue("LocalizationFilePath", string.Format(@"{0}Data\LocalizationFiles", BaseDirectory));
+			}
+		}
+
+		public static string PermissionsDirectory
+		{
+			get
+			{
+				return GetValue("PermissionsDirectory", string.Format(@"{0}Data\Permissions", BaseDirectory));
 			}
 		}
 

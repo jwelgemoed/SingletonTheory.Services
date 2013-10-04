@@ -1,0 +1,32 @@
+[
+	{
+		Id: 1,
+		Label: DomainPermission1,
+		Description: Groupies for life,
+		FunctionalPermissionIds: 
+		[
+			1,
+			2
+		]
+	},
+	{
+		Id: 2,
+		Label: DomainPermission2,
+		Description: Groupei 2 for live,
+		FunctionalPermissionIds: 
+		[
+			1,
+			2
+		]
+	},
+	{
+		Id: 3,
+		Label: Tekening Beheer,
+		Description: Beheerder van tekeningen
+	},
+	{
+		Id: 4,
+		Label: SomeDomainPermission,
+		Description: Some domain permission for testing
+	}
+]

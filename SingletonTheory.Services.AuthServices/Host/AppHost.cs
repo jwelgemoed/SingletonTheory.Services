@@ -67,6 +67,8 @@ namespace SingletonTheory.Services.AuthServices.Host
 
 			LocalizationData.CreateLanguageFiles(repository, ConfigSettings.LocalizationFilePath);
 
+			PermissionData.CreatePermissions(ConfigSettings.PermissionsDirectory);
+
 			UserData.CreateUsers();
 		}
 

@@ -6,14 +6,27 @@ namespace SingletonTheory.Library.IO
 {
 	public static class SerializationUtilities
 	{
-		public static T ReadLocaleFromFile<T>(string fileName)
+		public static T ReadFile<T>(string fileName)
 		{
-			string serializedLocale = File.ReadAllText(fileName);
-			serializedLocale = CleanString(serializedLocale);
+			string serializedString = File.ReadAllText(fileName);
 
-			T readObject = TypeSerializer.DeserializeFromString<T>(serializedLocale);
+			return DeserializeFromJson<T>(serializedString);
+		}
+
+		public static T DeserializeFromJson<T>(string serializedString)
+		{
+			serializedString = CleanString(serializedString);
+			T readObject = TypeSerializer.DeserializeFromString<T>(serializedString);
 
 			return readObject;
+		}
+
+		public static string SerializeToJson(object objectToWrite, bool prettyPrint = true)
+		{
+			if (prettyPrint)
+				return TypeSerializer.SerializeAndFormat(objectToWrite);
+
+			return TypeSerializer.SerializeToString(objectToWrite);
 		}
 
 		public static void WriteToFile(string fileName, object objectToWrite)
@@ -21,15 +34,20 @@ namespace SingletonTheory.Library.IO
 			FileInfo fileInfo = new FileInfo(fileName);
 			using (FileStream stream = fileInfo.OpenWrite())
 			{
-				string serializedLocale = TypeSerializer.SerializeAndFormat(objectToWrite);
-				byte[] serializedBytes = Encoding.ASCII.GetBytes(serializedLocale);
+				string serializedString = SerializeToJson(objectToWrite);
+				byte[] serializedBytes = Encoding.ASCII.GetBytes(serializedString);
 				stream.Write(serializedBytes, 0, serializedBytes.Length);
 			}
 		}
 
 		private static string CleanString(string stringToSerialize)
 		{
-			return stringToSerialize.Replace("\t", string.Empty).Replace("\n", string.Empty).Replace("\r", string.Empty).Replace(": ", ":");
+			return stringToSerialize
+				.Replace("\t", string.Empty)
+				.Replace("\n", string.Empty)
+				.Replace("\r", string.Empty)
+				.Replace(": ", ":")
+				.Replace(", ", ",");
 		}
 	}
 }

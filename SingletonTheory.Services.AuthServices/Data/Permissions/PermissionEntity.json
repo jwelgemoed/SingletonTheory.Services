@@ -1,0 +1,38 @@
+[
+	{
+		Id: 1,
+		Name: Permissions_CanPost
+	},
+	{
+		Id: 2,
+		Name: Permission_CanPut
+	},
+	{
+		Id: 3,
+		Name: Permission_CanGet
+	},
+	{
+		Id: 4,
+		Name: Permission_CanDelete
+	},
+	{
+		Id: 5,
+		Name: CurrentUser_Get
+	},
+	{
+		Id: 6,
+		Name: CurrentUser_Get
+	},
+	{
+		Id: 7,
+		Name: CurrentUser_Get
+	},
+	{
+		Id: 8,
+		Name: CurrentUser_GET
+	},
+	{
+		Id: 9,
+		Name: CurrentUser_GET
+	}
+]

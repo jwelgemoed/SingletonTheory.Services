@@ -1,20 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using MongoDB.Bson;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using ServiceStack.Common.Utils;
 using SingletonTheory.Data;
+using SingletonTheory.Library.IO;
 using SingletonTheory.Services.AuthServices.Config;
-using SingletonTheory.Services.AuthServices.TransferObjects;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SingletonTheory.Services.AuthServices.Repositories
 {
 	public class GenericRepository
 	{
+		#region Constants
+
+		public const string RolesCollection = "Roles";
+		public const string FunctionalPermissionsCollection = "FunctionalPermissions";
+		public const string DomainPermissionsCollection = "DomainPermissions";
+		public const string PermissionsCollection = "Permissions";
+
+		#endregion Constants
+
+		#region Fields & Properties
+
 		private static MongoDatabase _mongoDatabase;
+
+		#endregion Fields & Properties
+
+		#region Public Methods
 
 		public static List<T> GetList<T>(string dataBaseName, string collectionName)
 		{
@@ -29,7 +42,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 		{
 			_mongoDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, dataBaseName);
 			var collection = _mongoDatabase.GetCollection<T>(collectionName);
-			
+
 			MongoCursor<T> cursor = collection.Find(query);
 
 			return cursor.ToList();
@@ -55,13 +68,25 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			return cursor;
 		}
 
-		public static T Add<T>(string dataBaseName, string collectionName, T obj)
+		public static T Add<T>(string dataBaseName, string collectionName, T obj, bool writeFile = true)
 		{
 			_mongoDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, dataBaseName);
 			var collection = _mongoDatabase.GetCollection<T>(collectionName);
 
 			collection.Save(obj);
+
+			if (writeFile)
+			{
+				List<T> listToWrite = GetList<T>(dataBaseName, collectionName);
+				WriteToFile(listToWrite, typeof(T).Name + ".json");
+			}
+
 			return obj;
+		}
+
+		private static void WriteToFile(object obj, string fileName)
+		{
+			SerializationUtilities.WriteToFile(ConfigSettings.PermissionsDirectory + @"\" + fileName, obj);
 		}
 
 		public static bool DeleteById<T>(string dataBaseName, string collectionName, int id)
@@ -86,5 +111,23 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			return id + 1;
 		}
 
+		public static void ClearCollection(string dataBaseName)
+		{
+			_mongoDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, dataBaseName);
+
+			if (_mongoDatabase.CollectionExists(RolesCollection))
+				_mongoDatabase.DropCollection(RolesCollection);
+
+			if (_mongoDatabase.CollectionExists(FunctionalPermissionsCollection))
+				_mongoDatabase.DropCollection(FunctionalPermissionsCollection);
+
+			if (_mongoDatabase.CollectionExists(DomainPermissionsCollection))
+				_mongoDatabase.DropCollection(DomainPermissionsCollection);
+
+			if (_mongoDatabase.CollectionExists(PermissionsCollection))
+				_mongoDatabase.DropCollection(PermissionsCollection);
+		}
+
+		#endregion Public Methods
 	}
 }

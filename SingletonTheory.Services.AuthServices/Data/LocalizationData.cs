@@ -1,10 +1,7 @@
-﻿using ServiceStack.Text;
-using SingletonTheory.Library.IO;
+﻿using SingletonTheory.Library.IO;
 using SingletonTheory.Services.AuthServices.Entities;
 using SingletonTheory.Services.AuthServices.Repositories;
-using System;
 using System.IO;
-using System.Text;
 
 namespace SingletonTheory.Services.AuthServices.Data
 {
@@ -22,7 +19,7 @@ namespace SingletonTheory.Services.AuthServices.Data
 			for (int i = 0; i < fileNames.Length; i++)
 			{
 				FileUtilities.AssertFileExists(fileNames[i]);
-				LocalizationCollectionEntity locale = SerializationUtilities.ReadLocaleFromFile<LocalizationCollectionEntity>(fileNames[i]);
+				LocalizationCollectionEntity locale = SerializationUtilities.ReadFile<LocalizationCollectionEntity>(fileNames[i]);
 
 				repository.Create(locale);
 			}

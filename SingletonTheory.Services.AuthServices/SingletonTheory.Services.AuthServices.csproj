@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\LocalizationData.cs" />
+    <Compile Include="Data\PermissionData.cs" />
     <Compile Include="Data\UserData.cs" />
     <Compile Include="Entities\DomainPermissionEntity.cs" />
     <Compile Include="Entities\DomainPermissionObject.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Extensions\TranslationExtensions.cs" />
     <Compile Include="Interfaces\INameLabel.cs" />
     <Compile Include="Repositories\BlackListRepository.cs" />
+    <Compile Include="Repositories\GenericFileRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\UserAuthRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
@@ -171,6 +173,10 @@
     <Content Include="Data\LocalizationFiles\nl-nl.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\Permissions\PermissionEntity.json" />
+    <Content Include="Data\Permissions\RoleEntity.json" />
+    <Content Include="Data\Permissions\DomainPermissionEntity.json" />
+    <Content Include="Data\Permissions\FunctionalPermissionEntity.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -189,6 +195,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Data\AuthAdmin\" />
     <Folder Include="Translations\" />
   </ItemGroup>
   <PropertyGroup>
