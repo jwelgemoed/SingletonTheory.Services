@@ -73,7 +73,8 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			_mongoDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, dataBaseName);
 			var collection = _mongoDatabase.GetCollection<T>(collectionName);
 
-			collection.Save(obj);
+			if(obj != null)
+				collection.Save(obj);
 
 			if (writeFile)
 			{
