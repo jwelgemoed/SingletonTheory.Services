@@ -25,7 +25,7 @@
 		},
 		{
 			Key: _AdministrateUsersHeading_,
-			Value: Adminstrate Users,
+			Value: Administrate Users,
 			Description: Administrate Users heading for re-use.
 		},
 		{
@@ -268,6 +268,21 @@
 			Key: _userAvailabilityDescription_, 
 			Value: The user name should be unique., 
 			Description: User availability error display description.
+		},
+		{
+			Key: _AdministrateUserDomainPermissionsHeading_,
+			Value: Administrate User Domain Permissions,
+			Description: Administrate User Domain Permissions heading for re-use.
+		},
+		{
+			Key: _StartDateHeading_,
+			Value: Start Date,
+			Description: Start date heading for re-use.
+		},
+		{
+			Key: _EndDateHeading_,
+			Value: End Date,
+			Description:  End date heading for re-use.
 		}
 	]
 }
