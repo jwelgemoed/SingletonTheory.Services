@@ -1,28 +1,82 @@
 [
 	{
 		Id: 1,
-		Name: FunctionalPermission1,
-		PermissionIds: 
-		[
-			1,
-			2
-		]
+		Name: General_Access
 	},
 	{
 		Id: 2,
-		Name: FunctionalPermission2,
-		PermissionIds: 
-		[
-			1,
-			2
-		]
+		Name: Administrator_Access
 	},
 	{
 		Id: 3,
-		Name: Tekening Aanmaken
+		Name: UserAdministration_Access
 	},
 	{
 		Id: 4,
-		Name: Functional Permission
+		Name: AuthorizationAdministration_Access
+	},
+	{
+		Id: 5,
+		Name: RoleAdministration_Access
+	},
+	{
+		Id: 6,
+		Name: DomainPermissionAdministration_Access
+	},
+	{
+		Id: 7,
+		Name: FunctionalPermissionAdministration_Access
+	},
+	{
+		Id: 8,
+		Name: PermissionAdministration_Access
+	},
+	{
+		Id: 9,
+		Name: RoleAdministration_Create
+	},
+	{
+		Id: 10,
+		Name: DomainPermissionAdministration_Create
+	},
+	{
+		Id: 11,
+		Name: FunctionalPermissionAdministration_Create
+	},
+	{
+		Id: 12,
+		Name: PermissionAdministration_Create
+	},
+	{
+		Id: 13,
+		Name: RoleAdministration_Update
+	},
+	{
+		Id: 14,
+		Name: DomainPermissionAdministration_Update
+	},
+	{
+		Id: 15,
+		Name: FunctionalPermissionAdministration_Update
+	},
+	{
+		Id: 16,
+		Name: PermissionAdministration_Update
+	},
+	{
+		Id: 17,
+		Name: UserAdministrationUser_Create
+	},
+	{
+		Id: 18,
+		Name: UserAdministrationDomainPermissionLink_Create
+	},
+	{
+		Id: 19,
+		Name: UserAdministrationUser_Update
+	},
+	{
+		Id: 20,
+		Name: UserAdministrationDomainPermissionLink_Update
 	}
 ]
