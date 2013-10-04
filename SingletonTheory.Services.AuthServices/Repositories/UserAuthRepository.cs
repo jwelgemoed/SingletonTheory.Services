@@ -377,38 +377,38 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 
 			if (userAuth != null)
 			{
-				userAuth.Permissions = PermissionUtility.GetPermissionNamesForRoleIdsAndDomainPermissions(userEntity.Roles,
-					userEntity.DomainPermissions);
-				//userAuth.Permissions = new List<string>();
-				//userAuth.Permissions.Add("DomainPermission_Get");
-				//userAuth.Permissions.Add("DomainPermission_Put");
-				//userAuth.Permissions.Add("DomainPermission_Post");
-				//userAuth.Permissions.Add("DomainPermission_Delete");
-				//userAuth.Permissions.Add("DomainPermissions_Get");
-				//userAuth.Permissions.Add("FunctionalPermission_Get");
-				//userAuth.Permissions.Add("FunctionalPermission_Put");
-				//userAuth.Permissions.Add("FunctionalPermission_Post");
-				//userAuth.Permissions.Add("FunctionalPermission_Delete");
-				//userAuth.Permissions.Add("CurrentUserAuthRequest_Get");
-				//userAuth.Permissions.Add("LevelLists_Get");
-				//userAuth.Permissions.Add("LevelLists_Put");
-				//userAuth.Permissions.Add("LocalizationDictionaryRequest_Get");
-				//userAuth.Permissions.Add("LocalizationDictionaryRequest_Put");
-				//userAuth.Permissions.Add("LocalizationDictionaryRequest_Post");
-				//userAuth.Permissions.Add("Permission_Get");
-				//userAuth.Permissions.Add("Permission_Put");
-				//userAuth.Permissions.Add("Permission_Post");
-				//userAuth.Permissions.Add("Permissions_Get");
-				//userAuth.Permissions.Add("Role_Get");
-				//userAuth.Permissions.Add("Role_Put");
-				//userAuth.Permissions.Add("Role_Post");
-				//userAuth.Permissions.Add("Role_Delete");
-				//userAuth.Permissions.Add("Roles_Get");
-				//userAuth.Permissions.Add("User_Get");
-				//userAuth.Permissions.Add("User_Put");
-				//userAuth.Permissions.Add("User_Post");
-				//userAuth.Permissions.Add("Users_Get");
-				//userAuth.Permissions.Add("Users_Post");
+				//userAuth.Permissions = PermissionUtility.GetPermissionNamesForRoleIdsAndDomainPermissions(userEntity.Roles,
+				//	userEntity.DomainPermissions);
+				userAuth.Permissions = new List<string>();
+				userAuth.Permissions.Add("DomainPermission_Get");
+				userAuth.Permissions.Add("DomainPermission_Put");
+				userAuth.Permissions.Add("DomainPermission_Post");
+				userAuth.Permissions.Add("DomainPermission_Delete");
+				userAuth.Permissions.Add("DomainPermissions_Get");
+				userAuth.Permissions.Add("FunctionalPermission_Get");
+				userAuth.Permissions.Add("FunctionalPermission_Put");
+				userAuth.Permissions.Add("FunctionalPermission_Post");
+				userAuth.Permissions.Add("FunctionalPermission_Delete");
+				userAuth.Permissions.Add("CurrentUserAuthRequest_Get");
+				userAuth.Permissions.Add("LevelLists_Get");
+				userAuth.Permissions.Add("LevelLists_Put");
+				userAuth.Permissions.Add("LocalizationDictionaryRequest_Get");
+				userAuth.Permissions.Add("LocalizationDictionaryRequest_Put");
+				userAuth.Permissions.Add("LocalizationDictionaryRequest_Post");
+				userAuth.Permissions.Add("Permission_Get");
+				userAuth.Permissions.Add("Permission_Put");
+				userAuth.Permissions.Add("Permission_Post");
+				userAuth.Permissions.Add("Permissions_Get");
+				userAuth.Permissions.Add("Role_Get");
+				userAuth.Permissions.Add("Role_Put");
+				userAuth.Permissions.Add("Role_Post");
+				userAuth.Permissions.Add("Role_Delete");
+				userAuth.Permissions.Add("Roles_Get");
+				userAuth.Permissions.Add("User_Get");
+				userAuth.Permissions.Add("User_Put");
+				userAuth.Permissions.Add("User_Post");
+				userAuth.Permissions.Add("Users_Get");
+				userAuth.Permissions.Add("Users_Post");
 			}
 
 			return userAuth;
