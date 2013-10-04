@@ -29,6 +29,14 @@ namespace SingletonTheory.Services.AuthServices.Config
 			}
 		}
 
+		public static string MongoAuthAdminDatabaseName
+		{
+			get
+			{
+				return GetValue("MongoAuthAdminDatabaseName", "AuthAdminDatabase");
+			}
+		}
+
 		public static string MongoLocalizationDatabaseName
 		{
 			get

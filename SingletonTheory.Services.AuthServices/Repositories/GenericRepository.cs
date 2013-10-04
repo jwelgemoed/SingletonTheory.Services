@@ -12,6 +12,15 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 {
 	public class GenericRepository
 	{
+		#region Constants
+
+		public const string RolesCollection = "Roles";
+		public const string FunctionalPermissionsCollection = "FunctionalPermissions";
+		public const string DomainPermissionsCollection = "DomainPermissions";
+		public const string PermissionsCollection = "Permissions";
+
+		#endregion Constants
+
 		#region Fields & Properties
 
 		private static MongoDatabase _mongoDatabase;
@@ -97,6 +106,23 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			}
 
 			return id + 1;
+		}
+
+		public static void ClearCollection(string dataBaseName)
+		{
+			_mongoDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, dataBaseName);
+
+			if (_mongoDatabase.CollectionExists(RolesCollection))
+				_mongoDatabase.DropCollection(RolesCollection);
+
+			if (_mongoDatabase.CollectionExists(FunctionalPermissionsCollection))
+				_mongoDatabase.DropCollection(FunctionalPermissionsCollection);
+
+			if (_mongoDatabase.CollectionExists(DomainPermissionsCollection))
+				_mongoDatabase.DropCollection(DomainPermissionsCollection);
+
+			if (_mongoDatabase.CollectionExists(PermissionsCollection))
+				_mongoDatabase.DropCollection(PermissionsCollection);
 		}
 
 		#endregion Public Methods
