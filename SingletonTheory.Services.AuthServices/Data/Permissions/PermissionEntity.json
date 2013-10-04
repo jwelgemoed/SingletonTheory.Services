@@ -98,5 +98,9 @@
 	{
 		Id: 28,
 		Name: Users_Post
+	},
+	{
+		Id: 29,
+		Name: FunctionalPermissions_Get
 	}
 ]
