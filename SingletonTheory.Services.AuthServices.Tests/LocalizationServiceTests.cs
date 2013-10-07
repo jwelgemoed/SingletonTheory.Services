@@ -37,11 +37,11 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		public void ShouldReturnLocale()
 		{
 			// Arrange
-			LocalizationDictionaryRequest request = new LocalizationDictionaryRequest();
+			LocalizationDictionary request = new LocalizationDictionary();
 			request.Locale = "nl-nl";
 
 			// Act
-			LocalizationDictionaryResponse response = _client.Get<LocalizationDictionaryResponse>(request);
+			LocalizationDictionary response = _client.Get<LocalizationDictionary>(request);
 
 			// Assert
 			Assert.IsNotNull(response);
@@ -52,32 +52,32 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		public void ShouldReturnCorrectValueForLocale()
 		{
 			// Arrange
-			LocalizationDictionaryRequest request = new LocalizationDictionaryRequest();
-			request.LocalizationDictionary.Add(new LocalizationItem() { Key = "_MainTitle_" });
+			LocalizationDictionary request = new LocalizationDictionary();
+			request.LocalizationData.Add(new LocalizationItem() { Key = "_MainTitle_" });
 			request.Locale = "nl-nl";
 
 			// Act
-			LocalizationDictionaryResponse response = _client.Get<LocalizationDictionaryResponse>(request);
+			LocalizationDictionary response = _client.Get<LocalizationDictionary>(request);
 
 			// Assert
 			Assert.IsNotNull(response);
-			Assert.That(response.LocalizationItems.Count, Is.EqualTo(1));
-			Assert.That(response.LocalizationItems[0].Value, Is.EqualTo("Singleton Theory Toegangsapplicatie."), "Does not returned correct value");
+			Assert.That(response.LocalizationData.Count, Is.EqualTo(1));
+			Assert.That(response.LocalizationData[0].Value, Is.EqualTo("Singleton Theory Toegangsapplicatie."), "Does not returned correct value");
 		}
 
 		[Test]
 		public void ShouldReturnAllValuesForLocale()
 		{
 			// Arrange
-			LocalizationDictionaryRequest request = new LocalizationDictionaryRequest();
+			LocalizationDictionary request = new LocalizationDictionary();
 			request.Locale = "nl-nl";
 
 			// Act
-			LocalizationDictionaryResponse response = _client.Get<LocalizationDictionaryResponse>(request);
+			LocalizationDictionary response = _client.Get<LocalizationDictionary>(request);
 
 			// Assert
 			Assert.IsNotNull(response);
-			Assert.That(response.LocalizationItems.Count, Is.EqualTo(31));
+			Assert.That(response.LocalizationData.Count, Is.EqualTo(31));
 		}
 
 		#endregion Test Methods
