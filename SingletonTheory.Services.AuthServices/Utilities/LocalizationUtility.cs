@@ -45,9 +45,9 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 			}
 			catch (Exception) { }
 
-			LocalizationDictionaryRequest request = new LocalizationDictionaryRequest();
+			LocalizationDictionary request = new LocalizationDictionary();
 			request.Locale = language;
-			LocalizationDictionaryResponse localizationList = _client.Get<LocalizationDictionaryResponse>(request);
+			LocalizationDictionary localizationList = _client.Get<LocalizationDictionary>(request);
 
 			foreach (var obj in responseList)
 			{
@@ -69,17 +69,17 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 			}
 			catch (Exception) { }
 
-			LocalizationDictionaryRequest request = new LocalizationDictionaryRequest();
-			request.LocalizationDictionary.Add(new LocalizationItem() { Key = name });
+			LocalizationDictionary request = new LocalizationDictionary();
+			request.LocalizationData.Add(new LocalizationItem() { Key = name });
 			request.Locale = language;
-			LocalizationDictionaryResponse localizationList = _client.Get<LocalizationDictionaryResponse>(request);
+			LocalizationDictionary localizationList = _client.Get<LocalizationDictionary>(request);
 
-			return localizationList.LocalizationItems[0].Value ?? name;
+			return localizationList.LocalizationData[0].Value ?? name;
 		}
 
-		public static string GetLabelFromLocalizationList(LocalizationDictionaryResponse localizationList, string name)
+		public static string GetLabelFromLocalizationList(LocalizationDictionary localizationList, string name)
 		{
-			foreach (var obj in localizationList.LocalizationItems)
+			foreach (var obj in localizationList.LocalizationData)
 			{
 				if (obj.Key.Equals(name))
 				{

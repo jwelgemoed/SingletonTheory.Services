@@ -50,5 +50,14 @@
 			16,
 			4
 		]
+	},
+	{
+		Id: 5,
+		Label: Locale Administration Domain,
+		Description: Access to Locale Administration,
+		FunctionalPermissionIds: 
+		[
+			21
+		]
 	}
 ]

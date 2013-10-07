@@ -11,12 +11,12 @@ namespace SingletonTheory.Services.AuthServices.Services
 	{
 		#region Public Methods
 
-		public LocalizationDictionaryResponse Get(LocalizationDictionaryRequest request)
+		public LocalizationDictionary Get(LocalizationDictionary request)
 		{
 			LocalizationRepository repository = GetRepository();
 			LocalizationCollectionEntity collection = TranslateToEntity(request);
 
-			if (request.LocalizationDictionary.Count == 0)
+			if (request.LocalizationData.Count == 0)
 			{
 				collection = repository.Read(request.Locale);
 				collection.Locale += "1";
@@ -24,18 +24,18 @@ namespace SingletonTheory.Services.AuthServices.Services
 			else
 			{
 				LocalizationCollectionEntity collection2 = repository.Read(collection);
-				collection2.Locale += request.LocalizationDictionary.Count.ToString();
+				collection2.Locale += request.LocalizationData.Count.ToString();
 			}
 
 			return TranslateToResponse(collection);
 		}
 
-		public LocalizationDictionaryResponse Post(LocalizationDictionaryRequest request)
+		public LocalizationDictionary Post(LocalizationDictionary request)
 		{
 			return PutPostLocalizationDictionary(request);
 		}
 
-		public LocalizationDictionaryResponse Put(LocalizationDictionaryRequest request)
+		public LocalizationDictionary Put(LocalizationDictionary request)
 		{
 			return PutPostLocalizationDictionary(request);
 		}
@@ -44,7 +44,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		#region Private Methods
 
-		private LocalizationDictionaryResponse PutPostLocalizationDictionary(LocalizationDictionaryRequest request)
+		private LocalizationDictionary PutPostLocalizationDictionary(LocalizationDictionary request)
 		{
 			LocalizationCollectionEntity collection = TranslateToEntity(request);
 			LocalizationRepository repository = GetRepository();
@@ -60,20 +60,20 @@ namespace SingletonTheory.Services.AuthServices.Services
 			return repository;
 		}
 
-		private LocalizationDictionaryResponse TranslateToResponse(LocalizationCollectionEntity collection)
+		private LocalizationDictionary TranslateToResponse(LocalizationCollectionEntity collection)
 		{
-			LocalizationDictionaryResponse response = collection.TranslateTo<LocalizationDictionaryResponse>();
+			LocalizationDictionary response = collection.TranslateTo<LocalizationDictionary>();
 
-			collection.LocalizationItems.ForEach(x => response.LocalizationItems.Add(x.TranslateTo<LocalizationItem>()));
+			collection.LocalizationItems.ForEach(x => response.LocalizationData.Add(x.TranslateTo<LocalizationItem>()));
 
 			return response;
 		}
 
-		private static LocalizationCollectionEntity TranslateToEntity(LocalizationDictionaryRequest request)
+		private static LocalizationCollectionEntity TranslateToEntity(LocalizationDictionary request)
 		{
 			LocalizationCollectionEntity response = request.TranslateTo<LocalizationCollectionEntity>();
 
-			request.LocalizationDictionary.ForEach(x => response.LocalizationItems.Add(x.TranslateTo<LocalizationEntity>()));
+			request.LocalizationData.ForEach(x => response.LocalizationItems.Add(x.TranslateTo<LocalizationEntity>()));
 
 			return response;
 		}

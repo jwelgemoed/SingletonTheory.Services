@@ -165,5 +165,9 @@
 			16,
 			11
 		]
+	},
+	{
+		Id: 21,
+		Name: LocaleAdministration_Access
 	}
 ]
