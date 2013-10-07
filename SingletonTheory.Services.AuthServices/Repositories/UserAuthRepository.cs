@@ -378,7 +378,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			if (userAuth != null)
 			{
 				userAuth.Permissions = PermissionUtility.GetPermissionNamesForRoleIdsAndDomainPermissions(userEntity.Roles,
-					userEntity.DomainPermissions);
+					userEntity.DomainPermissions, userEntity.TimeZoneId);
 				//userAuth.Permissions = new List<string>();
 				//userAuth.Permissions.Add("DomainPermission_Get");
 				//userAuth.Permissions.Add("DomainPermission_Put");
@@ -435,7 +435,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			if (userAuth != null)
 			{
 				userAuth.Permissions = PermissionUtility.GetFunctionalPermissionNamesForRoleIdsAndDomainPermissions(userEntity.Roles,
-				userEntity.DomainPermissions);
+				userEntity.DomainPermissions, userEntity.TimeZoneId);
 			}
 
 			return userAuth;

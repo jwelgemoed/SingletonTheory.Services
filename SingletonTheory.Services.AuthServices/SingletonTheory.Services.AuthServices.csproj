@@ -158,6 +158,7 @@
     <Compile Include="TransferObjects\Roles.cs" />
     <Compile Include="TransferObjects\User.cs" />
     <Compile Include="TransferObjects\Users.cs" />
+    <Compile Include="Utilities\DateTimeUtility.cs" />
     <Compile Include="Utilities\PermissionUtility.cs" />
     <Compile Include="Utilities\LocalizationUtility.cs" />
     <Compile Include="Validations\UserRequestValidator.cs" />

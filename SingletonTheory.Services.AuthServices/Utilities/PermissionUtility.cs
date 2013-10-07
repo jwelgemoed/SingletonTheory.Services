@@ -21,7 +21,7 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 
 		#region Public Methods
 
-		public static List<string> GetFunctionalPermissionNamesForRoleIdsAndDomainPermissions(List<int> roleIds, List<DomainPermissionObject> domainPermissionObjects)
+		public static List<string> GetFunctionalPermissionNamesForRoleIdsAndDomainPermissions(List<int> roleIds, List<DomainPermissionObject> domainPermissionObjects, string timeZoneId)
 		{
 			List<string> functionalPersmissionNameList = new List<string>();
 			List<int> domainPermissionIds = new List<int>();
@@ -30,7 +30,7 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 			AddDomainPermissionIdsForRoleIds(roleIds, domainPermissionIds);
 
 			//get active domain permissionids from DomainPermissionObjects
-			AddDomainPermissionIdsForDomainPermissionObjects(domainPermissionObjects, domainPermissionIds);
+			AddDomainPermissionIdsForDomainPermissionObjects(domainPermissionObjects, domainPermissionIds, timeZoneId);
 
 			//Get all functional permissions ids for domainpermissions
 			GetFunctionalPermissionIdsForDomainPermissionIds(domainPermissionIds, functionalPermissionIds);
@@ -41,7 +41,7 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 			return functionalPersmissionNameList;
 		}
 
-		public static List<string> GetPermissionNamesForRoleIdsAndDomainPermissions(List<int> roleIds, List<DomainPermissionObject> domainPermissionObjects)
+		public static List<string> GetPermissionNamesForRoleIdsAndDomainPermissions(List<int> roleIds, List<DomainPermissionObject> domainPermissionObjects, string timeZoneId)
 		{
 			List<string> persmissionNameList = new List<string>();
 			List<int> domainPermissionIds = new List<int>();
@@ -52,7 +52,7 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 			AddDomainPermissionIdsForRoleIds(roleIds, domainPermissionIds);
 
 			//get active domain permissionids from DomainPermissionObjects
-			AddDomainPermissionIdsForDomainPermissionObjects(domainPermissionObjects, domainPermissionIds);
+			AddDomainPermissionIdsForDomainPermissionObjects(domainPermissionObjects, domainPermissionIds, timeZoneId);
 
 			//Get all functional permissions ids for domainpermissions
 			GetFunctionalPermissionIdsForDomainPermissionIds(domainPermissionIds, functionalPermissionIds);
@@ -86,8 +86,7 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 				var permissionEntities = new List<PermissionEntity>();
 
 				permissionEntities = GenericRepository.GetList<PermissionEntity>(AuthAdminDatabase, PermissionsCollection);
-
-
+				
 				if (permissionEntities != null)
 				{
 					for (int i = 0; i < permissionEntities.Count; i++)
@@ -196,7 +195,7 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 		}
 
 		private static void AddDomainPermissionIdsForDomainPermissionObjects(List<DomainPermissionObject> domainPermissionObjects,
-			List<int> domainPermissionIds)
+			List<int> domainPermissionIds,string timeZoneId)
 		{
 			try
 			{
@@ -204,8 +203,8 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 				{
 					var domainPermissionObject = domainPermissionObjects[index];
 					//TODO: date usage to be defined
-					if (domainPermissionObject.ActiveTimeSpan.StartDate >= DateTime.UtcNow &&
-							domainPermissionObject.ActiveTimeSpan.EndDate >= DateTime.UtcNow)
+					if (DateTimeUtility.ConvertTimeFromUtc(domainPermissionObject.ActiveTimeSpan.StartDate, timeZoneId) >= DateTimeUtility.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneId) &&
+							DateTimeUtility.ConvertTimeFromUtc(domainPermissionObject.ActiveTimeSpan.EndDate, timeZoneId) >= DateTimeUtility.ConvertTimeFromUtc(DateTime.UtcNow, timeZoneId))
 					{
 						if (!domainPermissionIds.Contains(domainPermissionObject.DomainPermissionId))
 							domainPermissionIds.Add(domainPermissionObject.DomainPermissionId);
