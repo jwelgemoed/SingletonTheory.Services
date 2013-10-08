@@ -13,6 +13,7 @@ using SingletonTheory.Services.AuthServices.Entities;
 using SingletonTheory.Services.AuthServices.Extensions;
 using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.TransferObjects;
+using SingletonTheory.Services.AuthServices.TransferObjects.AuthAdmin;
 using SingletonTheory.Services.AuthServices.Utilities;
 
 namespace SingletonTheory.Services.AuthServices.Services

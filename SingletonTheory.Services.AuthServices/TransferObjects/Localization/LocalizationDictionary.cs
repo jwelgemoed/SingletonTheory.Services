@@ -1,8 +1,8 @@
-﻿using MongoDB.Bson;
+﻿using System.Collections.Generic;
+using MongoDB.Bson;
 using ServiceStack.ServiceHost;
-using System.Collections.Generic;
 
-namespace SingletonTheory.Services.AuthServices.TransferObjects
+namespace SingletonTheory.Services.AuthServices.TransferObjects.Localization
 {
 	[Route("/localize")]
 	[Route("/localize/{Locale}")]

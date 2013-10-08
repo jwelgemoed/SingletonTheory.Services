@@ -6,6 +6,7 @@ using ServiceStack.Common;
 using SingletonTheory.Services.AuthServices.Entities;
 using SingletonTheory.Services.AuthServices.Interfaces;
 using SingletonTheory.Services.AuthServices.TransferObjects;
+using SingletonTheory.Services.AuthServices.TransferObjects.AuthAdmin;
 using SingletonTheory.Services.AuthServices.Utilities;
 
 namespace SingletonTheory.Services.AuthServices.Extensions

@@ -5,6 +5,7 @@ using SingletonTheory.Services.AuthServices.Extensions;
 using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.TransferObjects;
 using System.Linq;
+using SingletonTheory.Services.AuthServices.TransferObjects.AuthAdmin;
 
 namespace SingletonTheory.Services.AuthServices.Services
 {
@@ -13,44 +14,47 @@ namespace SingletonTheory.Services.AuthServices.Services
 	{
 		#region Get Put
 
-		public LevelLists Get(LevelLists request)
+		public RoleDomainPermissions Get(RoleDomainPermissions request)
 		{
-			if (request.RoleId != 0)
-			{
-				GetRoleLevelLists(request);
-			}
-			else if (request.DomainPermissionId != 0)
-			{
-				GetDomainPermissionLists(request);
-			}
-			else if (request.FunctionalPermissionId != 0)
-			{
-				GetFunctionalPermissionLists(request);
-			}
-			//	ApplyLanguagingToLabels(new List<INameLabel>(responseList));
+			GetRoleLevelLists(request);
 
 			return request;
 		}
 
-		public LevelLists Put(LevelLists request)
+		public RoleDomainPermissions Put(RoleDomainPermissions request)
 		{
-
-			if (request.RoleId != 0)
-			{
 				SetRoleLevelLists(request);
 				GetRoleLevelLists(request);
-			}
-			else if (request.DomainPermissionId != 0)
-			{
-				SetDomainPermissionLists(request);
-				GetDomainPermissionLists(request);
-			}
-			else if (request.FunctionalPermissionId != 0)
-			{
-				SetFunctionalPermissionLists(request);
-				GetFunctionalPermissionLists(request);
-			}
-			//	ApplyLanguagingToLabels(new List<INameLabel>(responseList));
+			
+			return request;
+		}
+
+		public DomainPermissionFunctionalPermissions Get(DomainPermissionFunctionalPermissions request)
+		{
+			GetDomainPermissionLists(request);
+
+			return request;
+		}
+
+		public DomainPermissionFunctionalPermissions Put(DomainPermissionFunctionalPermissions request)
+		{
+			SetDomainPermissionLists(request);
+			GetDomainPermissionLists(request);
+
+			return request;
+		}
+
+		public FunctionalPermissionPermissions Get(FunctionalPermissionPermissions request)
+		{
+			GetFunctionalPermissionLists(request);
+
+			return request;
+		}
+
+		public FunctionalPermissionPermissions Put(FunctionalPermissionPermissions request)
+		{
+			SetFunctionalPermissionLists(request);
+			GetFunctionalPermissionLists(request);
 
 			return request;
 		}
@@ -59,7 +63,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		#region Role
 
-		private static void GetRoleLevelLists(LevelLists request)
+		private static void GetRoleLevelLists(RoleDomainPermissions request)
 		{
 			RoleEntity roleEntity = GenericRepository.GetItemTopById<RoleEntity>(ConfigSettings.MongoAuthAdminDatabaseName, GenericRepository.RolesCollection, request.RoleId);
 			int[] assigned = new int[] { };
@@ -94,7 +98,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 			}
 		}
 
-		private static void SetRoleLevelLists(LevelLists request)
+		private static void SetRoleLevelLists(RoleDomainPermissions request)
 		{
 			RoleEntity entity = GenericRepository.GetItemTopById<RoleEntity>(ConfigSettings.MongoAuthAdminDatabaseName, GenericRepository.RolesCollection, request.RoleId);
 			int[] assigned;
@@ -105,7 +109,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 				for (int i = 0; i < request.Assigned.Count; i++)
 				{
-					var obj = (DomainPermission)request.Assigned[i];
+					var obj = request.Assigned[i];
 					assigned[i] = obj.Id;
 				}
 				entity.DomainPermissionIds = assigned;
@@ -117,7 +121,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		#region DomainPermission
 
-		private static void GetDomainPermissionLists(LevelLists request)
+		private static void GetDomainPermissionLists(DomainPermissionFunctionalPermissions request)
 		{
 			DomainPermissionEntity domainPermissionEntity = GenericRepository.GetItemTopById<DomainPermissionEntity>(ConfigSettings.MongoAuthAdminDatabaseName, GenericRepository.DomainPermissionsCollection, request.DomainPermissionId);
 			int[] assigned = new int[] { };
@@ -152,7 +156,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 			}
 		}
 
-		private static void SetDomainPermissionLists(LevelLists request)
+		private static void SetDomainPermissionLists(DomainPermissionFunctionalPermissions request)
 		{
 			DomainPermissionEntity entity = GenericRepository.GetItemTopById<DomainPermissionEntity>(ConfigSettings.MongoAuthAdminDatabaseName, GenericRepository.DomainPermissionsCollection, request.DomainPermissionId);
 			int[] assigned;
@@ -163,7 +167,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 				for (int i = 0; i < request.Assigned.Count; i++)
 				{
-					var obj = (FunctionalPermission)request.Assigned[i];
+					var obj = request.Assigned[i];
 					assigned[i] = obj.Id;
 				}
 				entity.FunctionalPermissionIds = assigned;
@@ -175,7 +179,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		#region FunctionalPermission
 
-		private static void GetFunctionalPermissionLists(LevelLists request)
+		private static void GetFunctionalPermissionLists(FunctionalPermissionPermissions request)
 		{
 			FunctionalPermissionEntity functionalPermissionEntity = GenericRepository.GetItemTopById<FunctionalPermissionEntity>(ConfigSettings.MongoAuthAdminDatabaseName, GenericRepository.FunctionalPermissionsCollection, request.FunctionalPermissionId);
 			int[] assigned = new int[] { };
@@ -211,7 +215,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 			}
 		}
 
-		private static void SetFunctionalPermissionLists(LevelLists request)
+		private static void SetFunctionalPermissionLists(FunctionalPermissionPermissions request)
 		{
 			FunctionalPermissionEntity entity = GenericRepository.GetItemTopById<FunctionalPermissionEntity>(ConfigSettings.MongoAuthAdminDatabaseName, GenericRepository.FunctionalPermissionsCollection, request.FunctionalPermissionId);
 			int[] assigned;
@@ -222,7 +226,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 				for (int i = 0; i < request.Assigned.Count; i++)
 				{
-					var obj = (Permission)request.Assigned[i];
+					var obj = request.Assigned[i];
 					assigned[i] = obj.Id;
 				}
 				entity.PermissionIds = assigned;

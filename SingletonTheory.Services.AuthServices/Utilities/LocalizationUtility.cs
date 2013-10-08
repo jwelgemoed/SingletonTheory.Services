@@ -7,6 +7,7 @@ using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Interfaces;
 using SingletonTheory.Services.AuthServices.Services;
 using SingletonTheory.Services.AuthServices.TransferObjects;
+using SingletonTheory.Services.AuthServices.TransferObjects.Localization;
 
 namespace SingletonTheory.Services.AuthServices.Utilities
 {

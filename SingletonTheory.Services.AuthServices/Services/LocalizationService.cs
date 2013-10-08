@@ -4,6 +4,7 @@ using SingletonTheory.Services.AuthServices.Entities;
 using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.TransferObjects;
 using System;
+using SingletonTheory.Services.AuthServices.TransferObjects.Localization;
 
 namespace SingletonTheory.Services.AuthServices.Services
 {
