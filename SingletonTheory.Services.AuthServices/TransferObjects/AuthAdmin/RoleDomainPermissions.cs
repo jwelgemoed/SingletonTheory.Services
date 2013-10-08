@@ -11,12 +11,12 @@ namespace SingletonTheory.Services.AuthServices.TransferObjects.AuthAdmin
 	{
 		public RoleDomainPermissions()
 		{
-			Assigned = new List<object>();
-			UnAssigned = new List<object>();
+			Assigned = new List<DomainPermission>();
+			UnAssigned = new List<DomainPermission>();
 		}
 
 		public int RoleId { get; set; }
-		public List<object> Assigned { get; set; }
-		public List<object> UnAssigned { get; set; }
+		public List<DomainPermission> Assigned { get; set; }
+		public List<DomainPermission> UnAssigned { get; set; }
 	}
 }

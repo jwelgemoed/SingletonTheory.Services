@@ -11,12 +11,12 @@ namespace SingletonTheory.Services.AuthServices.TransferObjects.AuthAdmin
 	{
 		public FunctionalPermissionPermissions()
 		{
-			Assigned = new List<object>();
-			UnAssigned = new List<object>();
+			Assigned = new List<Permission>();
+			UnAssigned = new List<Permission>();
 		}
 
 		public int FunctionalPermissionId { get; set; }
-		public List<object> Assigned { get; set; }
-		public List<object> UnAssigned { get; set; }
+		public List<Permission> Assigned { get; set; }
+		public List<Permission> UnAssigned { get; set; }
 	}
 }

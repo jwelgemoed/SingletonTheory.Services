@@ -143,8 +143,8 @@
     <Compile Include="Services\PermissionService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\UserService.cs" />
-    <Compile Include="TransferObjects\AuthAdmin\FunctionalPermissionPermissions.cs" />
     <Compile Include="TransferObjects\AuthAdmin\DomainPermissionFunctionalPermissions.cs" />
+    <Compile Include="TransferObjects\AuthAdmin\FunctionalPermissionPermissions.cs" />
     <Compile Include="TransferObjects\AuthAdmin\DomainPermissions.cs" />
     <Compile Include="TransferObjects\AuthAdmin\FunctionalPermissions.cs" />
     <Compile Include="TransferObjects\AuthAdmin\RoleDomainPermissions.cs" />
