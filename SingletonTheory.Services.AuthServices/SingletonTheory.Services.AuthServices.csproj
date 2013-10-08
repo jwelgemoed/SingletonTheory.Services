@@ -157,6 +157,8 @@
     <Compile Include="TransferObjects\AuthAdmin\Roles.cs" />
     <Compile Include="TransferObjects\Localization\LocalizationDictionary.cs" />
     <Compile Include="TransferObjects\Localization\LocalizationItem.cs" />
+    <Compile Include="TransferObjects\Localization\LocalizationKeyDictionary.cs" />
+    <Compile Include="TransferObjects\Localization\LocalizationKeyItem.cs" />
     <Compile Include="TransferObjects\User.cs" />
     <Compile Include="TransferObjects\Users.cs" />
     <Compile Include="Utilities\DateTimeUtility.cs" />
