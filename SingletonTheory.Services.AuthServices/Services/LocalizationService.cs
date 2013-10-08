@@ -16,16 +16,16 @@ namespace SingletonTheory.Services.AuthServices.Services
 			LocalizationRepository repository = GetRepository();
 			LocalizationCollectionEntity collection = TranslateToEntity(request);
 
-			if (request.LocalizationData.Count == 0)
-			{
+			//if (request.LocalizationData.Count == 0)
+		//	{
 				collection = repository.Read(request.Locale);
-				collection.Locale += "1";
-			}
-			else
-			{
-				LocalizationCollectionEntity collection2 = repository.Read(collection);
-				collection2.Locale += request.LocalizationData.Count.ToString();
-			}
+		//		collection.Locale += "1";
+		//	}
+		//	else
+		//	{
+		//		LocalizationCollectionEntity collection2 = repository.Read(collection);
+	//			collection2.Locale += request.LocalizationData.Count.ToString();
+		//	}
 
 			return TranslateToResponse(collection);
 		}
