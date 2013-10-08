@@ -36,14 +36,6 @@
 		Name: FunctionalPermission_Delete
 	},
 	{
-		Id: 10,
-		Name: LevelLists_Get
-	},
-	{
-		Id: 11,
-		Name: LevelLists_Put
-	},
-	{
 		Id: 15,
 		Name: Permission_Get
 	},
@@ -102,5 +94,29 @@
 	{
 		Id: 29,
 		Name: FunctionalPermissions_Get
+	},
+	{
+		Id: 30,
+		Name: DomainPermissionFunctionalPermissions_Get
+	},
+	{
+		Id: 31,
+		Name: DomainPermissionFunctionalPermissions_Put
+	},
+	{
+		Id: 32,
+		Name: FunctionalPermissionPermissions_Get
+	},
+	{
+		Id: 33,
+		Name: FunctionalPermissionPermissions_Put
+	},
+	{
+		Id: 10,
+		Name: RoleDomainPermissions_Get
+	},
+	{
+		Id: 11,
+		Name: RoleDomainPermissions_Put
 	}
 ]

@@ -6,7 +6,7 @@ using ServiceStack.ServiceHost;
 using SingletonTheory.Services.AuthServices.Interfaces;
 using ServiceStack.ServiceInterface;
 
-namespace SingletonTheory.Services.AuthServices.TransferObjects
+namespace SingletonTheory.Services.AuthServices.TransferObjects.AuthAdmin
 {
 	[Route("/auth/admin/functionalpermission")]
 	[RequiredPermission(ApplyTo.Get, "FunctionalPermission_Get")]

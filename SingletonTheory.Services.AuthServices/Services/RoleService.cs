@@ -11,6 +11,7 @@ using SingletonTheory.Services.AuthServices.Entities;
 using SingletonTheory.Services.AuthServices.Extensions;
 using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.TransferObjects;
+using SingletonTheory.Services.AuthServices.TransferObjects.AuthAdmin;
 
 namespace SingletonTheory.Services.AuthServices.Services
 {

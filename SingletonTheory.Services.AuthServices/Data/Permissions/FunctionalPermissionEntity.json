@@ -121,12 +121,18 @@
 		]
 	},
 	{
+		Id: 21,
+		Name: LocaleAdministration_Access
+	},
+	{
 		Id: 14,
 		Name: DomainPermissionAdministration_Update,
 		PermissionIds: 
 		[
 			3,
-			11
+			11,
+			33,
+			31
 		]
 	},
 	{
@@ -136,7 +142,9 @@
 		[
 			23,
 			5,
-			10
+			10,
+			30,
+			32
 		]
 	},
 	{
@@ -145,7 +153,9 @@
 		PermissionIds: 
 		[
 			20,
-			11
+			11,
+			31,
+			33
 		]
 	},
 	{
@@ -154,7 +164,9 @@
 		PermissionIds: 
 		[
 			7,
-			11
+			11,
+			33,
+			31
 		]
 	},
 	{
@@ -163,11 +175,9 @@
 		PermissionIds: 
 		[
 			16,
-			11
+			11,
+			31,
+			33
 		]
-	},
-	{
-		Id: 21,
-		Name: LocaleAdministration_Access
 	}
 ]
