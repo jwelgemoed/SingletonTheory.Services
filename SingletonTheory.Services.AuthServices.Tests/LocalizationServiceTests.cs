@@ -2,6 +2,7 @@
 using ServiceStack.ServiceClient.Web;
 using SingletonTheory.Services.AuthServices.Tests.Helpers;
 using SingletonTheory.Services.AuthServices.TransferObjects;
+using SingletonTheory.Services.AuthServices.TransferObjects.Localization;
 
 namespace SingletonTheory.Services.AuthServices.Tests
 {

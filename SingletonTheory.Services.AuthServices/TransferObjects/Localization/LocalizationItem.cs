@@ -1,4 +1,4 @@
-﻿namespace SingletonTheory.Services.AuthServices.TransferObjects
+﻿namespace SingletonTheory.Services.AuthServices.TransferObjects.Localization
 {
 	public class LocalizationItem
 	{

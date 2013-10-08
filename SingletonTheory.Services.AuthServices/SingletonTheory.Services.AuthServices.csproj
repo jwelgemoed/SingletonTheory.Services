@@ -151,12 +151,12 @@
     <Compile Include="TransferObjects\CurrentUserAuthRequest.cs" />
     <Compile Include="TransferObjects\AuthAdmin\FunctionalPermission.cs" />
     <Compile Include="TransferObjects\AuthAdmin\DomainPermission.cs" />
-    <Compile Include="TransferObjects\LocalizationDictionary.cs" />
-    <Compile Include="TransferObjects\LocalizationItem.cs" />
     <Compile Include="TransferObjects\AuthAdmin\Permission.cs" />
     <Compile Include="TransferObjects\AuthAdmin\Permissions.cs" />
     <Compile Include="TransferObjects\AuthAdmin\Role.cs" />
     <Compile Include="TransferObjects\AuthAdmin\Roles.cs" />
+    <Compile Include="TransferObjects\Localization\LocalizationDictionary.cs" />
+    <Compile Include="TransferObjects\Localization\LocalizationItem.cs" />
     <Compile Include="TransferObjects\User.cs" />
     <Compile Include="TransferObjects\Users.cs" />
     <Compile Include="Utilities\DateTimeUtility.cs" />
