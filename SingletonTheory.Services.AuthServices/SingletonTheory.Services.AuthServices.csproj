@@ -149,8 +149,8 @@
     <Compile Include="TransferObjects\CurrentUserAuthRequest.cs" />
     <Compile Include="TransferObjects\FunctionalPermission.cs" />
     <Compile Include="TransferObjects\DomainPermission.cs" />
-    <Compile Include="TransferObjects\LocalizationDictionary.cs" />
-    <Compile Include="TransferObjects\LocalizationItem.cs" />
+    <Compile Include="TransferObjects\Localization\LocalizationDictionary.cs" />
+    <Compile Include="TransferObjects\Localization\LocalizationItem.cs" />
     <Compile Include="TransferObjects\Permission.cs" />
     <Compile Include="TransferObjects\Permissions.cs" />
     <Compile Include="TransferObjects\Role.cs" />
