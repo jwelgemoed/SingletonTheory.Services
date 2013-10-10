@@ -12,6 +12,12 @@ namespace SingletonTheory.Services.AuthServices.Services
 	{
 		#region Public Methods
 
+		public LocalizationKeyDictionary Get(LocalizationKeyDictionary request)
+		{
+			LocalizationRepository repository = GetRepository();
+			return TranslateToKeyResponse(repository.GetAllKeyValues(request.Key));
+		}
+
 		public LocalizationDictionary Get(LocalizationDictionary request)
 		{
 			LocalizationRepository repository = GetRepository();
@@ -59,6 +65,15 @@ namespace SingletonTheory.Services.AuthServices.Services
 			if (repository == null)
 				throw new InvalidOperationException("Localization Repository not defined in IoC Container");
 			return repository;
+		}
+
+		private LocalizationKeyDictionary TranslateToKeyResponse(LocalizationKeyCollectionEntity collection)
+		{
+			LocalizationKeyDictionary response = collection.TranslateTo<LocalizationKeyDictionary>();
+
+			collection.KeyValues.ForEach(x => response.KeyValues.Add(x.TranslateTo<LocalizationKeyItem>()));
+
+			return response;
 		}
 
 		private LocalizationDictionary TranslateToResponse(LocalizationCollectionEntity collection)

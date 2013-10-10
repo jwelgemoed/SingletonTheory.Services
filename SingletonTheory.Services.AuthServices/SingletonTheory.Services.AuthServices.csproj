@@ -115,6 +115,8 @@
     <Compile Include="Entities\DomainPermissionEntity.cs" />
     <Compile Include="Entities\DomainPermissionObject.cs" />
     <Compile Include="Entities\FunctionalPermissionEntity.cs" />
+    <Compile Include="Entities\LocalizationKeyCollectionEntity.cs" />
+    <Compile Include="Entities\LocalizationKeyEntity.cs" />
     <Compile Include="Entities\PermissionEntity.cs" />
     <Compile Include="Entities\RoleEntity.cs" />
     <Compile Include="Entities\UserEntity.cs" />
