@@ -38,7 +38,7 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 		{
 			//Add l18n here
 			AuthService authService = new AuthService();
-			var language = "default";
+			var language = "nl_nl";
 			try
 			{
 				var currentUser = authService.Get(new CurrentUserAuthRequest());
@@ -62,7 +62,7 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 
 			//Add l18n here
 			AuthService authService = new AuthService();
-			var language = "default";
+			var language = "nl_nl";
 			try
 			{
 				var currentUser = authService.Get(new CurrentUserAuthRequest());
@@ -75,7 +75,7 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 			request.Locale = language;
 			LocalizationDictionary localizationList = _client.Get<LocalizationDictionary>(request);
 
-			return localizationList.LocalizationData[0].Value ?? name;
+			return GetLabelFromLocalizationList(localizationList, name);
 		}
 
 		public static string GetLabelFromLocalizationList(LocalizationDictionary localizationList, string name)
