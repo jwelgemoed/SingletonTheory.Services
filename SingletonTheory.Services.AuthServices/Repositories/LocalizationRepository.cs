@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
@@ -91,13 +92,13 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			try
 			{
 				var keyValues = new LocalizationKeyCollectionEntity
-				                {
-					                Key =  keyName
-				                };
+												{
+													Key = keyName
+												};
 				var allLocales = GetAllLocaleCodes();
 				foreach (var locale in allLocales)
 				{
-					keyValues.KeyValues.Add(GetKeyValueByNameAndLocale(locale,keyName));
+					keyValues.KeyValues.Add(GetKeyValueByNameAndLocale(locale, keyName));
 				}
 				return keyValues;
 			}
@@ -107,7 +108,40 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			}
 		}
 
-		
+		public LocalizationKeyCollectionEntity PostAllKeyValues(LocalizationKeyCollectionEntity keyValueSet)
+		{
+			try
+			{
+				var allLocales = GetAllLocaleCodes();
+				foreach (var locale in allLocales)
+				{
+					CreateKeyEntryByNameAndLocale(locale, keyValueSet.Key, keyValueSet.Key,"");
+				}
+				return GetAllKeyValues(keyValueSet.Key);
+			}
+			catch (Exception ex)
+			{
+				throw new DataAccessException("Error querying Mongo Database: " + ex.Message);
+			}
+		}
+
+		public LocalizationKeyCollectionEntity PutAllKeyValues(LocalizationKeyCollectionEntity keyValueSet)
+		{
+			try
+			{
+				foreach (var localizationKeyEntity in keyValueSet.KeyValues)
+				{
+					SetKeyValueByNameAndLocale(localizationKeyEntity.Locale, keyValueSet.Key, localizationKeyEntity.Value, localizationKeyEntity.Description);
+				}
+				return GetAllKeyValues(keyValueSet.Key);
+			}
+			catch (Exception ex)
+			{
+				throw new DataAccessException("Error querying Mongo Database: " + ex.Message);
+			}
+		}
+
+
 
 		public LocalizationCollectionEntity Create(LocalizationCollectionEntity record)
 		{
@@ -158,6 +192,38 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			catch (Exception ex)
 			{
 				throw new DataAccessException("Error querying Mongo Database: " + ex.Message);
+			}
+		}
+
+		private void SetKeyValueByNameAndLocale(string locale, string keyName, string keyValue, string keyDescription)
+		{
+			try
+			{
+				var locales = _mongoDatabase.GetCollection<LocalizationCollectionEntity>(CollectionName);
+				var localeCollection = locales.FindOne(Query<LocalizationCollectionEntity>.EQ(e => e.Locale, locale));
+				var value = localeCollection.LocalizationItems.First(e => e.Key == keyName);
+				value.Value = keyValue;
+				value.Description = keyDescription;
+				locales.Save(localeCollection);
+			}
+			catch (Exception ex)
+			{
+				throw new DataAccessException("Error updating Mongo Database: " + ex.Message);
+			}
+		}
+
+		private void CreateKeyEntryByNameAndLocale(string locale, string keyName, string keyValue, string keyDescription)
+		{
+			try
+			{
+				var locales = _mongoDatabase.GetCollection<LocalizationCollectionEntity>(CollectionName);
+				var localeCollection = locales.FindOne(Query<LocalizationCollectionEntity>.EQ(e => e.Locale, locale));
+				localeCollection.LocalizationItems.Add(new LocalizationEntity { Key = keyName, Value = keyValue, Description = keyDescription });
+				locales.Save(localeCollection);
+			}
+			catch (Exception ex)
+			{
+				throw new DataAccessException("Error adding data to Mongo Database: " + ex.Message);
 			}
 		}
 

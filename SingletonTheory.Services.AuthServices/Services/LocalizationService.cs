@@ -14,26 +14,31 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		public LocalizationKeyDictionary Get(LocalizationKeyDictionary request)
 		{
-			LocalizationRepository repository = GetRepository();
+			var repository = GetRepository();
 			return TranslateToKeyResponse(repository.GetAllKeyValues(request.Key));
+		}
+
+		public LocalizationKeyDictionary Post(LocalizationKeyDictionary request)
+		{
+			var repository = GetRepository();
+			var requestEntity = TranslateToKeyEntity(request);
+			var returnEntity = repository.PostAllKeyValues(requestEntity);
+			return TranslateToKeyResponse(returnEntity);
+		}
+
+		public LocalizationKeyDictionary Put(LocalizationKeyDictionary request)
+		{
+			var repository = GetRepository();
+			var requestEntity = TranslateToKeyEntity(request);
+			var returnEntity = repository.PutAllKeyValues(requestEntity);
+			return TranslateToKeyResponse(returnEntity);
 		}
 
 		public LocalizationDictionary Get(LocalizationDictionary request)
 		{
 			LocalizationRepository repository = GetRepository();
 			LocalizationCollectionEntity collection = TranslateToEntity(request);
-
-			//if (request.LocalizationData.Count == 0)
-		//	{
-				collection = repository.Read(request.Locale);
-		//		collection.Locale += "1";
-		//	}
-		//	else
-		//	{
-		//		LocalizationCollectionEntity collection2 = repository.Read(collection);
-	//			collection2.Locale += request.LocalizationData.Count.ToString();
-		//	}
-
+			collection = repository.Read(request.Locale);
 			return TranslateToResponse(collection);
 		}
 
@@ -65,6 +70,15 @@ namespace SingletonTheory.Services.AuthServices.Services
 			if (repository == null)
 				throw new InvalidOperationException("Localization Repository not defined in IoC Container");
 			return repository;
+		}
+
+		private LocalizationKeyCollectionEntity TranslateToKeyEntity(LocalizationKeyDictionary request)
+		{
+			LocalizationKeyCollectionEntity response = request.TranslateTo<LocalizationKeyCollectionEntity>();
+
+			request.KeyValues.ForEach(x => response.KeyValues.Add(x.TranslateTo<LocalizationKeyEntity>()));
+
+			return response;
 		}
 
 		private LocalizationKeyDictionary TranslateToKeyResponse(LocalizationKeyCollectionEntity collection)
