@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography;
@@ -6,6 +7,8 @@ using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.Linq;
 using ServiceStack.DataAccess;
+using SingletonTheory.Library.IO;
+using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities;
 using System;
 
@@ -205,6 +208,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 				value.Value = keyValue;
 				value.Description = keyDescription;
 				locales.Save(localeCollection);
+				SerializationUtilities.ReplaceFile(ConfigSettings.LocalizationFilePath + @"\" + locale + ".json", localeCollection);
 			}
 			catch (Exception ex)
 			{
@@ -218,8 +222,13 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			{
 				var locales = _mongoDatabase.GetCollection<LocalizationCollectionEntity>(CollectionName);
 				var localeCollection = locales.FindOne(Query<LocalizationCollectionEntity>.EQ(e => e.Locale, locale));
+				if (localeCollection.LocalizationItems.Any(e => e.Key == keyName))
+				{
+					throw new DataException("The langauge key already exists:");
+				}
 				localeCollection.LocalizationItems.Add(new LocalizationEntity { Key = keyName, Value = keyValue, Description = keyDescription });
 				locales.Save(localeCollection);
+				SerializationUtilities.ReplaceFile(ConfigSettings.LocalizationFilePath + @"\" + locale + ".json", localeCollection);
 			}
 			catch (Exception ex)
 			{

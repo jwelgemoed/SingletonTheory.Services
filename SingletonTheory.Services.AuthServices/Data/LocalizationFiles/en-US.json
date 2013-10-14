@@ -1,5 +1,5 @@
 {
-	Id: 000000000000000000000000,
+	Id: 525bc4b144b433408c82e258,
 	Locale: en-US,
 	LocalizationItems: 
 	[
@@ -66,7 +66,7 @@
 		{
 			Key: _DashboardSplash_,
 			Value: "This view will house the dashboard,
-			 initially visible to all logged in users.",
+			initially visible to all logged in users.",
 			Description: Content holder for dashboard screen.
 		},
 		{
@@ -231,12 +231,12 @@
 		},
 		{
 			Key: _NameHeading_,
-			Value: Name:,
+			Value: "Name:",
 			Description: Name heading for re-use.
 		},
 		{
 			Key: _LabelHeading_,
-			Value: Label:,
+			Value: "Label:",
 			Description: Label heading for re-use.
 		},
 		{
@@ -250,23 +250,23 @@
 			Description: Description heading for re-use.
 		},
 		{
-			Key: _requiredFieldDescription_, 
-			Value: This is a required field., 
+			Key: _requiredFieldDescription_,
+			Value: This is a required field.,
 			Description: Required field error display description.
 		},
 		{
-			Key: _minLengthDescription_, 
-			Value: "Please enter a minimum of <0> characters.", 
+			Key: _minLengthDescription_,
+			Value: Please enter a minimum of <0> characters.,
 			Description: Minimum length error display description.
 		},
 		{
-			Key: _maxLengthDescription_, 
-			Value: "Please do not exceed <0> characters.", 
+			Key: _maxLengthDescription_,
+			Value: Please do not exceed <0> characters.,
 			Description: Maximum length error display description.
 		},
 		{
-			Key: _userAvailabilityDescription_, 
-			Value: The user name should be unique., 
+			Key: _userAvailabilityDescription_,
+			Value: The user name should be unique.,
 			Description: User availability error display description.
 		},
 		{
@@ -283,6 +283,10 @@
 			Key: _EndDateHeading_,
 			Value: End Date,
 			Description:  End date heading for re-use.
+		},
+		{
+			Key: _LocaleKeyHeading_,
+			Value: Locale Keys
 		}
 	]
 }
