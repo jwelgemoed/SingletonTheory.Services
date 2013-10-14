@@ -161,6 +161,8 @@
     <Compile Include="TransferObjects\Localization\LocalizationItem.cs" />
     <Compile Include="TransferObjects\Localization\LocalizationKeyDictionary.cs" />
     <Compile Include="TransferObjects\Localization\LocalizationKeyItem.cs" />
+    <Compile Include="TransferObjects\Localization\LocalizationLocaleCollection.cs" />
+    <Compile Include="TransferObjects\Localization\LocalizationLocaleItem.cs" />
     <Compile Include="TransferObjects\User.cs" />
     <Compile Include="TransferObjects\Users.cs" />
     <Compile Include="Utilities\DateTimeUtility.cs" />

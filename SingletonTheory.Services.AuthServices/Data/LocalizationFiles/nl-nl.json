@@ -300,16 +300,21 @@
 		},
 		{
 			Key: _ValueHeading_,
-			Value: Value
+			Value: Waarde
 		},
 		{
 			Key: _LocaleTypeDataHeading_,
-			Value: Data Values,
+			Value: Data Waardes,
 			Description: Heading for Locale edit section
 		},
 		{
 			Key: _LocaleAdminHeading_,
 			Value: Locale Administratie,
+			Description: 
+		},
+		{
+			Key: _DeleteConfirmMessage_,
+			Value: Weet u zeker dat u dit item wilt verwijderen?,
 			Description: 
 		}
 	]

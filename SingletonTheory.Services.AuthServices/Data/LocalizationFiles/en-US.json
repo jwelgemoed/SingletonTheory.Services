@@ -313,6 +313,11 @@
 			Key: _LocaleAdminHeading_,
 			Value: Locale Administration,
 			Description: 
+		},
+		{
+			Key: _DeleteConfirmMessage_,
+			Value: Are you sure you want to delete this entry?,
+			Description: 
 		}
 	]
 }

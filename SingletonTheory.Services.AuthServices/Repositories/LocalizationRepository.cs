@@ -275,7 +275,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			}
 		}
 
-		private IEnumerable<string> GetAllLocaleCodes()
+		public IEnumerable<string> GetAllLocaleCodes()
 		{
 			try
 			{

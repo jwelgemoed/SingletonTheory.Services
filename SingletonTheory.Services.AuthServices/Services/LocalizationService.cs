@@ -1,4 +1,6 @@
-﻿using ServiceStack.Common;
+﻿using System.Collections.Generic;
+using ServiceStack.Common;
+using ServiceStack.FluentValidation.Validators;
 using ServiceStack.ServiceInterface;
 using SingletonTheory.Services.AuthServices.Entities;
 using SingletonTheory.Services.AuthServices.Repositories;
@@ -11,6 +13,17 @@ namespace SingletonTheory.Services.AuthServices.Services
 	public class LocalizationService : Service
 	{
 		#region Public Methods
+
+		public LocalizationLocaleCollection Get(LocalizationLocaleCollection request)
+		{
+			var repository = GetRepository();
+			var returnLocales = new LocalizationLocaleCollection();
+			foreach (var localeCode in repository.GetAllLocaleCodes())
+			{
+				returnLocales.Locales.Add(new LocalizationLocaleItem{LocaleKey = localeCode});
+			}
+			return returnLocales;
+		}
 
 		public LocalizationKeyDictionary Get(LocalizationKeyDictionary request)
 		{
