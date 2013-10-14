@@ -256,12 +256,12 @@
 		},
 		{
 			Key: _minLengthDescription_,
-			Value: "Vul minimaal {0} karakters.",
+			Value: "Vul minimaal <0> karakters.",
 			Description: Minimum lengte foutmelding omschrijving.
 		},
 		{
 			Key: _maxLengthDescription_,
-			Value: "Vul maximaal {0} karakters.",
+			Value: "Vul maximaal <0> karakters.",
 			Description: Maximum lengte foutmelding omschrijving.
 		},
 		{

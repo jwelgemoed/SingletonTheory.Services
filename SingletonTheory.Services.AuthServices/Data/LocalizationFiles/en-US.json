@@ -256,12 +256,12 @@
 		},
 		{
 			Key: _minLengthDescription_, 
-			Value: "Please enter a minimum of {0} characters.", 
+			Value: "Please enter a minimum of <0> characters.", 
 			Description: Minimum length error display description.
 		},
 		{
 			Key: _maxLengthDescription_, 
-			Value: "Please do not exceed {0} characters.", 
+			Value: "Please do not exceed <0> characters.", 
 			Description: Maximum length error display description.
 		},
 		{
