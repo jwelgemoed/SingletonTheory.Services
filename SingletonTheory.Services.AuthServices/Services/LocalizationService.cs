@@ -15,7 +15,10 @@ namespace SingletonTheory.Services.AuthServices.Services
 		public LocalizationKeyDictionary Get(LocalizationKeyDictionary request)
 		{
 			var repository = GetRepository();
-			return TranslateToKeyResponse(repository.GetAllKeyValues(request.Key));
+			var returnDictionary = repository.GetAllKeyValues(request.Key);
+			if (returnDictionary == null)
+				return null;
+			return TranslateToKeyResponse(returnDictionary);
 		}
 
 		public LocalizationKeyDictionary Post(LocalizationKeyDictionary request)
@@ -32,6 +35,12 @@ namespace SingletonTheory.Services.AuthServices.Services
 			var requestEntity = TranslateToKeyEntity(request);
 			var returnEntity = repository.PutAllKeyValues(requestEntity);
 			return TranslateToKeyResponse(returnEntity);
+		}
+
+		public void Delete(LocalizationKeyDictionary request)
+		{
+			var repository = GetRepository();
+			repository.DeleteAllKeyValues(request.Key);
 		}
 
 		public LocalizationDictionary Get(LocalizationDictionary request)

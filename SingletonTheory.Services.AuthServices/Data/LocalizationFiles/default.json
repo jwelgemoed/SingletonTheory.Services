@@ -285,6 +285,32 @@
 		{
 			Key: _LocaleKeyHeading_,
 			Value: Locale Keys
+		},
+		{
+			Key: _LocaleTypeHeading_,
+			Value: Locale Type
+		},
+		{
+			Key: _LocaleKeyNameHeading_,
+			Value: Locale Key Name
+		},
+		{
+			Key: _LocaleHeading_,
+			Value: Locale
+		},
+		{
+			Key: _ValueHeading_,
+			Value: Waarde
+		},
+		{
+			Key: _LocaleTypeDataHeading_,
+			Value: Data Waardes,
+			Description: Heading for Locale edit section
+		},
+		{
+			Key: _LocaleAdminHeading_,
+			Value: Locale Administration,
+			Description: 
 		}
 	]
 }

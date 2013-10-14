@@ -284,7 +284,33 @@
 		},
 		{
 			Key: _LocaleKeyHeading_,
-			Value: Locale Entries
+			Value: Locale Sleutels
+		},
+		{
+			Key: _LocaleTypeHeading_,
+			Value: Locale Type
+		},
+		{
+			Key: _LocaleKeyNameHeading_,
+			Value: Locale Sleutel Naam
+		},
+		{
+			Key: _LocaleHeading_,
+			Value: Locale
+		},
+		{
+			Key: _ValueHeading_,
+			Value: Value
+		},
+		{
+			Key: _LocaleTypeDataHeading_,
+			Value: Data Values,
+			Description: Heading for Locale edit section
+		},
+		{
+			Key: _LocaleAdminHeading_,
+			Value: Locale Administratie,
+			Description: 
 		}
 	]
 }
