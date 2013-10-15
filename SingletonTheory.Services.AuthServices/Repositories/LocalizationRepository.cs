@@ -164,9 +164,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			}
 		}
 
-
-
-		public LocalizationCollectionEntity Create(LocalizationCollectionEntity record)
+		public LocalizationCollectionEntity CreateFromStatic(LocalizationCollectionEntity record)
 		{
 			try
 			{
@@ -194,6 +192,34 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			}
 		}
 
+		public LocalizationCollectionEntity Create(LocalizationCollectionEntity record)
+		{
+			try
+			{
+				var locales = _mongoDatabase.GetCollection<LocalizationCollectionEntity>(CollectionName);
+				var localeQuery = Query<LocalizationCollectionEntity>.EQ(e => e.Locale, record.Locale);
+				var dictionary = locales.FindOne(localeQuery);
+				LocalizationCollectionEntity returnRecord;
+				if (dictionary == null)
+				{
+					returnRecord = CreateCleanLocalizationDictionary(record.Locale);
+				}
+				else
+				{
+					returnRecord = record;
+					dictionary.LocalizationItems = returnRecord.LocalizationItems;
+					locales.Save(dictionary);
+					returnRecord.Id = dictionary.Id;
+				}
+				SerializationUtilities.ReplaceFile(ConfigSettings.LocalizationFilePath + @"\" + record.Locale + ".json", returnRecord);
+				return returnRecord;
+			}
+			catch (Exception ex)
+			{
+				throw new DataAccessException("Unable to insert record in the Mongo Database: " + ex.Message);
+			}
+		}
+
 		public void ClearCollection()
 		{
 			_mongoDatabase.DropCollection(CollectionName);
@@ -202,6 +228,32 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 		#endregion Public Methods
 
 		#region Private Methods
+
+		private LocalizationCollectionEntity CreateCleanLocalizationDictionary(string localeName)
+		{
+			try
+			{
+				var locales = _mongoDatabase.GetCollection<LocalizationCollectionEntity>(CollectionName);
+				var localeQuery = Query<LocalizationCollectionEntity>.EQ(e => e.Locale, "default");
+				var dictionary = locales.FindOne(localeQuery);
+				if (dictionary == null)
+				{
+					throw new DataException("Unable to find the default locale");
+				}
+				var newLocale = new LocalizationCollectionEntity();
+				newLocale.Locale = localeName;
+				foreach (var localizationEntity in dictionary.LocalizationItems)
+				{
+					newLocale.LocalizationItems.Add(new LocalizationEntity { Key = localizationEntity.Key, Value = localizationEntity.Key, Description = "" });
+				}
+				locales.Insert(newLocale);
+				return newLocale;
+			}
+			catch (Exception ex)
+			{
+				throw new DataAccessException("Unable to create clean localization repository: " + ex.Message);
+			}
+		}
 
 		private LocalizationKeyEntity GetKeyValueByNameAndLocale(string locale, string keyName)
 		{
