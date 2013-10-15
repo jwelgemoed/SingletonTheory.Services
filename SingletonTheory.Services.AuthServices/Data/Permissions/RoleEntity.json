@@ -1,5 +1,7 @@
 [
 	{
+		RootParentId: 8,
+		ParentId: 1,
 		Id: 2,
 		Label: User,
 		Description: Admin can do just about anything,
@@ -9,6 +11,8 @@
 		]
 	},
 	{
+		RootParentId: 8,
+		ParentId: 8,
 		Id: 3,
 		Label: Tekenaar,
 		Description: Een persoon die tekeningen aanmaak,
@@ -23,16 +27,22 @@
 		Description: Some role was added
 	},
 	{
+		RootParentId: 8,
+		ParentId: 8,
 		Id: 6,
 		Label: SomeRole,
 		Description: Some role was added
 	},
 	{
+		RootParentId: 8,
+		ParentId: 8,
 		Id: 7,
 		Label: SomeNewRole,
 		Description: This is a test role
 	},
 	{
+		RootParentId: 8,
+		ParentId: 8,
 		Id: 1,
 		Label: Admin,
 		Description: Just a wuser,
@@ -43,9 +53,15 @@
 			3,
 			2,
 			5
+		],
+		ChildRoleIds: 
+		[
+			2
 		]
 	},
 	{
+		RootParentId: 8,
+		ParentId: 8,
 		Id: 4,
 		Label: Engineering Manager,
 		DomainPermissionIds: 
@@ -53,6 +69,28 @@
 			4,
 			2,
 			3
+		]
+	},
+	{
+		RootParentId: 8,
+		ParentId: 8,
+		Id: 8,
+		Label: Ops Direkteur,
+		Description: Root element for testing,
+		DomainPermissionIds: 
+		[
+			1,
+			4,
+			3,
+			2,
+			5
+		],
+		ChildRoleIds: 
+		[
+			1,
+			3,
+			4,
+			7
 		]
 	}
 ]

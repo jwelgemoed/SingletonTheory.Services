@@ -150,6 +150,7 @@
     <Compile Include="TransferObjects\AuthAdmin\DomainPermissions.cs" />
     <Compile Include="TransferObjects\AuthAdmin\FunctionalPermissions.cs" />
     <Compile Include="TransferObjects\AuthAdmin\RoleDomainPermissions.cs" />
+    <Compile Include="TransferObjects\AuthAdmin\RoleTree.cs" />
     <Compile Include="TransferObjects\CurrentUserAuthRequest.cs" />
     <Compile Include="TransferObjects\AuthAdmin\FunctionalPermission.cs" />
     <Compile Include="TransferObjects\AuthAdmin\DomainPermission.cs" />

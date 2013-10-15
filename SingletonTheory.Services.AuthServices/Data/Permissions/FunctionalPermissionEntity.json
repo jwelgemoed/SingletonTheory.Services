@@ -62,15 +62,6 @@
 		]
 	},
 	{
-		Id: 5,
-		Name: RoleAdministration_Access,
-		PermissionIds: 
-		[
-			23,
-			5
-		]
-	},
-	{
 		Id: 6,
 		Name: DomainPermissionAdministration_Access,
 		PermissionIds: 
@@ -178,6 +169,16 @@
 			11,
 			31,
 			33
+		]
+	},
+	{
+		Id: 5,
+		Name: RoleAdministration_Access,
+		PermissionIds: 
+		[
+			23,
+			5,
+			19
 		]
 	}
 ]
