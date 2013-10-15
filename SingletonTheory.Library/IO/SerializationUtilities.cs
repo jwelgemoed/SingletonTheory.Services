@@ -29,6 +29,16 @@ namespace SingletonTheory.Library.IO
 			return TypeSerializer.SerializeToString(objectToWrite);
 		}
 
+		public static void ReplaceFile(string fileName, object objectToWrite)
+		{
+			using (Stream stream = File.Open(fileName, FileMode.Create))
+			{
+				string serializedString = SerializeToJson(objectToWrite);
+				byte[] serializedBytes = Encoding.ASCII.GetBytes(serializedString);
+				stream.Write(serializedBytes, 0, serializedBytes.Length);
+			}
+		}
+
 		public static void WriteToFile(string fileName, object objectToWrite)
 		{
 			FileInfo fileInfo = new FileInfo(fileName);
