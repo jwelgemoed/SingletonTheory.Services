@@ -14,6 +14,8 @@ namespace SingletonTheory.Services.AuthServices.Services
 	{
 		#region Public Methods
 
+		#region LocalizationLocaleCollection
+
 		public LocalizationLocaleCollection Get(LocalizationLocaleCollection request)
 		{
 			var repository = GetRepository();
@@ -24,6 +26,9 @@ namespace SingletonTheory.Services.AuthServices.Services
 			}
 			return returnLocales;
 		}
+		#endregion LocalizationLocaleCollection
+
+		#region LocalizationKeyDictionary
 
 		public LocalizationKeyDictionary Get(LocalizationKeyDictionary request)
 		{
@@ -56,6 +61,9 @@ namespace SingletonTheory.Services.AuthServices.Services
 			repository.DeleteAllKeyValues(request.Key);
 		}
 
+		#endregion LocalizationKeyDictionary
+
+		#region LocalizationDictionary
 		public LocalizationDictionary Get(LocalizationDictionary request)
 		{
 			LocalizationRepository repository = GetRepository();
@@ -78,6 +86,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 			var repository = GetRepository();
 			repository.Delete(TranslateToEntity(request));
 		}
+		#endregion LocalizationDictionary
 
 		#endregion Public Methods
 

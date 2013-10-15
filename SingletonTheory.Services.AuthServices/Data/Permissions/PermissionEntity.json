@@ -118,5 +118,37 @@
 	{
 		Id: 11,
 		Name: RoleDomainPermissions_Put
+	},
+	{
+		Id: 34,
+		Name: LocalizationLocaleCollection_Get
+	},
+	{
+		Id: 35,
+		Name: LocalizationKeyDictionary_Get
+	},
+	{
+		Id: 36,
+		Name: LocalizationKeyDictionary_Post
+	},
+	{
+		Id: 37,
+		Name: LocalizationKeyDictionary_Put
+	},
+	{
+		Id: 38,
+		Name: LocalizationKeyDictionary_Delete
+	},
+	{
+		Id: 39,
+		Name: LocalizationDictionary_Post
+	},
+	{
+		Id: 40,
+		Name: LocalizationDictionary_Put
+	},
+	{
+		Id: 41,
+		Name: LocalizationDictionary_Delete
 	}
 ]
