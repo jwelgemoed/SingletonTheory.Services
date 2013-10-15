@@ -309,12 +309,20 @@
 		},
 		{
 			Key: _LocaleAdminHeading_,
-			Value: Locale Administratie,
-			Description: 
+			Value: Locale Administratie
 		},
 		{
 			Key: _DeleteConfirmMessage_,
-			Value: Weet u zeker dat u dit item wilt verwijderen?,
+			Value: Weet u zeker dat u dit item wilt verwijderen?
+		},
+		{
+			Key: _LocaleCodeHeading_,
+			Value: Locale Kode,
+			Description: 
+		},
+		{
+			Key: _KeyHeading_,
+			Value: Sleutel,
 			Description: 
 		}
 	]

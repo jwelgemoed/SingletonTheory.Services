@@ -59,8 +59,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 		public LocalizationDictionary Get(LocalizationDictionary request)
 		{
 			LocalizationRepository repository = GetRepository();
-			LocalizationCollectionEntity collection = TranslateToEntity(request);
-			collection = repository.Read(request.Locale);
+			LocalizationCollectionEntity collection = repository.Read(request.Locale);
 			return TranslateToResponse(collection);
 		}
 
@@ -72,6 +71,12 @@ namespace SingletonTheory.Services.AuthServices.Services
 		public LocalizationDictionary Put(LocalizationDictionary request)
 		{
 			return PutPostLocalizationDictionary(request);
+		}
+
+		public void Delete(LocalizationDictionary request)
+		{
+			var repository = GetRepository();
+			repository.Delete(TranslateToEntity(request));
 		}
 
 		#endregion Public Methods

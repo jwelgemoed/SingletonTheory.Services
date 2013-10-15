@@ -311,12 +311,20 @@
 		},
 		{
 			Key: _LocaleAdminHeading_,
-			Value: Locale Administration,
-			Description: 
+			Value: Locale Administration
 		},
 		{
 			Key: _DeleteConfirmMessage_,
-			Value: Are you sure you want to delete this entry?,
+			Value: Are you sure you want to delete this entry?
+		},
+		{
+			Key: _LocaleCodeHeading_,
+			Value: Locale Code,
+			Description: 
+		},
+		{
+			Key: _KeyHeading_,
+			Value: Key,
 			Description: 
 		}
 	]

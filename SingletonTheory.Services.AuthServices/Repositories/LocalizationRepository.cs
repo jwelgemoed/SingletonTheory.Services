@@ -192,6 +192,24 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			}
 		}
 
+		public void Delete(LocalizationCollectionEntity record)
+		{
+			try
+			{
+				var locales = _mongoDatabase.GetCollection<LocalizationCollectionEntity>(CollectionName);
+				var localeQuery = Query<LocalizationCollectionEntity>.EQ(e => e.Locale, record.Locale);
+				var localeToDelete = locales.FindOne(localeQuery);
+				if (localeToDelete != null)
+				{
+					locales.Remove(Query.EQ("_id", localeToDelete.Id));
+				}
+			}
+			catch (Exception ex)
+			{
+				throw new DataAccessException("Unable to remove localization entry: " + ex.Message);
+			}
+		}
+
 		public LocalizationCollectionEntity Create(LocalizationCollectionEntity record)
 		{
 			try
