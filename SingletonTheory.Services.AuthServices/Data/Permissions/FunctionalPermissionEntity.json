@@ -180,5 +180,29 @@
 			5,
 			19
 		]
+	},
+	{
+		Id: 22,
+		Name: LocaleKeyAdministration_Access
+	},
+	{
+		Id: 23,
+		Name: LocaleKeyAdministration_Update
+	},
+	{
+		Id: 24,
+		Name: LocaleKeyAdministration_Create
+	},
+	{
+		Id: 25,
+		Name: LocalizationAdministration_Access
+	},
+	{
+		Id: 26,
+		Name: LocaleAdministration_Update
+	},
+	{
+		Id: 27,
+		Name: LocaleAdministration_Create
 	}
 ]
