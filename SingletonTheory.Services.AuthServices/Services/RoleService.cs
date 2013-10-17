@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+using MongoDB.Driver;
+using MongoDB.Driver.Builders;
 using ServiceStack.Common;
+using ServiceStack.Common.Extensions;
 using ServiceStack.Common.Utils;
 using ServiceStack.ServiceClient.Web;
 using ServiceStack.ServiceInterface;
@@ -38,6 +41,23 @@ namespace SingletonTheory.Services.AuthServices.Services
 					return null;
 
 				return entity.TranslateToResponse();
+			}
+			else if (!string.IsNullOrEmpty(request.Label))
+			{
+				List<RoleEntity> entities = new List<RoleEntity>();
+
+				entities = GenericRepository.GetList<RoleEntity>(AuthAdminDatabase, RolesCollection);
+
+				if (entities == null)
+					return null;
+
+				foreach (RoleEntity item in entities)
+				{
+					if (item.Label.ToLowerInvariant() == request.Label.ToLowerInvariant())
+					{
+						return item.TranslateToResponse();
+					}
+				}
 			}
 
 			return null;
