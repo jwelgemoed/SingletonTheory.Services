@@ -14,6 +14,7 @@ namespace SingletonTheory.Services.AuthServices.Entities
 		public string Description { get; set; }
 		public List<int> DomainPermissionIds { get; set; }
 		public List<int> ChildRoleIds { get; set; }
+		public DateTime DateTimeDeleted { get; set; }
 
 		public RoleEntity()
 		{

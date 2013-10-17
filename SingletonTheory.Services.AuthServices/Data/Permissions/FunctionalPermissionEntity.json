@@ -135,17 +135,6 @@
 		]
 	},
 	{
-		Id: 13,
-		Name: RoleAdministration_Update,
-		PermissionIds: 
-		[
-			20,
-			11,
-			31,
-			33
-		]
-	},
-	{
 		Id: 15,
 		Name: FunctionalPermissionAdministration_Update,
 		PermissionIds: 
@@ -179,7 +168,8 @@
 	},
 	{
 		Id: 25,
-		Name: LocalizationAdministration_Access
+		Name: LocalizationAdministration_Access,
+		PermissionIds: []
 	},
 	{
 		Id: 27,
@@ -243,6 +233,18 @@
 		PermissionIds: 
 		[
 			41
+		]
+	},
+	{
+		Id: 13,
+		Name: RoleAdministration_Update,
+		PermissionIds: 
+		[
+			20,
+			11,
+			31,
+			33,
+			22
 		]
 	}
 ]

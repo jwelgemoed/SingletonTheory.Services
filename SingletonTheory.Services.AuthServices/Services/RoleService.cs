@@ -98,16 +98,21 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		public Role Delete(Role request)
 		{
-			GenericRepository.DeleteById<RoleEntity>(AuthAdminDatabase, RolesCollection, request.Id);
-
-			//Delete from parent child list
-			RoleEntity parentEntity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, request.ParentId);
-			if (parentEntity != null)
+			if (request.Id > 0)
 			{
-				parentEntity.ChildRoleIds.Remove(request.Id);
-				parentEntity = GenericRepository.Add(AuthAdminDatabase, RolesCollection, parentEntity);
-			}
+				RoleEntity entity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, request.Id);
+				entity.DateTimeDeleted = DateTime.UtcNow;
 
+				entity = GenericRepository.Add(AuthAdminDatabase, RolesCollection, entity);
+
+				//Delete from parent child list
+				RoleEntity parentEntity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, request.ParentId);
+				if (parentEntity != null)
+				{
+					parentEntity.ChildRoleIds.Remove(request.Id);
+					parentEntity = GenericRepository.Add(AuthAdminDatabase, RolesCollection, parentEntity);
+				}
+			}
 			return null;
 		}
 
@@ -136,7 +141,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 			//Get the rootparent entity
 			RoleEntity entity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, roleTree.RootParentId);
 
-			if (entity == null)
+			if (entity == null || entity.DateTimeDeleted > DateTime.MinValue)
 				return null;
 
 			roleTree.TreeItems = new List<TreeItem>();
@@ -162,7 +167,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 				{
 					RoleEntity roleEntity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, roleId);
 
-					if (roleEntity != null)
+					if (roleEntity != null && roleEntity.DateTimeDeleted == DateTime.MinValue)
 					{
 						TreeItem item = new TreeItem();
 						SetTreeItem(item, roleEntity);
