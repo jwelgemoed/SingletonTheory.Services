@@ -33,7 +33,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 			if (request.Id != 0)
 			{
 				RoleEntity entity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, request.Id);
-			
+
 				if (entity == null)
 					return null;
 
@@ -50,26 +50,48 @@ namespace SingletonTheory.Services.AuthServices.Services
 			if (entity.Id == 0)
 				entity.Id = GenericRepository.GetMaxIdIncrement<RoleEntity>(AuthAdminDatabase, RolesCollection);
 
-			entity.RootParentId = entity.RootParentId ==  0 ? entity.Id : entity.RootParentId;
+			entity.RootParentId = entity.RootParentId == 0 ? entity.Id : entity.RootParentId;
 			entity.ParentId = entity.ParentId == 0 ? entity.Id : entity.ParentId;
 			entity = GenericRepository.Add(AuthAdminDatabase, RolesCollection, entity);
 
-			//TODO: add to parent child objects
+			// add to parent child objects
+			RoleEntity parentEntity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, entity.ParentId);
+			if (parentEntity != null)
+			{
+				parentEntity.ChildRoleIds.Add(entity.Id);
+				parentEntity = GenericRepository.Add(AuthAdminDatabase, RolesCollection, parentEntity);
+			}
 
 			return entity.TranslateToResponse();
 		}
-		
+
 		public Role Put(Role request)
 		{
+			RoleEntity currentEntity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, request.Id);
+
 			RoleEntity entity = request.TranslateToEntity();
-			entity.RootParentId = 8;
-			entity.ParentId = 8;
 
 			entity = GenericRepository.Add(AuthAdminDatabase, RolesCollection, entity);
 
+			// If parentid different from entity remove from current parent entity and add to new parent entity
+			if (currentEntity.ParentId != entity.ParentId)
+			{
+				//remove from current parent
+				RoleEntity currentParentEntity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, currentEntity.ParentId);
+				if (currentParentEntity != null)
+				{
+					currentParentEntity.ChildRoleIds.Remove(entity.Id);
+					currentParentEntity = GenericRepository.Add(AuthAdminDatabase, RolesCollection, currentParentEntity);
+				}
 
-			//TODO: If parentid different from entity remove from current parent entity and add to new parent entity
-
+				//add to new parent
+				RoleEntity parentEntity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, entity.ParentId);
+				if (parentEntity != null)
+				{
+					parentEntity.ChildRoleIds.Add(entity.Id);
+					parentEntity = GenericRepository.Add(AuthAdminDatabase, RolesCollection, parentEntity);
+				}
+			}
 
 			return entity.TranslateToResponse();
 		}
@@ -78,7 +100,13 @@ namespace SingletonTheory.Services.AuthServices.Services
 		{
 			GenericRepository.DeleteById<RoleEntity>(AuthAdminDatabase, RolesCollection, request.Id);
 
-			//TODO delete from parent child list
+			//Delete from parent child list
+			RoleEntity parentEntity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, request.ParentId);
+			if (parentEntity != null)
+			{
+				parentEntity.ChildRoleIds.Remove(request.Id);
+				parentEntity = GenericRepository.Add(AuthAdminDatabase, RolesCollection, parentEntity);
+			}
 
 			return null;
 		}

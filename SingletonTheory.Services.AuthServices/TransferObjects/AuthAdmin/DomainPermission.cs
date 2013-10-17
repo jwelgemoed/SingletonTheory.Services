@@ -1,4 +1,5 @@
-﻿using ServiceStack.ServiceHost;
+﻿using System.Collections.Generic;
+using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 
 namespace SingletonTheory.Services.AuthServices.TransferObjects.AuthAdmin
@@ -13,6 +14,6 @@ namespace SingletonTheory.Services.AuthServices.TransferObjects.AuthAdmin
 		public int Id { get; set; }
 		public string Label { get; set; }
 		public string Description { get; set; }
-		public int[] FunctionalPermissionIds { get; set; }
+		public List<int> FunctionalPermissionIds { get; set; }
 	}
 }

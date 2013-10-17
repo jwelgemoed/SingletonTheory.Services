@@ -12,7 +12,13 @@ namespace SingletonTheory.Services.AuthServices.Entities
 		public int Id { get; set; }
 		public string Label { get; set; }
 		public string Description { get; set; }
-		public int[] DomainPermissionIds { get; set; }
-		public int[] ChildRoleIds { get; set; }
+		public List<int> DomainPermissionIds { get; set; }
+		public List<int> ChildRoleIds { get; set; }
+
+		public RoleEntity()
+		{
+			DomainPermissionIds = new List<int>();
+			ChildRoleIds = new List<int>();
+		}
 	}
 }

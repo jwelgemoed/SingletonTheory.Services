@@ -122,7 +122,7 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 						var functionalPermissionEntity = functionalPermissionEntities[i];
 						if (functionalPermissionIds.Contains(functionalPermissionEntity.Id))
 						{
-							if (functionalPermissionEntity.PermissionIds != null && functionalPermissionEntity.PermissionIds.Length > 0)
+							if (functionalPermissionEntity.PermissionIds != null && functionalPermissionEntity.PermissionIds.Count > 0)
 								permissionIdList.AddRange(functionalPermissionEntity.PermissionIds);
 						}
 					}
@@ -176,9 +176,9 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 					for (int j = 0; j < domainPermissionEntities.Count; j++)
 					{
 						var domainPermissionEntity = domainPermissionEntities[j];
-						if (domainPermissionIds.Contains(domainPermissionEntity.Id) && domainPermissionEntity.FunctionalPermissionIds != null && domainPermissionEntity.FunctionalPermissionIds.Length > 0)
+						if (domainPermissionIds.Contains(domainPermissionEntity.Id) && domainPermissionEntity.FunctionalPermissionIds != null && domainPermissionEntity.FunctionalPermissionIds.Count > 0)
 						{
-							for (int i = 0; i < domainPermissionEntity.FunctionalPermissionIds.Length; i++)
+							for (int i = 0; i < domainPermissionEntity.FunctionalPermissionIds.Count; i++)
 							{
 								var fId = domainPermissionEntity.FunctionalPermissionIds[i];
 								if (!functionalPermissionIds.Contains(fId))
@@ -228,7 +228,7 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 
 					if (entity != null)
 					{
-						if (entity.DomainPermissionIds != null && entity.DomainPermissionIds.Length > 0)
+						if (entity.DomainPermissionIds != null && entity.DomainPermissionIds.Count > 0)
 						{
 							domainPermissionIds.AddRange(entity.DomainPermissionIds);
 						}

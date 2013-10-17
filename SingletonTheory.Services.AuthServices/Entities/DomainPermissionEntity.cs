@@ -10,6 +10,11 @@ namespace SingletonTheory.Services.AuthServices.Entities
 		public int Id { get; set; }
 		public string Label { get; set; }
 		public string Description { get; set; }
-		public int[] FunctionalPermissionIds { get; set; }
+		public List<int> FunctionalPermissionIds { get; set; }
+
+		public DomainPermissionEntity()
+		{
+			FunctionalPermissionIds = new List<int>();
+		}
 	}
 }
