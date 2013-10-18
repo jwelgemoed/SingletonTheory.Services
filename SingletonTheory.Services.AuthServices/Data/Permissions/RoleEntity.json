@@ -1,7 +1,7 @@
 [
 	{
 		RootParentId: 8,
-		ParentId: 1,
+		ParentId: 4,
 		Id: 2,
 		Label: User,
 		Description: Admin can do just about anything,
@@ -72,10 +72,7 @@
 			2,
 			5
 		],
-		ChildRoleIds: 
-		[
-			2
-		],
+		ChildRoleIds: [],
 		DateTimeDeleted: 0001-01-01
 	},
 	{
@@ -165,8 +162,11 @@
 		],
 		ChildRoleIds: 
 		[
-			13
+			13,
+			2
 		],
 		DateTimeDeleted: 0001-01-01
+	}
+]
 	}
 ]

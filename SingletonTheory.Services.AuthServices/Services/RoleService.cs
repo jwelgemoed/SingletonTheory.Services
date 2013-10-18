@@ -10,12 +10,14 @@ using ServiceStack.Common.Extensions;
 using ServiceStack.Common.Utils;
 using ServiceStack.ServiceClient.Web;
 using ServiceStack.ServiceInterface;
+using ServiceStack.ServiceInterface.Auth;
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities;
 using SingletonTheory.Services.AuthServices.Extensions;
 using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.TransferObjects;
 using SingletonTheory.Services.AuthServices.TransferObjects.AuthAdmin;
+using SingletonTheory.Services.AuthServices.Utilities;
 
 namespace SingletonTheory.Services.AuthServices.Services
 {
@@ -75,11 +77,15 @@ namespace SingletonTheory.Services.AuthServices.Services
 			entity = GenericRepository.Add(AuthAdminDatabase, RolesCollection, entity);
 
 			// add to parent child objects
-			RoleEntity parentEntity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, entity.ParentId);
-			if (parentEntity != null)
+			if (entity.Id != entity.ParentId)
 			{
-				parentEntity.ChildRoleIds.Add(entity.Id);
-				parentEntity = GenericRepository.Add(AuthAdminDatabase, RolesCollection, parentEntity);
+				RoleEntity parentEntity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection,
+					entity.ParentId);
+				if (parentEntity != null)
+				{
+					parentEntity.ChildRoleIds.Add(entity.Id);
+					parentEntity = GenericRepository.Add(AuthAdminDatabase, RolesCollection, parentEntity);
+				}
 			}
 
 			return entity.TranslateToResponse();
@@ -158,8 +164,11 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		public RoleTree Get(RoleTree roleTree)
 		{
+			IAuthSession session = this.GetSession();
+			UserEntity userEntity = SessionUtility.GetSessionUserEntity(session);
+
 			//Get the rootparent entity
-			RoleEntity entity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, roleTree.RootParentId);
+			RoleEntity entity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, userEntity.Roles[0]);
 
 			if (entity == null || entity.DateTimeDeleted > DateTime.MinValue)
 				return null;
@@ -197,6 +206,54 @@ namespace SingletonTheory.Services.AuthServices.Services
 			}
 		}
 
-		#endregion Roles
+		#endregion RoleTree
+
+		#region Roles Move
+
+		public List<Role> Get(RolesRoleCanMoveTo roleToMoveTo)
+		{
+			//IAuthSession session = this.GetSession();
+			//UserEntity userEntity = SessionUtility.GetSessionUserEntity(session);
+
+			//Get the role entity
+			RoleEntity entity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, roleToMoveTo.Id);
+
+			if (entity == null || entity.DateTimeDeleted > DateTime.MinValue)
+				return null;
+
+			//Get the root parent role entity
+			RoleEntity rootParentEntity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, entity.RootParentId);
+
+			if (rootParentEntity == null || rootParentEntity.DateTimeDeleted > DateTime.MinValue)
+				return null;
+
+			List<Role> rolesAvailable = new List<Role>();
+			rolesAvailable.Add(rootParentEntity.TranslateToResponse());
+			AddAvailableRoles(rolesAvailable, rootParentEntity, entity.Id, entity.ParentId);
+
+			return rolesAvailable;
+		}
+
+		private void AddAvailableRoles(List<Role> availableRoles, RoleEntity entity, int id, int parentId)
+		{
+			if (entity.ChildRoleIds != null)
+			{
+				foreach (var roleId in entity.ChildRoleIds)
+				{
+					RoleEntity roleEntity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, roleId);
+
+					if (roleEntity != null && roleEntity.DateTimeDeleted == DateTime.MinValue)
+					{
+						// Do not add moving role or its parent to the list
+						if(roleEntity.Id != id && roleEntity.Id != parentId)
+							availableRoles.Add(roleEntity.TranslateToResponse());
+
+						AddAvailableRoles(availableRoles, roleEntity, id, parentId);
+					}
+				}
+			}
+		}
+
+		#endregion  Roles Move
 	}
 }

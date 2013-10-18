@@ -150,6 +150,7 @@
     <Compile Include="TransferObjects\AuthAdmin\DomainPermissions.cs" />
     <Compile Include="TransferObjects\AuthAdmin\FunctionalPermissions.cs" />
     <Compile Include="TransferObjects\AuthAdmin\RoleDomainPermissions.cs" />
+    <Compile Include="TransferObjects\AuthAdmin\RolesRoleCanMoveTo.cs" />
     <Compile Include="TransferObjects\AuthAdmin\RoleTree.cs" />
     <Compile Include="TransferObjects\CurrentUserAuthRequest.cs" />
     <Compile Include="TransferObjects\AuthAdmin\FunctionalPermission.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="Utilities\DateTimeUtility.cs" />
     <Compile Include="Utilities\PermissionUtility.cs" />
     <Compile Include="Utilities\LocalizationUtility.cs" />
+    <Compile Include="Utilities\SessionUtility.cs" />
     <Compile Include="Validations\UserRequestValidator.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -90,14 +90,14 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 			IAuthSession session = this.GetSession();
 			
-			if (_userRepository == null)
-			{
-				// TODO:  Inject UserRepository from Top Level
-				Container container = EndpointHost.Config.ServiceManager.Container;
-				_userRepository = container.Resolve<UserRepository>();
-			}
+			//if (_userRepository == null)
+			//{
+			//	// TODO:  Inject UserRepository from Top Level
+			//	Container container = EndpointHost.Config.ServiceManager.Container;
+			//	_userRepository = container.Resolve<UserRepository>();
+			//}
 
-			UserEntity userEntity = _userRepository.Read(session.UserName);
+			UserEntity userEntity = SessionUtility.GetSessionUserEntity(session);
 			
 			if (userEntity != null)
 			{
