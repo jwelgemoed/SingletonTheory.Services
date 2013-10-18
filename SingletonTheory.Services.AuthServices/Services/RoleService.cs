@@ -148,14 +148,37 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		public List<Role> Get(Roles role)
 		{
-			List<RoleEntity> entities = new List<RoleEntity>();
+			IAuthSession session = this.GetSession();
+			UserEntity userEntity = SessionUtility.GetSessionUserEntity(session);
 
-			entities = GenericRepository.GetList<RoleEntity>(AuthAdminDatabase, RolesCollection);
+			//Get the rootparent entity
+			RoleEntity entity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, userEntity.Roles[0]);
 
-			if (entities == null)
-				return null;
 
-			return entities.TranslateToResponse();
+			List<Role> subRoles = new List<Role>();
+			subRoles.Add(entity.TranslateToResponse());
+
+			AddSubRoles(subRoles, entity);
+
+			return subRoles;
+		}
+
+		private void AddSubRoles(List<Role> availableRoles, RoleEntity entity)
+		{
+			if (entity.ChildRoleIds != null)
+			{
+				foreach (var roleId in entity.ChildRoleIds)
+				{
+					RoleEntity roleEntity = GenericRepository.GetItemTopById<RoleEntity>(AuthAdminDatabase, RolesCollection, roleId);
+
+					if (roleEntity != null && roleEntity.DateTimeDeleted == DateTime.MinValue)
+					{
+						availableRoles.Add(roleEntity.TranslateToResponse());
+
+						AddSubRoles(availableRoles, roleEntity);
+					}
+				}
+			}
 		}
 
 		#endregion Roles
