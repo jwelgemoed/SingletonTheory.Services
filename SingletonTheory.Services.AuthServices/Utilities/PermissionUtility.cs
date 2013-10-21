@@ -21,6 +21,23 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 
 		#region Public Methods
 
+		public static List<FunctionalPermissionEntity> GetFunctionalPermissionsForRoleIds(List<int> roleIds)
+		{
+			List<FunctionalPermissionEntity> functionalPersmissionList = new List<FunctionalPermissionEntity>();
+			List<int> domainPermissionIds = new List<int>();
+			List<int> functionalPermissionIds = new List<int>();
+			//Get domainpermission ids for roles
+			AddDomainPermissionIdsForRoleIds(roleIds, domainPermissionIds);
+			
+			//Get all functional permissions ids for domainpermissions
+			GetFunctionalPermissionIdsForDomainPermissionIds(domainPermissionIds, functionalPermissionIds);
+
+			// Get all user functional permissions
+			GetFunctionalPermissions(functionalPermissionIds, functionalPersmissionList);
+
+			return functionalPersmissionList;
+		}
+
 		public static List<string> GetFunctionalPermissionNamesForRoleIdsAndDomainPermissions(List<int> roleIds, List<DomainPermissionObject> domainPermissionObjects, string timeZoneId)
 		{
 			List<string> functionalPersmissionNameList = new List<string>();
@@ -154,6 +171,26 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 								functionalPersmissionNameList.Add(functionalPermissionEntity.Name);
 						}
 					}
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+		}
+
+		private static void GetFunctionalPermissions(List<int> functionalPermissionIds, List<FunctionalPermissionEntity> functionalPersmissionList)
+		{
+			try
+			{
+				var functionalPermissionEntities = new List<FunctionalPermissionEntity>();
+
+				functionalPermissionEntities = GenericRepository.GetList<FunctionalPermissionEntity>(AuthAdminDatabase,
+					FunctionalPermissionsCollection);
+
+				if (functionalPermissionEntities != null)
+				{
+					functionalPersmissionList.AddRange(functionalPermissionEntities.Where(functionalPermissionEntity => functionalPermissionIds.Contains(functionalPermissionEntity.Id)));
 				}
 			}
 			catch (Exception ex)

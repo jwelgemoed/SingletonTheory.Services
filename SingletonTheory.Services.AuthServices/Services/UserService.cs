@@ -1,11 +1,15 @@
-﻿using MongoDB.Bson;
+﻿using System.Linq;
+using MongoDB.Bson;
 using ServiceStack.Common;
 using ServiceStack.ServiceInterface;
+using ServiceStack.ServiceInterface.Auth;
 using SingletonTheory.Services.AuthServices.Entities;
 using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.TransferObjects;
 using System;
 using System.Collections.Generic;
+using SingletonTheory.Services.AuthServices.TransferObjects.AuthAdmin;
+using SingletonTheory.Services.AuthServices.Utilities;
 
 namespace SingletonTheory.Services.AuthServices.Services
 {
@@ -43,10 +47,30 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		public List<User> Get(Users request)
 		{
+			IAuthSession session = this.GetSession();
+			UserEntity userEntity = SessionUtility.GetSessionUserEntity(session);
+
+			List<int> subRoleIds = new List<int>();
+
+			bool ownUserAccess = session.Permissions.Contains("OwnUser_Access");
+
+			RoleUtility.GetRoleAndSubRoleIds(userEntity, subRoleIds);
+			
 			UserRepository repository = GetRepository();
 			List<UserEntity> userEntities = repository.Read();
+			List<UserEntity> responseEntities = new List<UserEntity>();
+			if (!ownUserAccess)
+			{
+				responseEntities = userEntities.Where(entity => entity.UserName.ToLowerInvariant() != userEntity.UserName.ToLowerInvariant() &&
+							subRoleIds.Contains(entity.Roles[0])).ToList();
+			}
+			else
+			{
+				responseEntities = userEntities.Where(entity => subRoleIds.Contains(entity.Roles[0]) ).ToList();
+				
+			}
 
-			return TranslateToResponse(userEntities);
+			return TranslateToResponse(responseEntities);
 		}
 
 		public List<User> Post(Users request)

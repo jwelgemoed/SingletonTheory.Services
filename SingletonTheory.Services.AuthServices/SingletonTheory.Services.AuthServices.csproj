@@ -170,6 +170,7 @@
     <Compile Include="Utilities\DateTimeUtility.cs" />
     <Compile Include="Utilities\PermissionUtility.cs" />
     <Compile Include="Utilities\LocalizationUtility.cs" />
+    <Compile Include="Utilities\RoleUtility.cs" />
     <Compile Include="Utilities\SessionUtility.cs" />
     <Compile Include="Validations\UserRequestValidator.cs" />
   </ItemGroup>

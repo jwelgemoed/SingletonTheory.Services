@@ -5,6 +5,7 @@ using System.Web;
 using ServiceStack.Common;
 using ServiceStack.ServiceClient.Web;
 using ServiceStack.ServiceInterface;
+using ServiceStack.ServiceInterface.Auth;
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities;
 using SingletonTheory.Services.AuthServices.Extensions;
@@ -74,16 +75,12 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		#region FunctionalPermissions
 
-		public List<FunctionalPermission> Get(FunctionalPermissions role)
+		public List<FunctionalPermission> Get(FunctionalPermissions functionalPermissions)
 		{
-			var entities = new List<FunctionalPermissionEntity>();
+			IAuthSession session = this.GetSession();
+			UserEntity userEntity = SessionUtility.GetSessionUserEntity(session);
 
-			entities = GenericRepository.GetList<FunctionalPermissionEntity>(AuthAdminDatabase, FunctionalPermissionsCollection);
-
-			if (entities == null)
-				return null;
-
-			return entities.TranslateToResponse();
+			return PermissionUtility.GetFunctionalPermissionsForRoleIds(userEntity.Roles).TranslateToResponse();
 		}
 
 		#endregion FunctionalPermissions
