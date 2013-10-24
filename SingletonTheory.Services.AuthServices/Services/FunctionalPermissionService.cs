@@ -84,6 +84,5 @@ namespace SingletonTheory.Services.AuthServices.Services
 		}
 
 		#endregion FunctionalPermissions
-
 	}
 }
