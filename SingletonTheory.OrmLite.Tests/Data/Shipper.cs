@@ -1,15 +1,19 @@
 ﻿using ServiceStack.DataAnnotations;
-using ServiceStack.DesignPatterns.Model;
+using SingletonTheory.OrmLite.Annotations;
+using SingletonTheory.OrmLite.Interfaces;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace MultiDatabaseSupport.Data
+namespace SingletonTheory.OrmLite.Tests.Data
 {
-	[Alias("Shippers")]
-	public class Shipper : IHasId<int>
+	[Alias("Shipper")]
+	public class Shipper : IIdentifiable
 	{
+		#region Fields & Properties
+
 		[AutoIncrement]
-		[Alias("ShipperID")]
-		public int Id { get; set; }
+		[Alias("Id")]
+		public long Id { get; set; }
 
 		[Required]
 		[Index(Unique = true)]
@@ -20,6 +24,37 @@ namespace MultiDatabaseSupport.Data
 		public string Phone { get; set; }
 
 		[References(typeof(ShipperType))]
-		public int ShipperTypeId { get; set; }
+		public long ShipperTypeId { get; set; }
+
+		[Ignore()]
+		[ReferencedEntity(typeof(ShipperType), "ShipperTypeId")]
+		public ShipperType ShipperType { get; set; }
+
+		[Ignore()]
+		[AssociatedEntityAttribute(typeof(ShipperContact), IsList = true)]
+		public List<ShipperContact> ShipperContacts { get; set; }
+
+		[Ignore()]
+		public string SomeDerivedProperty { get; set; }
+
+		#endregion Fields & Properties
+
+		#region Constructors
+
+		public Shipper()
+		{
+			ShipperContacts = new List<ShipperContact>();
+		}
+
+		#endregion Constructors
+
+		#region IIdentifiable Members
+
+		public void SetId(long id)
+		{
+			Id = id;
+		}
+
+		#endregion IIdentifiable Members
 	}
 }

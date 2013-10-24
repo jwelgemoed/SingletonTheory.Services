@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace MultiDatabaseSupport.Tests.Config
+namespace SingletonTheory.OrmLite.Tests.Config
 {
 	public static class ConfigSettings
 	{

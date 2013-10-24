@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using ServiceStack.ServiceInterface.Auth;
 using SingletonTheory.Services.AuthServices.Entities;
 using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.Tests.Data;
@@ -33,6 +32,22 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories
 		#endregion Setup & Teardown
 
 		#region Test Methods
+
+		[Test]
+		public void ShouldThrowArgumentNullExceptionOnConstructor()
+		{
+			// Act
+			try
+			{
+				UserRepository userRepository = new UserRepository(null);
+				Assert.Fail("This should not happen");
+			}
+			catch (System.Exception ex)
+			{
+				// Arrange
+				Assert.IsInstanceOf<ArgumentNullException>(ex);
+			}
+		}
 
 		[Test]
 		public void ShouldCreateUser()

@@ -1,20 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace SingletonTheory.OrmLite.Interfaces
 {
-	public interface IDatabaseProvider
+	public interface IDatabaseProvider : IDisposable
 	{
+		void DropAndCreate(Type modelType);
+
+		T SelectById<T>(long idValue);
+		List<T> Select<T>();
+		List<T> Select<T>(string sqlFilter, params object[] filterParams);
+		List<T> Select<T>(Type fromTableType, string sqlFilter, params object[] filterParams);
+
+		T Insert<T>(T objectToInsert) where T : IIdentifiable, new();
+		void Update<T>(T objectToUpdate) where T : IIdentifiable, new();
+
 		void Delete<T>(params T[] objs) where T : new();
-		void Delete<T>(System.Linq.Expressions.Expression<Func<T, bool>> where);
+		void Delete<T>(Expression<Func<T, bool>> where);
 		void DeleteAll<T>();
-		void DropAndCreate<T>() where T : new();
-		T GetById<T>(object idValue) where T : new();
-		long Insert<T>(params T[] objectsToInsert) where T : new();
+
 		void Rollback();
-		System.Collections.Generic.List<T> Select<T>();
-		System.Collections.Generic.List<T> Select<T>(string sqlFilter, params object[] filterParams);
-		System.Collections.Generic.List<TModel> Select<TModel>(Type fromTableType, string sqlFilter, params object[] filterParams);
-		T Single<T>(string filter, params object[] filterParams);
-		void Update<T>(params T[] objs) where T : new();
 	}
 }

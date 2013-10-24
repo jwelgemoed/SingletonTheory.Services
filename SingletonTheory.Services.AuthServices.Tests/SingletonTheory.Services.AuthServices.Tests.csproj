@@ -81,7 +81,7 @@
     <Compile Include="Data\UserData.cs" />
     <Compile Include="Helpers\HTTPClientHelpers.cs" />
     <Compile Include="Helpers\MongoHelpers.cs" />
-    <Compile Include="LocalizationServiceTests.cs" />
+    <Compile Include="Services\LocalizationServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\LocalizationRepositoryTests.cs" />
     <Compile Include="Repositories\UserAuthRepositoryTests.cs" />

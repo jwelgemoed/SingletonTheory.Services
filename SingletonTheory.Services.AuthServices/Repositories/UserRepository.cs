@@ -29,6 +29,9 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 
 		public UserRepository(MongoDatabase mongoDatabase)
 		{
+			if (mongoDatabase == null)
+				throw new ArgumentNullException("mongoDatabase");
+
 			_mongoDatabase = mongoDatabase;
 			CreateMissingCollections();
 		}

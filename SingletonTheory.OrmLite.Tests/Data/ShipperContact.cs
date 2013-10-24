@@ -1,11 +1,11 @@
 ﻿using ServiceStack.DataAnnotations;
+using ServiceStack.OrmLite;
 using SingletonTheory.OrmLite.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
 namespace SingletonTheory.OrmLite.Tests.Data
 {
-	[Alias("ShipperType")]
-	public class ShipperType : IIdentifiable
+	public class ShipperContact : IChildEntity<long>
 	{
 		#region Fields & Properties
 
@@ -13,10 +13,19 @@ namespace SingletonTheory.OrmLite.Tests.Data
 		[Alias("Id")]
 		public long Id { get; set; }
 
+		//[References(typeof(Shipper))]
+		[ForeignKey(typeof(Shipper), OnDelete = "CASCADE", OnUpdate = "CASCADE")]
+		public long ParentId { get; set; }
+
 		[Required]
 		[Index(Unique = true)]
-		[StringLength(40)]
-		public string Name { get; set; }
+		[StringLength(10)]
+		public string PhoneNumber { get; set; }
+
+		[Required]
+		[Index(Unique = true)]
+		[EmailAddress()]
+		public string EmailAddress { get; set; }
 
 		#endregion Fields & Properties
 

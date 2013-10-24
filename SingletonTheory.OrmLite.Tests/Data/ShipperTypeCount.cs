@@ -1,4 +1,4 @@
-﻿namespace MultiDatabaseSupport.Data
+﻿namespace SingletonTheory.OrmLite.Tests.Data
 {
 	public class ShipperTypeCount
 	{
