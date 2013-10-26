@@ -116,7 +116,7 @@ namespace SingletonTheory.OrmLite.Providers
 			return modelDefinition;
 		}
 
-		public T SelectById<T>(long idValue)
+		public T SelectById<T>(long idValue) where T : IIdentifiable
 		{
 			try
 			{
@@ -174,19 +174,82 @@ namespace SingletonTheory.OrmLite.Providers
 			}
 		}
 
-		public List<T> Select<T>()
+		public List<T> Select<T>() where T : IIdentifiable
 		{
-			return _databaseConnection.Select<T>();
+			try
+			{
+				ModelDefinition modelDefinition = GetModelDefinition(typeof(T));
+				List<Type> associates = new List<Type>();
+				if (modelDefinition == null)
+					throw new InvalidOperationException("Model Type is not a valid model type.");
+
+				List<T> response = _databaseConnection.Select<T>();
+				for (int x = 0; x < response.Count; x++)
+				{
+					T item = response[x];
+					for (int i = 0; i < modelDefinition.AllFieldDefinitionsArray.Length; i++)
+					{
+						FieldDefinition fieldDefinition = modelDefinition.AllFieldDefinitionsArray[i];
+						Type fieldType = fieldDefinition.FieldType;
+						if (fieldDefinition.HasAttribute(typeof(AssociatedEntityAttribute)))
+						{
+							if (fieldType.IsListType())
+							{
+								SetChildListValue<T>(item, item.Id, fieldDefinition.PropertyInfo, fieldType);
+							}
+							else
+							{
+								SetChildSingleValue<T>(item, item.Id, fieldDefinition.PropertyInfo, fieldType);
+							}
+						}
+					}
+				}
+
+				return response;
+			}
+			catch (ArgumentNullException)
+			{
+				return default(List<T>);
+			}
 		}
 
-		public List<T> Select<T>(string sqlFilter, params object[] filterParams)
+		public List<T> Select<T>(Expression<Func<T, bool>> predicate) where T : IIdentifiable
 		{
-			return _databaseConnection.Select<T>(sqlFilter, filterParams);
-		}
+			try
+			{
+				ModelDefinition modelDefinition = GetModelDefinition(typeof(T));
+				List<Type> associates = new List<Type>();
+				if (modelDefinition == null)
+					throw new InvalidOperationException("Model Type is not a valid model type.");
 
-		public List<TModel> Select<TModel>(Type fromTableType, string sqlFilter, params object[] filterParams)
-		{
-			return _databaseConnection.Select<TModel>(fromTableType, sqlFilter, filterParams);
+				List<T> response = _databaseConnection.Select<T>(predicate);
+				for (int x = 0; x < response.Count; x++)
+				{
+					T item = response[x];
+					for (int i = 0; i < modelDefinition.AllFieldDefinitionsArray.Length; i++)
+					{
+						FieldDefinition fieldDefinition = modelDefinition.AllFieldDefinitionsArray[i];
+						Type fieldType = fieldDefinition.FieldType;
+						if (fieldDefinition.HasAttribute(typeof(AssociatedEntityAttribute)))
+						{
+							if (fieldType.IsListType())
+							{
+								SetChildListValue<T>(item, item.Id, fieldDefinition.PropertyInfo, fieldType);
+							}
+							else
+							{
+								SetChildSingleValue<T>(item, item.Id, fieldDefinition.PropertyInfo, fieldType);
+							}
+						}
+					}
+				}
+
+				return response;
+			}
+			catch (ArgumentNullException)
+			{
+				return default(List<T>);
+			}
 		}
 
 		private List<T> SelectByParentId<T>(Type fromTableType, long parentId)
@@ -317,9 +380,9 @@ namespace SingletonTheory.OrmLite.Providers
 			_databaseConnection.Delete<T>(where);
 		}
 
-		public void Delete<T>(params T[] objs) where T : new()
+		public void Delete<T>(T objectToDelete) where T : IIdentifiable, new()
 		{
-			_databaseConnection.Delete<T>(objs);
+			_databaseConnection.Delete<T>(objectToDelete);
 		}
 
 		public void DeleteAll<T>()

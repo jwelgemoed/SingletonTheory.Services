@@ -1,10 +1,10 @@
 ﻿using NUnit.Framework;
 using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.MySql;
-using ServiceStack.OrmLite.SqlServer;
 using SingletonTheory.OrmLite.Tests.Config;
 using SingletonTheory.OrmLite.Tests.Data;
 using System;
+using System.Linq;
 
 namespace SingletonTheory.OrmLite.Providers
 {
@@ -50,7 +50,7 @@ namespace SingletonTheory.OrmLite.Providers
 		}
 
 		[Test]
-		public void ShouldHaveSetDialectProviderToSqlServerOrmLiteDialectProvider()
+		public void ShouldHaveSetDialectProvider()
 		{
 			// Act
 			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString, typeof(Shipper)))
@@ -153,6 +153,25 @@ namespace SingletonTheory.OrmLite.Providers
 
 				// Act
 				Shipper savedTree = provider.SelectById<Shipper>(shipper.Id);
+
+				// Assert
+				Assert.IsNotNull(savedTree);
+				Assert.AreEqual(savedTree.ShipperContacts.Count, 1);
+				Assert.IsNotNull(savedTree.ShipperContacts[0]);
+			}
+		}
+
+		[Test]
+		public void ShouldSelectShipperAndTreeWithExpression()
+		{
+			// Arrange
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper)))
+			{
+				Shipper shipper = DataProvider.PreInsertArrange(provider);
+				shipper = provider.Insert<Shipper>(shipper);
+
+				// Act
+				Shipper savedTree = provider.Select<Shipper>(x => x.Id == shipper.Id).First();
 
 				// Assert
 				Assert.IsNotNull(savedTree);

@@ -1,7 +1,17 @@
-﻿using MongoDB.Driver;
-using MongoDB.Driver.Builders;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
+using ServiceStack.DataAccess;
+using ServiceStack.OrmLite;
+using SingletonTheory.OrmLite.Config;
+using SingletonTheory.OrmLite.Extensions;
 using SingletonTheory.OrmLite.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Linq.Expressions;
+using MongoBuilders = MongoDB.Driver.Builders;
 
 namespace SingletonTheory.OrmLite.Providers
 {
@@ -9,85 +19,274 @@ namespace SingletonTheory.OrmLite.Providers
 	{
 		#region Fields & Properties
 
-		private MongoDatabase _mongoDatabase;
+		private bool _dropAndRecreate;
+		private MongoDatabase _databaseConnection;
+		private IDbTransaction _transaction;
+		private Type _modelType;
+		private Dictionary<string, ModelDefinition> _modelDefinitions = new Dictionary<string, ModelDefinition>();
 
 		#endregion Fields & Properties
 
-		#region IDatabaseProvider Members
+		#region Constructors
+
+		public MongoProvider(string connectionString, Type modelType, bool useTransation = false, bool dropAndRecreate = false)
+		{
+			if (string.IsNullOrEmpty(connectionString))
+				throw new ArgumentNullException("connectionString");
+
+			if (modelType == null)
+				throw new ArgumentNullException("modelType");
+
+			_dropAndRecreate = dropAndRecreate;
+			_databaseConnection = MongoExtensions.OpenDbConnection(connectionString);
+
+			_modelType = modelType;
+		}
+
+		#endregion Constructors
+
+		#region Public Methods
+
+		public bool TableExists(Type modelType)
+		{
+			ModelDefinition modelDefinition = GetModelDefinition(modelType);
+
+			return _databaseConnection.CollectionExists(modelDefinition.Alias ?? modelType.Name);
+		}
+
+		public void DropAndCreate()
+		{
+			DropAndCreate(_modelType);
+		}
 
 		public void DropAndCreate(Type modelType)
 		{
-			_mongoDatabase.DropCollection(modelType.Name);
+			_databaseConnection.DropCollection(GetCollectionName(modelType));
+			_databaseConnection.DropCollection(GetCounterCollectionName(modelType));
+			_databaseConnection.CreateCollection(GetCollectionName(modelType));
 		}
 
-		public IHasId SelectById<T>(object idValue) where T : IHasId
+		private string GetCollectionName(Type modelType)
 		{
-			MongoCollection<T> locales = _mongoDatabase.GetCollection<T>(typeof(T).Name);
-			IMongoQuery localeQuery = Query<T>.EQ(e => e.Id, idValue);
-			IHasId collection = locales.FindOne(localeQuery);
+			ModelDefinition modelDefinition = GetModelDefinition(modelType);
 
-			return collection;
+			if (modelDefinition == null)
+				return modelType.Name;
+
+			return modelDefinition.Alias ?? modelType.Name;
 		}
 
-		public System.Collections.Generic.List<T> Select<T>()
+		private ModelDefinition GetModelDefinition(Type fieldType)
 		{
-			throw new System.NotImplementedException();
+			ModelDefinition modelDefinition;
+
+			if (!_modelDefinitions.TryGetValue(fieldType.Name, out modelDefinition))
+			{
+				modelDefinition = fieldType.GetModelDefinition();
+				if (modelDefinition == null)
+					return null;
+
+				_modelDefinitions.Add(fieldType.Name, modelDefinition);
+			}
+
+			return modelDefinition;
 		}
 
-		public System.Collections.Generic.List<T> Select<T>(string sqlFilter, params object[] filterParams)
+		public T SelectById<T>(long idValue) where T : IIdentifiable
 		{
-			throw new System.NotImplementedException();
+			try
+			{
+				MongoCollection<T> collection = _databaseConnection.GetCollection<T>(GetCollectionName(typeof(T)));
+				IMongoQuery query = MongoBuilders.Query<T>.EQ(e => e.Id, idValue);
+				T entity = collection.FindOne(query);
+
+				return entity == null ? default(T) : entity;
+			}
+			catch (Exception ex)
+			{
+				throw new DataAccessException("Error querying Mongo Database: " + ex.Message);
+			}
 		}
 
-		public System.Collections.Generic.List<T> Select<T>(System.Type fromTableType, string sqlFilter, params object[] filterParams)
+		public List<T> Select<T>() where T : IIdentifiable
 		{
-			throw new System.NotImplementedException();
+			try
+			{
+				MongoCollection<T> collection = _databaseConnection.GetCollection<T>(GetCollectionName(typeof(T)));
+				MongoCursor<T> cursor = collection.FindAllAs<T>();
+				return cursor.ToList();
+			}
+			catch (Exception ex)
+			{
+				throw new DataAccessException("Error querying Mongo Database: " + ex.Message);
+			}
 		}
 
-		public T Single<T>(string filter, params object[] filterParams)
+		public List<T> Select<T>(Expression<Func<T, bool>> predicate) where T : IIdentifiable
 		{
-			throw new System.NotImplementedException();
+			try
+			{
+				string collectionName = GetCollectionName(typeof(T));
+				MongoCollection<T> collection = _databaseConnection.GetCollection<T>(collectionName);
+				IQueryable<T> queryable = collection.AsQueryable<T>();
+
+				return queryable.Where(predicate).ToList();
+			}
+			catch (Exception ex)
+			{
+				throw new DataAccessException("Error querying Mongo Database: " + ex.Message);
+			}
 		}
 
-		public long Insert<T>(params T[] objectsToInsert) where T : new()
+		public List<TModel> Select<TModel>(Type fromTableType, string sqlFilter, params object[] filterParams)
 		{
-			throw new System.NotImplementedException();
+			//return _databaseConnection.Select<TModel>(fromTableType, "ShipperTypeId = {0}", filterParams);
+			return null;
 		}
 
-		public void Update<T>(params T[] objs) where T : new()
+		public T Insert<T>(T objectToInsert) where T : IIdentifiable, new()
 		{
-			throw new System.NotImplementedException();
+			try
+			{
+				objectToInsert.SetId(GetNextCounter<T>()); // Update the Id of the new item before it gets inserted
+				MongoCollection<T> collection = _databaseConnection.GetCollection<T>(GetCollectionName(typeof(T)));
+				IMongoQuery query = MongoBuilders.Query<T>.EQ(e => e.Id, objectToInsert.Id);
+				T duplicate = collection.FindOne(query);
+
+				if (duplicate != null)
+					throw new DataAccessException("Duplicate User detected");
+
+				WriteConcernResult result = collection.Insert(objectToInsert);
+
+				if (!string.IsNullOrEmpty(result.ErrorMessage))
+					throw new DataAccessException("Data Insert Error:  " + result.ErrorMessage);
+
+				return objectToInsert;
+			}
+			catch (Exception ex)
+			{
+				throw new DataAccessException("Unable to insert record in the Mongo Database: " + ex.Message);
+			}
 		}
 
-		public void Delete<T>(params T[] objs) where T : new()
+		public void Update<T>(T objectToUpdate) where T : IIdentifiable, new()
 		{
-			throw new System.NotImplementedException();
+			try
+			{
+				objectToUpdate.SetId(GetNextCounter<T>()); // Update the Id of the new item before it gets inserted
+				MongoCollection<T> collection = _databaseConnection.GetCollection<T>(GetCollectionName(typeof(T)));
+				IMongoQuery query = MongoBuilders.Query<T>.EQ(e => e.Id, objectToUpdate.Id);
+				T duplicate = collection.FindOne(query);
+
+				if (duplicate != null)
+					throw new DataAccessException("Item not found");
+
+				WriteConcernResult result = collection.Update(query, MongoBuilders.Update.Replace(objectToUpdate), UpdateFlags.Upsert);
+
+				if (!string.IsNullOrEmpty(result.ErrorMessage))
+					throw new DataAccessException("Data Insert Error:  " + result.ErrorMessage);
+			}
+			catch (Exception ex)
+			{
+				throw new DataAccessException("Unable to insert record in the Mongo Database: " + ex.Message);
+			}
 		}
 
-		public void Delete<T>(System.Linq.Expressions.Expression<System.Func<T, bool>> where)
+		public void Delete<T>(Expression<Func<T, bool>> where)
 		{
-			throw new System.NotImplementedException();
+			//_databaseConnection.Delete<T>(where);
+			return;
+		}
+
+		public void Delete<T>(T objectToDelete) where T : IIdentifiable, new()
+		{
+			MongoCollection<T> collection = _databaseConnection.GetCollection<T>(GetCollectionName(typeof(T)));
+			IMongoQuery query = MongoBuilders.Query<T>.EQ(e => e.Id, objectToDelete.Id);
+			WriteConcernResult result = collection.Remove(query);
+
+			if (!string.IsNullOrEmpty(result.ErrorMessage))
+				throw new DataAccessException("Data Delete Error:  " + result.ErrorMessage);
 		}
 
 		public void DeleteAll<T>()
 		{
-			throw new System.NotImplementedException();
+			DropAndCreate(typeof(T));
 		}
 
 		public void Rollback()
 		{
-			throw new System.NotImplementedException();
+			//if (_transaction == null || _transaction.Connection == null)
+			//	throw new InvalidOperationException("Transaction not started or closed.");
+
+			//_transaction.Rollback();
 		}
 
-		#endregion IDatabaseProvider Members
+		private long GetNextCounter<T>()
+		{
+			string collectionName = GetCounterCollectionName(typeof(T));
+
+			if (!_databaseConnection.CollectionExists(collectionName))
+			{
+				InsertFirstCounter(collectionName);
+				return 1;
+			}
+
+			MongoCollection<Counters> collection = _databaseConnection.GetCollection<Counters>(collectionName);
+			MongoBuilders.UpdateBuilder incrementId = MongoBuilders.Update.Inc("IdValue", 1);
+			IMongoQuery query = MongoBuilders.Query.Null;
+			FindAndModifyResult counterIncResult = collection.FindAndModify(query, MongoBuilders.SortBy.Null, incrementId, true);
+			Counters updatedCounters = counterIncResult.GetModifiedDocumentAs<Counters>();
+
+			return updatedCounters.IdValue;
+		}
+
+		private string GetCounterCollectionName(Type modelType)
+		{
+			return GetCollectionName(modelType) + "_Counter";
+		}
+
+		private void InsertFirstCounter(string counterCollectionName)
+		{
+			_databaseConnection.CreateCollection(counterCollectionName);
+			Counters objectToInsert = new Counters();
+
+			objectToInsert.IdValue = 1;
+			MongoCollection<Counters> collection = _databaseConnection.GetCollection<Counters>(counterCollectionName);
+			WriteConcernResult result = collection.Insert(objectToInsert);
+
+			if (!string.IsNullOrEmpty(result.ErrorMessage))
+				throw new DataAccessException("Data Insert Error:  " + result.ErrorMessage);
+		}
+
+		#endregion Public Methods
 
 		#region IDisposable Members
 
 		public void Dispose()
 		{
-			throw new System.NotImplementedException();
+			if (_transaction != null && _transaction.Connection != null)
+			{
+				_transaction.Commit();
+				_transaction.Dispose();
+				_transaction = null;
+			}
+
+			if (_databaseConnection != null)
+			{
+				_databaseConnection = null;
+			}
 		}
 
 		#endregion IDisposable Members
+
+		#region Internal Classes
+
+		class Counters
+		{
+			public ObjectId Id { get; set; }
+			public long IdValue { get; set; }
+		}
+
+		#endregion Internal Classes
 	}
 }

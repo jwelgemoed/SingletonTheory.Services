@@ -45,10 +45,10 @@ namespace ServiceStack.OrmLite.Tests
 				db.Insert(GetPlanesRUsShipper(planesType));
 				db.Insert(GetWeDoEverythingShipper(planesType));
 
-				var trainsAreUs = db.Select<Shipper>("ShipperTypeId = {0}", trainsType.Id).First<Shipper>();
+				var trainsAreUs = db.Select<Shipper>(x => x.ShipperTypeId == trainsType.Id).First<Shipper>();
 				Assert.That(trainsAreUs.CompanyName, Is.EqualTo("Trains R Us"));
-				Assert.That(db.Select<Shipper>("CompanyName = {0} OR Phone = {1}", "Trains R Us", "555-UNICORNS"), Has.Count.EqualTo(2));
-				Assert.That(db.Select<Shipper>("ShipperTypeId = {0}", planesType.Id), Has.Count.EqualTo(2));
+				Assert.That(db.Select<Shipper>(x => x.CompanyName == "Trains R Us" || x.Phone == "555-UNICORNS"), Has.Count.EqualTo(2));
+				Assert.That(db.Select<Shipper>(x => x.ShipperTypeId == planesType.Id), Has.Count.EqualTo(2));
 
 				// Lets update a record
 				trainsAreUs.Phone = "666-TRAINS";
@@ -64,20 +64,6 @@ namespace ServiceStack.OrmLite.Tests
 
 				// And bring it back again
 				db.Insert(trainsAreUs);
-
-				// Performing custom queries
-				// Select only a subset from the table
-				var partialColumns = db.Select<SubsetOfShipper>(typeof(Shipper), "ShipperTypeId = {0}", planesType.Id);
-				Assert.That(partialColumns, Has.Count.EqualTo(2));
-
-				// Select into another POCO class that matches sql
-				var rows = db.Select<ShipperTypeCount>("SELECT ShipperTypeId, COUNT(*) AS Total FROM Shipper GROUP BY ShipperTypeId ORDER BY COUNT(*)");
-
-				Assert.That(rows, Has.Count.EqualTo(2));
-				Assert.That(rows[0].ShipperTypeId, Is.EqualTo(trainsType.Id));
-				Assert.That(rows[0].Total, Is.EqualTo(1));
-				Assert.That(rows[1].ShipperTypeId, Is.EqualTo(planesType.Id));
-				Assert.That(rows[1].Total, Is.EqualTo(2));
 
 				// And finally lets quickly clean up the mess we've made:
 				db.DeleteAll<Shipper>();

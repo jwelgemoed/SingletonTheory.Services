@@ -22,6 +22,14 @@ namespace SingletonTheory.OrmLite.Tests.Config
 			}
 		}
 
+		public static string MongoConnectionString
+		{
+			get
+			{
+				return ConfigurationManager.ConnectionStrings["MongoConnectionString"].ConnectionString;
+			}
+		}
+
 		#endregion Fields & Properties
 
 		#region Private Methods

@@ -16,6 +16,7 @@ namespace SingletonTheory.OrmLite.Config
 		#region Fields & Properties
 
 		private static Dictionary<Type, ModelDefinition> _typeModelDefinitionMap = new Dictionary<Type, ModelDefinition>();
+		public static object indexAttribute { get; set; }
 
 		#endregion Fields & Properties
 
@@ -103,7 +104,7 @@ namespace SingletonTheory.OrmLite.Config
 				}
 			}
 
-			modelDefinition.SqlSelectAllFromTable = "SELECT {0} FROM {1} ".Fmt(OrmLiteConfig.DialectProvider.GetColumnNames(modelDefinition), OrmLiteConfig.DialectProvider.GetQuotedTableName(modelDefinition));
+			//modelDefinition.SqlSelectAllFromTable = "SELECT {0} FROM {1} ".Fmt(OrmLiteConfig.DialectProvider.GetColumnNames(modelDefinition), OrmLiteConfig.DialectProvider.GetQuotedTableName(modelDefinition));
 
 			Dictionary<Type, ModelDefinition> snapshot, newCache;
 			do
@@ -139,7 +140,5 @@ namespace SingletonTheory.OrmLite.Config
 		}
 
 		#endregion Private Methods
-
-		public static object indexAttribute { get; set; }
 	}
 }
