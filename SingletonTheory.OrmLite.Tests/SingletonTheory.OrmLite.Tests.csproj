@@ -67,6 +67,7 @@
     <Compile Include="Data\ShipperType.cs" />
     <Compile Include="Data\ShipperTypeCount.cs" />
     <Compile Include="Data\SubsetOfShipper.cs" />
+    <Compile Include="Providers\MySqlProviderTests.cs" />
     <Compile Include="Repositories\ShippersRepositorySample.cs" />
     <Compile Include="UseCases\MySqlShippersExample.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
