@@ -38,14 +38,14 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			return cursor.ToList();
 		}
 
-		public static List<T> GetItemByMongoQuery<T>(string dataBaseName, string collectionName, IMongoQuery query)
+		public static T GetItemByMongoQuery<T>(string dataBaseName, string collectionName, IMongoQuery query)
 		{
 			_mongoDatabase = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, dataBaseName);
 			var collection = _mongoDatabase.GetCollection<T>(collectionName);
 
-			MongoCursor<T> cursor = collection.Find(query);
+			var cursor = collection.FindOneAs<T>(query);
 
-			return cursor.ToList();
+			return cursor;
 		}
 
 		public static List<T> GetItemById<T>(string dataBaseName, string collectionName, int id)

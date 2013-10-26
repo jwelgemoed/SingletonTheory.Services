@@ -18,6 +18,6 @@ namespace SingletonTheory.Services.AuthServices.TransferObjects.AuthAdmin
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public string Label { get; set; }
-		public int[] PermissionIds { get; set; }
+		public List<int> PermissionIds { get; set; }
 	}
 }

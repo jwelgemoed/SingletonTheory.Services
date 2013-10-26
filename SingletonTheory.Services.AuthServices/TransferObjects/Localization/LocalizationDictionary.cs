@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using MongoDB.Bson;
 using ServiceStack.ServiceHost;
+using ServiceStack.ServiceInterface;
 
 namespace SingletonTheory.Services.AuthServices.TransferObjects.Localization
 {
 	[Route("/localize")]
 	[Route("/localize/{Locale}")]
-	//[RequiredPermission(ApplyTo.Get, "LocalizationDictionaryRequest_Get")]
-	//[RequiredPermission(ApplyTo.Put, "LocalizationDictionaryRequest_Put")]
-	//[RequiredPermission(ApplyTo.Post, "LocalizationDictionaryRequest_Post")]
+	[RequiredPermission(ApplyTo.Put, "LocalizationDictionary_Put")]
+	[RequiredPermission(ApplyTo.Post, "LocalizationDictionary_Post")]
+	[RequiredPermission(ApplyTo.Delete, "LocalizationDictionary_Delete")]
 	public class LocalizationDictionary : IReturn<LocalizationDictionary>
 	{
 		#region Fields & Properties

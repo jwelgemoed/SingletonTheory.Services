@@ -57,7 +57,15 @@
 		Description: Access to Locale Administration,
 		FunctionalPermissionIds: 
 		[
-			21
+			25,
+			27,
+			26,
+			21,
+			22,
+			24,
+			23,
+			29,
+			28
 		]
 	}
 ]

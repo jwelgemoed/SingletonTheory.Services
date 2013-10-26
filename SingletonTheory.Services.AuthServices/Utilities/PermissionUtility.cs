@@ -21,6 +21,23 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 
 		#region Public Methods
 
+		public static List<FunctionalPermissionEntity> GetFunctionalPermissionsForRoleIds(List<int> roleIds)
+		{
+			List<FunctionalPermissionEntity> functionalPersmissionList = new List<FunctionalPermissionEntity>();
+			List<int> domainPermissionIds = new List<int>();
+			List<int> functionalPermissionIds = new List<int>();
+			//Get domainpermission ids for roles
+			AddDomainPermissionIdsForRoleIds(roleIds, domainPermissionIds);
+			
+			//Get all functional permissions ids for domainpermissions
+			GetFunctionalPermissionIdsForDomainPermissionIds(domainPermissionIds, functionalPermissionIds);
+
+			// Get all user functional permissions
+			GetFunctionalPermissions(functionalPermissionIds, functionalPersmissionList);
+
+			return functionalPersmissionList;
+		}
+
 		public static List<string> GetFunctionalPermissionNamesForRoleIdsAndDomainPermissions(List<int> roleIds, List<DomainPermissionObject> domainPermissionObjects, string timeZoneId)
 		{
 			List<string> functionalPersmissionNameList = new List<string>();
@@ -122,7 +139,7 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 						var functionalPermissionEntity = functionalPermissionEntities[i];
 						if (functionalPermissionIds.Contains(functionalPermissionEntity.Id))
 						{
-							if (functionalPermissionEntity.PermissionIds != null && functionalPermissionEntity.PermissionIds.Length > 0)
+							if (functionalPermissionEntity.PermissionIds != null && functionalPermissionEntity.PermissionIds.Count > 0)
 								permissionIdList.AddRange(functionalPermissionEntity.PermissionIds);
 						}
 					}
@@ -162,6 +179,26 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 			}
 		}
 
+		private static void GetFunctionalPermissions(List<int> functionalPermissionIds, List<FunctionalPermissionEntity> functionalPersmissionList)
+		{
+			try
+			{
+				var functionalPermissionEntities = new List<FunctionalPermissionEntity>();
+
+				functionalPermissionEntities = GenericRepository.GetList<FunctionalPermissionEntity>(AuthAdminDatabase,
+					FunctionalPermissionsCollection);
+
+				if (functionalPermissionEntities != null)
+				{
+					functionalPersmissionList.AddRange(functionalPermissionEntities.Where(functionalPermissionEntity => functionalPermissionIds.Contains(functionalPermissionEntity.Id)));
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+		}
+
 		private static void GetFunctionalPermissionIdsForDomainPermissionIds(List<int> domainPermissionIds,
 			List<int> functionalPermissionIds)
 		{
@@ -176,9 +213,9 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 					for (int j = 0; j < domainPermissionEntities.Count; j++)
 					{
 						var domainPermissionEntity = domainPermissionEntities[j];
-						if (domainPermissionIds.Contains(domainPermissionEntity.Id) && domainPermissionEntity.FunctionalPermissionIds != null && domainPermissionEntity.FunctionalPermissionIds.Length > 0)
+						if (domainPermissionIds.Contains(domainPermissionEntity.Id) && domainPermissionEntity.FunctionalPermissionIds != null && domainPermissionEntity.FunctionalPermissionIds.Count > 0)
 						{
-							for (int i = 0; i < domainPermissionEntity.FunctionalPermissionIds.Length; i++)
+							for (int i = 0; i < domainPermissionEntity.FunctionalPermissionIds.Count; i++)
 							{
 								var fId = domainPermissionEntity.FunctionalPermissionIds[i];
 								if (!functionalPermissionIds.Contains(fId))
@@ -228,7 +265,7 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 
 					if (entity != null)
 					{
-						if (entity.DomainPermissionIds != null && entity.DomainPermissionIds.Length > 0)
+						if (entity.DomainPermissionIds != null && entity.DomainPermissionIds.Count > 0)
 						{
 							domainPermissionIds.AddRange(entity.DomainPermissionIds);
 						}

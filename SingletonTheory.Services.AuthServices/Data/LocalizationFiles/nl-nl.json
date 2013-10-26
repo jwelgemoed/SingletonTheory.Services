@@ -1,5 +1,5 @@
 {
-	Id: 000000000000000000000000,
+	Id: 525bc4b144b433408c82e259,
 	Locale: nl-nl,
 	LocalizationItems: 
 	[
@@ -65,9 +65,7 @@
 		},
 		{
 			Key: _DashboardSplash_,
-			Value: Deze pagina zal het dashboard huisvesten,
-			 aanvankelijk zichtbaar voor alle gebruikers die ingelogd zijn.,
-			Description: Content holder for dashboard screen.
+			Value: Deze pagina zal het dashboard huisvesten
 		},
 		{
 			Key: _AddHeading_,
@@ -231,12 +229,12 @@
 		},
 		{
 			Key: _NameHeading_,
-			Value: Naam:,
+			Value: "Naam:",
 			Description: Naam hoofd voor hergebruik.
 		},
 		{
 			Key: _LabelHeading_,
-			Value: Label:,
+			Value: "Label:",
 			Description: Label hoofd voor hergebruik.
 		},
 		{
@@ -256,12 +254,12 @@
 		},
 		{
 			Key: _minLengthDescription_,
-			Value: "Vul minimaal {0} karakters.",
+			Value: Vul minimaal <0> karakters.,
 			Description: Minimum lengte foutmelding omschrijving.
 		},
 		{
 			Key: _maxLengthDescription_,
-			Value: "Vul maximaal {0} karakters.",
+			Value: Vul maximaal <0> karakters.,
 			Description: Maximum lengte foutmelding omschrijving.
 		},
 		{
@@ -283,6 +281,49 @@
 			Key: _EndDateHeading_,
 			Value: Einddatum,
 			Description:  Eind datum hoofd voor hergebruik.
+		},
+		{
+			Key: _LocaleKeyHeading_,
+			Value: Locale Sleutels
+		},
+		{
+			Key: _LocaleTypeHeading_,
+			Value: Locale Type
+		},
+		{
+			Key: _LocaleKeyNameHeading_,
+			Value: Locale Sleutel Naam
+		},
+		{
+			Key: _LocaleHeading_,
+			Value: Locale
+		},
+		{
+			Key: _ValueHeading_,
+			Value: Waarde
+		},
+		{
+			Key: _LocaleTypeDataHeading_,
+			Value: Data Waardes,
+			Description: Heading for Locale edit section
+		},
+		{
+			Key: _LocaleAdminHeading_,
+			Value: Locale Administratie
+		},
+		{
+			Key: _DeleteConfirmMessage_,
+			Value: Weet u zeker dat u dit item wilt verwijderen?
+		},
+		{
+			Key: _LocaleCodeHeading_,
+			Value: Locale Kode,
+			Description: 
+		},
+		{
+			Key: _KeyHeading_,
+			Value: Sleutel,
+			Description: 
 		}
 	]
 }

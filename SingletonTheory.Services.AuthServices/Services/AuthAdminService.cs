@@ -73,9 +73,9 @@ namespace SingletonTheory.Services.AuthServices.Services
 			{
 				if (roleEntity.DomainPermissionIds != null)
 				{
-					assigned = new int[roleEntity.DomainPermissionIds.Length];
+					assigned = new int[roleEntity.DomainPermissionIds.Count];
 					//Set assigned roles
-					for (int i = 0; i < roleEntity.DomainPermissionIds.Length; i++)
+					for (int i = 0; i < roleEntity.DomainPermissionIds.Count; i++)
 					{
 						var obj = GenericRepository.GetItemTopById<DomainPermissionEntity>(ConfigSettings.MongoAuthAdminDatabaseName, GenericRepository.DomainPermissionsCollection,
 							roleEntity.DomainPermissionIds[i]);
@@ -112,7 +112,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 					var obj = request.Assigned[i];
 					assigned[i] = obj.Id;
 				}
-				entity.DomainPermissionIds = assigned;
+				entity.DomainPermissionIds = assigned.ToList();
 				GenericRepository.Add(ConfigSettings.MongoAuthAdminDatabaseName, GenericRepository.RolesCollection, entity);
 			}
 		}
@@ -132,9 +132,9 @@ namespace SingletonTheory.Services.AuthServices.Services
 			{
 				if (domainPermissionEntity.FunctionalPermissionIds != null)
 				{
-					assigned = new int[domainPermissionEntity.FunctionalPermissionIds.Length];
+					assigned = new int[domainPermissionEntity.FunctionalPermissionIds.Count];
 					//Set assigned
-					for (int i = 0; i < domainPermissionEntity.FunctionalPermissionIds.Length; i++)
+					for (int i = 0; i < domainPermissionEntity.FunctionalPermissionIds.Count; i++)
 					{
 						var obj = GenericRepository.GetItemTopById<FunctionalPermissionEntity>(ConfigSettings.MongoAuthAdminDatabaseName, GenericRepository.FunctionalPermissionsCollection, domainPermissionEntity.FunctionalPermissionIds[i]);
 						if (obj == null)
@@ -170,7 +170,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 					var obj = request.Assigned[i];
 					assigned[i] = obj.Id;
 				}
-				entity.FunctionalPermissionIds = assigned;
+				entity.FunctionalPermissionIds = assigned.ToList();
 				GenericRepository.Add(ConfigSettings.MongoAuthAdminDatabaseName, GenericRepository.DomainPermissionsCollection, entity);
 			}
 		}
@@ -190,9 +190,9 @@ namespace SingletonTheory.Services.AuthServices.Services
 			{
 				if (functionalPermissionEntity.PermissionIds != null)
 				{
-					assigned = new int[functionalPermissionEntity.PermissionIds.Length];
+					assigned = new int[functionalPermissionEntity.PermissionIds.Count];
 					//Set assigned roles
-					for (int i = 0; i < functionalPermissionEntity.PermissionIds.Length; i++)
+					for (int i = 0; i < functionalPermissionEntity.PermissionIds.Count; i++)
 					{
 						var obj = GenericRepository.GetItemTopById<PermissionEntity>(ConfigSettings.MongoAuthAdminDatabaseName, GenericRepository.PermissionsCollection,
 							functionalPermissionEntity.PermissionIds[i]);
@@ -229,7 +229,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 					var obj = request.Assigned[i];
 					assigned[i] = obj.Id;
 				}
-				entity.PermissionIds = assigned;
+				entity.PermissionIds = assigned.ToList();
 				GenericRepository.Add(ConfigSettings.MongoAuthAdminDatabaseName, GenericRepository.FunctionalPermissionsCollection, entity);
 			}
 		}
