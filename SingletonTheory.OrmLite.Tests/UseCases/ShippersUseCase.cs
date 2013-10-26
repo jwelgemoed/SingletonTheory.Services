@@ -16,19 +16,19 @@ namespace ServiceStack.OrmLite.Tests
 		{
 			ShipperType trainsType, planesType;
 
-			using (SqlProvider db = new SqlProvider(ConfigSettings.ConnectionString, typeof(Shipper), false))
+			using (SqlProvider db = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper), false))
 			{
 				DataProvider.DropAndCreate(db);
 			}
 
-			using (SqlProvider db = new SqlProvider(ConfigSettings.ConnectionString, typeof(Shipper), true))
+			using (SqlProvider db = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper), true))
 			{
 				// Playing with transactions
 				trainsType = db.Insert(new ShipperType { Name = "Trains" });
 				planesType = db.Insert(new ShipperType { Name = "Planes" });
 			}
 
-			using (SqlProvider db = new SqlProvider(ConfigSettings.ConnectionString, typeof(Shipper), true))
+			using (SqlProvider db = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper), true))
 			{
 				db.Insert(new ShipperType { Name = "Automobiles" });
 				Assert.That(db.Select<ShipperType>(), Has.Count.EqualTo(3));
@@ -36,7 +36,7 @@ namespace ServiceStack.OrmLite.Tests
 				db.Rollback();
 			}
 
-			using (SqlProvider db = new SqlProvider(ConfigSettings.ConnectionString, typeof(Shipper), true))
+			using (SqlProvider db = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper), true))
 			{
 				Assert.That(db.Select<ShipperType>(), Has.Count.EqualTo(2));
 

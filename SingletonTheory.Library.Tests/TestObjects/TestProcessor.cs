@@ -5,11 +5,17 @@ namespace SingletonTheory.Library.Tests.TestObjects
 {
 	public class TestProcessor : IProcessor
 	{
+		#region Fields & Properties
+
+		public bool Started { get; set; }
+
+		#endregion Fields & Properties
+
 		#region IProcessor Members
 
 		public void Start()
 		{
-			throw new NotImplementedException();
+			Started = true;
 		}
 
 		public void Stop()

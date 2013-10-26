@@ -6,7 +6,7 @@ using System.Reflection;
 namespace SingletonTheory.Library.Tests
 {
 	[TestFixture]
-	public class ServiceImplementation
+	public class ProcessEngineTests
 	{
 		[Test]
 		public void ShouldStartProcessEngine()

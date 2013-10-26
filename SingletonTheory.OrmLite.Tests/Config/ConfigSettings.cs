@@ -6,11 +6,19 @@ namespace SingletonTheory.OrmLite.Tests.Config
 	{
 		#region Fields & Properties
 
-		public static string ConnectionString
+		public static string SqlConnectionString
 		{
 			get
 			{
-				return ConfigurationManager.ConnectionStrings["TestDB"].ConnectionString;
+				return ConfigurationManager.ConnectionStrings["SqlConnectionString"].ConnectionString;
+			}
+		}
+
+		public static string MySqlConnectionString
+		{
+			get
+			{
+				return ConfigurationManager.ConnectionStrings["MySqlConnectionString"].ConnectionString;
 			}
 		}
 

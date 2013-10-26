@@ -36,7 +36,7 @@ namespace SingletonTheory.OrmLite.Providers
 			// Act
 			try
 			{
-				using (SqlProvider provider = new SqlProvider(ConfigSettings.ConnectionString, null))
+				using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, null))
 				{
 					// Assert
 					Assert.Fail("Should not allow null modelType");
@@ -52,7 +52,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldHaveSetDialectProviderToSqlServerOrmLiteDialectProvider()
 		{
 			// Act
-			using (SqlProvider provider = new SqlProvider(ConfigSettings.ConnectionString, typeof(Shipper)))
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper)))
 			{
 				// Assert
 				Assert.IsInstanceOf<SqlServerOrmLiteDialectProvider>(OrmLiteConfig.DialectProvider);
@@ -63,7 +63,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldDropAndCreateTables()
 		{
 			// Arrange
-			using (SqlProvider provider = new SqlProvider(ConfigSettings.ConnectionString, typeof(Shipper)))
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper)))
 			{
 				// Act
 				provider.DropAndCreate(typeof(Shipper));
@@ -78,7 +78,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldClearTables()
 		{
 			// Arrange
-			using (SqlProvider provider = new SqlProvider(ConfigSettings.ConnectionString, typeof(Shipper)))
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper)))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				shipper = provider.Insert<Shipper>(shipper);
@@ -96,7 +96,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldClearLookupTables()
 		{
 			// Arrange
-			using (SqlProvider provider = new SqlProvider(ConfigSettings.ConnectionString, typeof(Shipper)))
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper)))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 
@@ -112,7 +112,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldNotClearLookupTables()
 		{
 			// Arrange
-			using (SqlProvider provider = new SqlProvider(ConfigSettings.ConnectionString, typeof(Shipper)))
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper)))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 
@@ -128,7 +128,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldInsertShipper()
 		{
 			// Arrange
-			using (SqlProvider provider = new SqlProvider(ConfigSettings.ConnectionString, typeof(Shipper)))
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper)))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 
@@ -145,7 +145,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldSelectShipperAndTree()
 		{
 			// Arrange
-			using (SqlProvider provider = new SqlProvider(ConfigSettings.ConnectionString, typeof(Shipper)))
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper)))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				shipper = provider.Insert<Shipper>(shipper);
@@ -164,7 +164,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldUpdateShipper()
 		{
 			// Arrange
-			using (SqlProvider provider = new SqlProvider(ConfigSettings.ConnectionString, typeof(Shipper)))
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper)))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				provider.Insert<Shipper>(shipper);
@@ -185,7 +185,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldDeleteShipper()
 		{
 			// Arrange
-			using (SqlProvider provider = new SqlProvider(ConfigSettings.ConnectionString, typeof(Shipper)))
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper)))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				provider.Insert<Shipper>(shipper);

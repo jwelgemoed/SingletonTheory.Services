@@ -50,7 +50,7 @@ namespace SingletonTheory.Library.Tests.IO
 		public void ShouldDeserializeToJsonWithPrettyPrint()
 		{
 			// Arrange
-			string serialized = "{\r\n\tSomeValue: Some value {\r\n\t\t0\r\n\t} to serialize\r\n}";
+			string serialized = "{\r\n\tSomeValue: Some value <0> to serialize\r\n}";
 
 			// Act
 			MyTestObject deserializeObject = SerializationUtilities.DeserializeFromJson<MyTestObject>(serialized);

@@ -70,8 +70,7 @@ namespace SingletonTheory.OrmLite.Tests.Config
 
 			// Assert
 			Assert.IsNotNull(modelDefinition);
-			Assert.AreEqual(modelDefinition.IgnoredFieldDefinitions.Count, 1);
-			Assert.AreEqual(modelDefinition.IgnoredFieldDefinitions[0].FieldName, "SomeDerivedProperty");
+			Assert.AreEqual(3, modelDefinition.IgnoredFieldDefinitions.Count);
 		}
 
 		[Test]

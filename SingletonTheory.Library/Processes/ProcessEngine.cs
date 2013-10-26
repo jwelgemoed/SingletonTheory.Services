@@ -1,8 +1,8 @@
-﻿using System;
+﻿using SingletonTheory.Library.Interfaces;
+using SingletonTheory.Library.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
-using SingletonTheory.Library.Interfaces;
-using SingletonTheory.Library.Utilities;
 
 namespace SingletonTheory.Library.Processes
 {
@@ -23,9 +23,10 @@ namespace SingletonTheory.Library.Processes
 		{
 			_assembliesToLoad = assembliesToLoad;
 			Processors = new List<Type>();
+			ProcessorInstances = new List<IProcessor>();
 		}
 
-		#endregion
+		#endregion Constructors
 
 		#region Processing Methods
 
