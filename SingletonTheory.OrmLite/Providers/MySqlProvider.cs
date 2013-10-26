@@ -13,7 +13,7 @@ using System.Reflection;
 
 namespace SingletonTheory.OrmLite.Providers
 {
-	public class SqlProvider : IDatabaseProvider
+	public class MySqlProvider : IDatabaseProvider
 	{
 		#region Fields & Properties
 
@@ -27,7 +27,7 @@ namespace SingletonTheory.OrmLite.Providers
 
 		#region Constructors
 
-		public SqlProvider(string connectionString, Type modelType, bool useTransation = false, bool dropAndRecreate = false)
+		public MySqlProvider(string connectionString, Type modelType, bool useTransation = false, bool dropAndRecreate = false)
 		{
 			if (string.IsNullOrEmpty(connectionString))
 				throw new ArgumentNullException("connectionString");
@@ -43,9 +43,9 @@ namespace SingletonTheory.OrmLite.Providers
 			_modelType = modelType;
 		}
 
-		static SqlProvider()
+		static MySqlProvider()
 		{
-			OrmLiteConfig.DialectProvider = SqlServerOrmLiteDialectProvider.Instance;
+			OrmLiteConfig.DialectProvider = MySqlDialect.Provider;
 		}
 
 		#endregion Constructors
@@ -99,6 +99,43 @@ namespace SingletonTheory.OrmLite.Providers
 				DropAndCreate(associatesToAdd[i]);
 			}
 		}
+
+		//public void ClearCollection(Type modelType)
+		//{
+		//	ModelDefinition modelDefinition = GetModelDefinition(modelType);
+		//	List<Type> associates = new List<Type>();
+		//	if (modelDefinition == null)
+		//		return;
+
+		//	for (int i = 0; i < modelDefinition.AllFieldDefinitionsArray.Length; i++)
+		//	{
+		//		FieldDefinition fieldDefinition = modelDefinition.AllFieldDefinitionsArray[i];
+		//		Type fieldType = fieldDefinition.FieldType;
+		//		if (fieldDefinition.HasAttribute(typeof(AssociatedEntityAttribute)))
+		//		{
+		//			if (fieldType.IsListType())
+		//			{
+		//				fieldType = fieldType.GetGenericType();
+		//				if (fieldType.GetModelDefinition() != null)
+		//					associates.Add(fieldType);
+		//			}
+		//		}
+
+		//		// TODO:  Decide whether to clear lookups as well.
+		//		//if (HasAttribute(typeof(ReferencedEntityAttribute), fieldDefinition))
+		//		//{
+		//		//	ClearCollection(fieldType);
+		//		//}
+		//	}
+
+		//	// Add associates after current type.
+		//	for (int i = 0; i < associates.Count; i++)
+		//	{
+		//		ClearCollection(associates[i]);
+		//	}
+
+		//	_databaseConnection.DeleteAll(modelType);
+		//}
 
 		private ModelDefinition GetModelDefinition(Type fieldType)
 		{
@@ -186,7 +223,7 @@ namespace SingletonTheory.OrmLite.Providers
 
 		public List<TModel> Select<TModel>(Type fromTableType, string sqlFilter, params object[] filterParams)
 		{
-			return _databaseConnection.Select<TModel>(fromTableType, sqlFilter, filterParams);
+			return _databaseConnection.Select<TModel>(fromTableType, "ShipperTypeId = {0}", filterParams);
 		}
 
 		private List<T> SelectByParentId<T>(Type fromTableType, long parentId)

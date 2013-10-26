@@ -72,7 +72,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\MongoProviderTests.cs" />
     <Compile Include="Providers\SqlProviderTests.cs" />
-    <Compile Include="UseCases\SqlProviderTests.cs" />
+    <Compile Include="UseCases\ShippersUseCase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

@@ -2,7 +2,7 @@
 {
 	public class SubsetOfShipper
 	{
-		public int ShipperId { get; set; }
+		public int Id { get; set; }
 		public string CompanyName { get; set; }
 	}
 }

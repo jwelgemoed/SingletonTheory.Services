@@ -1,4 +1,5 @@
-﻿namespace SingletonTheory.OrmLite.Tests.Data
+﻿using SingletonTheory.OrmLite.Interfaces;
+namespace SingletonTheory.OrmLite.Tests.Data
 {
 	public static class DataProvider
 	{
@@ -29,6 +30,33 @@
 			shipperType.Name = "Trains";
 
 			return shipperType;
+		}
+
+		public static Shipper PreInsertArrange(IDatabaseProvider provider)
+		{
+			DataProvider.DropAndCreate(provider);
+			ShipperType shipperType = InsertLookupTypes(provider);
+			Shipper shipper = DataProvider.GetShipperForInsert(true);
+			shipper.ShipperTypeId = shipperType.Id;
+			shipper.ShipperType = shipperType;
+
+			return shipper;
+		}
+
+		private static ShipperType InsertLookupTypes(IDatabaseProvider provider)
+		{
+			provider.DeleteAll<ShipperType>();
+
+			return provider.Insert<ShipperType>(DataProvider.GetShipperTypesForInsert());
+		}
+
+		public static void DropAndCreate(IDatabaseProvider provider)
+		{
+			provider.DeleteAll<Shipper>();
+			provider.DropAndCreate(typeof(Shipper));
+
+			provider.DeleteAll<ShipperType>();
+			provider.DropAndCreate(typeof(ShipperType));
 		}
 	}
 }

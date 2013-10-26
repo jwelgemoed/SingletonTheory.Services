@@ -70,7 +70,6 @@ namespace SingletonTheory.OrmLite.Providers
 
 				// Assert
 				Assert.IsTrue(provider.TableExists(typeof(Shipper)));
-				Assert.IsTrue(provider.TableExists(typeof(ShipperType)));
 				Assert.IsTrue(provider.TableExists(typeof(ShipperContact)));
 			}
 		}
@@ -81,14 +80,31 @@ namespace SingletonTheory.OrmLite.Providers
 			// Arrange
 			using (SqlProvider provider = new SqlProvider(ConfigSettings.ConnectionString, typeof(Shipper)))
 			{
-				Shipper shipper = PreInsertArrange(provider);
+				Shipper shipper = DataProvider.PreInsertArrange(provider);
+				shipper = provider.Insert<Shipper>(shipper);
 
 				// Act
-				provider.ClearCollection(typeof(Shipper));
+				provider.DeleteAll<Shipper>();
 
 				// Assert
 				Assert.AreEqual(provider.Select<Shipper>().Count, 0);
 				Assert.AreEqual(provider.Select<ShipperContact>().Count, 0);
+			}
+		}
+
+		[Test]
+		public void ShouldClearLookupTables()
+		{
+			// Arrange
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.ConnectionString, typeof(Shipper)))
+			{
+				Shipper shipper = DataProvider.PreInsertArrange(provider);
+
+				// Act
+				provider.DeleteAll<ShipperType>();
+
+				// Assert
+				Assert.AreEqual(provider.Select<ShipperType>().Count, 0);
 			}
 		}
 
@@ -98,10 +114,10 @@ namespace SingletonTheory.OrmLite.Providers
 			// Arrange
 			using (SqlProvider provider = new SqlProvider(ConfigSettings.ConnectionString, typeof(Shipper)))
 			{
-				Shipper shipper = PreInsertArrange(provider);
+				Shipper shipper = DataProvider.PreInsertArrange(provider);
 
 				// Act
-				provider.ClearCollection(typeof(Shipper));
+				provider.DeleteAll<Shipper>();
 
 				// Assert
 				Assert.AreEqual(provider.Select<ShipperType>().Count, 1);
@@ -114,7 +130,7 @@ namespace SingletonTheory.OrmLite.Providers
 			// Arrange
 			using (SqlProvider provider = new SqlProvider(ConfigSettings.ConnectionString, typeof(Shipper)))
 			{
-				Shipper shipper = PreInsertArrange(provider);
+				Shipper shipper = DataProvider.PreInsertArrange(provider);
 
 				// Act
 				shipper = provider.Insert<Shipper>(shipper);
@@ -131,7 +147,7 @@ namespace SingletonTheory.OrmLite.Providers
 			// Arrange
 			using (SqlProvider provider = new SqlProvider(ConfigSettings.ConnectionString, typeof(Shipper)))
 			{
-				Shipper shipper = PreInsertArrange(provider);
+				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				shipper = provider.Insert<Shipper>(shipper);
 
 				// Act
@@ -150,7 +166,7 @@ namespace SingletonTheory.OrmLite.Providers
 			// Arrange
 			using (SqlProvider provider = new SqlProvider(ConfigSettings.ConnectionString, typeof(Shipper)))
 			{
-				Shipper shipper = PreInsertArrange(provider);
+				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				provider.Insert<Shipper>(shipper);
 				shipper.CompanyName += " Changed";
 				shipper.ShipperContacts[0].EmailAddress += shipper.ShipperContacts[0].EmailAddress + " Changed";
@@ -171,7 +187,7 @@ namespace SingletonTheory.OrmLite.Providers
 			// Arrange
 			using (SqlProvider provider = new SqlProvider(ConfigSettings.ConnectionString, typeof(Shipper)))
 			{
-				Shipper shipper = PreInsertArrange(provider);
+				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				provider.Insert<Shipper>(shipper);
 
 				// Act
@@ -184,39 +200,5 @@ namespace SingletonTheory.OrmLite.Providers
 		}
 
 		#endregion Test Methods
-
-		#region Helper Methods
-
-		private Shipper PreInsertArrange(SqlProvider provider)
-		{
-			DropAndCreate(provider);
-			ShipperType shipperType = InsertLookupTypes();
-			Shipper shipper = DataProvider.GetShipperForInsert(true);
-			shipper.ShipperTypeId = shipperType.Id;
-			shipper.ShipperType = shipperType;
-
-			return shipper;
-		}
-
-		private ShipperType InsertLookupTypes()
-		{
-			using (SqlProvider provider = new SqlProvider(ConfigSettings.ConnectionString, typeof(Shipper)))
-			{
-				provider.ClearCollection(typeof(ShipperType));
-
-				return provider.Insert<ShipperType>(DataProvider.GetShipperTypesForInsert());
-			}
-		}
-
-		private static void DropAndCreate(SqlProvider provider)
-		{
-			provider.ClearCollection(typeof(ShipperType));
-			provider.DropAndCreate(typeof(ShipperType));
-
-			provider.ClearCollection(typeof(Shipper));
-			provider.DropAndCreate(typeof(Shipper));
-		}
-
-		#endregion Helper Methods
 	}
 }
