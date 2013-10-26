@@ -1,5 +1,5 @@
 ﻿using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.SqlServer;
+using ServiceStack.OrmLite.MySql;
 using SingletonTheory.OrmLite.Annotations;
 using SingletonTheory.OrmLite.Config;
 using SingletonTheory.OrmLite.Extensions;
@@ -45,7 +45,7 @@ namespace SingletonTheory.OrmLite.Providers
 
 		static MySqlProvider()
 		{
-			OrmLiteConfig.DialectProvider = MySqlDialect.Provider;
+			OrmLiteConfig.DialectProvider = MySqlDialectProvider.Instance;
 		}
 
 		#endregion Constructors

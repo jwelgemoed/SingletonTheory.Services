@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using ServiceStack.OrmLite;
+using ServiceStack.OrmLite.MySql;
 using ServiceStack.OrmLite.SqlServer;
 using SingletonTheory.OrmLite.Tests.Config;
 using SingletonTheory.OrmLite.Tests.Data;
@@ -55,7 +56,7 @@ namespace SingletonTheory.OrmLite.Providers
 			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString, typeof(Shipper)))
 			{
 				// Assert
-				Assert.IsInstanceOf<SqlServerOrmLiteDialectProvider>(OrmLiteConfig.DialectProvider);
+				Assert.IsInstanceOf<MySqlDialectProvider>(OrmLiteConfig.DialectProvider);
 			}
 		}
 
