@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
-using SingletonTheory.OrmLite.Providers;
+using SingletonTheory.OrmLite;
+using SingletonTheory.OrmLite.Interfaces;
 using SingletonTheory.OrmLite.Tests.Config;
 using SingletonTheory.OrmLite.Tests.Data;
 using System.Linq;
@@ -12,31 +13,41 @@ namespace ServiceStack.OrmLite.Tests
 		#region Test Methods
 
 		[Test]
-		public void Shippers_UseCase()
+		public void ExecuteAllProviders()
+		{
+			ExecuteUseCase(ConfigSettings.MySqlConnectionName);
+			ExecuteUseCase(ConfigSettings.SqlConnectionName);
+			ExecuteUseCase(ConfigSettings.MongoConnectionName);
+		}
+
+		public void ExecuteUseCase(string connectionName)
 		{
 			ShipperType trainsType, planesType;
 
-			using (SqlProvider db = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper), false))
+			using (IDatabaseProvider db = ProviderFactory.GetProvider(connectionName, false))
 			{
 				DataProvider.DropAndCreate(db);
 			}
 
-			using (SqlProvider db = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper), true))
+			using (IDatabaseProvider db = ProviderFactory.GetProvider(connectionName, true))
 			{
 				// Playing with transactions
 				trainsType = db.Insert(new ShipperType { Name = "Trains" });
 				planesType = db.Insert(new ShipperType { Name = "Planes" });
 			}
 
-			using (SqlProvider db = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper), true))
+			using (IDatabaseProvider db = ProviderFactory.GetProvider(connectionName, true))
 			{
-				db.Insert(new ShipperType { Name = "Automobiles" });
-				Assert.That(db.Select<ShipperType>(), Has.Count.EqualTo(3));
+				if (db.HasTransactionSupport)
+				{
+					db.Insert(new ShipperType { Name = "Automobiles" });
+					Assert.That(db.Select<ShipperType>(), Has.Count.EqualTo(3));
 
-				db.Rollback();
+					db.Rollback();
+				}
 			}
 
-			using (SqlProvider db = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper), true))
+			using (IDatabaseProvider db = ProviderFactory.GetProvider(connectionName, true))
 			{
 				Assert.That(db.Select<ShipperType>(), Has.Count.EqualTo(2));
 

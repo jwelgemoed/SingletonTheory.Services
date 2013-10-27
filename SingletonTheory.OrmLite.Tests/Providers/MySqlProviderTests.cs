@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.MySql;
+using SingletonTheory.OrmLite.Interfaces;
 using SingletonTheory.OrmLite.Tests.Config;
 using SingletonTheory.OrmLite.Tests.Data;
 using System;
@@ -19,7 +20,7 @@ namespace SingletonTheory.OrmLite.Providers
 			// Act
 			try
 			{
-				using (MySqlProvider provider = new MySqlProvider(null, typeof(Shipper)))
+				using (MySqlProvider provider = new MySqlProvider(null))
 				{
 					// Assert
 					Assert.Fail("Should not allow empty connection strings");
@@ -32,28 +33,10 @@ namespace SingletonTheory.OrmLite.Providers
 		}
 
 		[Test]
-		public void ShouldThrowArgumentNullExceptionForNullModelType()
-		{
-			// Act
-			try
-			{
-				using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString, null))
-				{
-					// Assert
-					Assert.Fail("Should not allow null modelType");
-				}
-			}
-			catch (ArgumentNullException)
-			{
-				Assert.Pass();
-			}
-		}
-
-		[Test]
 		public void ShouldHaveSetDialectProvider()
 		{
 			// Act
-			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString, typeof(Shipper)))
+			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString))
 			{
 				// Assert
 				Assert.IsInstanceOf<MySqlDialectProvider>(OrmLiteConfig.DialectProvider);
@@ -64,7 +47,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldDropAndCreateTables()
 		{
 			// Arrange
-			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString, typeof(Shipper)))
+			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString))
 			{
 				// Act
 				provider.DropAndCreate(typeof(Shipper));
@@ -79,7 +62,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldClearTables()
 		{
 			// Arrange
-			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString, typeof(Shipper)))
+			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				shipper = provider.Insert<Shipper>(shipper);
@@ -97,7 +80,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldClearLookupTables()
 		{
 			// Arrange
-			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString, typeof(Shipper)))
+			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 
@@ -113,7 +96,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldNotClearLookupTables()
 		{
 			// Arrange
-			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString, typeof(Shipper)))
+			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 
@@ -129,7 +112,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldInsertShipper()
 		{
 			// Arrange
-			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString, typeof(Shipper)))
+			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 
@@ -146,7 +129,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldSelectShipperAndTree()
 		{
 			// Arrange
-			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString, typeof(Shipper)))
+			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				shipper = provider.Insert<Shipper>(shipper);
@@ -165,7 +148,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldSelectShipperAndTreeWithExpression()
 		{
 			// Arrange
-			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper)))
+			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				shipper = provider.Insert<Shipper>(shipper);
@@ -184,7 +167,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldUpdateShipper()
 		{
 			// Arrange
-			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString, typeof(Shipper)))
+			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				provider.Insert<Shipper>(shipper);
@@ -205,7 +188,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldDeleteShipper()
 		{
 			// Arrange
-			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString, typeof(Shipper)))
+			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				provider.Insert<Shipper>(shipper);
@@ -216,6 +199,33 @@ namespace SingletonTheory.OrmLite.Providers
 				// Assert
 				Assert.IsNull(provider.SelectById<Shipper>(shipper.Id));
 				Assert.IsNull(provider.SelectById<Shipper>(shipper.ShipperContacts[0].Id));
+			}
+		}
+
+		[Test]
+		public void ShouldDeleteAll()
+		{
+			// Arrange
+			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString))
+			{
+				Shipper shipper = DataProvider.PreInsertArrange(provider);
+				provider.Insert<Shipper>(shipper);
+
+				// Act
+				provider.DeleteAll<Shipper>();
+
+				// Assert
+				Assert.IsNull(provider.SelectById<Shipper>(shipper.Id));
+				Assert.IsNull(provider.SelectById<Shipper>(shipper.ShipperContacts[0].Id));
+			}
+		}
+
+		[Test]
+		public void ShouldDropAndCreate()
+		{
+			using (IDatabaseProvider db = ProviderFactory.GetProvider(ConfigSettings.MySqlConnectionName, false))
+			{
+				DataProvider.DropAndCreate(db);
 			}
 		}
 

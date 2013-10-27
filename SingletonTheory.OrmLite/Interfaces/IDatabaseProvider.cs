@@ -6,7 +6,10 @@ namespace SingletonTheory.OrmLite.Interfaces
 {
 	public interface IDatabaseProvider : IDisposable
 	{
+		bool HasTransactionSupport { get; }
+
 		void DropAndCreate(Type modelType);
+		bool TableExists(Type modelType);
 
 		T SelectById<T>(long idValue) where T : IIdentifiable;
 		List<T> Select<T>() where T : IIdentifiable;

@@ -20,32 +20,30 @@ namespace SingletonTheory.OrmLite.Providers
 		private bool _dropAndRecreate;
 		private IDbConnection _databaseConnection;
 		private IDbTransaction _transaction;
-		private Type _modelType;
 		private Dictionary<string, ModelDefinition> _modelDefinitions = new Dictionary<string, ModelDefinition>();
+
+		public bool HasTransactionSupport
+		{
+			get
+			{
+				return true;
+			}
+		}
 
 		#endregion Fields & Properties
 
 		#region Constructors
 
-		public SqlProvider(string connectionString, Type modelType, bool useTransation = false, bool dropAndRecreate = false)
+		public SqlProvider(string connectionString, bool useTransation = false)
 		{
 			if (string.IsNullOrEmpty(connectionString))
 				throw new ArgumentNullException("connectionString");
 
-			if (modelType == null)
-				throw new ArgumentNullException("modelType");
+			OrmLiteConfig.DialectProvider = SqlServerOrmLiteDialectProvider.Instance;
 
-			_dropAndRecreate = dropAndRecreate;
 			_databaseConnection = connectionString.OpenDbConnection();
 			if (useTransation)
 				_transaction = _databaseConnection.OpenTransaction();
-
-			_modelType = modelType;
-		}
-
-		static SqlProvider()
-		{
-			OrmLiteConfig.DialectProvider = SqlServerOrmLiteDialectProvider.Instance;
 		}
 
 		#endregion Constructors
@@ -54,19 +52,14 @@ namespace SingletonTheory.OrmLite.Providers
 
 		public bool TableExists(Type modelType)
 		{
-			ModelDefinition modelDefinition = GetModelDefinition(modelType);
+			ModelDefinition modelDefinition = modelType.GetModelDefinition();
 
 			return _databaseConnection.TableExists(modelDefinition.Alias ?? modelType.Name);
 		}
 
-		public void DropAndCreate()
-		{
-			DropAndCreate(_modelType);
-		}
-
 		public void DropAndCreate(Type modelType)
 		{
-			ModelDefinition modelDefinition = GetModelDefinition(modelType);
+			ModelDefinition modelDefinition = modelType.GetModelDefinition();
 			List<Type> associatesToAdd = new List<Type>();
 			if (modelDefinition == null)
 				return;
@@ -100,27 +93,11 @@ namespace SingletonTheory.OrmLite.Providers
 			}
 		}
 
-		private ModelDefinition GetModelDefinition(Type fieldType)
-		{
-			ModelDefinition modelDefinition;
-
-			if (!_modelDefinitions.TryGetValue(fieldType.Name, out modelDefinition))
-			{
-				modelDefinition = fieldType.GetModelDefinition();
-				if (modelDefinition == null)
-					return null;
-
-				_modelDefinitions.Add(fieldType.Name, modelDefinition);
-			}
-
-			return modelDefinition;
-		}
-
 		public T SelectById<T>(long idValue) where T : IIdentifiable
 		{
 			try
 			{
-				ModelDefinition modelDefinition = GetModelDefinition(typeof(T));
+				ModelDefinition modelDefinition = typeof(T).GetModelDefinition();
 				List<Type> associates = new List<Type>();
 				if (modelDefinition == null)
 					throw new InvalidOperationException("Model Type is not a valid model type.");
@@ -178,7 +155,7 @@ namespace SingletonTheory.OrmLite.Providers
 		{
 			try
 			{
-				ModelDefinition modelDefinition = GetModelDefinition(typeof(T));
+				ModelDefinition modelDefinition = typeof(T).GetModelDefinition();
 				List<Type> associates = new List<Type>();
 				if (modelDefinition == null)
 					throw new InvalidOperationException("Model Type is not a valid model type.");
@@ -217,7 +194,7 @@ namespace SingletonTheory.OrmLite.Providers
 		{
 			try
 			{
-				ModelDefinition modelDefinition = GetModelDefinition(typeof(T));
+				ModelDefinition modelDefinition = typeof(T).GetModelDefinition();
 				List<Type> associates = new List<Type>();
 				if (modelDefinition == null)
 					throw new InvalidOperationException("Model Type is not a valid model type.");
@@ -254,7 +231,7 @@ namespace SingletonTheory.OrmLite.Providers
 
 		private List<T> SelectByParentId<T>(Type fromTableType, long parentId)
 		{
-			ModelDefinition modelDefinition = GetModelDefinition(typeof(T));
+			ModelDefinition modelDefinition = typeof(T).GetModelDefinition();
 
 			if (modelDefinition == null)
 				throw new InvalidOperationException("Model Type is not a valid model type.");
@@ -299,7 +276,7 @@ namespace SingletonTheory.OrmLite.Providers
 			_databaseConnection.Insert(objectToInsert);
 			objectToInsert.SetId(_databaseConnection.GetLastInsertId());
 
-			ModelDefinition modelDefinition = GetModelDefinition(typeof(T));
+			ModelDefinition modelDefinition = typeof(T).GetModelDefinition();
 			List<Type> associatesToAdd = new List<Type>();
 			if (modelDefinition == null)
 				throw new InvalidOperationException("The object being inserted is not a valid Entity Type.");
@@ -340,7 +317,7 @@ namespace SingletonTheory.OrmLite.Providers
 		{
 			_databaseConnection.Update(objectToUpdate);
 
-			ModelDefinition modelDefinition = GetModelDefinition(typeof(T));
+			ModelDefinition modelDefinition = typeof(T).GetModelDefinition();
 			List<Type> associatesToAdd = new List<Type>();
 			if (modelDefinition == null)
 				throw new InvalidOperationException("The object being inserted is not a valid Entity Type.");

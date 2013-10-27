@@ -4,13 +4,21 @@ namespace SingletonTheory.OrmLite.Tests.Config
 {
 	public static class ConfigSettings
 	{
+		#region Constants
+
+		public const string SqlConnectionName = "SqlConnectionString";
+		public const string MySqlConnectionName = "MySqlConnectionString";
+		public const string MongoConnectionName = "MongoConnectionString";
+
+		#endregion Constants
+
 		#region Fields & Properties
 
 		public static string SqlConnectionString
 		{
 			get
 			{
-				return ConfigurationManager.ConnectionStrings["SqlConnectionString"].ConnectionString;
+				return GetConnectionString(SqlConnectionName);
 			}
 		}
 
@@ -18,7 +26,7 @@ namespace SingletonTheory.OrmLite.Tests.Config
 		{
 			get
 			{
-				return ConfigurationManager.ConnectionStrings["MySqlConnectionString"].ConnectionString;
+				return GetConnectionString(MySqlConnectionName);
 			}
 		}
 
@@ -26,7 +34,7 @@ namespace SingletonTheory.OrmLite.Tests.Config
 		{
 			get
 			{
-				return ConfigurationManager.ConnectionStrings["MongoConnectionString"].ConnectionString;
+				return GetConnectionString(MongoConnectionName);
 			}
 		}
 

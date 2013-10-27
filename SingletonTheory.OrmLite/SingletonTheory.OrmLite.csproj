@@ -62,6 +62,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -72,11 +73,10 @@
   <ItemGroup>
     <Compile Include="Annotations\AssociatedEntityAttribute.cs" />
     <Compile Include="Annotations\ReferencedEntityAttribute.cs" />
-    <Compile Include="Annotations\DatabaseAttribute.cs" />
     <Compile Include="Config\ConfigExtensions.cs" />
+    <Compile Include="Config\ConfigSettings.cs" />
     <Compile Include="Extensions\MongoExtensions.cs" />
     <Compile Include="Extensions\ReflectionExtensions.cs" />
-    <Compile Include="Interfaces\IHasId.cs" />
     <Compile Include="Interfaces\IChildEntity.cs" />
     <Compile Include="Interfaces\IIdentifiable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,7 +84,7 @@
     <Compile Include="Providers\MongoProvider.cs" />
     <Compile Include="Providers\MySqlProvider.cs" />
     <Compile Include="Providers\SqlProvider.cs" />
-    <Compile Include="Resolver.cs" />
+    <Compile Include="ProviderFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

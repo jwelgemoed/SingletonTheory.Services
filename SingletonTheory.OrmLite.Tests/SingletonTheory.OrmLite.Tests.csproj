@@ -78,7 +78,6 @@
     <Compile Include="Data\SubsetOfShipper.cs" />
     <Compile Include="Providers\MySqlProviderTests.cs" />
     <Compile Include="Repositories\ShippersRepositorySample.cs" />
-    <Compile Include="UseCases\MySqlShippersExample.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\MongoProviderTests.cs" />
     <Compile Include="Providers\SqlProviderTests.cs" />
@@ -91,6 +90,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SingletonTheory.Library\SingletonTheory.Library.csproj">
+      <Project>{520ab5a5-69f2-406b-8ed4-df85198c3f95}</Project>
+      <Name>SingletonTheory.Library</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SingletonTheory.OrmLite\SingletonTheory.OrmLite.csproj">
       <Project>{6b2e1a7f-7497-4096-920d-059ba7e56679}</Project>
       <Name>SingletonTheory.OrmLite</Name>

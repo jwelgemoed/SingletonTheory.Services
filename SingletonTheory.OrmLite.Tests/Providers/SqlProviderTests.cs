@@ -19,7 +19,7 @@ namespace SingletonTheory.OrmLite.Providers
 			// Act
 			try
 			{
-				using (SqlProvider provider = new SqlProvider(null, typeof(Shipper)))
+				using (SqlProvider provider = new SqlProvider(null))
 				{
 					// Assert
 					Assert.Fail("Should not allow empty connection strings");
@@ -32,28 +32,10 @@ namespace SingletonTheory.OrmLite.Providers
 		}
 
 		[Test]
-		public void ShouldThrowArgumentNullExceptionForNullModelType()
-		{
-			// Act
-			try
-			{
-				using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, null))
-				{
-					// Assert
-					Assert.Fail("Should not allow null modelType");
-				}
-			}
-			catch (ArgumentNullException)
-			{
-				Assert.Pass();
-			}
-		}
-
-		[Test]
 		public void ShouldHaveSetDialectProvider()
 		{
 			// Act
-			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper)))
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString))
 			{
 				// Assert
 				Assert.IsInstanceOf<SqlServerOrmLiteDialectProvider>(OrmLiteConfig.DialectProvider);
@@ -64,7 +46,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldDropAndCreateTables()
 		{
 			// Arrange
-			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper)))
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString))
 			{
 				// Act
 				provider.DropAndCreate(typeof(Shipper));
@@ -79,7 +61,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldClearTables()
 		{
 			// Arrange
-			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper)))
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				shipper = provider.Insert<Shipper>(shipper);
@@ -97,7 +79,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldClearLookupTables()
 		{
 			// Arrange
-			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper)))
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 
@@ -113,7 +95,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldNotClearLookupTables()
 		{
 			// Arrange
-			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper)))
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 
@@ -129,7 +111,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldInsertShipper()
 		{
 			// Arrange
-			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper)))
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 
@@ -146,7 +128,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldSelectShipperAndTree()
 		{
 			// Arrange
-			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper)))
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				shipper = provider.Insert<Shipper>(shipper);
@@ -165,7 +147,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldSelectShipperAndTreeWithExpression()
 		{
 			// Arrange
-			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper)))
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				shipper = provider.Insert<Shipper>(shipper);
@@ -184,7 +166,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldUpdateShipper()
 		{
 			// Arrange
-			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper)))
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				provider.Insert<Shipper>(shipper);
@@ -205,13 +187,31 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldDeleteShipper()
 		{
 			// Arrange
-			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString, typeof(Shipper)))
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				provider.Insert<Shipper>(shipper);
 
 				// Act
 				provider.Delete<Shipper>(shipper);
+
+				// Assert
+				Assert.IsNull(provider.SelectById<Shipper>(shipper.Id));
+				Assert.IsNull(provider.SelectById<Shipper>(shipper.ShipperContacts[0].Id));
+			}
+		}
+
+		[Test]
+		public void ShouldDeleteAll()
+		{
+			// Arrange
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString))
+			{
+				Shipper shipper = DataProvider.PreInsertArrange(provider);
+				provider.Insert<Shipper>(shipper);
+
+				// Act
+				provider.DeleteAll<Shipper>();
 
 				// Assert
 				Assert.IsNull(provider.SelectById<Shipper>(shipper.Id));

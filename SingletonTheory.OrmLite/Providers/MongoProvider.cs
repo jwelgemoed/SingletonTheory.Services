@@ -8,7 +8,6 @@ using SingletonTheory.OrmLite.Extensions;
 using SingletonTheory.OrmLite.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using MongoBuilders = MongoDB.Driver.Builders;
@@ -19,28 +18,27 @@ namespace SingletonTheory.OrmLite.Providers
 	{
 		#region Fields & Properties
 
-		private bool _dropAndRecreate;
 		private MongoDatabase _databaseConnection;
-		private IDbTransaction _transaction;
-		private Type _modelType;
 		private Dictionary<string, ModelDefinition> _modelDefinitions = new Dictionary<string, ModelDefinition>();
+
+		public bool HasTransactionSupport
+		{
+			get
+			{
+				return false;
+			}
+		}
 
 		#endregion Fields & Properties
 
 		#region Constructors
 
-		public MongoProvider(string connectionString, Type modelType, bool useTransation = false, bool dropAndRecreate = false)
+		public MongoProvider(string connectionString)
 		{
 			if (string.IsNullOrEmpty(connectionString))
 				throw new ArgumentNullException("connectionString");
 
-			if (modelType == null)
-				throw new ArgumentNullException("modelType");
-
-			_dropAndRecreate = dropAndRecreate;
 			_databaseConnection = MongoExtensions.OpenDbConnection(connectionString);
-
-			_modelType = modelType;
 		}
 
 		#endregion Constructors
@@ -52,11 +50,6 @@ namespace SingletonTheory.OrmLite.Providers
 			ModelDefinition modelDefinition = GetModelDefinition(modelType);
 
 			return _databaseConnection.CollectionExists(modelDefinition.Alias ?? modelType.Name);
-		}
-
-		public void DropAndCreate()
-		{
-			DropAndCreate(_modelType);
 		}
 
 		public void DropAndCreate(Type modelType)
@@ -264,13 +257,6 @@ namespace SingletonTheory.OrmLite.Providers
 
 		public void Dispose()
 		{
-			if (_transaction != null && _transaction.Connection != null)
-			{
-				_transaction.Commit();
-				_transaction.Dispose();
-				_transaction = null;
-			}
-
 			if (_databaseConnection != null)
 			{
 				_databaseConnection = null;

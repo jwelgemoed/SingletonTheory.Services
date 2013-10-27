@@ -17,7 +17,7 @@ namespace SingletonTheory.OrmLite.Providers
 			// Act
 			try
 			{
-				using (MongoProvider provider = new MongoProvider(null, typeof(Shipper)))
+				using (MongoProvider provider = new MongoProvider(null))
 				{
 					// Assert
 					Assert.Fail("Should not allow empty connection strings");
@@ -30,39 +30,10 @@ namespace SingletonTheory.OrmLite.Providers
 		}
 
 		[Test]
-		public void ShouldThrowArgumentNullExceptionForNullModelType()
-		{
-			// Act
-			try
-			{
-				using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString, null))
-				{
-					// Assert
-					Assert.Fail("Should not allow null modelType");
-				}
-			}
-			catch (ArgumentNullException)
-			{
-				Assert.Pass();
-			}
-		}
-
-		[Test]
-		public void ShouldHaveSetDialectProvider()
-		{
-			// Act
-			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString, typeof(Shipper)))
-			{
-				// Assert
-				//Assert.IsInstanceOf<MongoDialectProvider>(OrmLiteConfig.DialectProvider);
-			}
-		}
-
-		[Test]
 		public void ShouldDropAndCreate()
 		{
 			// Arrange
-			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString, typeof(Shipper)))
+			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString))
 			{
 				// Act
 				provider.DropAndCreate(typeof(Shipper));
@@ -76,7 +47,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldClearTables()
 		{
 			// Arrange
-			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString, typeof(Shipper)))
+			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				shipper = provider.Insert<Shipper>(shipper);
@@ -94,7 +65,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldClearLookupTables()
 		{
 			// Arrange
-			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString, typeof(Shipper)))
+			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 
@@ -110,7 +81,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldNotClearLookupTables()
 		{
 			// Arrange
-			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString, typeof(Shipper)))
+			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 
@@ -126,7 +97,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldInsertShipper()
 		{
 			// Arrange
-			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString, typeof(Shipper)))
+			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 
@@ -142,7 +113,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldSelectShipperAndTree()
 		{
 			// Arrange
-			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString, typeof(Shipper)))
+			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				shipper = provider.Insert<Shipper>(shipper);
@@ -161,7 +132,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldSelectShipperAndTreeWithExpression()
 		{
 			// Arrange
-			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString, typeof(Shipper)))
+			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				shipper = provider.Insert<Shipper>(shipper);
@@ -180,7 +151,7 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldUpdateShipper()
 		{
 			// Arrange
-			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString, typeof(Shipper)))
+			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				provider.Insert<Shipper>(shipper);
@@ -201,13 +172,31 @@ namespace SingletonTheory.OrmLite.Providers
 		public void ShouldDeleteShipper()
 		{
 			// Arrange
-			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString, typeof(Shipper)))
+			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString))
 			{
 				Shipper shipper = DataProvider.PreInsertArrange(provider);
 				provider.Insert<Shipper>(shipper);
 
 				// Act
 				provider.Delete<Shipper>(shipper);
+
+				// Assert
+				Assert.IsNull(provider.SelectById<Shipper>(shipper.Id));
+				Assert.IsNull(provider.SelectById<Shipper>(shipper.ShipperContacts[0].Id));
+			}
+		}
+
+		[Test]
+		public void ShouldDeleteAll()
+		{
+			// Arrange
+			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString))
+			{
+				Shipper shipper = DataProvider.PreInsertArrange(provider);
+				provider.Insert<Shipper>(shipper);
+
+				// Act
+				provider.DeleteAll<Shipper>();
 
 				// Assert
 				Assert.IsNull(provider.SelectById<Shipper>(shipper.Id));
