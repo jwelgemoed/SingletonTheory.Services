@@ -1,16 +1,16 @@
 ﻿using NUnit.Framework;
 using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.MySql;
-using SingletonTheory.OrmLite.Interfaces;
 using SingletonTheory.OrmLite.Tests.Config;
 using SingletonTheory.OrmLite.Tests.Data;
+using SingletonTheory.OrmLite.Tests.Interfaces;
 using System;
 using System.Linq;
 
 namespace SingletonTheory.OrmLite.Providers
 {
 	[TestFixture]
-	public class MySqlProviderTests
+	public class MySqlProviderTests : IProviderTests
 	{
 		#region Test Methods
 
@@ -60,7 +60,7 @@ namespace SingletonTheory.OrmLite.Providers
 		}
 
 		[Test]
-		public void ShouldDropAndCreateTables()
+		public void ShouldDropAndCreate()
 		{
 			// Arrange
 			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString))
@@ -75,7 +75,7 @@ namespace SingletonTheory.OrmLite.Providers
 		}
 
 		[Test]
-		public void ShouldClearTables()
+		public void ShouldClearAllCollections()
 		{
 			// Arrange
 			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString))
@@ -93,7 +93,7 @@ namespace SingletonTheory.OrmLite.Providers
 		}
 
 		[Test]
-		public void ShouldClearLookupTables()
+		public void ShouldClearLookup()
 		{
 			// Arrange
 			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString))
@@ -109,7 +109,7 @@ namespace SingletonTheory.OrmLite.Providers
 		}
 
 		[Test]
-		public void ShouldNotClearLookupTables()
+		public void ShouldNotClearLookup()
 		{
 			// Arrange
 			using (MySqlProvider provider = new MySqlProvider(ConfigSettings.MySqlConnectionString))
@@ -233,15 +233,6 @@ namespace SingletonTheory.OrmLite.Providers
 				// Assert
 				Assert.IsNull(provider.SelectById<Shipper>(shipper.Id));
 				Assert.IsNull(provider.SelectById<Shipper>(shipper.ShipperContacts[0].Id));
-			}
-		}
-
-		[Test]
-		public void ShouldDropAndCreate()
-		{
-			using (IDatabaseProvider db = ProviderFactory.GetProvider(ConfigSettings.MySqlConnectionName, false))
-			{
-				DataProvider.DropAndCreate(db);
 			}
 		}
 

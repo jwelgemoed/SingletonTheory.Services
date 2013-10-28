@@ -1,15 +1,22 @@
 ﻿using NUnit.Framework;
 using SingletonTheory.OrmLite.Tests.Config;
 using SingletonTheory.OrmLite.Tests.Data;
+using SingletonTheory.OrmLite.Tests.Interfaces;
 using System;
 using System.Linq;
 
 namespace SingletonTheory.OrmLite.Providers
 {
 	[TestFixture]
-	public class MongoProviderTests
+	public class MongoProviderTests : IProviderTests
 	{
 		#region Test Methods
+
+		[Test]
+		public void ShouldHaveSetDialectProvider()
+		{
+			// Not needed until full ServiceStack Dialect is implemented for MongoDB
+		}
 
 		[Test]
 		public void ShouldThrowArgumentNullExceptionForNullConnectionString()
@@ -58,7 +65,7 @@ namespace SingletonTheory.OrmLite.Providers
 		}
 
 		[Test]
-		public void ShouldClearTables()
+		public void ShouldClearAllCollections()
 		{
 			// Arrange
 			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString))
@@ -76,7 +83,7 @@ namespace SingletonTheory.OrmLite.Providers
 		}
 
 		[Test]
-		public void ShouldClearLookupTables()
+		public void ShouldClearLookup()
 		{
 			// Arrange
 			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString))
@@ -92,7 +99,7 @@ namespace SingletonTheory.OrmLite.Providers
 		}
 
 		[Test]
-		public void ShouldNotClearLookupTables()
+		public void ShouldNotClearLookup()
 		{
 			// Arrange
 			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString))
@@ -219,5 +226,8 @@ namespace SingletonTheory.OrmLite.Providers
 		}
 
 		#endregion Test Methods
+
+
+
 	}
 }

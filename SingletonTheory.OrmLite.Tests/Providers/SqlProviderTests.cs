@@ -3,13 +3,14 @@ using ServiceStack.OrmLite;
 using ServiceStack.OrmLite.SqlServer;
 using SingletonTheory.OrmLite.Tests.Config;
 using SingletonTheory.OrmLite.Tests.Data;
+using SingletonTheory.OrmLite.Tests.Interfaces;
 using System;
 using System.Linq;
 
 namespace SingletonTheory.OrmLite.Providers
 {
 	[TestFixture]
-	public class SqlProviderTests
+	public class SqlProviderTests : IProviderTests
 	{
 		#region Test Methods
 
@@ -59,7 +60,7 @@ namespace SingletonTheory.OrmLite.Providers
 		}
 
 		[Test]
-		public void ShouldDropAndCreateTables()
+		public void ShouldDropAndCreate()
 		{
 			// Arrange
 			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString))
@@ -74,7 +75,7 @@ namespace SingletonTheory.OrmLite.Providers
 		}
 
 		[Test]
-		public void ShouldClearTables()
+		public void ShouldClearAllCollections()
 		{
 			// Arrange
 			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString))
@@ -92,7 +93,7 @@ namespace SingletonTheory.OrmLite.Providers
 		}
 
 		[Test]
-		public void ShouldClearLookupTables()
+		public void ShouldClearLookup()
 		{
 			// Arrange
 			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString))
@@ -108,7 +109,7 @@ namespace SingletonTheory.OrmLite.Providers
 		}
 
 		[Test]
-		public void ShouldNotClearLookupTables()
+		public void ShouldNotClearLookup()
 		{
 			// Arrange
 			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString))
