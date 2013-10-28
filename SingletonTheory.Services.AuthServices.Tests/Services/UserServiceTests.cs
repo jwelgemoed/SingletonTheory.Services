@@ -48,21 +48,21 @@ namespace SingletonTheory.Services.AuthServices.Tests.Services
 
 		#region Test Methods
 
-		[Test]
-		public void ShouldAddUser()
-		{
-			// Arrange
-			var request = new User { Id = _userId };
+		//[Test]
+		//public void ShouldAddUser()
+		//{
+		//	// Arrange
+		//	var request = new User { Id = _userId };
 
-			// Act
-			var response = _client.Get(request);
+		//	// Act
+		//	var response = _client.Get(request);
 
-			// Assert
-			Assert.AreNotEqual(response.Id, 0, "Unable to find test user in database.");
-			Assert.AreEqual(response.UserName, MongoHelpers.MongoTestUsername, "Test username does not match that of expected user entry.");
-			Assert.AreEqual(response.Roles[0], _currentRole, "Current role of user does not match expected");
-			Assert.AreEqual(response.Active, _currentActivitySetting.ToString(), "Active value does not match expected");
-		}
+		//	// Assert
+		//	Assert.AreNotEqual(response.Id, 0, "Unable to find test user in database.");
+		//	Assert.AreEqual(response.UserName, MongoHelpers.MongoTestUsername, "Test username does not match that of expected user entry.");
+		//	Assert.AreEqual(response.Roles[0], _currentRole, "Current role of user does not match expected");
+		//	Assert.AreEqual(response.Active, _currentActivitySetting.ToString(), "Active value does not match expected");
+		//}
 
 		[Test]
 		public void ShouldNotAddDuplicateUser()

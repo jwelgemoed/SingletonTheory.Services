@@ -430,6 +430,9 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 
 			UserEntity userEntity = userRepository.Read(userNameOrEmail);
 
+			if(!userEntity.Active)
+					throw new AccessViolationException("User not Active!");
+
 			SSAuthInterfaces.UserAuth userAuth = TranslateToUserAuth(userEntity);
 
 			if (userAuth != null)
