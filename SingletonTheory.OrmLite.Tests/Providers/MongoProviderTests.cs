@@ -30,6 +30,20 @@ namespace SingletonTheory.OrmLite.Providers
 		}
 
 		[Test]
+		public void ShouldCreateCollections()
+		{
+			// Arrange
+			using (MongoProvider provider = new MongoProvider(ConfigSettings.MongoConnectionString))
+			{
+				// Act
+				provider.CreateCollection(typeof(Shipper));
+
+				// Assert
+				Assert.IsTrue(provider.CollectionExists(typeof(Shipper)));
+			}
+		}
+
+		[Test]
 		public void ShouldDropAndCreate()
 		{
 			// Arrange
@@ -39,7 +53,7 @@ namespace SingletonTheory.OrmLite.Providers
 				provider.DropAndCreate(typeof(Shipper));
 
 				// Assert
-				Assert.IsTrue(provider.TableExists(typeof(Shipper)));
+				Assert.IsTrue(provider.CollectionExists(typeof(Shipper)));
 			}
 		}
 

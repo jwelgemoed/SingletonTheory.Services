@@ -1,5 +1,4 @@
-﻿using MongoDB.Bson;
-using ServiceStack.ServiceHost;
+﻿using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using SingletonTheory.Services.AuthServices.Entities;
 using System;
@@ -17,7 +16,7 @@ namespace SingletonTheory.Services.AuthServices.TransferObjects
 	{
 		#region Fields & Properties
 
-		public virtual ObjectId Id { get; set; }
+		public virtual long Id { get; set; }
 		public virtual string UserName { get; set; }
 		public virtual DateTime ModifiedDate { get; set; }
 		public virtual string Password { get; set; }

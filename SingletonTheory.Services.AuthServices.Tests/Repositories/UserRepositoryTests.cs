@@ -1,36 +1,19 @@
 ﻿using NUnit.Framework;
+using ServiceStack.DataAccess;
+using SingletonTheory.OrmLite;
+using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities;
 using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.Tests.Data;
-using SingletonTheory.Services.AuthServices.Tests.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SingletonTheory.Services.AuthServices.Tests.Repositories
 {
 	[TestFixture]
 	public class UserRepositoryTests
 	{
-		#region Setup & Teardown
-
-		[SetUp]
-		public void SetUp()
-		{
-			UserRepository repository = new UserRepository(MongoHelpers.GetUserDatabase());
-
-			repository.ClearCollection();
-		}
-
-		[TearDownAttribute]
-		public void TearDown()
-		{
-			UserRepository repository = new UserRepository(MongoHelpers.GetUserDatabase());
-
-			repository.ClearCollection();
-		}
-
-		#endregion Setup & Teardown
-
 		#region Test Methods
 
 		[Test]
@@ -42,7 +25,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories
 				UserRepository userRepository = new UserRepository(null);
 				Assert.Fail("This should not happen");
 			}
-			catch (System.Exception ex)
+			catch (Exception ex)
 			{
 				// Arrange
 				Assert.IsInstanceOf<ArgumentNullException>(ex);
@@ -53,8 +36,9 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories
 		public void ShouldCreateUser()
 		{
 			// Arrange
-			UserRepository repository = new UserRepository(MongoHelpers.GetUserDatabase());
+			UserRepository repository = new UserRepository(ProviderFactory.GetProvider(ConfigSettings.UserDatabaseConnectionName));
 			UserEntity entity = UserData.GetUserForInsert();
+			repository.ClearCollection();
 
 			// Act
 			entity = repository.Create(entity);
@@ -65,11 +49,39 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories
 		}
 
 		[Test]
+		public void ShouldThrowDuplicateUserException()
+		{
+			// Arrange
+			UserRepository repository = new UserRepository(ProviderFactory.GetProvider(ConfigSettings.UserDatabaseConnectionName));
+			UserEntity entity = UserData.GetUserForInsert();
+			repository.ClearCollection();
+			entity = repository.Create(entity);
+
+			try
+			{
+				// Act
+				UserEntity duplicate = UserData.GetUserForInsert();
+				duplicate = repository.Create(entity);
+
+				Assert.Fail("Duplicate user creation should not be allowed.");
+			}
+			catch (DataAccessException ex)
+			{
+				// Assert
+				if (ex.Message == "Duplicate User detected")
+					Assert.Pass();
+
+				Assert.Fail("Some other exception happened");
+			}
+		}
+
+		[Test]
 		public void ShouldCreateUsers()
 		{
 			// Arrange
-			UserRepository repository = new UserRepository(MongoHelpers.GetUserDatabase());
+			UserRepository repository = new UserRepository(ProviderFactory.GetProvider(ConfigSettings.UserDatabaseConnectionName));
 			List<UserEntity> entities = UserData.GetUsersForInsert();
+			repository.ClearCollection();
 
 			// Act
 			entities = repository.Create(entities);
@@ -83,8 +95,9 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories
 		public void ShouldReadUserWithUserName()
 		{
 			// Arrange
-			UserRepository repository = new UserRepository(MongoHelpers.GetUserDatabase());
+			UserRepository repository = new UserRepository(ProviderFactory.GetProvider(ConfigSettings.UserDatabaseConnectionName));
 			UserEntity entity = UserData.GetUserForInsert();
+			repository.ClearCollection();
 			entity = repository.Create(entity);
 
 			// Act
@@ -95,13 +108,49 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories
 		}
 
 		[Test]
+		public void ShouldReadUserWithUserNameList()
+		{
+			// Arrange
+			UserRepository repository = new UserRepository(ProviderFactory.GetProvider(ConfigSettings.UserDatabaseConnectionName));
+			List<UserEntity> entities = UserData.GetUsersForInsert();
+			repository.ClearCollection();
+			entities = repository.Create(entities);
+			List<string> userNames = entities.Select(x => x.UserName).ToList();
+
+			// Act
+			List<UserEntity> actual = repository.Read(userNames);
+
+			// Assert
+			Assert.AreEqual(entities.Count, actual.Count);
+		}
+
+		[Test]
+		public void ShouldReadUserWithIdList()
+		{
+			// Arrange
+			UserRepository repository = new UserRepository(ProviderFactory.GetProvider(ConfigSettings.UserDatabaseConnectionName));
+			List<UserEntity> entities = UserData.GetUsersForInsert();
+			repository.ClearCollection();
+			entities = repository.Create(entities);
+			List<long> userNames = entities.Select(x => x.Id).ToList();
+
+			// Act
+			List<UserEntity> actual = repository.Read(userNames);
+
+			// Assert
+			Assert.AreEqual(entities.Count, actual.Count);
+		}
+
+		[Test]
 		public void ShouldUpdateUser()
 		{
 			// Arrange
-			UserRepository repository = new UserRepository(MongoHelpers.GetUserDatabase());
+			UserRepository repository = new UserRepository(ProviderFactory.GetProvider(ConfigSettings.UserDatabaseConnectionName));
 			UserEntity entity = UserData.GetUserForInsert();
+			repository.ClearCollection();
 			entity = repository.Create(entity);
 			entity.Meta.Add("UpdateField", "FieldUpdated");
+
 
 			// Act
 			UserEntity actual = repository.Update(entity);

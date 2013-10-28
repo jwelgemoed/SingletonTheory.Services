@@ -5,6 +5,14 @@ namespace SingletonTheory.Services.AuthServices.Config
 {
 	public static class ConfigSettings
 	{
+		#region Constants
+
+		public const string UserDatabaseConnectionName = "UserDatabase";
+
+		#endregion Constants
+
+		#region Fields & Properties
+
 		public static string MongoConnectionString
 		{
 			get
@@ -93,11 +101,31 @@ namespace SingletonTheory.Services.AuthServices.Config
 			}
 		}
 
+		#endregion Fields & Properties
+
+		#region Private Methods
+
 		private static string GetValue(string key, string defaultValue = "")
 		{
 			string returnValue = ConfigurationManager.AppSettings[key];
 
 			return string.IsNullOrEmpty(returnValue) ? defaultValue : returnValue;
 		}
+
+		private static string GetConnectionString(string key, string defaultValue = "")
+		{
+			string returnValue = ConfigurationManager.ConnectionStrings[key].ConnectionString;
+
+			return string.IsNullOrEmpty(returnValue) ? defaultValue : returnValue;
+		}
+
+		private static string GetConnectionProvider(string key, string defaultValue = "")
+		{
+			string returnValue = ConfigurationManager.ConnectionStrings[key].ProviderName;
+
+			return string.IsNullOrEmpty(returnValue) ? defaultValue : returnValue;
+		}
+
+		#endregion Private Methods
 	}
 }

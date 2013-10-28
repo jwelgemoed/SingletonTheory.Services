@@ -7,6 +7,7 @@ using ServiceStack.ServiceInterface.Admin;
 using ServiceStack.ServiceInterface.Validation;
 using ServiceStack.WebHost.Endpoints;
 using SingletonTheory.Data;
+using SingletonTheory.OrmLite;
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Data;
 using SingletonTheory.Services.AuthServices.Providers;
@@ -79,9 +80,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 
 		private static UserRepository GetUserRepositoryProvider()
 		{
-			MongoDatabase database = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, ConfigSettings.MongoUserDatabaseName);
-
-			return new UserRepository(database);
+			return new UserRepository(ProviderFactory.GetProvider(ConfigSettings.UserDatabaseConnectionName));
 		}
 
 		private static SSAuthInterfaces.IUserAuthRepository GetUserAuthRepositoryProvider()

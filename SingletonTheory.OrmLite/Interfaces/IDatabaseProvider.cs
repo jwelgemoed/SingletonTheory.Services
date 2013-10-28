@@ -8,8 +8,9 @@ namespace SingletonTheory.OrmLite.Interfaces
 	{
 		bool HasTransactionSupport { get; }
 
+		void CreateCollection(Type modelType);
 		void DropAndCreate(Type modelType);
-		bool TableExists(Type modelType);
+		bool CollectionExists(Type modelType);
 
 		T SelectById<T>(long idValue) where T : IIdentifiable;
 		List<T> Select<T>() where T : IIdentifiable;

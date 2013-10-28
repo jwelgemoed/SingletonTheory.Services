@@ -43,6 +43,22 @@ namespace SingletonTheory.OrmLite.Providers
 		}
 
 		[Test]
+		public void ShouldCreateCollections()
+		{
+			// Arrange
+			using (SqlProvider provider = new SqlProvider(ConfigSettings.SqlConnectionString))
+			{
+				// Act
+				provider.CreateCollection(typeof(Shipper));
+
+				// Assert
+				Assert.IsTrue(provider.CollectionExists(typeof(Shipper)));
+				Assert.IsTrue(provider.CollectionExists(typeof(ShipperContact)));
+				Assert.IsTrue(provider.CollectionExists(typeof(ShipperType)));
+			}
+		}
+
+		[Test]
 		public void ShouldDropAndCreateTables()
 		{
 			// Arrange
@@ -52,8 +68,8 @@ namespace SingletonTheory.OrmLite.Providers
 				provider.DropAndCreate(typeof(Shipper));
 
 				// Assert
-				Assert.IsTrue(provider.TableExists(typeof(Shipper)));
-				Assert.IsTrue(provider.TableExists(typeof(ShipperContact)));
+				Assert.IsTrue(provider.CollectionExists(typeof(Shipper)));
+				Assert.IsTrue(provider.CollectionExists(typeof(ShipperContact)));
 			}
 		}
 

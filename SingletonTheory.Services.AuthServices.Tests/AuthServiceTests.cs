@@ -15,7 +15,7 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		#region Fields & Properties
 
 		private JsonServiceClient _client;
-		private ObjectId _userId;
+		private long _userId;
 		private int _currentRole = 1;
 		private bool _currentActivitySetting = true;
 
@@ -72,7 +72,7 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		{
 			// Arrange
 			Exception webException = null;
-			var request = new User() { Id = new ObjectId() };
+			var request = new User();
 
 			// Act
 			_currentRole = 2;
@@ -99,7 +99,7 @@ namespace SingletonTheory.Services.AuthServices.Tests
 		{
 			//Arrange
 			WebServiceException webException = null;
-			var request = new User { Id = ObjectId.Empty };
+			var request = new User();
 
 			//Act
 			request.Roles.Add(2);

@@ -50,11 +50,48 @@ namespace SingletonTheory.OrmLite.Providers
 
 		#region Public Methods
 
-		public bool TableExists(Type modelType)
+		public bool CollectionExists(Type modelType)
 		{
 			ModelDefinition modelDefinition = modelType.GetModelDefinition();
 
 			return _databaseConnection.TableExists(modelDefinition.Alias ?? modelType.Name);
+		}
+
+		public void CreateCollection(Type modelType)
+		{
+			ModelDefinition modelDefinition = modelType.GetModelDefinition();
+			if (modelDefinition == null)
+				return;
+
+			List<Type> associatesToAdd = new List<Type>();
+
+			for (int i = 0; i < modelDefinition.AllFieldDefinitionsArray.Length; i++)
+			{
+				FieldDefinition fieldDefinition = modelDefinition.AllFieldDefinitionsArray[i];
+				Type fieldType = fieldDefinition.FieldType;
+				if (fieldDefinition.HasAttribute(typeof(AssociatedEntityAttribute)))
+				{
+					if (fieldType.IsListType())
+					{
+						fieldType = fieldType.GetGenericType();
+						if (fieldType.GetModelDefinition() != null)
+							associatesToAdd.Add(fieldType);
+					}
+				}
+
+				if (fieldDefinition.HasAttribute(typeof(ReferencedEntityAttribute)))
+				{
+					CreateCollection(fieldType);
+				}
+			}
+
+			_databaseConnection.CreateTable(false, modelType);
+
+			// Add associates after current type.
+			for (int i = 0; i < associatesToAdd.Count; i++)
+			{
+				CreateCollection(associatesToAdd[i]);
+			}
 		}
 
 		public void DropAndCreate(Type modelType)

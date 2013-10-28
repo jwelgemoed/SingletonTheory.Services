@@ -1,5 +1,4 @@
-﻿using MongoDB.Bson;
-using ServiceStack.ServiceHost;
+﻿using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using System.Collections.Generic;
 
@@ -10,7 +9,7 @@ namespace SingletonTheory.Services.AuthServices.TransferObjects
 	[RequiredPermission(ApplyTo.Post, "Users_Post")]
 	public class Users : IReturn<List<User>>
 	{
-		public List<ObjectId> UserIds { get; set; }
+		public List<long> UserIds { get; set; }
 		public List<string> UserNames { get; set; }
 	}
 }

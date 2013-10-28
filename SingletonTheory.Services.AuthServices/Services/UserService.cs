@@ -31,7 +31,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 				return TranslateToResponse(userEntity);
 			}
-			else if (request.Id != ObjectId.Empty)
+			else if (request.Id != default(long))
 			{
 				// Get user with UserName
 				UserEntity userEntity = repository.Read(request.Id);

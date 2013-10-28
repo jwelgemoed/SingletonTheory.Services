@@ -1,27 +1,30 @@
-﻿using MongoDB.Bson;
+﻿using ServiceStack.DataAnnotations;
+using SingletonTheory.OrmLite.Interfaces;
+using SingletonTheory.Services.AuthServices.Utilities;
 using System;
 using System.Collections.Generic;
-using SingletonTheory.Services.AuthServices.Utilities;
 
 namespace SingletonTheory.Services.AuthServices.Entities
 {
-	public class UserEntity
+	public class UserEntity : IIdentifiable
 	{
 		#region Fields & Properties
 
 		private List<DomainPermissionObject> _domainPermissionObjects;
 
-		public virtual ObjectId Id { get; set; }
-		public virtual string UserName { get; set; }
-		public virtual DateTime ModifiedDate { get; set; }
-		public virtual string PasswordHash { get; set; }
-		public virtual string Salt { get; set; }
+		[AutoIncrement]
+		[Alias("Id")]
+		public long Id { get; set; }
+		public string UserName { get; set; }
+		public DateTime ModifiedDate { get; set; }
+		public string PasswordHash { get; set; }
+		public string Salt { get; set; }
 
-		public virtual List<string> Permissions { get; set; }
-		public virtual List<int> Roles { get; set; }
-		public virtual string Language { get; set; }
-		public virtual bool Active { get; set; }
-		public virtual Dictionary<string, string> Meta { get; set; }
+		public List<string> Permissions { get; set; }
+		public List<int> Roles { get; set; }
+		public string Language { get; set; }
+		public bool Active { get; set; }
+		public Dictionary<string, string> Meta { get; set; }
 		public string TimeZoneId { get; set; }
 
 		//public virtual List<DomainPermissionObject> DomainPermissions { get; set; }
@@ -68,7 +71,7 @@ namespace SingletonTheory.Services.AuthServices.Entities
 				}
 				_domainPermissionObjects = objects;
 			}
-		} 
+		}
 
 		#endregion Fields & Properties
 
@@ -85,5 +88,14 @@ namespace SingletonTheory.Services.AuthServices.Entities
 		}
 
 		#endregion Constructors
+
+		#region IIdentifiable Members
+
+		public void SetId(long id)
+		{
+			Id = id;
+		}
+
+		#endregion IIdentifiable Members
 	}
 }

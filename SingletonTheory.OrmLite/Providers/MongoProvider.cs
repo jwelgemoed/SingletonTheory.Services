@@ -45,11 +45,17 @@ namespace SingletonTheory.OrmLite.Providers
 
 		#region Public Methods
 
-		public bool TableExists(Type modelType)
+		public bool CollectionExists(Type modelType)
 		{
 			ModelDefinition modelDefinition = GetModelDefinition(modelType);
 
 			return _databaseConnection.CollectionExists(modelDefinition.Alias ?? modelType.Name);
+		}
+
+		public void CreateCollection(Type modelType)
+		{
+			if (!_databaseConnection.CollectionExists(GetCollectionName(modelType)))
+				_databaseConnection.CreateCollection(GetCollectionName(modelType));
 		}
 
 		public void DropAndCreate(Type modelType)
@@ -107,6 +113,7 @@ namespace SingletonTheory.OrmLite.Providers
 			{
 				MongoCollection<T> collection = _databaseConnection.GetCollection<T>(GetCollectionName(typeof(T)));
 				MongoCursor<T> cursor = collection.FindAllAs<T>();
+
 				return cursor.ToList();
 			}
 			catch (Exception ex)
@@ -131,26 +138,13 @@ namespace SingletonTheory.OrmLite.Providers
 			}
 		}
 
-		public List<TModel> Select<TModel>(Type fromTableType, string sqlFilter, params object[] filterParams)
-		{
-			//return _databaseConnection.Select<TModel>(fromTableType, "ShipperTypeId = {0}", filterParams);
-			return null;
-		}
-
 		public T Insert<T>(T objectToInsert) where T : IIdentifiable, new()
 		{
 			try
 			{
 				objectToInsert.SetId(GetNextCounter<T>()); // Update the Id of the new item before it gets inserted
 				MongoCollection<T> collection = _databaseConnection.GetCollection<T>(GetCollectionName(typeof(T)));
-				IMongoQuery query = MongoBuilders.Query<T>.EQ(e => e.Id, objectToInsert.Id);
-				T duplicate = collection.FindOne(query);
-
-				if (duplicate != null)
-					throw new DataAccessException("Duplicate User detected");
-
 				WriteConcernResult result = collection.Insert(objectToInsert);
-
 				if (!string.IsNullOrEmpty(result.ErrorMessage))
 					throw new DataAccessException("Data Insert Error:  " + result.ErrorMessage);
 
