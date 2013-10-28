@@ -8,6 +8,7 @@ namespace SingletonTheory.Services.AuthServices.Config
 		#region Constants
 
 		public const string UserDatabaseConnectionName = "UserDatabase";
+		public const string LocalizationDatabaseConnectionName = "LocaleFiles";
 
 		#endregion Constants
 

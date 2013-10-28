@@ -1,4 +1,5 @@
 ﻿using ServiceStack.DataAccess;
+using SingletonTheory.OrmLite;
 using SingletonTheory.OrmLite.Interfaces;
 using SingletonTheory.Services.AuthServices.Entities;
 using System;
@@ -10,29 +11,26 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 {
 	public class UserRepository
 	{
-		#region Constants
-
-		private const string CollectionName = "UserCollection";
-
-		#endregion Constants
-
 		#region Fields & Properties
 
-		private IDatabaseProvider _databaseProvider;
+		private string _connectionStringName;
 
 		#endregion Fields & Properties
 
 		#region Constructors
 
-		public UserRepository(IDatabaseProvider databaseProvider)
+		public UserRepository(string connectionStringName)
 		{
-			if (databaseProvider == null)
-				throw new ArgumentNullException("databaseProvider");
+			if (string.IsNullOrEmpty(connectionStringName))
+				throw new ArgumentNullException("connectionStringName");
 
-			_databaseProvider = databaseProvider;
+			_connectionStringName = connectionStringName;
 
-			if (!_databaseProvider.CollectionExists(typeof(UserEntity)))
-				_databaseProvider.CreateCollection(typeof(UserEntity));
+			using (IDatabaseProvider provider = ProviderFactory.GetProvider(connectionStringName))
+			{
+				if (!provider.CollectionExists(typeof(UserEntity)))
+					provider.CreateCollection(typeof(UserEntity));
+			}
 		}
 
 		#endregion Constructors
@@ -41,37 +39,55 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 
 		public UserEntity Read(string userName)
 		{
-			UserEntity entity = _databaseProvider.Select<UserEntity>(x => x.UserName == userName).First();
+			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionStringName))
+			{
+				UserEntity entity = provider.Select<UserEntity>(x => x.UserName == userName).First();
 
-			return entity == null ? null : entity;
+				return entity == null ? null : entity;
+			}
 		}
 
 		public UserEntity Read(long id)
 		{
-			return _databaseProvider.SelectById<UserEntity>(id);
+			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionStringName))
+			{
+				return provider.SelectById<UserEntity>(id);
+			}
 		}
 
 		public List<UserEntity> Read()
 		{
-			return _databaseProvider.Select<UserEntity>();
+			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionStringName))
+			{
+				return provider.Select<UserEntity>();
+			}
 		}
 
 		public List<UserEntity> Read(List<string> userNames)
 		{
-			return _databaseProvider.Select<UserEntity>(x => userNames.Contains(x.UserName));
+			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionStringName))
+			{
+				return provider.Select<UserEntity>(x => userNames.Contains(x.UserName));
+			}
 		}
 
 		public List<UserEntity> Read(List<long> ids)
 		{
-			return _databaseProvider.Select<UserEntity>(x => ids.Contains(x.Id));
+			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionStringName))
+			{
+				return provider.Select<UserEntity>(x => ids.Contains(x.Id));
+			}
 		}
 
 		public UserEntity Create(UserEntity user)
 		{
-			EncryptPassword(user);
-			CheckDuplicateUser(user);
+			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionStringName))
+			{
+				EncryptPassword(user);
+				CheckDuplicateUser(user);
 
-			return _databaseProvider.Insert<UserEntity>(user);
+				return provider.Insert<UserEntity>(user);
+			}
 		}
 
 		public List<UserEntity> Create(List<UserEntity> users)
@@ -86,15 +102,18 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 
 		public UserEntity Update(UserEntity user)
 		{
-			UserEntity userToUpdate = Read(user.UserName);
-			if (userToUpdate == null)
-				throw new DataAccessException("User not found"); //  This should not happen seeing that validation should check.
+			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionStringName))
+			{
+				UserEntity userToUpdate = Read(user.UserName);
+				if (userToUpdate == null)
+					throw new DataAccessException("User not found"); //  This should not happen seeing that validation should check.
 
-			userToUpdate = UpdateProperties(user, userToUpdate);
+				userToUpdate = UpdateProperties(user, userToUpdate);
 
-			_databaseProvider.Update<UserEntity>(userToUpdate);
+				provider.Update<UserEntity>(userToUpdate);
 
-			return userToUpdate;
+				return userToUpdate;
+			}
 		}
 
 		public List<UserEntity> Update(List<UserEntity> users)
@@ -109,8 +128,11 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 
 		public void ClearCollection()
 		{
-			if (_databaseProvider.CollectionExists(typeof(UserEntity)))
-				_databaseProvider.DeleteAll<UserEntity>();
+			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionStringName))
+			{
+				if (provider.CollectionExists(typeof(UserEntity)))
+					provider.DeleteAll<UserEntity>();
+			}
 		}
 
 		#endregion Public Methods

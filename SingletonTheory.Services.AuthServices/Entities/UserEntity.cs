@@ -13,7 +13,6 @@ namespace SingletonTheory.Services.AuthServices.Entities
 		private List<DomainPermissionObject> _domainPermissionObjects;
 
 		[AutoIncrement]
-		[Alias("Id")]
 		public long Id { get; set; }
 		public string UserName { get; set; }
 		public DateTime ModifiedDate { get; set; }

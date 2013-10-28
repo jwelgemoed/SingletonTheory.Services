@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using ServiceStack.ServiceInterface.Auth;
-using SingletonTheory.OrmLite;
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities;
 using SingletonTheory.Services.AuthServices.Repositories;
@@ -17,7 +16,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories
 		[SetUp]
 		public void SetUp()
 		{
-			UserRepository repository = new UserRepository(ProviderFactory.GetProvider(ConfigSettings.UserDatabaseConnectionName));
+			UserRepository repository = new UserRepository(ConfigSettings.UserDatabaseConnectionName);
 
 			repository.ClearCollection();
 		}
@@ -25,7 +24,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories
 		[TearDownAttribute]
 		public void TearDown()
 		{
-			UserRepository repository = new UserRepository(ProviderFactory.GetProvider(ConfigSettings.UserDatabaseConnectionName));
+			UserRepository repository = new UserRepository(ConfigSettings.UserDatabaseConnectionName);
 
 			repository.ClearCollection();
 		}
@@ -39,7 +38,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories
 		{
 			// Arrange
 			UserAuthRepository userAuthRepository = new UserAuthRepository(MongoHelpers.GetUserDatabase(), true);
-			UserRepository userRepository = new UserRepository(ProviderFactory.GetProvider(ConfigSettings.UserDatabaseConnectionName));
+			UserRepository userRepository = new UserRepository(ConfigSettings.UserDatabaseConnectionName);
 			UserEntity entity = UserData.GetUserForInsert();
 			entity = userRepository.Create(entity);
 

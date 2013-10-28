@@ -36,7 +36,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories
 		public void ShouldCreateUser()
 		{
 			// Arrange
-			UserRepository repository = new UserRepository(ProviderFactory.GetProvider(ConfigSettings.UserDatabaseConnectionName));
+			UserRepository repository = new UserRepository(ConfigSettings.UserDatabaseConnectionName);
 			UserEntity entity = UserData.GetUserForInsert();
 			repository.ClearCollection();
 
@@ -52,7 +52,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories
 		public void ShouldThrowDuplicateUserException()
 		{
 			// Arrange
-			UserRepository repository = new UserRepository(ProviderFactory.GetProvider(ConfigSettings.UserDatabaseConnectionName));
+			UserRepository repository = new UserRepository(ConfigSettings.UserDatabaseConnectionName);
 			UserEntity entity = UserData.GetUserForInsert();
 			repository.ClearCollection();
 			entity = repository.Create(entity);
@@ -79,7 +79,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories
 		public void ShouldCreateUsers()
 		{
 			// Arrange
-			UserRepository repository = new UserRepository(ProviderFactory.GetProvider(ConfigSettings.UserDatabaseConnectionName));
+			UserRepository repository = new UserRepository(ConfigSettings.UserDatabaseConnectionName);
 			List<UserEntity> entities = UserData.GetUsersForInsert();
 			repository.ClearCollection();
 
@@ -95,7 +95,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories
 		public void ShouldReadUserWithUserName()
 		{
 			// Arrange
-			UserRepository repository = new UserRepository(ProviderFactory.GetProvider(ConfigSettings.UserDatabaseConnectionName));
+			UserRepository repository = new UserRepository(ConfigSettings.UserDatabaseConnectionName);
 			UserEntity entity = UserData.GetUserForInsert();
 			repository.ClearCollection();
 			entity = repository.Create(entity);
@@ -111,7 +111,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories
 		public void ShouldReadUserWithUserNameList()
 		{
 			// Arrange
-			UserRepository repository = new UserRepository(ProviderFactory.GetProvider(ConfigSettings.UserDatabaseConnectionName));
+			UserRepository repository = new UserRepository(ConfigSettings.UserDatabaseConnectionName);
 			List<UserEntity> entities = UserData.GetUsersForInsert();
 			repository.ClearCollection();
 			entities = repository.Create(entities);
@@ -128,7 +128,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories
 		public void ShouldReadUserWithIdList()
 		{
 			// Arrange
-			UserRepository repository = new UserRepository(ProviderFactory.GetProvider(ConfigSettings.UserDatabaseConnectionName));
+			UserRepository repository = new UserRepository(ConfigSettings.UserDatabaseConnectionName);
 			List<UserEntity> entities = UserData.GetUsersForInsert();
 			repository.ClearCollection();
 			entities = repository.Create(entities);
@@ -145,7 +145,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories
 		public void ShouldUpdateUser()
 		{
 			// Arrange
-			UserRepository repository = new UserRepository(ProviderFactory.GetProvider(ConfigSettings.UserDatabaseConnectionName));
+			UserRepository repository = new UserRepository(ConfigSettings.UserDatabaseConnectionName);
 			UserEntity entity = UserData.GetUserForInsert();
 			repository.ClearCollection();
 			entity = repository.Create(entity);
