@@ -429,18 +429,21 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 
 			if (!string.IsNullOrEmpty(userNameOrEmail))
 			{
-				UserEntity userEntity = userRepository.Read(userNameOrEmail);
+			UserEntity userEntity = userRepository.Read(userNameOrEmail);
 
-				SSAuthInterfaces.UserAuth userAuth = TranslateToUserAuth(userEntity);
+			if(!userEntity.Active)
+					throw new AccessViolationException("User not Active!");
 
-				if (userAuth != null)
-				{
-					userAuth.Permissions = PermissionUtility.GetFunctionalPermissionNamesForRoleIdsAndDomainPermissions(userEntity.Roles,
-					userEntity.DomainPermissions, userEntity.TimeZoneId);
-				}
+			SSAuthInterfaces.UserAuth userAuth = TranslateToUserAuth(userEntity);
 
-				return userAuth;
+			if (userAuth != null)
+			{
+				userAuth.Permissions = PermissionUtility.GetFunctionalPermissionNamesForRoleIdsAndDomainPermissions(userEntity.Roles,
+				userEntity.DomainPermissions, userEntity.TimeZoneId);
 			}
+
+			return userAuth;
+		}
 
 			return null;
 		}

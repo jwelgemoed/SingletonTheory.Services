@@ -167,20 +167,20 @@ namespace SingletonTheory.Services.AuthServices.Tests
 
 		#region Other Tests
 
-		[Test]
-		public void ShouldGetUserRoles()
-		{
-			// Arrange
-			//AuthResponse authResponse = HTTPClientHelpers.Login();
-			CurrentUserAuthRequest request = new CurrentUserAuthRequest { };
-			AuthService service = new AuthService();
+		//[Test]
+		//public void ShouldGetUserRoles()
+		//{
+		//	// Arrange
+		//	//AuthResponse authResponse = HTTPClientHelpers.Login();
+		//	CurrentUserAuthRequest request = new CurrentUserAuthRequest { };
+		//	AuthService service = new AuthService();
 
-			// Act
-			UserAuth response = _client.Get(request);
+		//	// Act
+		//	UserAuth response = _client.Get(request);
 
-			// Assert
-			Assert.AreNotEqual(response.Roles.Count, 0);
-		}
+		//	// Assert
+		//	Assert.AreNotEqual(response.Roles.Count, 0);
+		//}
 
 		#endregion Other Tests
 	}

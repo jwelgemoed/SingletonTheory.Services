@@ -17,7 +17,11 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 			UserAuthRepository repository = GetRepository() as UserAuthRepository;
 
-			return repository.GetUserAuthByUserNameWithFunctionalPermissions(session.UserName);
+			var userAuth = repository.GetUserAuthByUserNameWithFunctionalPermissions(session.UserName);
+
+			//if(userAuth.Meta.Meta)
+
+			return userAuth;
 		}
 
 		#endregion Public Methods

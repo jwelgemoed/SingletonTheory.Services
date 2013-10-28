@@ -11,7 +11,7 @@ namespace SingletonTheory.Library.Tests.IO
 		public void ShouldSerializeToJsonWithoutPrettyPrint()
 		{
 			// Arrange 
-			MyTestObject objectToSerialize = new MyTestObject() { SomeValue = "Some value {0} to serialize" };
+			MyTestObject objectToSerialize = new MyTestObject() { SomeValue = "Some value <0> to serialize" };
 
 			// Act
 			string serialized = SerializationUtilities.SerializeToJson(objectToSerialize, false);
@@ -24,7 +24,7 @@ namespace SingletonTheory.Library.Tests.IO
 		public void ShouldSerializeToJsonWithPrettyPrint()
 		{
 			// Arrange 
-			MyTestObject objectToSerialize = new MyTestObject() { SomeValue = "Some value {0} to serialize" };
+			MyTestObject objectToSerialize = new MyTestObject() { SomeValue = "Some value <0> to serialize" };
 
 			// Act
 			string serialized = SerializationUtilities.SerializeToJson(objectToSerialize, true);
@@ -37,7 +37,7 @@ namespace SingletonTheory.Library.Tests.IO
 		public void ShouldDeserializeToJsonWithoutPrettyPrint()
 		{
 			// Arrange
-			string serialized = "{SomeValue:\"Some value {0} to serialize\"}";
+			string serialized = "{SomeValue:\"Some value <0> to serialize\"}";
 
 			// Act
 			MyTestObject deserializeObject = SerializationUtilities.DeserializeFromJson<MyTestObject>(serialized);
@@ -50,7 +50,7 @@ namespace SingletonTheory.Library.Tests.IO
 		public void ShouldDeserializeToJsonWithPrettyPrint()
 		{
 			// Arrange
-			string serialized = "{\r\n\tSomeValue: Some value <0> to serialize\r\n}";
+			string serialized = "{\r\n\tSomeValue: Some value {\r\n\t\t0\r\n\t} to serialize\r\n}";
 
 			// Act
 			MyTestObject deserializeObject = SerializationUtilities.DeserializeFromJson<MyTestObject>(serialized);
