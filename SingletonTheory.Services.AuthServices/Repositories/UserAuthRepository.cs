@@ -5,7 +5,6 @@ using ServiceStack.Common;
 using ServiceStack.Text;
 using ServiceStack.WebHost.Endpoints;
 using SingletonTheory.Services.AuthServices.Entities;
-using SingletonTheory.Services.AuthServices.TransferObjects;
 using SingletonTheory.Services.AuthServices.Utilities;
 using System;
 using System.Collections.Generic;
@@ -428,17 +427,22 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 				userRepository = container.Resolve<UserRepository>();
 			}
 
-			UserEntity userEntity = userRepository.Read(userNameOrEmail);
-
-			SSAuthInterfaces.UserAuth userAuth = TranslateToUserAuth(userEntity);
-
-			if (userAuth != null)
+			if (!string.IsNullOrEmpty(userNameOrEmail))
 			{
-				userAuth.Permissions = PermissionUtility.GetFunctionalPermissionNamesForRoleIdsAndDomainPermissions(userEntity.Roles,
-				userEntity.DomainPermissions, userEntity.TimeZoneId);
+				UserEntity userEntity = userRepository.Read(userNameOrEmail);
+
+				SSAuthInterfaces.UserAuth userAuth = TranslateToUserAuth(userEntity);
+
+				if (userAuth != null)
+				{
+					userAuth.Permissions = PermissionUtility.GetFunctionalPermissionNamesForRoleIdsAndDomainPermissions(userEntity.Roles,
+					userEntity.DomainPermissions, userEntity.TimeZoneId);
+				}
+
+				return userAuth;
 			}
 
-			return userAuth;
+			return null;
 		}
 
 		public void DropAndReCreateCollections()
