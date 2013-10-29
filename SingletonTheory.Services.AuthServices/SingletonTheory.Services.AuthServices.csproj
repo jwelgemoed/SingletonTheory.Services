@@ -119,6 +119,10 @@
     <Compile Include="Entities\LocalizationKeyEntity.cs" />
     <Compile Include="Entities\PermissionEntity.cs" />
     <Compile Include="Entities\RoleEntity.cs" />
+    <Compile Include="Entities\Hours\ItemHoursEntity.cs" />
+    <Compile Include="Entities\Hours\CostCentreEntity.cs" />
+    <Compile Include="Entities\Hours\RoomHoursEntity.cs" />
+    <Compile Include="Entities\Hours\HourTypeEntity.cs" />
     <Compile Include="Entities\UserEntity.cs" />
     <Compile Include="Extensions\TranslationExtensions.cs" />
     <Compile Include="Interfaces\INameLabel.cs" />
