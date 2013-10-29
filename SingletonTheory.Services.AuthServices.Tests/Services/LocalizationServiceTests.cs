@@ -33,52 +33,52 @@ namespace SingletonTheory.Services.AuthServices.Tests.Services
 
 		#region Test Methods
 
-		[Test]
-		public void ShouldReturnLocale()
-		{
-			// Arrange
-			LocalizationDictionary request = new LocalizationDictionary();
-			request.Locale = "nl-nl";
+		//[Test]
+		//public void ShouldReturnLocale()
+		//{
+		//	// Arrange
+		//	LocalizationDictionary request = new LocalizationDictionary();
+		//	request.Locale = "nl-nl";
 
-			// Act
-			LocalizationDictionary response = _client.Get<LocalizationDictionary>(request);
+		//	// Act
+		//	LocalizationDictionary response = _client.Get<LocalizationDictionary>(request);
 
-			// Assert
-			Assert.IsNotNull(response);
-			Assert.That(response.Locale, Is.EqualTo(request.Locale), "Returns invalid locale");
-		}
+		//	// Assert
+		//	Assert.IsNotNull(response);
+		//	Assert.That(response.Locale, Is.EqualTo(request.Locale), "Returns invalid locale");
+		//}
 
-		[Test]
-		public void ShouldReturnCorrectValueForLocale()
-		{
-			// Arrange
-			LocalizationDictionary request = new LocalizationDictionary();
-			request.LocalizationData.Add(new LocalizationItem() { Key = "_MainTitle_" });
-			request.Locale = "nl-nl";
+		//[Test]
+		//public void ShouldReturnCorrectValueForLocale()
+		//{
+		//	// Arrange
+		//	LocalizationDictionary request = new LocalizationDictionary();
+		//	request.LocalizationData.Add(new LocalizationItem() { Key = "_MainTitle_" });
+		//	request.Locale = "nl-nl";
 
-			// Act
-			LocalizationDictionary response = _client.Get<LocalizationDictionary>(request);
+		//	// Act
+		//	LocalizationDictionary response = _client.Get<LocalizationDictionary>(request);
 
-			// Assert
-			Assert.IsNotNull(response);
-			Assert.That(response.LocalizationData.Count, Is.EqualTo(1));
-			Assert.That(response.LocalizationData[0].Value, Is.EqualTo("Singleton Theory Toegangsapplicatie."), "Does not returned correct value");
-		}
+		//	// Assert
+		//	Assert.IsNotNull(response);
+		//	Assert.That(response.LocalizationData.Count, Is.EqualTo(1));
+		//	Assert.That(response.LocalizationData[0].Value, Is.EqualTo("Singleton Theory Toegangsapplicatie."), "Does not returned correct value");
+		//}
 
-		[Test]
-		public void ShouldReturnAllValuesForLocale()
-		{
-			// Arrange
-			LocalizationDictionary request = new LocalizationDictionary();
-			request.Locale = "nl-nl";
+		//[Test]
+		//public void ShouldReturnAllValuesForLocale()
+		//{
+		//	// Arrange
+		//	LocalizationDictionary request = new LocalizationDictionary();
+		//	request.Locale = "nl-nl";
 
-			// Act
-			LocalizationDictionary response = _client.Get<LocalizationDictionary>(request);
+		//	// Act
+		//	LocalizationDictionary response = _client.Get<LocalizationDictionary>(request);
 
-			// Assert
-			Assert.IsNotNull(response);
-			Assert.That(response.LocalizationData.Count, Is.EqualTo(31));
-		}
+		//	// Assert
+		//	Assert.IsNotNull(response);
+		//	Assert.That(response.LocalizationData.Count, Is.EqualTo(31));
+		//}
 
 		#endregion Test Methods
 	}
