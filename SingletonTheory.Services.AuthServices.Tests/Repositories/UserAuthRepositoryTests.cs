@@ -33,21 +33,21 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories
 
 		#region Test Methods
 
-		[Test]
-		public void ShouldReadUserAuthWithUserName()
-		{
-			// Arrange
-			UserAuthRepository userAuthRepository = new UserAuthRepository(MongoHelpers.GetUserDatabase(), true);
-			UserRepository userRepository = new UserRepository(ConfigSettings.UserDatabaseConnectionName);
-			UserEntity entity = UserData.GetUserForInsert();
-			entity = userRepository.Create(entity);
+		//[Test]
+		//public void ShouldReadUserAuthWithUserName()
+		//{
+		//	// Arrange
+		//	UserAuthRepository userAuthRepository = new UserAuthRepository(MongoHelpers.GetUserDatabase(), true);
+		//	UserRepository userRepository = new UserRepository(ConfigSettings.UserDatabaseConnectionName);
+		//	UserEntity entity = UserData.GetUserForInsert();
+		//	entity = userRepository.Create(entity);
 
-			// Act
-			UserAuth actual = userAuthRepository.GetUserAuthByUserName(entity.UserName, userRepository);
+		//	// Act
+		//	UserAuth actual = userAuthRepository.GetUserAuthByUserName(entity.UserName, userRepository);
 
-			// Assert
-			Assert.AreEqual(entity.Id, actual.Id);
-		}
+		//	// Assert
+		//	Assert.AreEqual(entity.Id, actual.Id);
+		//}
 
 		#endregion Test Methods
 	}
