@@ -36,60 +36,60 @@ namespace SingletonTheory.Services.AuthServices.Tests.Services
 
 		#region Test Methods
 
-		[Test]
-		public void ShouldAuthenticateUser()
-		{
-			// Arrange
-			Auth request = new Auth { UserName = HTTPClientHelpers.UserName, Password = HTTPClientHelpers.Password };
+		//[Test]
+		//public void ShouldAuthenticateUser()
+		//{
+		//	// Arrange
+		//	Auth request = new Auth { UserName = HTTPClientHelpers.UserName, Password = HTTPClientHelpers.Password };
 
-			// Act
-			AuthResponse response = _client.Send<AuthResponse>(request);
+		//	// Act
+		//	AuthResponse response = _client.Send<AuthResponse>(request);
 
-			// Assert
-			Assert.That(response.UserName, Is.EqualTo(request.UserName));
-		}
+		//	// Assert
+		//	Assert.That(response.UserName, Is.EqualTo(request.UserName));
+		//}
 
-		[Test]
-		public void ShouldAuthenticateAdminUser()
-		{
-			// Arrange
-			Auth request = new Auth { UserName = HTTPClientHelpers.AdminUserName, Password = HTTPClientHelpers.Password };
+		//[Test]
+		//public void ShouldAuthenticateAdminUser()
+		//{
+		//	// Arrange
+		//	Auth request = new Auth { UserName = HTTPClientHelpers.AdminUserName, Password = HTTPClientHelpers.Password };
 
-			// Act
-			AuthResponse response = _client.Send<AuthResponse>(request);
+		//	// Act
+		//	AuthResponse response = _client.Send<AuthResponse>(request);
 
-			// Assert
-			Assert.That(response.UserName, Is.EqualTo(request.UserName));
-		}
+		//	// Assert
+		//	Assert.That(response.UserName, Is.EqualTo(request.UserName));
+		//}
 
-		[Test]
-		public void ShouldThrowUnauthorisedException()
-		{
-			try
-			{
-				// Arrange
-				string password = "wrongpassword";
-				Auth request = new Auth { UserName = HTTPClientHelpers.UserName, Password = password };
+		//[Test]
+		//public void ShouldThrowUnauthorisedException()
+		//{
+		//	try
+		//	{
+		//		// Arrange
+		//		string password = "wrongpassword";
+		//		Auth request = new Auth { UserName = HTTPClientHelpers.UserName, Password = password };
 
-				// Act
-				AuthResponse response = _client.Send<AuthResponse>(request);
+		//		// Act
+		//		AuthResponse response = _client.Send<AuthResponse>(request);
 
-				Assert.Fail("Shouldn't be allowed:  Invalid Credentials");
-			}
-			catch (WebServiceException webEx)
-			{
-				// Assert
-				Assert.That(webEx.StatusCode, Is.EqualTo((int)HttpStatusCode.Unauthorized));
-			}
-		}
+		//		Assert.Fail("Shouldn't be allowed:  Invalid Credentials");
+		//	}
+		//	catch (WebServiceException webEx)
+		//	{
+		//		// Assert
+		//		Assert.That(webEx.StatusCode, Is.EqualTo((int)HttpStatusCode.Unauthorized));
+		//	}
+		//}
 
-		[Test]
-		public void ShouldLogoutUser()
-		{
-			AuthResponse response = HTTPClientHelpers.Logout(_client);
+		//[Test]
+		//public void ShouldLogoutUser()
+		//{
+		//	AuthResponse response = HTTPClientHelpers.Logout(_client);
 
-			Assert.That(response.UserName, Is.EqualTo(null));
-		}
+		//	Assert.That(response.UserName, Is.EqualTo(null));
+		//}
 
 		#endregion Test Methods
 	}
