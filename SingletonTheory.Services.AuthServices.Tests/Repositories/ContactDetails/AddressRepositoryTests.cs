@@ -8,6 +8,7 @@ using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities.ContactDetails;
 using SingletonTheory.Services.AuthServices.Repositories.ContactDetails;
 using SingletonTheory.Services.AuthServices.Tests.Data;
+using SingletonTheory.Services.AuthServices.Tests.Helpers;
 
 namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetails
 {
@@ -38,8 +39,9 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 			AddressRepository repository = new AddressRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			AddressEntity entity = AddressData.GetAddressForInsert();
 			repository.ClearCollection();
-
+			AddressTypeEntity addressType = ContactDetailsHelpers.CreateAddressType();
 			// Act
+			entity.AddressTypeId = addressType.Id;
 			entity = repository.Create(entity);
 
 			// Assert

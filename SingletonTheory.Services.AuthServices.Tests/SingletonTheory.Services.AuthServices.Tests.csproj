@@ -88,8 +88,10 @@
     <Compile Include="AuthServiceTests.cs" />
     <Compile Include="AuthAdminServiceTests.cs" />
     <Compile Include="Data\AddressData.cs" />
+    <Compile Include="Data\AddressTypeData.cs" />
     <Compile Include="Data\LocalizationDataTests.cs" />
     <Compile Include="Data\UserData.cs" />
+    <Compile Include="Helpers\ContactDetailsHelpers.cs" />
     <Compile Include="Helpers\HTTPClientHelpers.cs" />
     <Compile Include="Helpers\MongoHelpers.cs" />
     <Compile Include="Repositories\ContactDetails\AddressRepositoryTests.cs" />
