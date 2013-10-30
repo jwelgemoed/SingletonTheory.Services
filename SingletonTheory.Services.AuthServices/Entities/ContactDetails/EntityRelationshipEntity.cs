@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using ServiceStack.DataAnnotations;
@@ -14,6 +15,27 @@ namespace SingletonTheory.Services.AuthServices.Entities.ContactDetails
 
 		[AutoIncrement]
 		public long Id { get; set; }
+
+		[Alias("Entiteit1Id")]
+		[Required]
+		[References(typeof(EntityEntity))]
+		public long Entity1Id { get; set; }
+
+		[Alias("Entiteit2Id")]
+		[Required]
+		[References(typeof(EntityEntity))]
+		public long Entity2Id { get; set; }
+		
+		[Alias("InDatum")]
+		[Required]
+		public DateTime InDate { get; set; }
+
+		[Alias("OutDatum")]
+		[Required]
+		public DateTime OutDate { get; set; }
+
+		[Required]
+		public bool Preffered { get; set; }
 
 		#endregion Fields & Properties
 

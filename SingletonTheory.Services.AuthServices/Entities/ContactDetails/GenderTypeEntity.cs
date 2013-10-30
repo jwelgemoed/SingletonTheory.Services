@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using ServiceStack.DataAnnotations;
@@ -14,6 +15,11 @@ namespace SingletonTheory.Services.AuthServices.Entities.ContactDetails
 
 		[AutoIncrement]
 		public long Id { get; set; }
+
+		[Alias("Omschrijving")]
+		[Required]
+		[StringLength(30)]
+		public string Description { get; set; }
 
 		#endregion Fields & Properties
 
