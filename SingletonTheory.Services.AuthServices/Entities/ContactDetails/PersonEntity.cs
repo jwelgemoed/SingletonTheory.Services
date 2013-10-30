@@ -35,7 +35,7 @@ namespace SingletonTheory.Services.AuthServices.Entities.ContactDetails
 		[ReferencedEntity(typeof(OccupationNameEntity), "OccupationNameId")]
 		public OccupationNameEntity OccupationNameEntity { get; set; }
 
-		[Alias("TietelId")]
+		[Alias("TitelId")]
 		[Required]
 		[References(typeof(TitleEnity))]
 		public long TitleId { get; set; }
@@ -83,8 +83,13 @@ namespace SingletonTheory.Services.AuthServices.Entities.ContactDetails
 
 		[Alias("Rijbewijs")]
 		[Required]
-		[StringLength(30)]
+		[StringLength(16)]
 		public string DriversLicence { get; set; }
+
+		[Alias("Paspoort")]
+		[Required]
+		[StringLength(30)]
+		public string Passport { get; set; }
 
 		[Alias("HeeftAuto")]
 		[Required]
