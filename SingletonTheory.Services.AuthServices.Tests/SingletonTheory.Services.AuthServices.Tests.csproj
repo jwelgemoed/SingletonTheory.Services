@@ -81,6 +81,22 @@
     <Compile Include="Data\UserData.cs" />
     <Compile Include="Helpers\HTTPClientHelpers.cs" />
     <Compile Include="Helpers\MongoHelpers.cs" />
+    <Compile Include="Repositories\ContactDetails\AddressRepositoryTests.cs" />
+    <Compile Include="Repositories\ContactDetails\AddressTypeRepositoryTests.cs" />
+    <Compile Include="Repositories\ContactDetails\ContactRepositoryTests.cs" />
+    <Compile Include="Repositories\ContactDetails\ContactTypeRepositoryTests.cs" />
+    <Compile Include="Repositories\ContactDetails\EmployeeRepositoryTests.cs" />
+    <Compile Include="Repositories\ContactDetails\EntityRelationshipRepositoryTests.cs" />
+    <Compile Include="Repositories\ContactDetails\EntityRepositoryTests.cs" />
+    <Compile Include="Repositories\ContactDetails\EntityTypeRepositoryTests.cs" />
+    <Compile Include="Repositories\ContactDetails\GenderTypeRepositoryTests.cs" />
+    <Compile Include="Repositories\ContactDetails\OccupationNameRepositoryTests.cs" />
+    <Compile Include="Repositories\ContactDetails\PersonRepositoryTests.cs" />
+    <Compile Include="Repositories\ContactDetails\TitleRepositoryTests.cs" />
+    <Compile Include="Repositories\Hours\CostCentreRepositoryTests.cs" />
+    <Compile Include="Repositories\Hours\HourTypeRepositoryTests.cs" />
+    <Compile Include="Repositories\Hours\ItemHoursRepositoryTests.cs" />
+    <Compile Include="Repositories\Hours\RoomHoursRepositoryTests.cs" />
     <Compile Include="Services\LocalizationServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\LocalizationRepositoryTests.cs" />
@@ -119,6 +135,7 @@
   <ItemGroup>
     <Content Include=".gitignore" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

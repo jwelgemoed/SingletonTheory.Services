@@ -37,6 +37,10 @@ namespace SingletonTheory.Services.AuthServices.Entities.ContactDetails
 		[Required]
 		public bool Preffered { get; set; }
 
+		[Alias("VerwijderdDatum")]
+		[Required]
+		public DateTime DeletedDate { get; set; }
+
 		#endregion Fields & Properties
 
 		#region IIdentifiable Members

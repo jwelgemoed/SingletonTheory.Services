@@ -64,14 +64,6 @@ namespace SingletonTheory.Services.AuthServices.Entities.ContactDetails
 		[StringLength(4)]
 		public string Nationality { get; set; }
 
-		[Alias("IndienstDatum")]
-		[Required]
-		public DateTime EmploymentStartDate { get; set; }
-
-		[Alias("UitdienstDatum")]
-		[Required]
-		public DateTime EmploymentEndDate { get; set; }
-
 		[Alias("GeboorteDatum")]
 		[Required]
 		public DateTime DateOfBirth { get; set; }
@@ -81,23 +73,9 @@ namespace SingletonTheory.Services.AuthServices.Entities.ContactDetails
 		[StringLength(30)]
 		public string PlaceOfBirth { get; set; }
 
-		[Alias("Rijbewijs")]
+		[Alias("VerwijderdDatum")]
 		[Required]
-		[StringLength(16)]
-		public string DriversLicence { get; set; }
-
-		[Alias("Paspoort")]
-		[Required]
-		[StringLength(30)]
-		public string Passport { get; set; }
-
-		[Alias("HeeftAuto")]
-		[Required]
-		public bool HasVehicle { get; set; }
-
-		[Alias("PV")]
-		[Required]
-		public bool StaffAssociation { get; set; }
+		public DateTime DeletedDate { get; set; }
 
 		#endregion Fields & Properties
 

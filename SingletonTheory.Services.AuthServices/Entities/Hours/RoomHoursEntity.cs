@@ -61,7 +61,11 @@ namespace SingletonTheory.Services.AuthServices.Entities.Hours
 
 		[Alias("Verwijderd")]
 		public bool Deleted { get; set; }
-		
+
+		[Alias("VerwijderdDatum")]
+		[Required]
+		public DateTime DeletedDate { get; set; }
+
 		#endregion Fields & Properties
 
 		#region IIdentifiable Members
