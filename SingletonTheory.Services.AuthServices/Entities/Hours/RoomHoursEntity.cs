@@ -17,6 +17,7 @@ namespace SingletonTheory.Services.AuthServices.Entities.Hours
 		[AutoIncrement]
 		public long Id { get; set; }
 
+		[Alias("UurTypeId")]
 		[Required]
 		[References(typeof(HourTypeEntity))]
 		public long HourTypeId { get; set; }
@@ -25,6 +26,7 @@ namespace SingletonTheory.Services.AuthServices.Entities.Hours
 		[ReferencedEntity(typeof(HourTypeEntity), "HourTypeId")]
 		public HourTypeEntity HourTypeEntity { get; set; }
 
+		[Alias("KostenPlaatsId")]
 		[Required]
 		[References(typeof(CostCentreEntity))]
 		public long CostCentreId { get; set; }

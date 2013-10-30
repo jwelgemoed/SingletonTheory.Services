@@ -112,6 +112,17 @@
     <Compile Include="Data\LocalizationData.cs" />
     <Compile Include="Data\PermissionData.cs" />
     <Compile Include="Data\UserData.cs" />
+    <Compile Include="Entities\ContactDetails\AddressEnity.cs" />
+    <Compile Include="Entities\ContactDetails\AddressTypeEntity.cs" />
+    <Compile Include="Entities\ContactDetails\ContactEntity.cs" />
+    <Compile Include="Entities\ContactDetails\ContactTypeEntity.cs" />
+    <Compile Include="Entities\ContactDetails\EntityEntity.cs" />
+    <Compile Include="Entities\ContactDetails\EntityRelationshipEntity.cs" />
+    <Compile Include="Entities\ContactDetails\EntityTypeEntity.cs" />
+    <Compile Include="Entities\ContactDetails\GenderTypeEntity.cs" />
+    <Compile Include="Entities\ContactDetails\OccupationNameEntity.cs" />
+    <Compile Include="Entities\ContactDetails\PersonEntity.cs" />
+    <Compile Include="Entities\ContactDetails\TitleEnity.cs" />
     <Compile Include="Entities\DomainPermissionEntity.cs" />
     <Compile Include="Entities\DomainPermissionObject.cs" />
     <Compile Include="Entities\FunctionalPermissionEntity.cs" />
