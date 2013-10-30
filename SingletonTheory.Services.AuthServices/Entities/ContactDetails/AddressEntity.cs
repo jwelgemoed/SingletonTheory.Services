@@ -11,7 +11,7 @@ using SingletonTheory.Services.AuthServices.Entities.Hours;
 namespace SingletonTheory.Services.AuthServices.Entities.ContactDetails
 {
 	[Alias("Adres")]
-	public class AddressEnity : IIdentifiable
+	public class AddressEntity : IIdentifiable
 	{
 		#region Fields & Properties
 

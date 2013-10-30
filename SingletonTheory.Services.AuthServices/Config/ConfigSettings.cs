@@ -102,6 +102,14 @@ namespace SingletonTheory.Services.AuthServices.Config
 			}
 		}
 
+		public static string MySqlDatabaseConnectionName
+		{
+			get
+			{
+				return GetValue("MySqlDatabaseConnectionName", "MySqlConnectionString");
+			}
+		}
+
 		#endregion Fields & Properties
 
 		#region Private Methods

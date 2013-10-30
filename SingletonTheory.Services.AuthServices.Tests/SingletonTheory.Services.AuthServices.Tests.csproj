@@ -66,6 +66,7 @@
       <HintPath>..\packages\ServiceStack.Text.3.9.56\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -77,6 +78,7 @@
     <Compile Include="AuthorisationTests.cs" />
     <Compile Include="AuthServiceTests.cs" />
     <Compile Include="AuthAdminServiceTests.cs" />
+    <Compile Include="Data\AddressData.cs" />
     <Compile Include="Data\LocalizationDataTests.cs" />
     <Compile Include="Data\UserData.cs" />
     <Compile Include="Helpers\HTTPClientHelpers.cs" />

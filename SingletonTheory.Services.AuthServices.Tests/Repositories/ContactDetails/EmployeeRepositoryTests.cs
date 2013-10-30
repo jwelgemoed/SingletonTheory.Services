@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetails
 {
-	class EmployeeRepositoryTests
+	public class EmployeeRepositoryTests
 	{
 	}
 }

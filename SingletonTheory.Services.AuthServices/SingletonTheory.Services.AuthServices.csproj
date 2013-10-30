@@ -112,7 +112,7 @@
     <Compile Include="Data\LocalizationData.cs" />
     <Compile Include="Data\PermissionData.cs" />
     <Compile Include="Data\UserData.cs" />
-    <Compile Include="Entities\ContactDetails\AddressEnity.cs" />
+    <Compile Include="Entities\ContactDetails\AddressEntity.cs" />
     <Compile Include="Entities\ContactDetails\AddressTypeEntity.cs" />
     <Compile Include="Entities\ContactDetails\ContactEntity.cs" />
     <Compile Include="Entities\ContactDetails\ContactTypeEntity.cs" />
