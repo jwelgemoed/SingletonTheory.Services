@@ -54,5 +54,66 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 
 			return entities;
 		}
+
+		public static ItemHoursEntity GetItemHoursEntryForInsert(HourTypeEntity hourType, CostCentreEntity costCentre)
+		{
+			ItemHoursEntity entity = new ItemHoursEntity()
+			{
+				HourTypeId = hourType.Id,
+				CostCentreId = costCentre.Id,
+				OrderNumber = 1234,
+				RoomNumber = 67,
+				ItemNumber = 5678,
+				ParentItemNumber = 8765,
+				PersonNumber = 123456789,
+				Description = "Work on Monday",
+				Date = DateTime.UtcNow,
+				Deleted = true,
+				DeletedDate = DateTime.MinValue
+			};
+
+			return entity;
+		}
+
+		internal static List<ItemHoursEntity> GetItemHoursEntriesForInsert(HourTypeEntity hourType, CostCentreEntity costCentre)
+		{
+			List<ItemHoursEntity> entities = new List<ItemHoursEntity>();
+			entities.Add(GetItemHoursEntryForInsert(hourType, costCentre));
+			ItemHoursEntity entity = GetItemHoursEntryForInsert(hourType, costCentre);
+			entity.OrderNumber = 1111;
+			entities.Add(entity);
+
+			return entities;
+		}
+
+		public static RoomHoursEntity GetRoomHoursEntryForInsert(HourTypeEntity hourType, CostCentreEntity costCentre)
+		{
+			RoomHoursEntity entity = new RoomHoursEntity()
+			{
+				HourTypeId = hourType.Id,
+				CostCentreId = costCentre.Id,
+				ConceptNumber = 9999,
+				OrderNumber = 1234,
+				RoomNumber = 67,
+				PersonNumber = 123456789,
+				Description = "Work on Monday",
+				Date = DateTime.UtcNow,
+				Deleted = true,
+				DeletedDate = DateTime.MinValue
+			};
+
+			return entity;
+		}
+
+		internal static List<RoomHoursEntity> GetRoomHoursEntriesForInsert(HourTypeEntity hourType, CostCentreEntity costCentre)
+		{
+			List<RoomHoursEntity> entities = new List<RoomHoursEntity>();
+			entities.Add(GetRoomHoursEntryForInsert(hourType, costCentre));
+			RoomHoursEntity entity = GetRoomHoursEntryForInsert(hourType, costCentre);
+			entity.OrderNumber = 1111;
+			entities.Add(entity);
+
+			return entities;
+		}
 	}
 }
