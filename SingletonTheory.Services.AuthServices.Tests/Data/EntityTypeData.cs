@@ -7,25 +7,25 @@ using SingletonTheory.Services.AuthServices.Entities.ContactDetails;
 
 namespace SingletonTheory.Services.AuthServices.Tests.Data
 {
-	public static class AddressTypeData
+	public static class EntityTypeData
 	{
-		public static AddressTypeEntity GetItemForInsert()
+		public static EntityTypeEntity GetItemForInsert()
 		{
-			AddressTypeEntity entity = new AddressTypeEntity()
+			EntityTypeEntity entity = new EntityTypeEntity()
 			{
-				Description = "Home",
+				Description = "xxx",
 				DeletedDate = DateTime.MinValue
 			};
 
 			return entity;
 		}
 
-		internal static List<AddressTypeEntity> GetItemsForInsert()
+		internal static List<EntityTypeEntity> GetItemsForInsert()
 		{
-			List<AddressTypeEntity> entities = new List<AddressTypeEntity>();
+			List<EntityTypeEntity> entities = new List<EntityTypeEntity>();
 			entities.Add(GetItemForInsert());
-			AddressTypeEntity entity = GetItemForInsert();
-			entity.Description = "Work";
+			EntityTypeEntity entity = GetItemForInsert();
+			entity.Description = "yyy";
 			entities.Add(entity);
 
 			return entities;

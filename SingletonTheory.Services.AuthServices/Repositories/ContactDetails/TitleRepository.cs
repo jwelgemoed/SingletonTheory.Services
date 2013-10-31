@@ -28,8 +28,8 @@ namespace SingletonTheory.Services.AuthServices.Repositories.ContactDetails
 
 			using (IDatabaseProvider provider = ProviderFactory.GetProvider(connectionStringName))
 			{
-				if (!provider.CollectionExists(typeof(TitleEnity)))
-					provider.CreateCollection(typeof(TitleEnity));
+				if (!provider.CollectionExists(typeof(TitleEntity)))
+					provider.CreateCollection(typeof(TitleEntity));
 			}
 		}
 
@@ -37,15 +37,15 @@ namespace SingletonTheory.Services.AuthServices.Repositories.ContactDetails
 
 		#region Public Methods
 
-		public TitleEnity Create(TitleEnity entity)
+		public TitleEntity Create(TitleEntity entity)
 		{
 			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionStringName))
 			{
-				return provider.Insert<TitleEnity>(entity);
+				return provider.Insert<TitleEntity>(entity);
 			}
 		}
 
-		public List<TitleEnity> Create(List<TitleEnity> entities)
+		public List<TitleEntity> Create(List<TitleEntity> entities)
 		{
 			for (int i = 0; i < entities.Count; i++)
 			{
@@ -55,39 +55,39 @@ namespace SingletonTheory.Services.AuthServices.Repositories.ContactDetails
 			return entities;
 		}
 
-		public TitleEnity Read(long id)
+		public TitleEntity Read(long id)
 		{
 			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionStringName))
 			{
-				return provider.SelectById<TitleEnity>(id);
+				return provider.SelectById<TitleEntity>(id);
 			}
 		}
 
-		public List<TitleEnity> Read()
+		public List<TitleEntity> Read()
 		{
 			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionStringName))
 			{
-				return provider.Select<TitleEnity>();
+				return provider.Select<TitleEntity>();
 			}
 		}
 
-		public TitleEnity Update(TitleEnity entity)
+		public TitleEntity Update(TitleEntity entity)
 		{
 			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionStringName))
 			{
-				TitleEnity entityToUpdate = Read(entity.Id);
+				TitleEntity entityToUpdate = Read(entity.Id);
 				if (entityToUpdate == null)
 					throw new DataAccessException("Item not found"); //  This should not happen seeing that validation should check.
 
 				entityToUpdate = UpdateProperties(entity, entityToUpdate);
 
-				provider.Update<TitleEnity>(entityToUpdate);
+				provider.Update<TitleEntity>(entityToUpdate);
 
 				return entityToUpdate;
 			}
 		}
 
-		public List<TitleEnity> Update(List<TitleEnity> entities)
+		public List<TitleEntity> Update(List<TitleEntity> entities)
 		{
 			for (int i = 0; i < entities.Count; i++)
 			{
@@ -97,7 +97,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories.ContactDetails
 			return entities;
 		}
 
-		public TitleEnity Delete(TitleEnity entity)
+		public TitleEntity Delete(TitleEntity entity)
 		{
 			entity.DeletedDate = DateTime.UtcNow;
 
@@ -108,8 +108,8 @@ namespace SingletonTheory.Services.AuthServices.Repositories.ContactDetails
 		{
 			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionStringName))
 			{
-				if (provider.CollectionExists(typeof(TitleEnity)))
-					provider.DeleteAll<TitleEnity>();
+				if (provider.CollectionExists(typeof(TitleEntity)))
+					provider.DeleteAll<TitleEntity>();
 			}
 		}
 
@@ -117,7 +117,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories.ContactDetails
 
 		#region Private Methods
 
-		private TitleEnity UpdateProperties(TitleEnity entity, TitleEnity entityToUpdate)
+		private TitleEntity UpdateProperties(TitleEntity entity, TitleEntity entityToUpdate)
 		{
 			entityToUpdate.Description = entity.Description;
 			entityToUpdate.DeletedDate = entity.DeletedDate;

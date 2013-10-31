@@ -37,12 +37,12 @@ namespace SingletonTheory.Services.AuthServices.Entities.ContactDetails
 
 		[Alias("TitelId")]
 		[Required]
-		[References(typeof(TitleEnity))]
+		[References(typeof(TitleEntity))]
 		public long TitleId { get; set; }
 
 		[Ignore()]
-		[ReferencedEntity(typeof(TitleEnity), "TitleId")]
-		public TitleEnity TitleEnity { get; set; }
+		[ReferencedEntity(typeof(TitleEntity), "TitleId")]
+		public TitleEntity TitleEnity { get; set; }
 
 		[Alias("Voorvoegsel")]
 		[Required]

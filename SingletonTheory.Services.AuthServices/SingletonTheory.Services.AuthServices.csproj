@@ -125,7 +125,7 @@
     <Compile Include="Entities\ContactDetails\GenderTypeEntity.cs" />
     <Compile Include="Entities\ContactDetails\OccupationNameEntity.cs" />
     <Compile Include="Entities\ContactDetails\PersonEntity.cs" />
-    <Compile Include="Entities\ContactDetails\TitleEnity.cs" />
+    <Compile Include="Entities\ContactDetails\TitleEntity.cs" />
     <Compile Include="Entities\DomainPermissionEntity.cs" />
     <Compile Include="Entities\DomainPermissionObject.cs" />
     <Compile Include="Entities\FunctionalPermissionEntity.cs" />

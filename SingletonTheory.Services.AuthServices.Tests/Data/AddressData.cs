@@ -4,17 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SingletonTheory.Services.AuthServices.Entities.ContactDetails;
+using SingletonTheory.Services.AuthServices.Tests.Helpers;
 
 namespace SingletonTheory.Services.AuthServices.Tests.Data
 {
 	public static class AddressData
 	{
-		public static AddressEntity GetAddressForInsert()
+		public static AddressEntity GetItemForInsert()
 		{
 			AddressEntity entity = new AddressEntity()
 			{
-				AddressTypeId = 1,
-				EntityId = 1,
+				AddressTypeId = ContactDetailsHelpers.CreateAddressType().Id,
+				EntityId = ContactDetailsHelpers.CreateEntity().Id,
 				Street = "Bonga",
 				StreetNumber = "6",
 				StreetNumberAddition = "F",
@@ -28,11 +29,11 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 			return entity;
 		}
 
-		internal static List<AddressEntity> GetAddressesForInsert()
+		internal static List<AddressEntity> GetItemsForInsert()
 		{
 			List<AddressEntity> entities = new List<AddressEntity>();
-			entities.Add(GetAddressForInsert());
-			AddressEntity entity = GetAddressForInsert();
+			entities.Add(GetItemForInsert());
+			AddressEntity entity = GetItemForInsert();
 			entity.Street = "SomeOtherstreet";
 			entities.Add(entity);
 
