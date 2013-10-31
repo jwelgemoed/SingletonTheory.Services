@@ -13,7 +13,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 		{
 			EntityTypeEntity entity = new EntityTypeEntity()
 			{
-				Description = "xxx",
+				Description = "EntityType1",
 				DeletedDate = DateTime.MinValue
 			};
 
@@ -25,7 +25,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 			List<EntityTypeEntity> entities = new List<EntityTypeEntity>();
 			entities.Add(GetItemForInsert());
 			EntityTypeEntity entity = GetItemForInsert();
-			entity.Description = "yyy";
+			entity.Description = "EntityType2";
 			entities.Add(entity);
 
 			return entities;
