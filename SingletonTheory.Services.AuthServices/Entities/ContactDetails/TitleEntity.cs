@@ -9,7 +9,7 @@ using SingletonTheory.OrmLite.Interfaces;
 namespace SingletonTheory.Services.AuthServices.Entities.ContactDetails
 {
 	[Alias("Titel")]
-	public class TitleEnity : IIdentifiable
+	public class TitleEntity : IIdentifiable
 	{
 		#region Fields & Properties
 

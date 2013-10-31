@@ -15,8 +15,52 @@ namespace SingletonTheory.Services.AuthServices.Tests.Helpers
 		public static AddressTypeEntity CreateAddressType()
 		{
 			AddressTypeRepository repository = new AddressTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
-			AddressTypeEntity entity = AddressTypeData.GetAddressTypeForInsert();
+			AddressTypeEntity entity = AddressTypeData.GetItemForInsert();
 			repository.ClearCollection();
+
+			entity = repository.Create(entity);
+
+			return entity;
+		}
+
+		public static EntityEntity CreateEntity()
+		{
+			EntityRepository repository = new EntityRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			EntityEntity entity = EntityData.GetItemForInsert();
+			//repository.ClearCollection();
+
+			entity = repository.Create(entity);
+
+			return entity;
+		}
+
+		public static EntityTypeEntity CreateEntityType()
+		{
+			EntityTypeRepository repository = new EntityTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			EntityTypeEntity entity = EntityTypeData.GetItemForInsert();
+			//repository.ClearCollection();
+
+			entity = repository.Create(entity);
+
+			return entity;
+		}
+
+		public static ContactEntity CreateContact()
+		{
+			ContactRepository repository = new ContactRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			ContactEntity entity = ContactData.GetItemForInsert();
+			//repository.ClearCollection();
+
+			entity = repository.Create(entity);
+
+			return entity;
+		}
+
+		public static ContactTypeEntity CreateContactType()
+		{
+			ContactTypeRepository repository = new ContactTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			ContactTypeEntity entity = ContactTypeData.GetItemForInsert();
+			//repository.ClearCollection();
 
 			entity = repository.Create(entity);
 

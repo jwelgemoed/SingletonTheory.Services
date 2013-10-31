@@ -89,7 +89,17 @@
     <Compile Include="AuthAdminServiceTests.cs" />
     <Compile Include="Data\AddressData.cs" />
     <Compile Include="Data\AddressTypeData.cs" />
+    <Compile Include="Data\ContactData.cs" />
+    <Compile Include="Data\ContactTypeData.cs" />
+    <Compile Include="Data\EmployeeData.cs" />
+    <Compile Include="Data\EntityData.cs" />
+    <Compile Include="Data\EntityRelationshipData.cs" />
+    <Compile Include="Data\EntityTypeData.cs" />
+    <Compile Include="Data\GenderTypeData.cs" />
     <Compile Include="Data\LocalizationDataTests.cs" />
+    <Compile Include="Data\OccupationNameData.cs" />
+    <Compile Include="Data\PersonData.cs" />
+    <Compile Include="Data\TitleData.cs" />
     <Compile Include="Data\UserData.cs" />
     <Compile Include="Helpers\ContactDetailsHelpers.cs" />
     <Compile Include="Helpers\HTTPClientHelpers.cs" />
