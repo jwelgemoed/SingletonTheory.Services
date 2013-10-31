@@ -4,6 +4,7 @@ using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Configuration;
 using ServiceStack.Logging;
 using ServiceStack.Logging.Log4Net;
+using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Admin;
 using ServiceStack.ServiceInterface.Validation;
@@ -42,6 +43,20 @@ namespace SingletonTheory.Services.AuthServices.Host
 
 			// TODO:  Remove this and replace with permanent solutions.
 			CreateMockData(container);
+			ServiceExceptionHandler = new HandleServiceExceptionDelegate(AppHost_ExceptionHandler);
+		}
+
+		/// <summary>
+		/// Handles all exceptions that happens in Services.
+		/// </summary>
+		/// <param name="request">The request object that caused the exception.</param>
+		/// <param name="ex">The exception that happened</param>
+		/// <returns>Default handling of exceptions as by DtoUtils.HandleException</returns>
+		private object AppHost_ExceptionHandler(object request, Exception ex)
+		{
+			LogManager.LogFactory.GetLogger(this.GetType()).Error(ex.Message, ex);
+
+			return DtoUtils.HandleException(this, request, ex);
 		}
 
 		#endregion Override Methods
