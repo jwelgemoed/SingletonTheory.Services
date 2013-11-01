@@ -14,6 +14,7 @@ using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.Services;
 using SingletonTheory.Services.AuthServices.Validations;
 using System;
+using System.Collections.Generic;
 using SSAuthInterfaces = ServiceStack.ServiceInterface.Auth;
 
 namespace SingletonTheory.Services.AuthServices.Host
@@ -33,7 +34,19 @@ namespace SingletonTheory.Services.AuthServices.Host
 
 		public override void Configure(Funq.Container container)
 		{
-			AddPlugins();
+			//AddPlugins(Plugins);
+			//RegisterContainerItems(container);
+			//RegisterValidations(container);
+			//RegisterLogProvider();
+
+			//// TODO:  Remove this and replace with permanent solutions.
+			//CreateMockData(container);
+			Configure(container, Plugins);
+		}
+
+		public static void Configure(Funq.Container container, List<IPlugin> plugins)
+		{
+			AddPlugins(plugins);
 			RegisterContainerItems(container);
 			RegisterValidations(container);
 			RegisterLogProvider();
@@ -59,7 +72,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 			container.Register<UserRepository>(GetUserRepositoryProvider());
 		}
 
-		private static void CreateMockData(Funq.Container container)
+		public static void CreateMockData(Funq.Container container)
 		{
 			LocalizationRepository repository = container.Resolve<LocalizationRepository>();
 			if (repository == null)
@@ -100,7 +113,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 
 		#region Private Methods
 
-		private void AddPlugins()
+		public static void AddPlugins(List<IPlugin> plugins)
 		{
 			AppSettings appSettings = new AppSettings();
 			SSAuthInterfaces.AuthUserSession authUserSession = new SSAuthInterfaces.AuthUserSession();
@@ -110,10 +123,10 @@ namespace SingletonTheory.Services.AuthServices.Host
 
 			requestLogsFeature.RequiredRoles = new string[] { };
 
-			Plugins.Add(new AuthFeature(() => authUserSession, authProviders) { });
-			Plugins.Add(requestLogsFeature);
-			Plugins.Add(new RegistrationFeature());
-			Plugins.Add(new ValidationFeature());
+			plugins.Add(new AuthFeature(() => authUserSession, authProviders) { });
+			plugins.Add(requestLogsFeature);
+			plugins.Add(new RegistrationFeature());
+			plugins.Add(new ValidationFeature());
 		}
 
 		#endregion Private Methods

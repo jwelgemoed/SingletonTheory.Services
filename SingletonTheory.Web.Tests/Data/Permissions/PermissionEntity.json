@@ -1,0 +1,158 @@
+[
+	{
+		Id: 4,
+		Name: DomainPermission_Delete
+	},
+	{
+		Id: 1,
+		Name: DomainPermission_Get
+	},
+	{
+		Id: 3,
+		Name: DomainPermission_Put
+	},
+	{
+		Id: 2,
+		Name: DomainPermission_Post
+	},
+	{
+		Id: 5,
+		Name: DomainPermissions_Get
+	},
+	{
+		Id: 6,
+		Name: FunctionalPermission_Get
+	},
+	{
+		Id: 7,
+		Name: FunctionalPermission_Put
+	},
+	{
+		Id: 8,
+		Name: FunctionalPermission_Post
+	},
+	{
+		Id: 9,
+		Name: FunctionalPermission_Delete
+	},
+	{
+		Id: 15,
+		Name: Permission_Get
+	},
+	{
+		Id: 16,
+		Name: Permission_Put
+	},
+	{
+		Id: 17,
+		Name: Permission_Post
+	},
+	{
+		Id: 18,
+		Name: Permissions_Get
+	},
+	{
+		Id: 19,
+		Name: Role_Get
+	},
+	{
+		Id: 20,
+		Name: Role_Put
+	},
+	{
+		Id: 21,
+		Name: Role_Post
+	},
+	{
+		Id: 22,
+		Name: Role_Delete
+	},
+	{
+		Id: 23,
+		Name: Roles_Get
+	},
+	{
+		Id: 24,
+		Name: User_Get
+	},
+	{
+		Id: 25,
+		Name: User_Put
+	},
+	{
+		Id: 26,
+		Name: User_Post
+	},
+	{
+		Id: 27,
+		Name: Users_Get
+	},
+	{
+		Id: 28,
+		Name: Users_Post
+	},
+	{
+		Id: 29,
+		Name: FunctionalPermissions_Get
+	},
+	{
+		Id: 30,
+		Name: DomainPermissionFunctionalPermissions_Get
+	},
+	{
+		Id: 31,
+		Name: DomainPermissionFunctionalPermissions_Put
+	},
+	{
+		Id: 32,
+		Name: FunctionalPermissionPermissions_Get
+	},
+	{
+		Id: 33,
+		Name: FunctionalPermissionPermissions_Put
+	},
+	{
+		Id: 10,
+		Name: RoleDomainPermissions_Get
+	},
+	{
+		Id: 11,
+		Name: RoleDomainPermissions_Put
+	},
+	{
+		Id: 34,
+		Name: LocalizationLocaleCollection_Get
+	},
+	{
+		Id: 35,
+		Name: LocalizationKeyDictionary_Get
+	},
+	{
+		Id: 36,
+		Name: LocalizationKeyDictionary_Post
+	},
+	{
+		Id: 37,
+		Name: LocalizationKeyDictionary_Put
+	},
+	{
+		Id: 38,
+		Name: LocalizationKeyDictionary_Delete
+	},
+	{
+		Id: 39,
+		Name: LocalizationDictionary_Post
+	},
+	{
+		Id: 40,
+		Name: LocalizationDictionary_Put
+	},
+	{
+		Id: 41,
+		Name: LocalizationDictionary_Delete
+	},
+	{
+		Id: 42,
+		Name: TestPermissionEdit
+	}
+]

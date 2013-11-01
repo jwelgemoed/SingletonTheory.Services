@@ -1,0 +1,254 @@
+[
+	{
+		Id: 1,
+		Name: General_Access,
+		PermissionIds: []
+	},
+	{
+		Id: 2,
+		Name: Administrator_Access,
+		PermissionIds: []
+	},
+	{
+		Id: 3,
+		Name: UserAdministration_Access,
+		PermissionIds: 
+		[
+			27,
+			23,
+			5
+		]
+	},
+	{
+		Id: 19,
+		Name: UserAdministrationUser_Update,
+		PermissionIds: 
+		[
+			24,
+			25
+		]
+	},
+	{
+		Id: 17,
+		Name: UserAdministrationUser_Create,
+		PermissionIds: 
+		[
+			24,
+			26
+		]
+	},
+	{
+		Id: 18,
+		Name: UserAdministrationDomainPermissionLink_Create,
+		PermissionIds: 
+		[
+			25
+		]
+	},
+	{
+		Id: 20,
+		Name: UserAdministrationDomainPermissionLink_Update,
+		PermissionIds: 
+		[
+			25
+		]
+	},
+	{
+		Id: 9,
+		Name: RoleAdministration_Create,
+		PermissionIds: 
+		[
+			21
+		]
+	},
+	{
+		Id: 6,
+		Name: DomainPermissionAdministration_Access,
+		PermissionIds: 
+		[
+			5,
+			29
+		]
+	},
+	{
+		Id: 7,
+		Name: FunctionalPermissionAdministration_Access,
+		PermissionIds: 
+		[
+			18,
+			29
+		]
+	},
+	{
+		Id: 8,
+		Name: PermissionAdministration_Access,
+		PermissionIds: 
+		[
+			18
+		]
+	},
+	{
+		Id: 10,
+		Name: DomainPermissionAdministration_Create,
+		PermissionIds: 
+		[
+			2
+		]
+	},
+	{
+		Id: 11,
+		Name: FunctionalPermissionAdministration_Create,
+		PermissionIds: 
+		[
+			8
+		]
+	},
+	{
+		Id: 12,
+		Name: PermissionAdministration_Create,
+		PermissionIds: 
+		[
+			17
+		]
+	},
+	{
+		Id: 14,
+		Name: DomainPermissionAdministration_Update,
+		PermissionIds: 
+		[
+			3,
+			11,
+			33,
+			31
+		]
+	},
+	{
+		Id: 4,
+		Name: AuthorizationAdministration_Access,
+		PermissionIds: 
+		[
+			23,
+			5,
+			10,
+			30,
+			32
+		]
+	},
+	{
+		Id: 15,
+		Name: FunctionalPermissionAdministration_Update,
+		PermissionIds: 
+		[
+			7,
+			11,
+			33,
+			31
+		]
+	},
+	{
+		Id: 16,
+		Name: PermissionAdministration_Update,
+		PermissionIds: 
+		[
+			16,
+			11,
+			31,
+			33
+		]
+	},
+	{
+		Id: 5,
+		Name: RoleAdministration_Access,
+		PermissionIds: 
+		[
+			23,
+			5,
+			19
+		]
+	},
+	{
+		Id: 25,
+		Name: LocalizationAdministration_Access,
+		PermissionIds: []
+	},
+	{
+		Id: 27,
+		Name: LocaleAdministration_Create,
+		PermissionIds: 
+		[
+			39
+		]
+	},
+	{
+		Id: 26,
+		Name: LocaleAdministration_Update,
+		PermissionIds: 
+		[
+			40
+		]
+	},
+	{
+		Id: 21,
+		Name: LocaleAdministration_Access,
+		PermissionIds: 
+		[
+			34
+		]
+	},
+	{
+		Id: 22,
+		Name: LocaleKeyAdministration_Access,
+		PermissionIds: 
+		[
+			35
+		]
+	},
+	{
+		Id: 24,
+		Name: LocaleKeyAdministration_Create,
+		PermissionIds: 
+		[
+			36
+		]
+	},
+	{
+		Id: 23,
+		Name: LocaleKeyAdministration_Update,
+		PermissionIds: 
+		[
+			37
+		]
+	},
+	{
+		Id: 29,
+		Name: LocaleKeyAdministration_Delete,
+		PermissionIds: 
+		[
+			38
+		]
+	},
+	{
+		Id: 28,
+		Name: LocaleAdministration_Delete,
+		PermissionIds: 
+		[
+			41
+		]
+	},
+	{
+		Id: 13,
+		Name: RoleAdministration_Update,
+		PermissionIds: 
+		[
+			20,
+			11,
+			31,
+			33,
+			22
+		]
+	},
+	{
+		Id: 30,
+		Name: OwnUser_Access
+	}
+]

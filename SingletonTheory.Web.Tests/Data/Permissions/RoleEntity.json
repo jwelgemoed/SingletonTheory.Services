@@ -1,0 +1,174 @@
+[
+	{
+		RootParentId: 1,
+		ParentId: 4,
+		Id: 2,
+		Label: User,
+		Description: Admin can do just about anything,
+		DomainPermissionIds: 
+		[
+			2
+		],
+		ChildRoleIds: [],
+		DateTimeDeleted: 0001-01-01
+	},
+	{
+		RootParentId: 1,
+		ParentId: 1,
+		Id: 3,
+		Label: Tekenaar,
+		Description: Een persoon die tekeningen aanmaak,
+		DomainPermissionIds: 
+		[
+			2
+		],
+		ChildRoleIds: [],
+		DateTimeDeleted: 0001-01-01
+	},
+	{
+		RootParentId: 1,
+		ParentId: 1,
+		Id: 5,
+		Label: SomeRoles,
+		Description: Some role was added,
+		DomainPermissionIds: [],
+		ChildRoleIds: [],
+		DateTimeDeleted: 0001-01-01
+	},
+	{
+		RootParentId: 1,
+		ParentId: 1,
+		Id: 6,
+		Label: SomeRole,
+		Description: Some role was added,
+		DomainPermissionIds: [],
+		ChildRoleIds: [],
+		DateTimeDeleted: 0001-01-01
+	},
+	{
+		RootParentId: 1,
+		ParentId: 1,
+		Id: 7,
+		Label: SomeNewRole,
+		Description: This is a test role,
+		DomainPermissionIds: [],
+		ChildRoleIds: 
+		[
+			12
+		],
+		DateTimeDeleted: 2013-10-18T12:29:12.145Z
+	},
+	{
+		RootParentId: 1,
+		ParentId: 1,
+		Id: 1,
+		Label: Admin,
+		Description: Just a wuser,
+		DomainPermissionIds: 
+		[
+			1,
+			4,
+			3,
+			2,
+			5
+		],
+		ChildRoleIds: 
+		[
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11
+		],
+		DateTimeDeleted: 0001-01-01
+	},
+	{
+		RootParentId: 1,
+		ParentId: 1,
+		Id: 9,
+		Label: TestNewRole,
+		Description: testing 123,
+		DomainPermissionIds: [],
+		ChildRoleIds: [],
+		DateTimeDeleted: 0001-01-01
+	},
+	{
+		RootParentId: 1,
+		ParentId: 1,
+		Id: 10,
+		Label: sdafs,
+		Description: asdfs,
+		DomainPermissionIds: [],
+		ChildRoleIds: [],
+		DateTimeDeleted: 0001-01-01
+	},
+	{
+		RootParentId: 1,
+		ParentId: 1,
+		Id: 11,
+		Label: asdfsf,
+		Description: asdfsadfasdf,
+		DomainPermissionIds: [],
+		ChildRoleIds: [],
+		DateTimeDeleted: 2013-10-18T12:25:06.335Z
+	},
+	{
+		RootParentId: 1,
+		ParentId: 1,
+		Id: 8,
+		Label: Ops Direkteur,
+		Description: Root element for testing,
+		DomainPermissionIds: 
+		[
+			1,
+			4,
+			3,
+			2,
+			5
+		],
+		ChildRoleIds: [],
+		DateTimeDeleted: 0001-01-01
+	},
+	{
+		RootParentId: 1,
+		ParentId: 1,
+		Id: 12,
+		Label: somene1,
+		Description: somenew1,
+		DomainPermissionIds: [],
+		ChildRoleIds: [],
+		DateTimeDeleted: 2013-10-17T12:15:19.492Z
+	},
+	{
+		RootParentId: 1,
+		ParentId: 4,
+		Id: 13,
+		Label: eng sub,
+		Description: eng sub test,
+		DomainPermissionIds: [],
+		ChildRoleIds: [],
+		DateTimeDeleted: 0001-01-01
+	},
+	{
+		RootParentId: 1,
+		ParentId: 1,
+		Id: 4,
+		Label: Engineering Manager,
+		DomainPermissionIds: 
+		[
+			4,
+			2,
+			3
+		],
+		ChildRoleIds: 
+		[
+			13,
+			2
+		],
+		DateTimeDeleted: 0001-01-01
+	}
+]
