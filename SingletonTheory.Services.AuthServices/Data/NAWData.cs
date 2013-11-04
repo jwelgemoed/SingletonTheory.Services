@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
+﻿
 namespace SingletonTheory.Services.AuthServices.Data
 {
 	public class NAWData
@@ -14,7 +10,7 @@ namespace SingletonTheory.Services.AuthServices.Data
 
 		private static void CreateTitles()
 		{
-			throw new NotImplementedException();
+			//throw new NotImplementedException();
 		}
 	}
 }
