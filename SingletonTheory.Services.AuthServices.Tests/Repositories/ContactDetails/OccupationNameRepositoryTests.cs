@@ -12,7 +12,32 @@ using SingletonTheory.Services.AuthServices.Tests.Data;
 namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetails
 {
 	public class OccupationNameRepositoryTests
-	{		
+	{
+		private OccupationNameRepository _repository;
+
+		#region Setup and Teardown
+
+		[SetUp]
+		public void Init()
+		{
+			_repository = new OccupationNameRepository(ConfigSettings.MySqlDatabaseConnectionName);
+		}
+
+		[TearDown]
+		public void Dispose()
+		{
+			try
+			{
+				_repository.ClearCollection();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+		}
+
+		#endregion Setup and Teardown
+
 		#region Test Methods
 
 		[Test]
@@ -32,15 +57,13 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		}
 
 		[Test]
-		public void ShouldCreateContact()
+		public void ShouldCreateOccupationName()
 		{
 			// Arrange
-			OccupationNameRepository repository = new OccupationNameRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			OccupationNameEntity entity = OccupationNameData.GetItemForInsert();
-			repository.ClearCollection();
 
 			// Act
-			entity = repository.Create(entity);
+			entity = _repository.Create(entity);
 
 			// Assert
 			Assert.IsNotNull(entity);
@@ -48,15 +71,13 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		}
 
 		[Test]
-		public void ShouldCreateContacts()
+		public void ShouldCreateOccupationNames()
 		{
 			// Arrange
-			OccupationNameRepository repository = new OccupationNameRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			List<OccupationNameEntity> entities = OccupationNameData.GetItemsForInsert();
-			repository.ClearCollection();
 
 			// Act
-			entities = repository.Create(entities);
+			entities = _repository.Create(entities);
 
 			// Assert
 			Assert.IsNotNull(entities);
@@ -64,51 +85,46 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		}
 
 		[Test]
-		public void ShouldReadContactWithId()
+		public void ShouldReadOccupationNameWithId()
 		{
 			// Arrange
-			OccupationNameRepository repository = new OccupationNameRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			OccupationNameEntity entity = OccupationNameData.GetItemForInsert();
-			repository.ClearCollection();
 
 			// Act
-			entity = repository.Create(entity);
+			entity = _repository.Create(entity);
 
 			// Act
-			var actual = repository.Read(entity.Id);
+			var actual = _repository.Read(entity.Id);
 
 			// Assert
 			Assert.AreEqual(entity.Description, actual.Description);
 		}
 
 		[Test]
-		public void ShouldUpdateContact()
+		public void ShouldUpdateOccupationName()
 		{
 			// Arrange
-			OccupationNameRepository repository = new OccupationNameRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			OccupationNameEntity entity = OccupationNameData.GetItemForInsert();
-			repository.ClearCollection();
-			entity = repository.Create(entity);
+
+			entity = _repository.Create(entity);
 			entity.Description = "Tekenaar";
 
 			// Act
-			OccupationNameEntity actual = repository.Update(entity);
+			OccupationNameEntity actual = _repository.Update(entity);
 
 			// Assert
 			Assert.AreEqual(entity.Description, actual.Description);
 		}
 
 		[Test]
-		public void ShouldDeleteContact()
+		public void ShouldDeleteOccupationName()
 		{
 			// Arrange
-			OccupationNameRepository repository = new OccupationNameRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			OccupationNameEntity entity = OccupationNameData.GetItemForInsert();
-			repository.ClearCollection();
-			entity = repository.Create(entity);
+			entity = _repository.Create(entity);
 
 			// Act
-			OccupationNameEntity actual = repository.Delete(entity);
+			OccupationNameEntity actual = _repository.Delete(entity);
 
 			// Assert
 			Assert.AreEqual(entity.Description, actual.Description);

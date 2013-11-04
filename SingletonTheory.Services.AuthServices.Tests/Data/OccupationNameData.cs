@@ -11,12 +11,24 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 	{
 		public static OccupationNameEntity GetItemForInsert()
 		{
-			throw new NotImplementedException();
+			OccupationNameEntity entity = new OccupationNameEntity()
+			{
+				Description = "Tekenaar",
+				DeletedDate = DateTime.MinValue
+			};
+
+			return entity;
 		}
 
-		public static List<OccupationNameEntity> GetItemsForInsert()
+		internal static List<OccupationNameEntity> GetItemsForInsert()
 		{
-			throw new NotImplementedException();
+			List<OccupationNameEntity> entities = new List<OccupationNameEntity>();
+			entities.Add(GetItemForInsert());
+			OccupationNameEntity entity = GetItemForInsert();
+			entity.Description = "Tekenaar2";
+			entities.Add(entity);
+
+			return entities;
 		}
 	}
 }

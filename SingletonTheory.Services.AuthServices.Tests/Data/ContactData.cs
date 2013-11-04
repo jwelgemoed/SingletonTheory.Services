@@ -14,9 +14,10 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 		{
 			ContactEntity entity = new ContactEntity()
 			{
-				Value = "Contact1",
 				ContactTypeId = ContactDetailsHelpers.CreateContactType().Id,
 				EntityId = ContactDetailsHelpers.CreateEntity().Id,
+				Value = "Contact1",
+				Preffered = true,
 				DeletedDate = DateTime.MinValue
 			};
 
