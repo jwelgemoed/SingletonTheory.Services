@@ -26,20 +26,20 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories
 			Assert.That(response.LocalizationItems[0].Value, Is.EqualTo("Singleton Theory Toegangsapplicatie."), "Does not returned correct value");
 		}
 
-		//[Test]
-		//public void ShouldGetLocalizationCollectionForAllItems()
-		//{
-		//	// Arrange
-		//	LocalizationRepository repository = new LocalizationRepository(MongoHelpers.GetLocalizationDatabase());
-		//	LocalizationCollectionEntity request = new LocalizationCollectionEntity();
-		//	request.Locale = "nl-nl";
+		[Test]
+		public void ShouldGetLocalizationCollectionForAllItems()
+		{
+			// Arrange
+			LocalizationRepository repository = new LocalizationRepository(MongoHelpers.GetLocalizationDatabase());
+			LocalizationCollectionEntity request = new LocalizationCollectionEntity();
+			request.Locale = "nl-nl";
 
-		//	// Act
-		//	LocalizationCollectionEntity response = repository.Read(request.Locale);
+			// Act
+			LocalizationCollectionEntity response = repository.Read(request.Locale);
 
-		//	// Assert
-		//	Assert.IsNotNull(response);
-		//	Assert.That(response.LocalizationItems.Count, Is.EqualTo(31));
-		//}
+			// Assert
+			Assert.IsNotNull(response);
+			Assert.That(response.LocalizationItems.Count, Is.GreaterThan(0));
+		}
 	}
 }
