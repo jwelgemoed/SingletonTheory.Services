@@ -8,7 +8,7 @@ using SingletonTheory.Services.AuthServices.Repositories.ContactDetails;
 
 namespace SingletonTheory.Services.AuthServices.Data
 {
-	public class ContactDetailsData
+	public class NAWData
 	{
 		public static void CreateData()
 		{
