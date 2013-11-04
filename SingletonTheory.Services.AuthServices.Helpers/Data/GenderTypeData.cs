@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SingletonTheory.Services.AuthServices.Entities.ContactDetails;
 
-namespace SingletonTheory.Services.AuthServices.Tests.Data
+namespace SingletonTheory.Services.AuthServices.Helpers.Data
 {
 	public static class GenderTypeData
 	{
@@ -20,7 +20,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 			return entity;
 		}
 
-		internal static List<GenderTypeEntity> GetItemsForInsert()
+		public static List<GenderTypeEntity> GetItemsForInsert()
 		{
 			List<GenderTypeEntity> entities = new List<GenderTypeEntity>();
 			entities.Add(GetItemForInsert());

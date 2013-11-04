@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities.ContactDetails;
+using SingletonTheory.Services.AuthServices.Helpers.Data;
 using SingletonTheory.Services.AuthServices.Repositories.ContactDetails;
 using SingletonTheory.Services.AuthServices.Tests.Data;
 

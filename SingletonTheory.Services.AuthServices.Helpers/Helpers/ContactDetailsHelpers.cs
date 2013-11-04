@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities.ContactDetails;
 using SingletonTheory.Services.AuthServices.Repositories.ContactDetails;
-using SingletonTheory.Services.AuthServices.Tests.Data;
+using SingletonTheory.Services.AuthServices.Helpers.Data;
 
-namespace SingletonTheory.Services.AuthServices.Tests.Helpers
+namespace SingletonTheory.Services.AuthServices.Helpers.Helpers
 {
 	public static class ContactDetailsHelpers
 	{

@@ -87,22 +87,9 @@
     <Compile Include="AuthorisationTests.cs" />
     <Compile Include="AuthServiceTests.cs" />
     <Compile Include="AuthAdminServiceTests.cs" />
-    <Compile Include="Data\AddressData.cs" />
-    <Compile Include="Data\AddressTypeData.cs" />
-    <Compile Include="Data\ContactData.cs" />
-    <Compile Include="Data\ContactTypeData.cs" />
-    <Compile Include="Data\EmployeeData.cs" />
-    <Compile Include="Data\EntityData.cs" />
-    <Compile Include="Data\EntityRelationshipData.cs" />
-    <Compile Include="Data\EntityTypeData.cs" />
-    <Compile Include="Data\GenderTypeData.cs" />
     <Compile Include="Data\HoursData.cs" />
     <Compile Include="Data\LocalizationDataTests.cs" />
-    <Compile Include="Data\OccupationNameData.cs" />
-    <Compile Include="Data\PersonData.cs" />
-    <Compile Include="Data\TitleData.cs" />
     <Compile Include="Data\UserData.cs" />
-    <Compile Include="Helpers\ContactDetailsHelpers.cs" />
     <Compile Include="Helpers\HTTPClientHelpers.cs" />
     <Compile Include="Helpers\MongoHelpers.cs" />
     <Compile Include="Repositories\ContactDetails\AddressRepositoryTests.cs" />
@@ -150,6 +137,10 @@
     <ProjectReference Include="..\SingletonTheory.OrmLite\SingletonTheory.OrmLite.csproj">
       <Project>{6b2e1a7f-7497-4096-920d-059ba7e56679}</Project>
       <Name>SingletonTheory.OrmLite</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SingletonTheory.Services.AuthServices.Helpers\SingletonTheory.Services.AuthServices.Helpers.csproj">
+      <Project>{13e02ac4-3da0-41ff-941e-1666516cf487}</Project>
+      <Name>SingletonTheory.Services.AuthServices.Helpers</Name>
     </ProjectReference>
     <ProjectReference Include="..\SingletonTheory.Services.AuthServices\SingletonTheory.Services.AuthServices.csproj">
       <Project>{31880ae0-113c-4752-b552-192da98b6c1d}</Project>

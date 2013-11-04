@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SingletonTheory.Services.AuthServices.Entities.ContactDetails;
-using SingletonTheory.Services.AuthServices.Tests.Helpers;
+using SingletonTheory.Services.AuthServices.Helpers.Helpers;
 
-namespace SingletonTheory.Services.AuthServices.Tests.Data
+namespace SingletonTheory.Services.AuthServices.Helpers.Data
 {
 	public class EmployeeData
 	{
@@ -28,7 +28,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 			return entity;
 		}
 
-		internal static List<EmployeeEntity> GetItemsForInsert()
+		public static List<EmployeeEntity> GetItemsForInsert()
 		{
 			List<EmployeeEntity> entities = new List<EmployeeEntity>();
 			entities.Add(GetItemForInsert());
