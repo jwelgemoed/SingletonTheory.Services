@@ -160,12 +160,11 @@ namespace SingletonTheory.OrmLite.Providers
 		{
 			try
 			{
-				objectToUpdate.SetId(GetNextCounter<T>()); // Update the Id of the new item before it gets inserted
 				MongoCollection<T> collection = _databaseConnection.GetCollection<T>(GetCollectionName(typeof(T)));
 				IMongoQuery query = MongoBuilders.Query<T>.EQ(e => e.Id, objectToUpdate.Id);
 				T duplicate = collection.FindOne(query);
 
-				if (duplicate != null)
+				if (duplicate == null)
 					throw new DataAccessException("Item not found");
 
 				WriteConcernResult result = collection.Update(query, MongoBuilders.Update.Replace(objectToUpdate), UpdateFlags.Upsert);
@@ -179,10 +178,14 @@ namespace SingletonTheory.OrmLite.Providers
 			}
 		}
 
-		public void Delete<T>(Expression<Func<T, bool>> where)
+		public void Delete<T>(Expression<Func<T, bool>> where) where T : IIdentifiable
 		{
-			//_databaseConnection.Delete<T>(where);
-			return;
+			List<T> itemToDelete = Select<T>(where);
+			MongoCollection<T> collection = _databaseConnection.GetCollection<T>(GetCollectionName(typeof(T)));
+			for (int i = 0; i < itemToDelete.Count; i++)
+			{
+				collection.Remove(MongoBuilders.Query.EQ("_id", itemToDelete[i].Id));
+			}
 		}
 
 		public void Delete<T>(T objectToDelete) where T : IIdentifiable, new()

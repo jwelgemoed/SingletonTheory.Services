@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using MongoDB.Bson;
-using ServiceStack.ServiceHost;
+﻿using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
+using System.Collections.Generic;
 
 namespace SingletonTheory.Services.AuthServices.TransferObjects.Localization
 {
@@ -14,7 +13,7 @@ namespace SingletonTheory.Services.AuthServices.TransferObjects.Localization
 	{
 		#region Fields & Properties
 
-		public ObjectId Id { get; set; }
+		public long Id { get; set; }
 		public string Locale { get; set; }
 		public List<LocalizationItem> LocalizationData { get; set; }
 

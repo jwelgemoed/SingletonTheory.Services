@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using ServiceStack.Common;
-using ServiceStack.FluentValidation.Validators;
+﻿using ServiceStack.Common;
 using ServiceStack.ServiceInterface;
 using SingletonTheory.Services.AuthServices.Entities;
 using SingletonTheory.Services.AuthServices.Repositories;
-using SingletonTheory.Services.AuthServices.TransferObjects;
-using System;
 using SingletonTheory.Services.AuthServices.TransferObjects.Localization;
+using System;
+using System.Collections.Generic;
 
 namespace SingletonTheory.Services.AuthServices.Services
 {
@@ -18,14 +16,17 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		public LocalizationLocaleCollection Get(LocalizationLocaleCollection request)
 		{
-			var repository = GetRepository();
-			var returnLocales = new LocalizationLocaleCollection();
-			foreach (var localeCode in repository.GetAllLocaleCodes())
+			LocalizationRepository repository = GetRepository();
+			LocalizationLocaleCollection returnLocales = new LocalizationLocaleCollection();
+			List<LocalizationCollectionEntity> allLocales = repository.Read();
+			foreach (LocalizationCollectionEntity localeCode in allLocales)
 			{
-				returnLocales.Locales.Add(new LocalizationLocaleItem{LocaleKey = localeCode});
+				returnLocales.Locales.Add(new LocalizationLocaleItem { LocaleKey = localeCode.Locale });
 			}
+
 			return returnLocales;
 		}
+
 		#endregion LocalizationLocaleCollection
 
 		#region LocalizationKeyDictionary
@@ -33,7 +34,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 		public LocalizationKeyDictionary Get(LocalizationKeyDictionary request)
 		{
 			var repository = GetRepository();
-			var returnDictionary = repository.GetAllKeyValues(request.Key);
+			var returnDictionary = repository.ReadAllKeyValues(request.Key);
 			if (returnDictionary == null)
 				return null;
 			return TranslateToKeyResponse(returnDictionary);
@@ -43,7 +44,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 		{
 			var repository = GetRepository();
 			var requestEntity = TranslateToKeyEntity(request);
-			var returnEntity = repository.PostAllKeyValues(requestEntity);
+			var returnEntity = repository.CreateAllKeyValues(requestEntity);
 			return TranslateToKeyResponse(returnEntity);
 		}
 
@@ -51,7 +52,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 		{
 			var repository = GetRepository();
 			var requestEntity = TranslateToKeyEntity(request);
-			var returnEntity = repository.PutAllKeyValues(requestEntity);
+			var returnEntity = repository.UpdateAllKeyValues(requestEntity);
 			return TranslateToKeyResponse(returnEntity);
 		}
 
@@ -64,10 +65,15 @@ namespace SingletonTheory.Services.AuthServices.Services
 		#endregion LocalizationKeyDictionary
 
 		#region LocalizationDictionary
+
 		public LocalizationDictionary Get(LocalizationDictionary request)
 		{
 			LocalizationRepository repository = GetRepository();
+			if (request.Locale == null)
+				return null;
+
 			LocalizationCollectionEntity collection = repository.Read(request.Locale);
+
 			return TranslateToResponse(collection);
 		}
 
@@ -84,8 +90,9 @@ namespace SingletonTheory.Services.AuthServices.Services
 		public void Delete(LocalizationDictionary request)
 		{
 			var repository = GetRepository();
-			repository.Delete(TranslateToEntity(request));
+			repository.Delete(request.Locale);
 		}
+
 		#endregion LocalizationDictionary
 
 		#endregion Public Methods

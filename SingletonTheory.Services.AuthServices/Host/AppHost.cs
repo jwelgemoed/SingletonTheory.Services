@@ -14,6 +14,7 @@ using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Data;
 using SingletonTheory.Services.AuthServices.Providers;
 using SingletonTheory.Services.AuthServices.Repositories;
+using SingletonTheory.Services.AuthServices.Repositories.ContactDetails;
 using SingletonTheory.Services.AuthServices.Services;
 using SingletonTheory.Services.AuthServices.Validations;
 using System;
@@ -87,6 +88,10 @@ namespace SingletonTheory.Services.AuthServices.Host
 			container.Register<SSAuthInterfaces.IUserAuthRepository>(GetUserAuthRepositoryProvider());
 			container.Register<LocalizationRepository>(GetLocalizationRepositoryProvider());
 			container.Register<UserRepository>(GetUserRepositoryProvider());
+			container.Register<TitleRepository>(GetTitleRepositoryProvider());
+			container.Register<ContactTypeRepository>(GetContactTypeRepositoryProvider());
+			container.Register<EntityTypeRepository>(GetEntityTypeRepositoryProvider());
+			container.Register<OccupationNameRepository>(GetOccupationNameRepositoryProvider());
 		}
 
 		public static void CreateMockData(Funq.Container container)
@@ -113,6 +118,26 @@ namespace SingletonTheory.Services.AuthServices.Host
 			return new UserRepository(ConfigSettings.UserDatabaseConnectionName);
 		}
 
+		private static TitleRepository GetTitleRepositoryProvider()
+		{
+			return new TitleRepository(ConfigSettings.MySqlDatabaseConnectionName);
+		}
+
+		private static ContactTypeRepository GetContactTypeRepositoryProvider()
+		{
+			return new ContactTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
+		}
+
+		private static EntityTypeRepository GetEntityTypeRepositoryProvider()
+		{
+			return new EntityTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
+		}
+
+		private static OccupationNameRepository GetOccupationNameRepositoryProvider()
+		{
+			return new OccupationNameRepository(ConfigSettings.MySqlDatabaseConnectionName);
+		}
+
 		private static SSAuthInterfaces.IUserAuthRepository GetUserAuthRepositoryProvider()
 		{
 			MongoDatabase database = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, ConfigSettings.MongoUserAuthDatabaseName);
@@ -124,7 +149,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 		{
 			MongoDatabase database = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, ConfigSettings.MongoLocalizationDatabaseName);
 
-			return new LocalizationRepository(database);
+			return new LocalizationRepository(ConfigSettings.LocalizationDatabaseConnectionName);
 		}
 
 		#endregion Static Methods
