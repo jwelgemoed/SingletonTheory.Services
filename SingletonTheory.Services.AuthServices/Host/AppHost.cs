@@ -46,6 +46,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 			//// TODO:  Remove this and replace with permanent solutions.
 			//CreateMockData(container);
 			Configure(container, Plugins);
+			ServiceExceptionHandler = new HandleServiceExceptionDelegate(AppHost_ExceptionHandler);
 		}
 
 		public static void Configure(Funq.Container container, List<IPlugin> plugins)
@@ -57,7 +58,6 @@ namespace SingletonTheory.Services.AuthServices.Host
 
 			// TODO:  Remove this and replace with permanent solutions.
 			CreateMockData(container);
-			ServiceExceptionHandler = new HandleServiceExceptionDelegate(AppHost_ExceptionHandler);
 		}
 
 		/// <summary>
