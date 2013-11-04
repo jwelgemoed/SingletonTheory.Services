@@ -20,7 +20,7 @@ namespace SingletonTheory.OrmLite.Interfaces
 		void Update<T>(T objectToUpdate) where T : IIdentifiable, new();
 
 		void Delete<T>(T objectToDelete) where T : IIdentifiable, new();
-		void Delete<T>(Expression<Func<T, bool>> where);
+		void Delete<T>(Expression<Func<T, bool>> where) where T : IIdentifiable;
 		void DeleteAll<T>();
 
 		void Rollback();

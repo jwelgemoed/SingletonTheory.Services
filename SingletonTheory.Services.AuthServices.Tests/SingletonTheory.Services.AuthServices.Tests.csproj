@@ -97,6 +97,7 @@
     <Compile Include="Data\EntityTypeData.cs" />
     <Compile Include="Data\GenderTypeData.cs" />
     <Compile Include="Data\HoursData.cs" />
+    <Compile Include="Data\LocalizationDataProvider.cs" />
     <Compile Include="Data\LocalizationDataTests.cs" />
     <Compile Include="Data\OccupationNameData.cs" />
     <Compile Include="Data\PersonData.cs" />

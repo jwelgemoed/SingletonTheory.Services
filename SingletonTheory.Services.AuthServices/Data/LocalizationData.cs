@@ -21,7 +21,7 @@ namespace SingletonTheory.Services.AuthServices.Data
 				FileUtilities.AssertFileExists(fileNames[i]);
 				LocalizationCollectionEntity locale = SerializationUtilities.ReadFile<LocalizationCollectionEntity>(fileNames[i]);
 
-				repository.CreateFromStatic(locale);
+				repository.Create(locale);
 			}
 		}
 

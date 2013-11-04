@@ -1,43 +1,75 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Security.Cryptography;
-using MongoDB.Driver;
-using MongoDB.Driver.Builders;
-using MongoDB.Driver.Linq;
-using ServiceStack.DataAccess;
+﻿using ServiceStack.DataAccess;
 using SingletonTheory.Library.IO;
+using SingletonTheory.OrmLite;
+using SingletonTheory.OrmLite.Interfaces;
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities;
 using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 
 namespace SingletonTheory.Services.AuthServices.Repositories
 {
 	public class LocalizationRepository
 	{
-		#region Constants
-
-		private string CollectionName = "LocaleFiles";
-
-		#endregion Constants
-
 		#region Fields & Properties
 
-		private MongoDatabase _mongoDatabase;
+		private string _connectionName;
 
 		#endregion Fields & Properties
 
 		#region Constructors
 
-		public LocalizationRepository(MongoDatabase mongoDatabase)
+		public LocalizationRepository(string connectionName)
 		{
-			_mongoDatabase = mongoDatabase;
+			_connectionName = connectionName;
 		}
 
 		#endregion Constructors
 
 		#region Public Methods
+
+		public LocalizationCollectionEntity Create(LocalizationCollectionEntity record, bool writeToFile = true)
+		{
+			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionName))
+			{
+				LocalizationCollectionEntity collection = Read(record.Locale);
+				if (collection == null)
+				{
+					collection = CreateCleanLocalizationDictionary(record.Locale);
+				}
+				else
+				{
+					collection.LocalizationItems = record.LocalizationItems;
+					provider.Update(collection);
+				}
+
+				if (writeToFile)
+					SerializationUtilities.ReplaceFile(ConfigSettings.LocalizationFilePath + @"\" + record.Locale + ".json", collection);
+
+				return collection;
+			}
+		}
+
+		public LocalizationKeyCollectionEntity CreateAllKeyValues(LocalizationKeyCollectionEntity keyValueSet, bool writeFile = true)
+		{
+			List<LocalizationCollectionEntity> allLocales = Read();
+			foreach (LocalizationCollectionEntity locale in allLocales)
+			{
+				CreateKeyEntryByNameAndLocale(locale.Locale, keyValueSet.Key, keyValueSet.Key, "", writeFile);
+			}
+
+			return ReadAllKeyValues(keyValueSet.Key);
+		}
+
+		public List<LocalizationCollectionEntity> Read()
+		{
+			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionName))
+			{
+				return provider.Select<LocalizationCollectionEntity>();
+			}
+		}
 
 		public LocalizationCollectionEntity Read(LocalizationCollectionEntity collection)
 		{
@@ -71,92 +103,43 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 
 		public LocalizationCollectionEntity Read(string locale)
 		{
-			try
+			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionName))
 			{
-				MongoCollection<LocalizationCollectionEntity> locales = _mongoDatabase.GetCollection<LocalizationCollectionEntity>(CollectionName);
-				IMongoQuery localeQuery = Query<LocalizationCollectionEntity>.EQ(e => e.Locale, locale);
-				LocalizationCollectionEntity collection = locales.FindOne(localeQuery);
-				if (collection == null)
-				{
-					localeQuery = Query<LocalizationCollectionEntity>.EQ(e => e.Locale, "default");
-					collection = locales.FindOne(localeQuery);
-				}
-
-				return collection.LocalizationItems.Count == 0 ? null : collection;
-			}
-			catch (Exception ex)
-			{
-				throw new DataAccessException("Error querying Mongo Database: " + ex.Message);
+				return provider.Select<LocalizationCollectionEntity>(x => x.Locale == locale).FirstOrDefault();
 			}
 		}
 
-		public void DeleteAllKeyValues(string keyName)
+		public LocalizationKeyCollectionEntity ReadAllKeyValues(string keyName)
 		{
-			try
+			LocalizationKeyCollectionEntity keyValues = new LocalizationKeyCollectionEntity
 			{
-				var allLocales = GetAllLocaleCodes();
-				foreach (var locale in allLocales)
-				{
-					DeleteKeyByNameAndLocale(locale, keyName);
-				}
-			}
-			catch (Exception ex)
+				Key = keyName
+			};
+
+			List<LocalizationCollectionEntity> allLocales = Read();
+			foreach (LocalizationCollectionEntity locale in allLocales)
 			{
-				throw new DataAccessException("Error updating Mongo Database: " + ex.Message);
+				var keyEntry = GetKeyValueByNameAndLocale(locale, keyName);
+				if (keyEntry != null)
+					keyValues.KeyValues.Add(GetKeyValueByNameAndLocale(locale, keyName));
 			}
+
+			if (keyValues.KeyValues.Count == 0)
+				return null;
+
+			return keyValues;
 		}
 
-		public LocalizationKeyCollectionEntity GetAllKeyValues(string keyName)
+		public LocalizationKeyCollectionEntity UpdateAllKeyValues(LocalizationKeyCollectionEntity keyValueSet, bool writeFile = true)
 		{
 			try
 			{
-				var keyValues = new LocalizationKeyCollectionEntity
-												{
-													Key = keyName
-												};
-				var allLocales = GetAllLocaleCodes();
-				foreach (var locale in allLocales)
-				{
-					var keyEntry = GetKeyValueByNameAndLocale(locale, keyName);
-					if (keyEntry != null)
-						keyValues.KeyValues.Add(GetKeyValueByNameAndLocale(locale, keyName));
-				}
-				if (keyValues.KeyValues.Count == 0)
-					return null;
-				return keyValues;
-			}
-			catch (Exception ex)
-			{
-				throw new DataAccessException("Error querying Mongo Database: " + ex.Message);
-			}
-		}
-
-		public LocalizationKeyCollectionEntity PostAllKeyValues(LocalizationKeyCollectionEntity keyValueSet)
-		{
-			try
-			{
-				var allLocales = GetAllLocaleCodes();
-				foreach (var locale in allLocales)
-				{
-					CreateKeyEntryByNameAndLocale(locale, keyValueSet.Key, keyValueSet.Key, "");
-				}
-				return GetAllKeyValues(keyValueSet.Key);
-			}
-			catch (Exception ex)
-			{
-				throw new DataAccessException("Error updating Mongo Database: " + ex.Message);
-			}
-		}
-
-		public LocalizationKeyCollectionEntity PutAllKeyValues(LocalizationKeyCollectionEntity keyValueSet)
-		{
-			try
-			{
-				foreach (var localizationKeyEntity in keyValueSet.KeyValues)
+				foreach (LocalizationKeyEntity localizationKeyEntity in keyValueSet.KeyValues)
 				{
 					SetKeyValueByNameAndLocale(localizationKeyEntity.Locale, keyValueSet.Key, localizationKeyEntity.Value, localizationKeyEntity.Description);
 				}
-				return GetAllKeyValues(keyValueSet.Key);
+
+				return ReadAllKeyValues(keyValueSet.Key);
 			}
 			catch (Exception ex)
 			{
@@ -164,83 +147,29 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 			}
 		}
 
-		public LocalizationCollectionEntity CreateFromStatic(LocalizationCollectionEntity record)
+		public void DeleteAllKeyValues(string keyName, bool writeFile = true)
 		{
-			try
+			List<LocalizationCollectionEntity> allLocales = Read();
+			foreach (LocalizationCollectionEntity locale in allLocales)
 			{
-				var locales = _mongoDatabase.GetCollection<LocalizationCollectionEntity>(CollectionName);
-				var localeQuery = Query<LocalizationCollectionEntity>.EQ(e => e.Locale, record.Locale);
-				var dictionary = locales.FindOne(localeQuery);
-				if (dictionary == null)
-				{
-					locales.Insert(record);
-					dictionary = record;
-				}
-				else
-				{
-					dictionary.LocalizationItems = record.LocalizationItems;
-					locales.Save(dictionary);
-				}
-
-				record.Id = dictionary.Id;
-
-				return record;
-			}
-			catch (Exception ex)
-			{
-				throw new DataAccessException("Unable to insert record in the Mongo Database: " + ex.Message);
+				DeleteKeyByNameAndLocale(locale.Locale, keyName, writeFile);
 			}
 		}
 
-		public void Delete(LocalizationCollectionEntity record)
+		public void Delete(string locale)
 		{
-			try
+			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionName))
 			{
-				var locales = _mongoDatabase.GetCollection<LocalizationCollectionEntity>(CollectionName);
-				var localeQuery = Query<LocalizationCollectionEntity>.EQ(e => e.Locale, record.Locale);
-				var localeToDelete = locales.FindOne(localeQuery);
-				if (localeToDelete != null)
-				{
-					locales.Remove(Query.EQ("_id", localeToDelete.Id));
-				}
-			}
-			catch (Exception ex)
-			{
-				throw new DataAccessException("Unable to remove localization entry: " + ex.Message);
-			}
-		}
-
-		public LocalizationCollectionEntity Create(LocalizationCollectionEntity record)
-		{
-			try
-			{
-				var locales = _mongoDatabase.GetCollection<LocalizationCollectionEntity>(CollectionName);
-				var localeQuery = Query<LocalizationCollectionEntity>.EQ(e => e.Locale, record.Locale);
-				var dictionary = locales.FindOne(localeQuery);
-				LocalizationCollectionEntity returnRecord;
-				if (dictionary == null)
-				{
-					returnRecord = CreateCleanLocalizationDictionary(record.Locale);
-				}
-				else
-				{
-					returnRecord = record;
-					dictionary.LocalizationItems = returnRecord.LocalizationItems;
-					locales.Save(dictionary);
-					returnRecord.Id = dictionary.Id;
-				}
-				SerializationUtilities.ReplaceFile(ConfigSettings.LocalizationFilePath + @"\" + record.Locale + ".json", returnRecord);
-				return returnRecord;
-			}
-			catch (Exception ex)
-			{
-				throw new DataAccessException("Unable to insert record in the Mongo Database: " + ex.Message);
+				provider.Delete<LocalizationCollectionEntity>(x => x.Locale == locale);
 			}
 		}
 
 		public void ClearCollection()
 		{
-			_mongoDatabase.DropCollection(CollectionName);
+			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionName))
+			{
+				provider.DeleteAll<LocalizationCollectionEntity>();
+			}
 		}
 
 		#endregion Public Methods
@@ -249,122 +178,78 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 
 		private LocalizationCollectionEntity CreateCleanLocalizationDictionary(string localeName)
 		{
-			try
+			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionName))
 			{
-				var locales = _mongoDatabase.GetCollection<LocalizationCollectionEntity>(CollectionName);
-				var localeQuery = Query<LocalizationCollectionEntity>.EQ(e => e.Locale, "default");
-				var dictionary = locales.FindOne(localeQuery);
-				if (dictionary == null)
+				LocalizationCollectionEntity collection = Read("default");
+				if (collection == null)
 				{
 					throw new DataException("Unable to find the default locale");
 				}
-				var newLocale = new LocalizationCollectionEntity();
+
+				LocalizationCollectionEntity newLocale = new LocalizationCollectionEntity();
 				newLocale.Locale = localeName;
-				foreach (var localizationEntity in dictionary.LocalizationItems)
+				foreach (LocalizationEntity localizationEntity in collection.LocalizationItems)
 				{
 					newLocale.LocalizationItems.Add(new LocalizationEntity { Key = localizationEntity.Key, Value = localizationEntity.Key, Description = "" });
 				}
-				locales.Insert(newLocale);
-				return newLocale;
-			}
-			catch (Exception ex)
-			{
-				throw new DataAccessException("Unable to create clean localization repository: " + ex.Message);
+
+				return provider.Insert(newLocale);
 			}
 		}
 
-		private LocalizationKeyEntity GetKeyValueByNameAndLocale(string locale, string keyName)
+		private LocalizationKeyEntity GetKeyValueByNameAndLocale(LocalizationCollectionEntity collection, string keyName)
 		{
-			try
-			{
-				var locales = _mongoDatabase.GetCollection<LocalizationCollectionEntity>(CollectionName);
-				var localeCollection = locales.FindOne(Query<LocalizationCollectionEntity>.EQ(e => e.Locale, locale));
-				if (!localeCollection.LocalizationItems.Any(e => e.Key == keyName))
-					return null;
-				var value = localeCollection.LocalizationItems.First(e => e.Key == keyName);
-				return new LocalizationKeyEntity { LocaleId = localeCollection.Id, Locale = localeCollection.Locale, Description = value.Description, Value = value.Value };
-			}
-			catch (Exception ex)
-			{
-				throw new DataAccessException("Error querying Mongo Database: " + ex.Message);
-			}
+			if (!collection.LocalizationItems.Any(e => e.Key == keyName))
+				return null;
+
+			LocalizationEntity value = collection.LocalizationItems.First(e => e.Key == keyName);
+
+			return new LocalizationKeyEntity { LocaleId = collection.Id, Locale = collection.Locale, Description = value.Description, Value = value.Value };
 		}
 
-		private void SetKeyValueByNameAndLocale(string locale, string keyName, string keyValue, string keyDescription)
+		private void SetKeyValueByNameAndLocale(string locale, string keyName, string keyValue, string keyDescription, bool writeFile = true)
 		{
-			try
+			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionName))
 			{
-				var locales = _mongoDatabase.GetCollection<LocalizationCollectionEntity>(CollectionName);
-				var localeCollection = locales.FindOne(Query<LocalizationCollectionEntity>.EQ(e => e.Locale, locale));
-				var value = localeCollection.LocalizationItems.First(e => e.Key == keyName);
+				LocalizationCollectionEntity localeCollection = Read(locale);
+				LocalizationEntity value = localeCollection.LocalizationItems.First(e => e.Key == keyName);
+
 				value.Value = keyValue;
 				value.Description = keyDescription;
-				locales.Save(localeCollection);
-				SerializationUtilities.ReplaceFile(ConfigSettings.LocalizationFilePath + @"\" + locale + ".json", localeCollection);
-			}
-			catch (Exception ex)
-			{
-				throw new DataAccessException("Error updating Mongo Database: " + ex.Message);
+
+				provider.Update(localeCollection);
 			}
 		}
 
-		private void DeleteKeyByNameAndLocale(string locale, string keyName)
+		private void DeleteKeyByNameAndLocale(string locale, string keyName, bool writeFile = true)
 		{
-			try
+			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionName))
 			{
-				var locales = _mongoDatabase.GetCollection<LocalizationCollectionEntity>(CollectionName);
-				var localeCollection = locales.FindOne(Query<LocalizationCollectionEntity>.EQ(e => e.Locale, locale));
-				var value = localeCollection.LocalizationItems.First(e => e.Key == keyName);
+				LocalizationCollectionEntity localeCollection = Read(locale);
+				LocalizationEntity value = localeCollection.LocalizationItems.First(e => e.Key == keyName);
+
 				localeCollection.LocalizationItems.Remove(value);
-				locales.Save(localeCollection);
-				SerializationUtilities.ReplaceFile(ConfigSettings.LocalizationFilePath + @"\" + locale + ".json", localeCollection);
-			}
-			catch (Exception ex)
-			{
-				throw new DataAccessException("Error updating Mongo Database: " + ex.Message);
+				provider.Update(localeCollection);
 			}
 		}
 
-		private void CreateKeyEntryByNameAndLocale(string locale, string keyName, string keyValue, string keyDescription)
+		private void CreateKeyEntryByNameAndLocale(string locale, string keyName, string keyValue, string keyDescription, bool writeFile = true)
 		{
-			try
+			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionName))
 			{
-				var locales = _mongoDatabase.GetCollection<LocalizationCollectionEntity>(CollectionName);
-				var localeCollection = locales.FindOne(Query<LocalizationCollectionEntity>.EQ(e => e.Locale, locale));
+				LocalizationCollectionEntity localeCollection = Read(locale);
 				if (localeCollection.LocalizationItems.Any(e => e.Key == keyName))
 				{
 					throw new DataException("The langauge key already exists:");
 				}
-				localeCollection.LocalizationItems.Add(new LocalizationEntity { Key = keyName, Value = keyValue, Description = keyDescription });
-				locales.Save(localeCollection);
-				SerializationUtilities.ReplaceFile(ConfigSettings.LocalizationFilePath + @"\" + locale + ".json", localeCollection);
-			}
-			catch (Exception ex)
-			{
-				throw new DataAccessException("Error adding data to Mongo Database: " + ex.Message);
-			}
-		}
 
-		public IEnumerable<string> GetAllLocaleCodes()
-		{
-			try
-			{
-				var returnCodes = new List<string>();
-				var locales = _mongoDatabase.GetCollection<LocalizationCollectionEntity>(CollectionName);
-				var collection = locales.FindAll();
-				foreach (var localizationCollectionEntity in collection)
-				{
-					returnCodes.Add(localizationCollectionEntity.Locale);
-				}
-				return returnCodes;
-			}
-			catch (Exception ex)
-			{
-				throw new DataAccessException("Error querying Mongo Database: " + ex.Message);
+				localeCollection.LocalizationItems.Add(new LocalizationEntity { Key = keyName, Value = keyValue, Description = keyDescription });
+				provider.Update(localeCollection);
+				if (writeFile)
+					SerializationUtilities.ReplaceFile(ConfigSettings.LocalizationFilePath + @"\" + locale + ".json", localeCollection);
 			}
 		}
 
 		#endregion
-
 	}
 }

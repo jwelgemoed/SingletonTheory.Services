@@ -390,7 +390,7 @@ namespace SingletonTheory.OrmLite.Providers
 			}
 		}
 
-		public void Delete<T>(Expression<Func<T, bool>> where)
+		public void Delete<T>(Expression<Func<T, bool>> where) where T : IIdentifiable
 		{
 			_databaseConnection.Delete<T>(where);
 		}
