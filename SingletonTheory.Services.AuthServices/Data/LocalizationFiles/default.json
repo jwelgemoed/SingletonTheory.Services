@@ -5,7 +5,7 @@
 	[
 		{
 			Key: _MainTitle_,
-			Value: Singleton Theory Auth.,
+			Value: Bridge,
 			Description: Main app title.
 		},
 		{
@@ -317,13 +317,11 @@
 		},
 		{
 			Key: _LocaleCodeHeading_,
-			Value: Locale Code,
-			Description: 
+			Value: Locale Code
 		},
 		{
 			Key: _KeyHeading_,
-			Value: Key,
-			Description: 
+			Value: Key
 		}
 	]
 }
