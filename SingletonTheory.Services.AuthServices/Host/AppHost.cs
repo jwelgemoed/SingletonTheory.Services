@@ -87,7 +87,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 			PermissionData.CreatePermissions(ConfigSettings.PermissionsDirectory);
 
 			UserData.CreateUsers();
-			NAWData.CreateData();
+			ContactDetailsData.CreateData();
 		}
 
 		private static void RegisterValidations(Funq.Container container)

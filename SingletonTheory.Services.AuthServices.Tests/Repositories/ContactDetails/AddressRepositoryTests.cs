@@ -9,8 +9,6 @@ using SingletonTheory.Services.AuthServices.Entities.ContactDetails;
 using SingletonTheory.Services.AuthServices.Helpers.Data;
 using SingletonTheory.Services.AuthServices.Helpers.Helpers;
 using SingletonTheory.Services.AuthServices.Repositories.ContactDetails;
-using SingletonTheory.Services.AuthServices.Tests.Data;
-using SingletonTheory.Services.AuthServices.Tests.Helpers;
 
 namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetails
 {
