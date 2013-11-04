@@ -65,10 +65,15 @@ namespace SingletonTheory.Services.AuthServices.Services
 		#endregion LocalizationKeyDictionary
 
 		#region LocalizationDictionary
+
 		public LocalizationDictionary Get(LocalizationDictionary request)
 		{
 			LocalizationRepository repository = GetRepository();
+			if (request.Locale == null)
+				return null;
+
 			LocalizationCollectionEntity collection = repository.Read(request.Locale);
+
 			return TranslateToResponse(collection);
 		}
 

@@ -30,13 +30,18 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 
 		#region Public Methods
 
-		public LocalizationCollectionEntity Create(LocalizationCollectionEntity record, bool writeToFile = true)
+		public LocalizationCollectionEntity Create(LocalizationCollectionEntity record, bool writeToFile = true, bool createFromStatic = false)
 		{
 			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionName))
 			{
 				LocalizationCollectionEntity collection = Read(record.Locale);
 				if (collection == null)
 				{
+					if (createFromStatic)
+					{
+						return provider.Insert(record);
+					}
+
 					collection = CreateCleanLocalizationDictionary(record.Locale);
 				}
 				else
