@@ -14,7 +14,7 @@ namespace SingletonTheory.Services.AuthServices.Data
 		{
 			CreateTitles();
 			CreateContactTypes();
-			CreateEntityTypes();
+			CreateEntityTypes();eryr
 			CreateOccupationNames();
 		}
 
