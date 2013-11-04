@@ -10,56 +10,43 @@ using SingletonTheory.Services.AuthServices.TransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace SingletonTheory.Web.Tests
 {
-	[TestFixture]
-	public class HostTestsExamples
+	class Example
 	{
-		private const string BaseUrlTest = "http://localhost:54720";
+		private const string BaseUrlTest = "http://localhost:10101";
 		private const string ListeningOn = BaseUrlTest + "/";
-				
+
 		AppHostHttpListener appHostServices;
 
 		static IRestClient[] RestClients = 
 		{
 			new JsonServiceClient( ListeningOn)
+			//new XmlServiceClient(ServiceClientBaseUri),
 		};
 
-
-		[TestFixtureSetUp]
-		public void TestFixtureSetUp()
+		public void ExampleServiceCall()
 		{
 			appHostServices = new AppHostHttpListener("UserService", typeof(UserService).Assembly);
-			AppHost.Configure(appHostServices.Container, appHostServices.Plugins);
-			AppHost.CreateMockData(appHostServices.Container);
 			appHostServices.Init();
 			appHostServices.Start(ListeningOn);
-		}
-				
-		[TestFixtureTearDown]
-		public void TestFixtureTearDown()
-		{
-			appHostServices.Dispose();
-		}
 
-		[Test]
-		public void ShouldRunUserService()
-		{
-			// Arrange
-			User request = new User() { Id = 1 };
+			AppHost.Configure(appHostServices.Container, appHostServices.Plugins);
+			AppHost.CreateMockData(appHostServices.Container);
+
 			Auth userAuth = new Auth() { UserName = "admin", Password = "123" };
 			AuthResponse authResponse = (RestClients[0] as JsonServiceClient).Send<AuthResponse>(userAuth);
+			User request = new User() { Id = 1 };
 
-			// Act
 			foreach (var client in RestClients)
 			{
 				User response = client.Get(request);
-				// Assert
-				Assert.IsNotNull(response);
 			}
+
+			appHostServices.Dispose();
 		}
 	}
 }

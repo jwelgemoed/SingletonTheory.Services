@@ -66,7 +66,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HostTestsExamples.cs" />
+    <Compile Include="Example.cs" />
+    <Compile Include="HostTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -98,6 +99,14 @@
     <ProjectReference Include="..\SingletonTheory.Services.AuthServices\SingletonTheory.Services.AuthServices.csproj">
       <Project>{31880ae0-113c-4752-b552-192da98b6c1d}</Project>
       <Name>SingletonTheory.Services.AuthServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SingletonTheory.Web.Tests.AssemblyOne\SingletonTheory.Web.Tests.AssemblyOne.csproj">
+      <Project>{4e61bfb1-977a-4784-93b3-e1322fe0cf5c}</Project>
+      <Name>SingletonTheory.Web.Tests.AssemblyOne</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SingletonTheory.Web.Tests.AssemblyTwo\SingletonTheory.Web.Tests.AssemblyTwo.csproj">
+      <Project>{5c6ba3da-b1e3-4362-82b5-d99ec762aa17}</Project>
+      <Name>SingletonTheory.Web.Tests.AssemblyTwo</Name>
     </ProjectReference>
     <ProjectReference Include="..\SingletonTheory.Web\SingletonTheory.Web.csproj">
       <Project>{5c33ca0d-0b4c-47e7-b632-66cba8b0f23d}</Project>
