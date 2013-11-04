@@ -90,6 +90,7 @@
     <Compile Include="AuthServiceTests.cs" />
     <Compile Include="AuthAdminServiceTests.cs" />
     <Compile Include="Data\HoursData.cs" />
+    <Compile Include="Data\LocalizationDataProvider.cs" />
     <Compile Include="Data\LocalizationDataTests.cs" />
     <Compile Include="Data\UserData.cs" />
     <Compile Include="Helpers\HTTPClientHelpers.cs" />

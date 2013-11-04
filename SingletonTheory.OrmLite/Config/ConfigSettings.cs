@@ -2,9 +2,9 @@
 
 namespace SingletonTheory.OrmLite.Config
 {
-	public static class ConfigSettings
+	internal static class ConfigSettings
 	{
-		#region Public Methods
+		#region Internal Methods
 
 		public static string GetConnectionString(string key, string defaultValue = "")
 		{
@@ -20,6 +20,6 @@ namespace SingletonTheory.OrmLite.Config
 			return string.IsNullOrEmpty(returnValue) ? defaultValue : returnValue;
 		}
 
-		#endregion Public Methods
+		#endregion Internal Methods
 	}
 }

@@ -136,7 +136,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 		{
 			MongoDatabase database = MongoWrapper.GetDatabase(ConfigSettings.MongoConnectionString, ConfigSettings.MongoLocalizationDatabaseName);
 
-			return new LocalizationRepository(database);
+			return new LocalizationRepository(ConfigSettings.LocalizationDatabaseConnectionName);
 		}
 
 		#endregion Static Methods

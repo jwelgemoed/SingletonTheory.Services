@@ -1,13 +1,16 @@
-﻿using MongoDB.Bson;
+﻿using ServiceStack.DataAnnotations;
+using SingletonTheory.OrmLite.Interfaces;
 using System.Collections.Generic;
 
 namespace SingletonTheory.Services.AuthServices.Entities
 {
-	public class LocalizationCollectionEntity
+	[Alias("LocaleFiles")]
+	public class LocalizationCollectionEntity : IIdentifiable
 	{
 		#region Fields & Properties
 
-		public ObjectId Id { get; set; }
+		[AutoIncrement]
+		public long Id { get; set; }
 		public string Locale { get; set; }
 		public List<LocalizationEntity> LocalizationItems { get; set; }
 
@@ -21,5 +24,14 @@ namespace SingletonTheory.Services.AuthServices.Entities
 		}
 
 		#endregion Constructors
+
+		#region IIdentifiable Members
+
+		public void SetId(long id)
+		{
+			Id = id;
+		}
+
+		#endregion IIdentifiable Members
 	}
 }
