@@ -48,10 +48,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppHost.cs" />
+    <Compile Include="AssemblyOneContainerItem.cs" />
+    <Compile Include="AssemblyOnePlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="Service.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SingletonTheory.Web\SingletonTheory.Web.csproj">
+      <Project>{5c33ca0d-0b4c-47e7-b632-66cba8b0f23d}</Project>
+      <Name>SingletonTheory.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

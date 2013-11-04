@@ -49,7 +49,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppHostHttpListener.cs" />
+    <Compile Include="Interfaces\IAppHostConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SingletonTheory.OrmLite\SingletonTheory.OrmLite.csproj">
+      <Project>{6b2e1a7f-7497-4096-920d-059ba7e56679}</Project>
+      <Name>SingletonTheory.OrmLite</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

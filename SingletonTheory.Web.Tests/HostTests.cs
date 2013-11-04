@@ -1,62 +1,30 @@
 ﻿using NUnit.Framework;
 using ServiceStack.Service;
 using ServiceStack.ServiceClient.Web;
-using ServiceStack.ServiceInterface.Auth;
-using ServiceStack.ServiceInterface.Cors;
-using ServiceStack.WebHost.Endpoints;
-using SingletonTheory.Services.AuthServices.Host;
-using SingletonTheory.Services.AuthServices.Services;
-using SingletonTheory.Services.AuthServices.TransferObjects;
-using System;
+using SingletonTheory.Web.Tests.AssemblyOne;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingletonTheory.Web.Tests
 {
 	[TestFixture]
 	public class HostTests
 	{
+		#region Constants
+		
 		private const string BaseUrlTest = "http://localhost:10101";
 		private const string ListeningOn = BaseUrlTest + "/";
 
-		AppHostHttpListener appHostServices;
+		#endregion Constants
 
-		/*		static IRestClient[] RestClients = 
-				{
-					new JsonServiceClient( ListeningOn)
-					//new XmlServiceClient(ServiceClientBaseUri),
-				};
-		*/
-		static IRestClient RestClient = new JsonServiceClient(ListeningOn);
+		#region Fields & Properties
 
-		private static List<Assembly> GetAssembliesToLoad()
-		{
-			List<Assembly> assemblies = new List<Assembly>();
+		private static IRestClient _restClient = new JsonServiceClient(ListeningOn);
 
-			assemblies.Add(typeof(AssemblyOne.Service).Assembly);
-			assemblies.Add(typeof(AssemblyTwo.Service).Assembly);
+		#endregion Fields & Properties
 
-			return assemblies;
-		}
-
-
-		//[TestFixtureSetUp]
-		public void TestFixtureSetUpForMultipleAssemblies()
-		{
-			List<Assembly> assemblies = GetAssembliesToLoad();
-			appHostServices = new AppHostHttpListener("TestServices", assemblies.ToArray());
-			appHostServices.Init();
-			appHostServices.Start(ListeningOn);
-		}
-
-		[TestFixtureTearDown]
-		public void TestFixtureTearDown()
-		{
-			appHostServices.Dispose();
-		}
+		#region Test Methods
 
 		[Test]
 		public void ShouldLoadAssemblies()
@@ -69,45 +37,89 @@ namespace SingletonTheory.Web.Tests
 
 			// Assert
 			Assert.AreEqual(2, appHostServices.Assemblies.Count());
-
 		}
 
 		[Test]
 		public void ShouldLoadServicesFromAssemblies()
 		{
 			// Arrange
-			TestFixtureSetUpForMultipleAssemblies();
-			AssemblyOne.RequestOne requestOne = new AssemblyOne.RequestOne() { Id = 1 };
-			AssemblyTwo.RequestTwo requestTwo = new AssemblyTwo.RequestTwo() { Id = 1 };
+			using (AppHostHttpListener appHostServices = GetAppHostHttpListener())
+			{
+				AssemblyOne.RequestOne requestOne = new AssemblyOne.RequestOne() { Id = 1 };
+				AssemblyTwo.RequestTwo requestTwo = new AssemblyTwo.RequestTwo() { Id = 1 };
 
-			// Act
-			AssemblyOne.Response responseOne = new AssemblyOne.Response();
-			AssemblyTwo.Response responseTwo = new AssemblyTwo.Response();
+				// Act
+				AssemblyOne.Response responseOne = _restClient.Get<AssemblyOne.Response>(requestOne);
+				AssemblyTwo.Response responseTwo = _restClient.Get<AssemblyTwo.Response>(requestTwo);
 
-			responseOne = RestClient.Get<AssemblyOne.Response>(requestOne);
-			responseTwo = RestClient.Get<AssemblyTwo.Response>(requestTwo);
+				// Assert 
+				// responseOne
+				Assert.IsNotNull(responseOne);
+				Assert.AreEqual(1, responseOne.AssemblyNumber);
 
-			// Assert 
-			//	responseOne
-			Assert.IsNotNull(responseOne);
-			Assert.AreEqual(1, responseOne.AssemblyNumber);
-			//	responseTwo
-			Assert.IsNotNull(responseTwo);
-			Assert.AreEqual(2, responseTwo.AssemblyNumber);
-
+				// responseTwo
+				Assert.IsNotNull(responseTwo);
+				Assert.AreEqual(2, responseTwo.AssemblyNumber);
+			}
 		}
 
 		[Test]
-		public void ShouldConfigureAssemblies()
+		public void ShouldConfigureAssembliesWithContainerItem()
 		{
-			// Arrange
-
-			// Act
-
-			// Assert
-
+			// Arrange & Act
+			using (AppHostHttpListener appHostServices = GetAppHostHttpListener())
+			{
+				// Assert
+				Assert.IsNotNull(appHostServices.Container.Resolve<AssemblyOneContainerItem>());
+			}
 		}
 
+		[Test]
+		public void ShouldConfigureAssembliesWithPlugin()
+		{
+			// Arrange & Act
+			using (AppHostHttpListener appHostServices = GetAppHostHttpListener())
+			{
+				// Assert
+				for (int i = 0; i < appHostServices.Plugins.Count; i++)
+				{
+					if (appHostServices.Plugins[i] is AssemblyOnePlugin)
+					{
+						// Assert
+						Assert.Pass();
+					}
+				}
+
+				Assert.Fail("This should not happen.");
+			}
+		}
+
+		#endregion Test Methods
+
+		#region Helper Methods
+
+		private static List<Assembly> GetAssembliesToLoad()
+		{
+			List<Assembly> assemblies = new List<Assembly>();
+
+			assemblies.Add(typeof(AssemblyOne.Service).Assembly);
+			assemblies.Add(typeof(AssemblyTwo.Service).Assembly);
+
+			return assemblies;
+		}
+
+		public AppHostHttpListener GetAppHostHttpListener()
+		{
+			List<Assembly> assemblies = GetAssembliesToLoad();
+			AppHostHttpListener appHostServices = new AppHostHttpListener("TestServices", assemblies.ToArray());
+
+			appHostServices.Init();
+			appHostServices.Start(ListeningOn);
+
+			return appHostServices;
+		}
+
+		#endregion Helper Methods
 	}
 }
 

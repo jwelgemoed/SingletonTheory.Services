@@ -217,10 +217,18 @@
     <Content Include="Data\LocalizationFiles\nl-nl.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Permissions\PermissionEntity.json" />
-    <Content Include="Data\Permissions\RoleEntity.json" />
-    <Content Include="Data\Permissions\DomainPermissionEntity.json" />
-    <Content Include="Data\Permissions\FunctionalPermissionEntity.json" />
+    <Content Include="Data\Permissions\PermissionEntity.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Permissions\RoleEntity.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Permissions\DomainPermissionEntity.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Permissions\FunctionalPermissionEntity.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

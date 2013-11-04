@@ -1,11 +1,8 @@
-﻿using ServiceStack.Configuration;
-using ServiceStack.WebHost.Endpoints;
+﻿using ServiceStack.WebHost.Endpoints;
+using SingletonTheory.OrmLite.Extensions;
+using SingletonTheory.Web.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SingletonTheory.Web
 {
@@ -13,6 +10,12 @@ namespace SingletonTheory.Web
 	{
 		private Assembly[] _assemblies;
 		private string _serviceName;
+		private bool _assembliesSetUp;
+
+		public bool AssembliesSetUp
+		{
+			get { return _assembliesSetUp; }
+		}
 
 		public Assembly[] Assemblies
 		{
@@ -32,11 +35,21 @@ namespace SingletonTheory.Web
 
 		public override void Configure(Funq.Container container)
 		{
-		}
+			foreach (var assembly in _assemblies)
+			{
+				foreach (var assemblyType in assembly.GetTypes())
+				{
+					//check for IServiceAppHost interface
+					if (assemblyType.HasInterfaceNonGeneric(typeof(IAppHostConfiguration)))
+					{
+						//call ConfigureAssembly
+						var inst = Activator.CreateInstance(assemblyType) as IAppHostConfiguration;
+						inst.Configure(container, Plugins);
+					}
+				}
+			}
 
-		public void Configure()
-		{
-			throw new NotImplementedException();
+			_assembliesSetUp = true;
 		}
 	}
 }
