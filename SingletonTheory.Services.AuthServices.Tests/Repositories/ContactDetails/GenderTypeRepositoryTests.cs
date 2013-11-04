@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities.ContactDetails;
+using SingletonTheory.Services.AuthServices.Helpers.Data;
 using SingletonTheory.Services.AuthServices.Repositories.ContactDetails;
 using SingletonTheory.Services.AuthServices.Tests.Data;
 
@@ -32,7 +33,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		}
 
 		[Test]
-		public void ShouldCreateContact()
+		public void ShouldCreateGenderType()
 		{
 			// Arrange
 			GenderTypeRepository repository = new GenderTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
@@ -48,7 +49,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		}
 
 		[Test]
-		public void ShouldCreateContacts()
+		public void ShouldCreateGenderTypes()
 		{
 			// Arrange
 			GenderTypeRepository repository = new GenderTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
@@ -64,7 +65,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		}
 
 		[Test]
-		public void ShouldReadContactWithId()
+		public void ShouldReadGenderTypeWithId()
 		{
 			// Arrange
 			GenderTypeRepository repository = new GenderTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
@@ -82,7 +83,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		}
 
 		[Test]
-		public void ShouldUpdateContact()
+		public void ShouldUpdateGenderType()
 		{
 			// Arrange
 			GenderTypeRepository repository = new GenderTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
@@ -99,7 +100,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		}
 
 		[Test]
-		public void ShouldDeleteContact()
+		public void ShouldDeleteGenderType()
 		{
 			// Arrange
 			GenderTypeRepository repository = new GenderTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);

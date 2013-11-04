@@ -6,13 +6,44 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities.ContactDetails;
+using SingletonTheory.Services.AuthServices.Helpers.Data;
+using SingletonTheory.Services.AuthServices.Helpers.Helpers;
 using SingletonTheory.Services.AuthServices.Repositories.ContactDetails;
 using SingletonTheory.Services.AuthServices.Tests.Data;
+using SingletonTheory.Services.AuthServices.Tests.Helpers;
 
 namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetails
 {
 	public class AddressRepositoryTests
 	{
+		private AddressRepository _addressRepository;
+
+		#region Setup and Teardown
+
+		[SetUp]
+		public void Init()
+		{
+			_addressRepository = new AddressRepository(ConfigSettings.MySqlDatabaseConnectionName);
+		}
+
+		[TearDown]
+		public void Dispose()
+		{
+			try
+			{
+				_addressRepository.ClearCollection();
+				ContactDetailsHelpers.ClearAddressType();
+				ContactDetailsHelpers.ClearEntity();
+				ContactDetailsHelpers.ClearEntityType();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+		}
+
+		#endregion Setup and Teardown
+
 		#region Test Methods
 
 		[Test]
@@ -35,12 +66,10 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		public void ShouldCreateAddress()
 		{
 			// Arrange
-			AddressRepository repository = new AddressRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			AddressEntity entity = AddressData.GetItemForInsert();
-			repository.ClearCollection();
 
 			// Act
-			entity = repository.Create(entity);
+			entity = _addressRepository.Create(entity);
 
 			// Assert
 			Assert.IsNotNull(entity);
@@ -51,12 +80,10 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		public void ShouldCreateAddresses()
 		{
 			// Arrange
-			AddressRepository repository = new AddressRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			List<AddressEntity> entities = AddressData.GetItemsForInsert();
-			repository.ClearCollection();
-
+		
 			// Act
-			entities = repository.Create(entities);
+			entities = _addressRepository.Create(entities);
 
 			// Assert
 			Assert.IsNotNull(entities);
@@ -67,15 +94,13 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		public void ShouldReadAddressWithId()
 		{
 			// Arrange
-			AddressRepository repository = new AddressRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			AddressEntity entity = AddressData.GetItemForInsert();
-			repository.ClearCollection();
+		
+			// Act
+			entity = _addressRepository.Create(entity);
 
 			// Act
-			entity = repository.Create(entity);
-
-			// Act
-			var actual = repository.Read(entity.Id);
+			var actual = _addressRepository.Read(entity.Id);
 
 			// Assert
 			Assert.AreEqual(entity.Street, actual.Street);
@@ -85,14 +110,13 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		public void ShouldUpdateAddress()
 		{
 			// Arrange
-			AddressRepository repository = new AddressRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			AddressEntity entity = AddressData.GetItemForInsert();
-			repository.ClearCollection();
-			entity = repository.Create(entity);
+
+			entity = _addressRepository.Create(entity);
 			entity.Street = "DeHoop";
 
 			// Act
-			AddressEntity actual = repository.Update(entity);
+			AddressEntity actual = _addressRepository.Update(entity);
 
 			// Assert
 			Assert.AreEqual(entity.Street, actual.Street);
@@ -102,13 +126,12 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		public void ShouldDeleteAddress()
 		{
 			// Arrange
-			AddressRepository repository = new AddressRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			AddressEntity entity = AddressData.GetItemForInsert();
-			repository.ClearCollection();
-			entity = repository.Create(entity);
+
+			entity = _addressRepository.Create(entity);
 
 			// Act
-			AddressEntity actual = repository.Delete(entity);
+			AddressEntity actual = _addressRepository.Delete(entity);
 
 			// Assert
 			Assert.AreEqual(entity.Street, actual.Street);

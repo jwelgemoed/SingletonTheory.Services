@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingletonTheory.OrmLite", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingletonTheory.OrmLite.Tests", "SingletonTheory.OrmLite.Tests\SingletonTheory.OrmLite.Tests.csproj", "{0F35E77E-7E3E-4033-AD69-B96ED14E32A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingletonTheory.Services.AuthServices.Helpers", "SingletonTheory.Services.AuthServices.Helpers\SingletonTheory.Services.AuthServices.Helpers.csproj", "{13E02AC4-3DA0-41FF-941E-1666516CF487}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -243,6 +245,26 @@ Global
 		{0F35E77E-7E3E-4033-AD69-B96ED14E32A4}.Test|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0F35E77E-7E3E-4033-AD69-B96ED14E32A4}.Test|Mixed Platforms.Build.0 = Release|Any CPU
 		{0F35E77E-7E3E-4033-AD69-B96ED14E32A4}.Test|x86.ActiveCfg = Release|Any CPU
+		{13E02AC4-3DA0-41FF-941E-1666516CF487}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13E02AC4-3DA0-41FF-941E-1666516CF487}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13E02AC4-3DA0-41FF-941E-1666516CF487}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{13E02AC4-3DA0-41FF-941E-1666516CF487}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{13E02AC4-3DA0-41FF-941E-1666516CF487}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{13E02AC4-3DA0-41FF-941E-1666516CF487}.Productie|Any CPU.ActiveCfg = Release|Any CPU
+		{13E02AC4-3DA0-41FF-941E-1666516CF487}.Productie|Any CPU.Build.0 = Release|Any CPU
+		{13E02AC4-3DA0-41FF-941E-1666516CF487}.Productie|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{13E02AC4-3DA0-41FF-941E-1666516CF487}.Productie|Mixed Platforms.Build.0 = Release|Any CPU
+		{13E02AC4-3DA0-41FF-941E-1666516CF487}.Productie|x86.ActiveCfg = Release|Any CPU
+		{13E02AC4-3DA0-41FF-941E-1666516CF487}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13E02AC4-3DA0-41FF-941E-1666516CF487}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13E02AC4-3DA0-41FF-941E-1666516CF487}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{13E02AC4-3DA0-41FF-941E-1666516CF487}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{13E02AC4-3DA0-41FF-941E-1666516CF487}.Release|x86.ActiveCfg = Release|Any CPU
+		{13E02AC4-3DA0-41FF-941E-1666516CF487}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{13E02AC4-3DA0-41FF-941E-1666516CF487}.Test|Any CPU.Build.0 = Release|Any CPU
+		{13E02AC4-3DA0-41FF-941E-1666516CF487}.Test|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{13E02AC4-3DA0-41FF-941E-1666516CF487}.Test|Mixed Platforms.Build.0 = Release|Any CPU
+		{13E02AC4-3DA0-41FF-941E-1666516CF487}.Test|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

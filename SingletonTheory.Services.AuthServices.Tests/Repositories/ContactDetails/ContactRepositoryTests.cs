@@ -6,13 +6,53 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities.ContactDetails;
+using SingletonTheory.Services.AuthServices.Helpers.Data;
+using SingletonTheory.Services.AuthServices.Helpers.Helpers;
 using SingletonTheory.Services.AuthServices.Repositories.ContactDetails;
 using SingletonTheory.Services.AuthServices.Tests.Data;
+using SingletonTheory.Services.AuthServices.Tests.Helpers;
 
 namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetails
 {
 	public class ContactRepositoryTests
 	{
+		private ContactRepository _repository;
+
+		#region Setup and Teardown
+
+		[SetUp]
+		public void Init()
+		{
+			try
+			{
+				_repository = new ContactRepository(ConfigSettings.MySqlDatabaseConnectionName);
+				_repository.ClearCollection();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+		}
+
+		[TearDown]
+		public void Dispose()
+		{
+			try
+			{
+				_repository.ClearCollection();
+
+				ContactDetailsHelpers.ClearContactType();
+				ContactDetailsHelpers.ClearEntity();
+				ContactDetailsHelpers.ClearEntityType();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+		}
+
+		#endregion Setup and Teardown
+
 		#region Test Methods
 
 		[Test]
@@ -35,12 +75,17 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		public void ShouldCreateContact()
 		{
 			// Arrange
-			ContactRepository repository = new ContactRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			ContactEntity entity = ContactData.GetItemForInsert();
-			repository.ClearCollection();
 
 			// Act
-			entity = repository.Create(entity);
+			try
+			{
+				entity = _repository.Create(entity);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
 
 			// Assert
 			Assert.IsNotNull(entity);
@@ -51,12 +96,10 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		public void ShouldCreateContacts()
 		{
 			// Arrange
-			ContactRepository repository = new ContactRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			List<ContactEntity> entities = ContactData.GetItemsForInsert();
-			repository.ClearCollection();
 
 			// Act
-			entities = repository.Create(entities);
+			entities = _repository.Create(entities);
 
 			// Assert
 			Assert.IsNotNull(entities);
@@ -67,15 +110,13 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		public void ShouldReadContactWithId()
 		{
 			// Arrange
-			ContactRepository repository = new ContactRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			ContactEntity entity = ContactData.GetItemForInsert();
-			repository.ClearCollection();
 
 			// Act
-			entity = repository.Create(entity);
+			entity = _repository.Create(entity);
 
 			// Act
-			var actual = repository.Read(entity.Id);
+			var actual = _repository.Read(entity.Id);
 
 			// Assert
 			Assert.AreEqual(entity.Value, actual.Value);
@@ -85,14 +126,12 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		public void ShouldUpdateContact()
 		{
 			// Arrange
-			ContactRepository repository = new ContactRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			ContactEntity entity = ContactData.GetItemForInsert();
-			repository.ClearCollection();
-			entity = repository.Create(entity);
+			entity = _repository.Create(entity);
 			entity.Value = "Contact";
 
 			// Act
-			ContactEntity actual = repository.Update(entity);
+			ContactEntity actual = _repository.Update(entity);
 
 			// Assert
 			Assert.AreEqual(entity.Value, actual.Value);
@@ -102,13 +141,11 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		public void ShouldDeleteContact()
 		{
 			// Arrange
-			ContactRepository repository = new ContactRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			ContactEntity entity = ContactData.GetItemForInsert();
-			repository.ClearCollection();
-			entity = repository.Create(entity);
+			entity = _repository.Create(entity);
 
 			// Act
-			ContactEntity actual = repository.Delete(entity);
+			ContactEntity actual = _repository.Delete(entity);
 
 			// Assert
 			Assert.AreEqual(entity.Value, actual.Value);

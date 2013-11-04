@@ -7,6 +7,7 @@ using NUnit.Framework;
 using ServiceStack.Text;
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities.ContactDetails;
+using SingletonTheory.Services.AuthServices.Helpers.Data;
 using SingletonTheory.Services.AuthServices.Repositories.ContactDetails;
 using SingletonTheory.Services.AuthServices.Tests.Data;
 using SingletonTheory.Services.AuthServices.Tests.Helpers;

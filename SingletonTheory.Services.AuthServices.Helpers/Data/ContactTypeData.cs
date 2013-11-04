@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SingletonTheory.Services.AuthServices.Entities.ContactDetails;
 
-namespace SingletonTheory.Services.AuthServices.Tests.Data
+namespace SingletonTheory.Services.AuthServices.Helpers.Data
 {
 	public static class ContactTypeData
 	{
@@ -20,7 +20,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 			return entity;
 		}
 
-		internal static List<ContactTypeEntity> GetItemsForInsert()
+		public static List<ContactTypeEntity> GetItemsForInsert()
 		{
 			List<ContactTypeEntity> entities = new List<ContactTypeEntity>();
 			entities.Add(GetItemForInsert());

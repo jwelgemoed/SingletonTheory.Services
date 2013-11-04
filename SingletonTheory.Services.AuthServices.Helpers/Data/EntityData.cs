@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SingletonTheory.Services.AuthServices.Entities.ContactDetails;
-using SingletonTheory.Services.AuthServices.Tests.Helpers;
+using SingletonTheory.Services.AuthServices.Helpers.Helpers;
 
-namespace SingletonTheory.Services.AuthServices.Tests.Data
+namespace SingletonTheory.Services.AuthServices.Helpers.Data
 {
 	public static class EntityData
 	{
@@ -14,7 +14,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 		{
 			EntityEntity entity = new EntityEntity()
 			{
-				Name = "Fixx",
+				Name = "Enitity1",
 				EntityTypeId = ContactDetailsHelpers.CreateEntityType().Id,
 				DeletedDate = DateTime.MinValue
 			};
@@ -22,12 +22,12 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 			return entity;
 		}
 
-		internal static List<EntityEntity> GetItemsForInsert()
+		public static List<EntityEntity> GetItemsForInsert()
 		{
 			List<EntityEntity> entities = new List<EntityEntity>();
 			entities.Add(GetItemForInsert());
 			EntityEntity entity = GetItemForInsert();
-			entity.Name = "Fixx2";
+			entity.Name = "Enitity2";
 			entities.Add(entity);
 
 			return entities;

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SingletonTheory.Services.AuthServices.Entities.ContactDetails;
 
-namespace SingletonTheory.Services.AuthServices.Tests.Data
+namespace SingletonTheory.Services.AuthServices.Helpers.Data
 {
 	public static class EntityTypeData
 	{
@@ -13,19 +13,19 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 		{
 			EntityTypeEntity entity = new EntityTypeEntity()
 			{
-				Description = "xxx",
+				Description = "EntityType1",
 				DeletedDate = DateTime.MinValue
 			};
 
 			return entity;
 		}
 
-		internal static List<EntityTypeEntity> GetItemsForInsert()
+		public static List<EntityTypeEntity> GetItemsForInsert()
 		{
 			List<EntityTypeEntity> entities = new List<EntityTypeEntity>();
 			entities.Add(GetItemForInsert());
 			EntityTypeEntity entity = GetItemForInsert();
-			entity.Description = "yyy";
+			entity.Description = "EntityType2";
 			entities.Add(entity);
 
 			return entities;

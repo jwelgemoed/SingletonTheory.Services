@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities.ContactDetails;
+using SingletonTheory.Services.AuthServices.Helpers.Data;
 using SingletonTheory.Services.AuthServices.Repositories.ContactDetails;
 using SingletonTheory.Services.AuthServices.Tests.Data;
 
@@ -13,6 +14,31 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 {
 	public class EntityTypeRepositoryTests
 	{
+		private EntityTypeRepository _repository;
+
+		#region Setup and Teardown
+
+		[SetUp]
+		public void Init()
+		{
+			_repository = new EntityTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
+		}
+
+		[TearDown]
+		public void Dispose()
+		{
+			try
+			{
+				_repository.ClearCollection();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+		}
+
+		#endregion Setup and Teardown
+
 		#region Test Methods
 
 		[Test]
@@ -32,15 +58,13 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		}
 
 		[Test]
-		public void ShouldCreateContact()
+		public void ShouldCreateEntityType()
 		{
 			// Arrange
-			EntityTypeRepository repository = new EntityTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			EntityTypeEntity entity = EntityTypeData.GetItemForInsert();
-			repository.ClearCollection();
 
 			// Act
-			entity = repository.Create(entity);
+			entity = _repository.Create(entity);
 
 			// Assert
 			Assert.IsNotNull(entity);
@@ -48,15 +72,13 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		}
 
 		[Test]
-		public void ShouldCreateContacts()
+		public void ShouldCreateEntityTypes()
 		{
 			// Arrange
-			EntityTypeRepository repository = new EntityTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			List<EntityTypeEntity> entities = EntityTypeData.GetItemsForInsert();
-			repository.ClearCollection();
 
 			// Act
-			entities = repository.Create(entities);
+			entities = _repository.Create(entities);
 
 			// Assert
 			Assert.IsNotNull(entities);
@@ -64,51 +86,46 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		}
 
 		[Test]
-		public void ShouldReadContactWithId()
+		public void ShouldReadEntityTypeWithId()
 		{
 			// Arrange
-			EntityTypeRepository repository = new EntityTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			EntityTypeEntity entity = EntityTypeData.GetItemForInsert();
-			repository.ClearCollection();
 
 			// Act
-			entity = repository.Create(entity);
+			entity = _repository.Create(entity);
 
 			// Act
-			var actual = repository.Read(entity.Id);
+			var actual = _repository.Read(entity.Id);
 
 			// Assert
 			Assert.AreEqual(entity.Description, actual.Description);
 		}
 
 		[Test]
-		public void ShouldUpdateContact()
+		public void ShouldUpdateEntityType()
 		{
 			// Arrange
-			EntityTypeRepository repository = new EntityTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			EntityTypeEntity entity = EntityTypeData.GetItemForInsert();
-			repository.ClearCollection();
-			entity = repository.Create(entity);
+			entity = _repository.Create(entity);
 			entity.Description = "Organisation";
 
 			// Act
-			EntityTypeEntity actual = repository.Update(entity);
+			EntityTypeEntity actual = _repository.Update(entity);
 
 			// Assert
 			Assert.AreEqual(entity.Description, actual.Description);
 		}
 
 		[Test]
-		public void ShouldDeleteContact()
+		public void ShouldDeleteEntityType()
 		{
 			// Arrange
-			EntityTypeRepository repository = new EntityTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			EntityTypeEntity entity = EntityTypeData.GetItemForInsert();
-			repository.ClearCollection();
-			entity = repository.Create(entity);
+
+			entity = _repository.Create(entity);
 
 			// Act
-			EntityTypeEntity actual = repository.Delete(entity);
+			EntityTypeEntity actual = _repository.Delete(entity);
 
 			// Assert
 			Assert.AreEqual(entity.Description, actual.Description);
