@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SingletonTheory.Services.AuthServices.Entities.ContactDetails;
+using SingletonTheory.Services.AuthServices.Tests.Helpers;
 
 namespace SingletonTheory.Services.AuthServices.Tests.Data
 {
@@ -13,6 +14,10 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 		{
 			EntityRelationshipEntity entity = new EntityRelationshipEntity()
 			{
+				Entity1Id = ContactDetailsHelpers.CreateEntity().Id,
+				Entity2Id = ContactDetailsHelpers.CreateEntity().Id,
+				InDate = DateTime.UtcNow,
+				OutDate = DateTime.UtcNow.AddDays(30),
 				Preffered = true,
 				DeletedDate = DateTime.MinValue
 			};

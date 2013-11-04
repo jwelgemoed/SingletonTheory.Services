@@ -15,6 +15,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 			EntityEntity entity = new EntityEntity()
 			{
 				Name = "Enitity1",
+				EntityTypeId = ContactDetailsHelpers.CreateEntityType().Id,
 				DeletedDate = DateTime.MinValue
 			};
 

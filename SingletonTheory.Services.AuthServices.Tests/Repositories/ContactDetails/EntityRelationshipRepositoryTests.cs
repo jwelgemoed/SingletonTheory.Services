@@ -8,11 +8,38 @@ using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities.ContactDetails;
 using SingletonTheory.Services.AuthServices.Repositories.ContactDetails;
 using SingletonTheory.Services.AuthServices.Tests.Data;
+using SingletonTheory.Services.AuthServices.Tests.Helpers;
 
 namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetails
 {
 	public class EntityRelationshipRepositoryTests
 	{
+		private EntityRelationshipRepository _repository;
+
+		#region Setup and Teardown
+
+		[SetUp]
+		public void Init()
+		{
+			_repository = new EntityRelationshipRepository(ConfigSettings.MySqlDatabaseConnectionName);
+		}
+
+		[TearDown]
+		public void Dispose()
+		{
+			try
+			{
+				_repository.ClearCollection();
+				ContactDetailsHelpers.ClearEntity();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+		}
+
+		#endregion Setup and Teardown
+
 		#region Test Methods
 
 		[Test]
@@ -32,15 +59,15 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		}
 
 		[Test]
-		public void ShouldCreateContact()
+		public void ShouldCreateEntityRelationship()
 		{
 			// Arrange
-			EntityRelationshipRepository repository = new EntityRelationshipRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			//EntityRelationshipRepository repository = new EntityRelationshipRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			EntityRelationshipEntity entity = EntityRelationshipData.GetItemForInsert();
-			repository.ClearCollection();
+			_repository.ClearCollection();
 
 			// Act
-			entity = repository.Create(entity);
+			entity = _repository.Create(entity);
 
 			// Assert
 			Assert.IsNotNull(entity);
@@ -48,7 +75,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		}
 
 		[Test]
-		public void ShouldCreateContacts()
+		public void ShouldCreateEntityRelationships()
 		{
 			// Arrange
 			EntityRelationshipRepository repository = new EntityRelationshipRepository(ConfigSettings.MySqlDatabaseConnectionName);
@@ -64,7 +91,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		}
 
 		[Test]
-		public void ShouldReadContactWithId()
+		public void ShouldReadEntityRelationshipWithId()
 		{
 			// Arrange
 			EntityRelationshipRepository repository = new EntityRelationshipRepository(ConfigSettings.MySqlDatabaseConnectionName);
@@ -82,7 +109,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		}
 
 		[Test]
-		public void ShouldUpdateContact()
+		public void ShouldUpdateEntityRelationship()
 		{
 			// Arrange
 			EntityRelationshipRepository repository = new EntityRelationshipRepository(ConfigSettings.MySqlDatabaseConnectionName);
@@ -99,7 +126,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		}
 
 		[Test]
-		public void ShouldDeleteContact()
+		public void ShouldDeleteEntityRelationship()
 		{
 			// Arrange
 			EntityRelationshipRepository repository = new EntityRelationshipRepository(ConfigSettings.MySqlDatabaseConnectionName);

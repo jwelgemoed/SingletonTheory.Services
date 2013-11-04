@@ -8,11 +8,40 @@ using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities.ContactDetails;
 using SingletonTheory.Services.AuthServices.Repositories.ContactDetails;
 using SingletonTheory.Services.AuthServices.Tests.Data;
+using SingletonTheory.Services.AuthServices.Tests.Helpers;
 
 namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetails
 {
 	public class PersonRepositoryTests
 	{
+		private PersonRepository _repository;
+
+		#region Setup and Teardown
+
+		[SetUp]
+		public void Init()
+		{
+			_repository = new PersonRepository(ConfigSettings.MySqlDatabaseConnectionName);
+		}
+
+		[TearDown]
+		public void Dispose()
+		{
+			try
+			{
+				_repository.ClearCollection();
+				ContactDetailsHelpers.ClearEntity();
+				ContactDetailsHelpers.ClearOccupationName();
+				ContactDetailsHelpers.ClearTitle();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+		}
+
+		#endregion Setup and Teardown
+
 		#region Test Methods
 
 		[Test]
@@ -32,15 +61,14 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		}
 
 		[Test]
-		public void ShouldCreateContact()
+		public void ShouldCreatePerson()
 		{
 			// Arrange
-			PersonRepository repository = new PersonRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			PersonEntity entity = PersonData.GetItemForInsert();
-			repository.ClearCollection();
+			_repository.ClearCollection();
 
 			// Act
-			entity = repository.Create(entity);
+			entity = _repository.Create(entity);
 
 			// Assert
 			Assert.IsNotNull(entity);
@@ -48,7 +76,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		}
 
 		[Test]
-		public void ShouldCreateContacts()
+		public void ShouldCreatePersons()
 		{
 			// Arrange
 			PersonRepository repository = new PersonRepository(ConfigSettings.MySqlDatabaseConnectionName);
@@ -64,7 +92,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		}
 
 		[Test]
-		public void ShouldReadContactWithId()
+		public void ShouldReadPersonWithId()
 		{
 			// Arrange
 			PersonRepository repository = new PersonRepository(ConfigSettings.MySqlDatabaseConnectionName);
@@ -82,7 +110,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		}
 
 		[Test]
-		public void ShouldUpdateContact()
+		public void ShouldUpdatePerson()
 		{
 			// Arrange
 			PersonRepository repository = new PersonRepository(ConfigSettings.MySqlDatabaseConnectionName);
@@ -99,7 +127,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 		}
 
 		[Test]
-		public void ShouldDeleteContact()
+		public void ShouldDeletePerson()
 		{
 			// Arrange
 			PersonRepository repository = new PersonRepository(ConfigSettings.MySqlDatabaseConnectionName);

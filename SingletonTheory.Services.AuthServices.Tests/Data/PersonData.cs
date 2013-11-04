@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SingletonTheory.Services.AuthServices.Entities.ContactDetails;
+using SingletonTheory.Services.AuthServices.Tests.Helpers;
 
 namespace SingletonTheory.Services.AuthServices.Tests.Data
 {
@@ -13,7 +14,14 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 		{
 			PersonEntity entity = new PersonEntity()
 			{
+				EntityId = ContactDetailsHelpers.CreateEntity().Id,
+				OccupationNameId = ContactDetailsHelpers.CreateOccupationName().Id,
+				TitleId = ContactDetailsHelpers.CreateTitle().Id,
+				SurnamePrefix = "Von",
 				Surname = "SurnamePerson1",
+				MaidenNamePrefix = "",
+				Nationality = "NL",
+				PlaceOfBirth = "Sasol",
 				DeletedDate = DateTime.MinValue
 			};
 

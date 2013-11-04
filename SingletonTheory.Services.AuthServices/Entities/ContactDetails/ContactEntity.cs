@@ -17,7 +17,7 @@ namespace SingletonTheory.Services.AuthServices.Entities.ContactDetails
 		[AutoIncrement]
 		public long Id { get; set; }
 
-		[Alias("ContactTypeId")]
+	  [Alias("ContactTypeId")]
 		[Required]
 		[References(typeof(ContactTypeEntity))]
 		public long ContactTypeId { get; set; }

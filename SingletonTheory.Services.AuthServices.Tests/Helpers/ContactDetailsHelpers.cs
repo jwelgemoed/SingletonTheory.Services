@@ -16,11 +16,17 @@ namespace SingletonTheory.Services.AuthServices.Tests.Helpers
 		{
 			AddressTypeRepository repository = new AddressTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			AddressTypeEntity entity = AddressTypeData.GetItemForInsert();
-			repository.ClearCollection();
+			//repository.ClearCollection();
 
 			entity = repository.Create(entity);
 
 			return entity;
+		}
+
+		public static void ClearAddressType()
+		{
+			AddressTypeRepository repository = new AddressTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			repository.ClearCollection();
 		}
 
 		public static EntityEntity CreateEntity()
@@ -34,6 +40,12 @@ namespace SingletonTheory.Services.AuthServices.Tests.Helpers
 			return entity;
 		}
 
+		public static void ClearEntity()
+		{
+			EntityRepository repository = new EntityRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			repository.ClearCollection();
+		}
+
 		public static EntityTypeEntity CreateEntityType()
 		{
 			EntityTypeRepository repository = new EntityTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
@@ -43,6 +55,12 @@ namespace SingletonTheory.Services.AuthServices.Tests.Helpers
 			entity = repository.Create(entity);
 
 			return entity;
+		}
+
+		public static void ClearEntityType()
+		{
+			EntityTypeRepository repository = new EntityTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			repository.ClearCollection();
 		}
 
 		public static ContactEntity CreateContact()
@@ -56,6 +74,12 @@ namespace SingletonTheory.Services.AuthServices.Tests.Helpers
 			return entity;
 		}
 
+		public static void ClearContact()
+		{
+			ContactRepository repository = new ContactRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			repository.ClearCollection();
+		}
+
 		public static ContactTypeEntity CreateContactType()
 		{
 			ContactTypeRepository repository = new ContactTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
@@ -65,6 +89,63 @@ namespace SingletonTheory.Services.AuthServices.Tests.Helpers
 			entity = repository.Create(entity);
 
 			return entity;
+		}
+
+		public static void ClearContactType()
+		{
+			ContactTypeRepository repository = new ContactTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			repository.ClearCollection();
+		}
+
+		public static PersonEntity CreatePerson()
+		{
+			PersonRepository repository = new PersonRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			PersonEntity entity = PersonData.GetItemForInsert();
+			//repository.ClearCollection();
+
+			entity = repository.Create(entity);
+
+			return entity;
+		}
+
+		public static void ClearPerson()
+		{
+			PersonRepository repository = new PersonRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			repository.ClearCollection();
+		}
+
+		public static OccupationNameEntity CreateOccupationName()
+		{
+			OccupationNameRepository repository = new OccupationNameRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			OccupationNameEntity entity = OccupationNameData.GetItemForInsert();
+			//repository.ClearCollection();
+
+			entity = repository.Create(entity);
+
+			return entity;
+		}
+
+		public static void ClearOccupationName()
+		{
+			OccupationNameRepository repository = new OccupationNameRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			repository.ClearCollection();
+		}
+
+		public static TitleEntity CreateTitle()
+		{
+			TitleRepository repository = new TitleRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			TitleEntity entity = TitleData.GetItemForInsert();
+			//repository.ClearCollection();
+
+			entity = repository.Create(entity);
+
+			return entity;
+		}
+
+		public static void ClearTitle()
+		{
+			TitleRepository repository = new TitleRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			repository.ClearCollection();
 		}
 	}
 }

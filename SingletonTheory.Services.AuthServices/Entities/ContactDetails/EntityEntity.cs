@@ -14,7 +14,6 @@ namespace SingletonTheory.Services.AuthServices.Entities.ContactDetails
 	{
 		#region Fields & Properties
 
-		[Alias("EntiteitId")]
 		[AutoIncrement]
 		public long Id { get; set; }
 
