@@ -77,6 +77,18 @@ namespace SingletonTheory.OrmLite.Extensions
 			return false;
 		}
 
+		public static bool HasInterfaceNonGeneric(this Type typeToCheck, Type interfaceType)
+		{
+			Type[] interfaces = typeToCheck.GetInterfaces();
+			for (int i = 0; i < interfaces.Length; i++)
+			{
+				if (interfaces[i].GetTypeInfo() == interfaceType)
+					return true;
+			}
+
+			return false;
+		}
+
 		public static bool HasAttribute(this FieldDefinition fieldDefinition, Type attributeType)
 		{
 			return fieldDefinition.PropertyInfo.HasAttributeNamed(attributeType);

@@ -41,9 +41,9 @@ namespace SingletonTheory.Services.AuthServices.Repositories
 		{
 			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionStringName))
 			{
-				UserEntity entity = provider.Select<UserEntity>(x => x.UserName == userName).First();
+				UserEntity entity = provider.Select<UserEntity>(x => x.UserName == userName).FirstOrDefault();
 
-				return entity == null ? null : entity;
+				return entity;
 			}
 		}
 
