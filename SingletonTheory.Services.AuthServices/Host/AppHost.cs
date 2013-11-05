@@ -75,10 +75,19 @@ namespace SingletonTheory.Services.AuthServices.Host
 			container.Register<SSAuthInterfaces.IUserAuthRepository>(GetUserAuthRepositoryProvider());
 			container.Register<LocalizationRepository>(GetLocalizationRepositoryProvider());
 			container.Register<UserRepository>(GetUserRepositoryProvider());
+			container.Register<ContactRepository>(GetContactRepositoryProvider());
+			container.Register<AddressRepository>(GetAddressRepositoryProvider());
+			container.Register<EmployeeRepository>(GetEmployeeRepositoryProvider());
+			container.Register<EntityRelationshipRepository>(GetEntityRelationshipRepositoryProvider());
+			container.Register<EntityRepository>(GetEntityRepositoryProvider());
+			container.Register<PersonRepository>(GetPersonRepositoryProvider());
+			//Types
 			container.Register<TitleRepository>(GetTitleRepositoryProvider());
 			container.Register<ContactTypeRepository>(GetContactTypeRepositoryProvider());
 			container.Register<EntityTypeRepository>(GetEntityTypeRepositoryProvider());
 			container.Register<OccupationNameRepository>(GetOccupationNameRepositoryProvider());
+			container.Register<GenderTypeRepository>(GetGenderTypeRepositoryProvider());
+			container.Register<AddressTypeRepository>(GetAddressTypeRepositoryProvider());
 		}
 
 		private static void CreateMockData(Funq.Container container)
@@ -103,6 +112,46 @@ namespace SingletonTheory.Services.AuthServices.Host
 		private static UserRepository GetUserRepositoryProvider()
 		{
 			return new UserRepository(ConfigSettings.UserDatabaseConnectionName);
+		}
+
+		private static ContactRepository GetContactRepositoryProvider()
+		{
+			return new ContactRepository(ConfigSettings.MySqlDatabaseConnectionName);
+		}
+
+		private static AddressRepository GetAddressRepositoryProvider()
+		{
+			return new AddressRepository(ConfigSettings.MySqlDatabaseConnectionName);
+		}
+
+		private static EmployeeRepository GetEmployeeRepositoryProvider()
+		{
+			return new EmployeeRepository(ConfigSettings.MySqlDatabaseConnectionName);
+		}
+
+		private static EntityRelationshipRepository GetEntityRelationshipRepositoryProvider()
+		{
+			return new EntityRelationshipRepository(ConfigSettings.MySqlDatabaseConnectionName);
+		}
+
+		private static EntityRepository GetEntityRepositoryProvider()
+		{
+			return new EntityRepository(ConfigSettings.MySqlDatabaseConnectionName);
+		}
+
+		private static PersonRepository GetPersonRepositoryProvider()
+		{
+			return new PersonRepository(ConfigSettings.MySqlDatabaseConnectionName);
+		}
+		
+		private static GenderTypeRepository GetGenderTypeRepositoryProvider()
+		{
+			return new GenderTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
+		}
+
+		private static AddressTypeRepository GetAddressTypeRepositoryProvider()
+		{
+			return new AddressTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
 		}
 
 		private static TitleRepository GetTitleRepositoryProvider()

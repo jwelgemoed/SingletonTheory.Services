@@ -63,11 +63,11 @@ namespace SingletonTheory.Services.AuthServices.Repositories.ContactDetails
 			}
 		}
 
-		public List<ContactTypeEntity> Read()
+		public List<ContactEntity> Read()
 		{
 			using (IDatabaseProvider provider = ProviderFactory.GetProvider(_connectionStringName))
 			{
-				return provider.Select<ContactTypeEntity>();
+				return provider.Select<ContactEntity>();
 			}
 		}
 

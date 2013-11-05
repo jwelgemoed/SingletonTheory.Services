@@ -7,8 +7,8 @@ using ServiceStack.ServiceInterface;
 
 namespace SingletonTheory.Services.AuthServices.TransferObjects.Types
 {
-	[Route("/title")]
-	[RequiredPermission(ApplyTo.Get, "Title_Get")]
+	[Route("/types/title")]
+	//[RequiredPermission(ApplyTo.Get, "Title_Get")]
 	public class Title
 	{
 		public long Id { get; set; }

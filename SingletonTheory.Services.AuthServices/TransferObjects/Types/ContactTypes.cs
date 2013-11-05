@@ -7,7 +7,7 @@ using ServiceStack.ServiceInterface;
 
 namespace SingletonTheory.Services.AuthServices.TransferObjects.Types
 {
-	[Route("/contacttypes")]
+	[Route("/types/contacttypes")]
 	//[RequiredPermission(ApplyTo.Get, "ContactTypes_Get")]
 	public class ContactTypes : IReturn<List<ContactType>>
 	{

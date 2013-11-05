@@ -7,12 +7,12 @@ using ServiceStack.ServiceInterface;
 
 namespace SingletonTheory.Services.AuthServices.TransferObjects.ContactDetail
 {
-	[Route("/contact")]
-	[Route("/contact/id/{Id}")]
-	[RequiredPermission(ApplyTo.Get, "Contact_Get")]
-	[RequiredPermission(ApplyTo.Put, "Contact_Put")]
-	[RequiredPermission(ApplyTo.Post, "Contact_Post")]
-	[RequiredPermission(ApplyTo.Delete, "Contact_Delete")]
+	[Route("/contactdetails/contact")]
+	[Route("/contactdetails/contact/id/{Id}")]
+	//[RequiredPermission(ApplyTo.Get, "Contact_Get")]
+	//[RequiredPermission(ApplyTo.Put, "Contact_Put")]
+	//[RequiredPermission(ApplyTo.Post, "Contact_Post")]
+	//[RequiredPermission(ApplyTo.Delete, "Contact_Delete")]
 	public class Contact : IReturn<Contact>
 	{
 
