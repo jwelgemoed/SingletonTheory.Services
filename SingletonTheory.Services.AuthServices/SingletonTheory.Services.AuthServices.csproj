@@ -209,6 +209,8 @@
     <Compile Include="TransferObjects\AuthAdmin\Permissions.cs" />
     <Compile Include="TransferObjects\AuthAdmin\Role.cs" />
     <Compile Include="TransferObjects\AuthAdmin\Roles.cs" />
+    <Compile Include="TransferObjects\Hours\ItemHoursEntries.cs" />
+    <Compile Include="TransferObjects\Hours\ItemHoursEntry.cs" />
     <Compile Include="TransferObjects\Localization\LocalizationDictionary.cs" />
     <Compile Include="TransferObjects\Localization\LocalizationItem.cs" />
     <Compile Include="TransferObjects\Localization\LocalizationKeyDictionary.cs" />
@@ -218,8 +220,12 @@
     <Compile Include="TransferObjects\ContactDetail\Contact.cs" />
     <Compile Include="TransferObjects\Types\ContactType.cs" />
     <Compile Include="TransferObjects\Types\ContactTypes.cs" />
+    <Compile Include="TransferObjects\Types\CostCentre.cs" />
+    <Compile Include="TransferObjects\Types\CostCentres.cs" />
     <Compile Include="TransferObjects\Types\EntityType.cs" />
     <Compile Include="TransferObjects\Types\EntityTypes.cs" />
+    <Compile Include="TransferObjects\Types\HourType.cs" />
+    <Compile Include="TransferObjects\Types\HourTypes.cs" />
     <Compile Include="TransferObjects\Types\OccupationName.cs" />
     <Compile Include="TransferObjects\Types\OccupationNames.cs" />
     <Compile Include="TransferObjects\Types\Title.cs" />

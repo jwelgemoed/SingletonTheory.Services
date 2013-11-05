@@ -118,6 +118,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories.Hours
 		private CostCentreEntity UpdateProperties(CostCentreEntity entity, CostCentreEntity entityToUpdate)
 		{
 			entityToUpdate.Code = entity.Code;
+			entityToUpdate.LookupCode = entity.LookupCode;
 			entityToUpdate.Description = entity.Description;
 			entityToUpdate.DeletedDate = entity.DeletedDate;
 

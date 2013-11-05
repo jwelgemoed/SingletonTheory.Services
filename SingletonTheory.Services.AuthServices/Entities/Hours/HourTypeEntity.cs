@@ -16,6 +16,11 @@ namespace SingletonTheory.Services.AuthServices.Entities.Hours
 		[AutoIncrement]
 		public long Id { get; set; }
 
+		[Required]
+		[Index(Unique = true)]
+		[StringLength(4)]
+		public string LookupCode { get; set; }
+
 		[Alias("Omschrijving")]
 		[Required]
 		[Index(Unique = true)]

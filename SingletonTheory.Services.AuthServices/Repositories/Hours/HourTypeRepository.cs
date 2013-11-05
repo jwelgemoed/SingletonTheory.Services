@@ -120,6 +120,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories.Hours
 		private HourTypeEntity UpdateProperties(HourTypeEntity entity, HourTypeEntity entityToUpdate)
 		{
 			entityToUpdate.Description = entity.Description;
+			entityToUpdate.LookupCode = entity.LookupCode;
 			entityToUpdate.DeletedDate = entity.DeletedDate;
 
 			return entityToUpdate;

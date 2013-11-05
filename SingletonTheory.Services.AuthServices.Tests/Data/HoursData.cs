@@ -14,6 +14,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 		{
 			CostCentreEntity entity = new CostCentreEntity()
 			{
+				LookupCode = "TCCC",
 				Code = "89",
 				Description = "Test Cost Centre",
 				DeletedDate = DateTime.MinValue
@@ -28,6 +29,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 			entities.Add(GetCostCentreForInsert());
 			CostCentreEntity entity = GetCostCentreForInsert();
 			entity.Code = "88";
+			entity.LookupCode = "TCCN";
 			entities.Add(entity);
 
 			return entities;
@@ -37,6 +39,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 		{
 			HourTypeEntity entity = new HourTypeEntity()
 			{
+				LookupCode = "BUDG",
 				Description = "Budgeted",
 				DeletedDate = DateTime.MinValue
 			};
@@ -50,6 +53,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 			entities.Add(GetHourTypeForInsert());
 			HourTypeEntity entity = GetHourTypeForInsert();
 			entity.Description = "Planned";
+			entity.LookupCode = "BUDD";
 			entities.Add(entity);
 
 			return entities;

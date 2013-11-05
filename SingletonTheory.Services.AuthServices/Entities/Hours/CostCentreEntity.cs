@@ -18,6 +18,11 @@ namespace SingletonTheory.Services.AuthServices.Entities.Hours
 
 		[Required]
 		[Index(Unique = true)]
+		[StringLength(4)]
+		public string LookupCode { get; set; }
+
+		[Required]
+		[Index(Unique = true)]
 		[StringLength(2)]
 		public string Code { get; set; }
 
