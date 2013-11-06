@@ -21,24 +21,40 @@ namespace SingletonTheory.Services.AuthServices.Data
 
 		public static void CreateData()
 		{
+			//Todo: there are better ways to do this if you have time
+			ClearAll();
+
 			CreateTitles();
 			CreateContactTypes();
 			CreateEntityTypes();
 			CreateOccupationNames();
-			CreateContactEntityPerson();
+			CreateEntities();
+			CreateContacts();
+			CreatePerson();
 		}
 
-		private static void CreateContactEntityPerson()
+		private static void ClearAll()
 		{
-			CreateContacts();
-			CreateEntities();
-			CreatePerson();
+			PersonRepository repository1 = new PersonRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			ContactRepository repository2 = new ContactRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			EntityRepository repository3 = new EntityRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			OccupationNameRepository repository4 = new OccupationNameRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			EntityTypeRepository repository5 = new EntityTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			ContactTypeRepository repository6 = new ContactTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			TitleRepository repository7 = new TitleRepository(ConfigSettings.MySqlDatabaseConnectionName);
+
+			repository1.ClearCollection();
+			repository2.ClearCollection();
+			repository3.ClearCollection();
+			repository4.ClearCollection();
+			repository5.ClearCollection();
+			repository6.ClearCollection();
+			repository7.ClearCollection();
 		}
 
 		private static void CreateEntities()
 		{
 			EntityRepository repository = new EntityRepository(ConfigSettings.MySqlDatabaseConnectionName);
-			repository.ClearCollection();
 
 			EntityEntity entity = new EntityEntity()
 			{
@@ -49,7 +65,7 @@ namespace SingletonTheory.Services.AuthServices.Data
 			EntityEntity mEntity = new EntityEntity()
 			{
 				EntityTypeId = _entityTypeEntities[1].Id,
-				Name = "EntityType1",
+				Name = "EntityType2",
 				DeletedDate = DateTime.MinValue
 			};
 
@@ -63,11 +79,10 @@ namespace SingletonTheory.Services.AuthServices.Data
 		private static void CreatePerson()
 		{
 			PersonRepository repository = new PersonRepository(ConfigSettings.MySqlDatabaseConnectionName);
-			repository.ClearCollection();
 
 			PersonEntity entity = new PersonEntity()
 			{
-				EntityId = _entityTypeEntities[0].Id,
+				EntityId = _entityEntities[0].Id,
 				OccupationNameId = _occupationNameEntities[0].Id,
 				TitleId = _titleEntities[0].Id,
 				SurnamePrefix = "van",
@@ -80,7 +95,7 @@ namespace SingletonTheory.Services.AuthServices.Data
 			};
 			PersonEntity mEntity = new PersonEntity()
 			{
-				EntityId = _entityTypeEntities[1].Id,
+				EntityId = _entityEntities[1].Id,
 				OccupationNameId = _occupationNameEntities[1].Id,
 				TitleId = _titleEntities[1].Id,
 				SurnamePrefix = string.Empty,
@@ -102,11 +117,11 @@ namespace SingletonTheory.Services.AuthServices.Data
 		private static void CreateContacts()
 		{
 			ContactRepository repository = new ContactRepository(ConfigSettings.MySqlDatabaseConnectionName);
-			repository.ClearCollection();
 
 			ContactEntity entity = new ContactEntity()
 			{
 				ContactTypeId = _contactTypeEntities[0].Id,
+				EntityId = _entityEntities[0].Id,
 				Value = "value1",
 				Preffered = true,
 				DeletedDate = DateTime.MinValue
@@ -114,7 +129,8 @@ namespace SingletonTheory.Services.AuthServices.Data
 			ContactEntity mEntity = new ContactEntity()
 			{
 				ContactTypeId = _contactTypeEntities[1].Id,
-				Value = "value1",
+				EntityId = _entityEntities[1].Id,
+				Value = "value2",
 				Preffered = true,
 				DeletedDate = DateTime.MinValue
 			};
@@ -129,7 +145,7 @@ namespace SingletonTheory.Services.AuthServices.Data
 		private static void CreateOccupationNames()
 		{
 			OccupationNameRepository repository = new OccupationNameRepository(ConfigSettings.MySqlDatabaseConnectionName);
-			repository.ClearCollection();
+		
 			OccupationNameEntity entity = new OccupationNameEntity()
 			{
 				Description = "Tekenaar",
@@ -151,7 +167,7 @@ namespace SingletonTheory.Services.AuthServices.Data
 		private static void CreateEntityTypes()
 		{
 			EntityTypeRepository repository = new EntityTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
-			repository.ClearCollection();
+			
 			EntityTypeEntity entity = new EntityTypeEntity()
 			{
 				Description = "Contact",
@@ -174,7 +190,7 @@ namespace SingletonTheory.Services.AuthServices.Data
 		private static void CreateContactTypes()
 		{
 			ContactTypeRepository repository = new ContactTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
-			repository.ClearCollection();
+			
 			ContactTypeEntity entity = new ContactTypeEntity()
 			{
 				Description = "Personal",
@@ -197,7 +213,7 @@ namespace SingletonTheory.Services.AuthServices.Data
 		private static void CreateTitles()
 		{
 			TitleRepository repository = new TitleRepository(ConfigSettings.MySqlDatabaseConnectionName);
-			repository.ClearCollection();
+			
 			TitleEntity entity = new TitleEntity()
 			{
 				Description = "Dhr",
