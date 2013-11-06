@@ -189,6 +189,7 @@
     <Compile Include="Services\ContactDetailsService.cs" />
     <Compile Include="Services\DomainPermissionService.cs" />
     <Compile Include="Services\FunctionalPermissionService.cs" />
+    <Compile Include="Services\HoursService.cs" />
     <Compile Include="Services\LocalizationService.cs" />
     <Compile Include="Services\PermissionService.cs" />
     <Compile Include="Services\RoleService.cs" />
@@ -211,6 +212,8 @@
     <Compile Include="TransferObjects\AuthAdmin\Roles.cs" />
     <Compile Include="TransferObjects\Hours\ItemHoursEntries.cs" />
     <Compile Include="TransferObjects\Hours\ItemHoursEntry.cs" />
+    <Compile Include="TransferObjects\Hours\RoomHoursEntries.cs" />
+    <Compile Include="TransferObjects\Hours\RoomHoursEntry.cs" />
     <Compile Include="TransferObjects\Localization\LocalizationDictionary.cs" />
     <Compile Include="TransferObjects\Localization\LocalizationItem.cs" />
     <Compile Include="TransferObjects\Localization\LocalizationKeyDictionary.cs" />
