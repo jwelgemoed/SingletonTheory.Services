@@ -9,6 +9,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 	public class HoursService : Service
 	{
 		#region CRUD
+
 		#endregion CRUD
 
 		#region Private Methods

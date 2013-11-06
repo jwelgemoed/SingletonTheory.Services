@@ -123,6 +123,7 @@
     <Compile Include="Data\ContactDetailsData.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Data\Hours\HoursData.cs" />
     <Compile Include="Data\LocalizationData.cs" />
     <Compile Include="Data\PermissionData.cs" />
     <Compile Include="Data\UserData.cs" />

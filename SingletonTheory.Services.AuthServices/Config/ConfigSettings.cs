@@ -110,6 +110,14 @@ namespace SingletonTheory.Services.AuthServices.Config
 			}
 		}
 
+		public static string HoursDatabaseConnectionName
+		{
+			get
+			{
+				return GetValue("HoursDatabaseConnectionName", "HoursDatabase");
+			}
+		}
+
 		#endregion Fields & Properties
 
 		#region Private Methods

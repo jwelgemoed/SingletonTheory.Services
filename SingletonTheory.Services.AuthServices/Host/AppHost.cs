@@ -12,6 +12,7 @@ using ServiceStack.WebHost.Endpoints;
 using SingletonTheory.Data;
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Data;
+using SingletonTheory.Services.AuthServices.Data.Hours;
 using SingletonTheory.Services.AuthServices.Providers;
 using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.Repositories.ContactDetails;
@@ -115,6 +116,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 
 			UserData.CreateUsers();
 			ContactDetailsData.CreateData();
+			HoursData.CreateData();
 		}
 
 		private static void RegisterValidations(Funq.Container container)
