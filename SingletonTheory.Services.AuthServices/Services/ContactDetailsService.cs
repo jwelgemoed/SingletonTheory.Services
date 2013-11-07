@@ -39,6 +39,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 					Id = contactEntity.Id,
 					ContactTypeId = contactEntity.ContactTypeId,
 					Value = contactEntity.Value,
+					Preffered = contactEntity.Preffered,
 					DeletedDate = contactEntity.DeletedDate,
 					EntityId = contactEntity.EntityId
 				};
