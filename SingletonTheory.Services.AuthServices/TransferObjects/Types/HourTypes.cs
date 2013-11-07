@@ -6,6 +6,7 @@ using ServiceStack.ServiceHost;
 
 namespace SingletonTheory.Services.AuthServices.TransferObjects.Types
 {
+	[Route("/hoursmanagement/hourtypes")]
 	public class HourTypes:IReturn<List<HourType>>
 	{
 	}

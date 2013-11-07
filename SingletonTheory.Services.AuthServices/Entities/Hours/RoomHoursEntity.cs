@@ -52,6 +52,11 @@ namespace SingletonTheory.Services.AuthServices.Entities.Hours
 		[Required]
 		public int PersonNumber { get; set; }
 
+		[Alias("Uren")]
+		[Required]
+		[DecimalLength(2, 2)]
+		public decimal Hours { get; set; }
+
 		[Alias("Omschrijving")]
 		[StringLength(22)]
 		public string Description { get; set; }

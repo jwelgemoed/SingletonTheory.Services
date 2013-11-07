@@ -18,6 +18,7 @@ namespace SingletonTheory.Services.AuthServices.TransferObjects.Hours
 		public int OrderNumber { get; set; }
 		public int RoomNumber { get; set; }
 		public int PersonNumber { get; set; }
+		public decimal Hours { get; set; }
 		public string Description { get; set; }
 		public DateTime Date { get; set; }
 		public bool Deleted { get; set; }
