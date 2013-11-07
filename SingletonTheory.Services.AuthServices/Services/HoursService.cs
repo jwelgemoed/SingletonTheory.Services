@@ -19,21 +19,26 @@ namespace SingletonTheory.Services.AuthServices.Services
 		{
 			var repository = GetItemHoursRepository();
 			var returnEntity = repository.Create(TranslateToItemHoursEntity(request));
-			return TranslateToItemHoursResponse(returnEntity);
+			var costCentreRepository = GetCostCentreRepository();
+			var hourTypeRepository = GetHourTypeRepository();
+			var returnResponse = TranslateToItemHoursResponse(returnEntity);
+			returnResponse.CostCentre = TranslateToCostCentreResponse(costCentreRepository.Read(returnEntity.CostCentreId));
+			returnResponse.HourType = TranslateToHourTypeResponse(hourTypeRepository.Read(returnEntity.HourTypeId));
+			return returnResponse;
 		}
 
 		public List<CostCentre> Get(CostCentres request)
 		{
 			var repository = GetCostCentreRepository();
 			var returnEntity = repository.Read();
-			return TranslateToCostCentreResponse(returnEntity);
+			return TranslateToCostCentresResponse(returnEntity);
 		}
 
 		public List<HourType> Get(HourTypes request)
 		{
 			var repository = GetHourTypeRepository();
 			var returnEntity = repository.Read();
-			return TranslateToHourTypeResponse(returnEntity);
+			return TranslateToHourTypesResponse(returnEntity);
 		}
 
 		#endregion CRUD
@@ -80,7 +85,17 @@ namespace SingletonTheory.Services.AuthServices.Services
 			return response;
 		}
 
-		private List<CostCentre> TranslateToCostCentreResponse(List<CostCentreEntity> collection)
+		private HourType TranslateToHourTypeResponse(HourTypeEntity entity)
+		{
+			return entity.TranslateTo<HourType>();
+		}
+
+		private CostCentre TranslateToCostCentreResponse(CostCentreEntity entity)
+		{
+			return entity.TranslateTo<CostCentre>();
+		}
+
+		private List<CostCentre> TranslateToCostCentresResponse(List<CostCentreEntity> collection)
 		{
 			var response = new List<CostCentre>();
 			foreach (var costCentreEntity in collection)
@@ -91,7 +106,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 			return response;
 		}
 
-		private List<HourType> TranslateToHourTypeResponse(List<HourTypeEntity> collection)
+		private List<HourType> TranslateToHourTypesResponse(List<HourTypeEntity> collection)
 		{
 			var response = new List<HourType>();
 			foreach (var hourTypeEntity in collection)
