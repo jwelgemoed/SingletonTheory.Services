@@ -80,7 +80,7 @@ namespace SingletonTheory.Services.AuthServices.Data.Hours
 				{
 					LookupCode = "PROD",
 					Code = "02",
-					Description = "Fabricage",
+					Description = "Werkplaats",
 					DeletedDate = DateTime.MinValue
 				});
 			}

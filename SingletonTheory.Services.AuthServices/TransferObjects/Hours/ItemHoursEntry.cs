@@ -7,6 +7,7 @@ using SingletonTheory.Services.AuthServices.TransferObjects.Types;
 
 namespace SingletonTheory.Services.AuthServices.TransferObjects.Hours
 {
+	[Route("/hoursmanagement/itementry")]
 	public class ItemHoursEntry:IReturn<ItemHoursEntry>
 	{
 		public long Id { get; set; }
@@ -19,6 +20,7 @@ namespace SingletonTheory.Services.AuthServices.TransferObjects.Hours
 		public int ItemNumber { get; set; }
 		public int ParentItemNumber { get; set; }
 		public int PersonNumber { get; set; }
+		public decimal Hours { get; set; }
 		public string Description { get; set; }
 		public DateTime Date { get; set; }
 		public bool Deleted { get; set; }

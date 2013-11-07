@@ -16,6 +16,7 @@ using SingletonTheory.Services.AuthServices.Data.Hours;
 using SingletonTheory.Services.AuthServices.Providers;
 using SingletonTheory.Services.AuthServices.Repositories;
 using SingletonTheory.Services.AuthServices.Repositories.ContactDetails;
+using SingletonTheory.Services.AuthServices.Repositories.Hours;
 using SingletonTheory.Services.AuthServices.Services;
 using SingletonTheory.Services.AuthServices.Validations;
 using System;
@@ -95,6 +96,9 @@ namespace SingletonTheory.Services.AuthServices.Host
 			container.Register<EntityRelationshipRepository>(GetEntityRelationshipRepositoryProvider());
 			container.Register<EntityRepository>(GetEntityRepositoryProvider());
 			container.Register<PersonRepository>(GetPersonRepositoryProvider());
+			container.Register<ItemHoursRepository>(GetItemHoursRepositoryProvider());
+			container.Register<RoomHoursRepository>(GetRoomHoursRepositoryProvider());
+			
 			//Types
 			container.Register<TitleRepository>(GetTitleRepositoryProvider());
 			container.Register<ContactTypeRepository>(GetContactTypeRepositoryProvider());
@@ -102,6 +106,8 @@ namespace SingletonTheory.Services.AuthServices.Host
 			container.Register<OccupationNameRepository>(GetOccupationNameRepositoryProvider());
 			container.Register<GenderTypeRepository>(GetGenderTypeRepositoryProvider());
 			container.Register<AddressTypeRepository>(GetAddressTypeRepositoryProvider());
+			container.Register<HourTypeRepository>(GetHourTypeRepositoryProvider());
+			container.Register<CostCentreRepository>(GetCostCentreRepositoryProvider());
 		}
 
 		public static void CreateMockData(Funq.Container container)
@@ -187,6 +193,26 @@ namespace SingletonTheory.Services.AuthServices.Host
 		private static OccupationNameRepository GetOccupationNameRepositoryProvider()
 		{
 			return new OccupationNameRepository(ConfigSettings.MySqlDatabaseConnectionName);
+		}
+
+		private static ItemHoursRepository GetItemHoursRepositoryProvider()
+		{
+			return new ItemHoursRepository(ConfigSettings.HoursDatabaseConnectionName);
+		}
+
+		private static RoomHoursRepository GetRoomHoursRepositoryProvider()
+		{
+			return new RoomHoursRepository(ConfigSettings.HoursDatabaseConnectionName);
+		}
+
+		private static CostCentreRepository GetCostCentreRepositoryProvider()
+		{
+			return new CostCentreRepository(ConfigSettings.HoursDatabaseConnectionName);
+		}
+
+		private static HourTypeRepository GetHourTypeRepositoryProvider()
+		{
+			return new HourTypeRepository(ConfigSettings.HoursDatabaseConnectionName);
 		}
 
 		private static SSAuthInterfaces.IUserAuthRepository GetUserAuthRepositoryProvider()

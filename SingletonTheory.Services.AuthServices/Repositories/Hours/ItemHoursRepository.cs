@@ -126,6 +126,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories.Hours
 			entityToUpdate.ItemNumber = entity.ItemNumber;
 			entityToUpdate.ParentItemNumber = entity.ParentItemNumber;
 			entityToUpdate.PersonNumber = entity.PersonNumber;
+			entityToUpdate.Hours = entity.Hours;
 			entityToUpdate.Description = entity.Description;
 			entityToUpdate.Date = entity.Date;
 			entityToUpdate.Deleted = entity.Deleted;
