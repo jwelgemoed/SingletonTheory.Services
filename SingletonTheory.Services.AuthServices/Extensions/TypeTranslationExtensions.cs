@@ -10,6 +10,35 @@ namespace SingletonTheory.Services.AuthServices.Extensions
 {
 	public static class TypeTranslationExtensions
 	{
+		#region Address
+
+		public static AddressType TranslateToResponse(this AddressTypeEntity entity)
+		{
+			AddressType response = entity.TranslateTo<AddressType>();
+
+			return response;
+		}
+
+		public static List<AddressType> TranslateToResponse(this List<AddressTypeEntity> entities)
+		{
+			List<AddressType> response = new List<AddressType>();
+			for (int i = 0; i < entities.Count; i++)
+			{
+				response.Add(TranslateToResponse(entities[i]));
+			}
+
+			return response;
+		}
+
+		public static AddressTypeEntity TranslateToEntity(this AddressType request)
+		{
+			AddressTypeEntity response = request.TranslateTo<AddressTypeEntity>();
+
+			return response;
+		}
+
+		#endregion Address
+
 		#region Title
 
 		public static Title TranslateToResponse(this TitleEntity entity)

@@ -151,6 +151,7 @@
     <Compile Include="Entities\Hours\RoomHoursEntity.cs" />
     <Compile Include="Entities\Hours\HourTypeEntity.cs" />
     <Compile Include="Entities\UserEntity.cs" />
+    <Compile Include="Extensions\ContactDetailTranslationExtensions.cs" />
     <Compile Include="Extensions\TranslationExtensions.cs" />
     <Compile Include="Extensions\TypeTranslationExtensions.cs" />
     <Compile Include="Interfaces\INameLabel.cs" />
@@ -203,6 +204,8 @@
     <Compile Include="TransferObjects\AuthAdmin\RoleDomainPermissions.cs" />
     <Compile Include="TransferObjects\AuthAdmin\RolesRoleCanMoveTo.cs" />
     <Compile Include="TransferObjects\AuthAdmin\RoleTree.cs" />
+    <Compile Include="TransferObjects\ContactDetail\Address.cs" />
+    <Compile Include="TransferObjects\ContactDetail\Addresses.cs" />
     <Compile Include="TransferObjects\ContactDetail\Contacts.cs" />
     <Compile Include="TransferObjects\CurrentUserAuthRequest.cs" />
     <Compile Include="TransferObjects\AuthAdmin\FunctionalPermission.cs" />
@@ -222,6 +225,8 @@
     <Compile Include="TransferObjects\Localization\LocalizationLocaleCollection.cs" />
     <Compile Include="TransferObjects\Localization\LocalizationLocaleItem.cs" />
     <Compile Include="TransferObjects\ContactDetail\Contact.cs" />
+    <Compile Include="TransferObjects\Types\AddressType.cs" />
+    <Compile Include="TransferObjects\Types\AddressTypes.cs" />
     <Compile Include="TransferObjects\Types\ContactType.cs" />
     <Compile Include="TransferObjects\Types\ContactTypes.cs" />
     <Compile Include="TransferObjects\Types\CostCentre.cs" />

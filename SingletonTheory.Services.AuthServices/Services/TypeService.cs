@@ -62,6 +62,18 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		#endregion ContactTypes
 
+		#region AddressTypes
+
+		public List<AddressType> Get(AddressTypes request)
+		{
+			AddressTypeRepository repository = GetAddressTypeRepository();
+			List<AddressTypeEntity> entities = repository.Read();
+
+			return entities.TranslateToResponse();
+		}
+
+		#endregion ContactTypes
+
 		#region Private Methods
 
 		private TitleRepository GetTitleRepository()
@@ -96,6 +108,15 @@ namespace SingletonTheory.Services.AuthServices.Services
 			ContactTypeRepository repository = base.GetResolver().TryResolve<ContactTypeRepository>();
 			if (repository == null)
 				throw new InvalidOperationException("ContactType Repository not defined in IoC Container");
+
+			return repository;
+		}
+
+		private AddressTypeRepository GetAddressTypeRepository()
+		{
+			AddressTypeRepository repository = base.GetResolver().TryResolve<AddressTypeRepository>();
+			if (repository == null)
+				throw new InvalidOperationException("AddressType Repository not defined in IoC Container");
 
 			return repository;
 		}
