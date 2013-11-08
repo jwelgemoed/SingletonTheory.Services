@@ -4,10 +4,13 @@ using System.Linq;
 using System.Web;
 using ServiceStack.Common;
 using ServiceStack.ServiceInterface;
+using ServiceStack.ServiceInterface.Auth;
+using SingletonTheory.Services.AuthServices.Entities;
 using SingletonTheory.Services.AuthServices.Entities.Hours;
 using SingletonTheory.Services.AuthServices.Repositories.Hours;
 using SingletonTheory.Services.AuthServices.TransferObjects.Hours;
 using SingletonTheory.Services.AuthServices.TransferObjects.Types;
+using SingletonTheory.Services.AuthServices.Utilities;
 
 namespace SingletonTheory.Services.AuthServices.Services
 {
@@ -73,15 +76,19 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		private ItemHoursEntry TranslateToItemHoursResponse(ItemHoursEntity entity)
 		{
+			IAuthSession session = this.GetSession();
+			UserEntity userEntity = SessionUtility.GetSessionUserEntity(session);
 			ItemHoursEntry response = entity.TranslateTo<ItemHoursEntry>();
-
+			response.Date = DateTimeUtility.ConvertTimeFromUtc(response.Date, userEntity.TimeZoneId);
 			return response;
 		}
 
 		private ItemHoursEntity TranslateToItemHoursEntity(ItemHoursEntry request)
 		{
+			IAuthSession session = this.GetSession();
+			UserEntity userEntity = SessionUtility.GetSessionUserEntity(session);
 			ItemHoursEntity response = request.TranslateTo<ItemHoursEntity>();
-
+			response.Date = DateTimeUtility.ConvertTimeToUtc(response.Date,userEntity.TimeZoneId);
 			return response;
 		}
 

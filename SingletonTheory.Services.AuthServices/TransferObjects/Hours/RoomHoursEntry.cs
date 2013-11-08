@@ -7,6 +7,10 @@ using SingletonTheory.Services.AuthServices.TransferObjects.Types;
 
 namespace SingletonTheory.Services.AuthServices.TransferObjects.Hours
 {
+	//[RequiredPermission(ApplyTo.Get, "RoomHoursEntry_Get")]
+	//[RequiredPermission(ApplyTo.Post, "RoomHoursEntry_Post")]
+	//[RequiredPermission(ApplyTo.Put, "RoomHoursEntry_Put")]
+	//[RequiredPermission(ApplyTo.Delete, "RoomHoursEntry_Delete")]
 	public class RoomHoursEntry:IReturn<RoomHoursEntry>
 	{
 		public long Id { get; set; }

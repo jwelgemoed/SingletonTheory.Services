@@ -8,6 +8,10 @@ using SingletonTheory.Services.AuthServices.TransferObjects.Types;
 namespace SingletonTheory.Services.AuthServices.TransferObjects.Hours
 {
 	[Route("/hoursmanagement/itementry")]
+	//[RequiredPermission(ApplyTo.Get, "ItemHoursEntry_Get")]
+	//[RequiredPermission(ApplyTo.Post, "ItemHoursEntry_Post")]
+	//[RequiredPermission(ApplyTo.Put, "ItemHoursEntry_Put")]
+	//[RequiredPermission(ApplyTo.Delete, "ItemHoursEntry_Delete")]
 	public class ItemHoursEntry:IReturn<ItemHoursEntry>
 	{
 		public long Id { get; set; }
