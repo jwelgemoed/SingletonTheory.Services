@@ -38,7 +38,7 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 		{
 			//Add l18n here
 			AuthService authService = new AuthService();
-			var language = "nl_nl";
+			var language = "nl-nl";
 			try
 			{
 				var currentUser = authService.Get(new CurrentUserAuthRequest());
@@ -62,7 +62,7 @@ namespace SingletonTheory.Services.AuthServices.Utilities
 
 			//Add l18n here
 			AuthService authService = new AuthService();
-			var language = "nl_nl";
+			var language = "nl-nl";
 			try
 			{
 				var currentUser = authService.Get(new CurrentUserAuthRequest());
