@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ServiceStack.Common;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Testing;
 using SingletonTheory.Services.AuthServices.Config;
 using SingletonTheory.Services.AuthServices.Entities.ContactDetails;
+using SingletonTheory.Services.AuthServices.Extensions;
 using SingletonTheory.Services.AuthServices.Repositories.ContactDetails;
 using SingletonTheory.Services.AuthServices.TransferObjects.ContactDetail;
 using SingletonTheory.Services.AuthServices.Utilities;
@@ -185,6 +187,38 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		#endregion Contact
 
+		#region Address
+
+		public Address Get(Address request)
+		{
+			AddressRepository addressRepository = GetAddressRepository();
+			AddressEntity addressEntity = addressRepository.Read(request.Id);
+
+			return addressEntity.TranslateToResponse();
+		}
+
+		public List<Address> Get(Addresses request)
+		{
+			AddressRepository addressRepository = GetAddressRepository();
+			List<AddressEntity> addressEntities = addressRepository.Read();
+			List<AddressEntity> addressEntityResponse = new List<AddressEntity>();
+
+			if (request.EntityId != -1)
+			{
+				foreach (var addressEntity in addressEntities)
+				{
+					if (request.EntityId == addressEntity.EntityId)
+					{
+						addressEntityResponse.Add(addressEntity);
+					}
+				}
+			}
+
+			return request.EntityId != -1 ? addressEntityResponse.TranslateToResponse() : addressEntities.TranslateToResponse();
+		}
+
+		#endregion Address
+
 		#region Private Methods
 
 		private EntityRepository GetEntityRepository()
@@ -210,6 +244,15 @@ namespace SingletonTheory.Services.AuthServices.Services
 			ContactRepository repository = base.GetResolver().TryResolve<ContactRepository>();
 			if (repository == null)
 				throw new InvalidOperationException("ContactRepository not defined in IoC Container");
+
+			return repository;
+		}
+
+		private AddressRepository GetAddressRepository()
+		{
+			AddressRepository repository = base.GetResolver().TryResolve<AddressRepository>();
+			if (repository == null)
+				throw new InvalidOperationException("AddressRepository not defined in IoC Container");
 
 			return repository;
 		}

@@ -18,6 +18,8 @@ namespace SingletonTheory.Services.AuthServices.Data
 		private static List<ContactEntity> _contactEntities = new List<ContactEntity>();
 		private static List<EntityEntity> _entityEntities = new List<EntityEntity>();
 		private static List<PersonEntity> _personEntities = new List<PersonEntity>();
+		private static List<AddressTypeEntity> _addressTypeEntities = new List<AddressTypeEntity>();
+		private static List<AddressEntity> _addressEntities = new List<AddressEntity>();
 
 		public static void CreateData()
 		{
@@ -31,6 +33,8 @@ namespace SingletonTheory.Services.AuthServices.Data
 			CreateEntities();
 			CreateContacts();
 			CreatePerson();
+
+			CreateAddressTypes();
 		}
 
 		private static void ClearAll()
@@ -42,7 +46,10 @@ namespace SingletonTheory.Services.AuthServices.Data
 			EntityTypeRepository repository5 = new EntityTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			ContactTypeRepository repository6 = new ContactTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			TitleRepository repository7 = new TitleRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			AddressTypeRepository repository8 = new AddressTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			AddressRepository repository9 = new AddressRepository(ConfigSettings.MySqlDatabaseConnectionName);
 
+			repository9.ClearCollection();
 			repository1.ClearCollection();
 			repository2.ClearCollection();
 			repository3.ClearCollection();
@@ -50,6 +57,8 @@ namespace SingletonTheory.Services.AuthServices.Data
 			repository5.ClearCollection();
 			repository6.ClearCollection();
 			repository7.ClearCollection();
+			repository8.ClearCollection();
+
 		}
 
 		private static void CreateEntities()
@@ -208,6 +217,29 @@ namespace SingletonTheory.Services.AuthServices.Data
 
 			_contactTypeEntities.Add(entity);
 			_contactTypeEntities.Add(mEntity);
+		}
+
+		private static void CreateAddressTypes()
+		{
+			AddressTypeRepository repository = new AddressTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
+
+			AddressTypeEntity entity = new AddressTypeEntity()
+			{
+				Description = "Home",
+				DeletedDate = DateTime.MinValue
+			};
+
+			AddressTypeEntity mEntity = new AddressTypeEntity()
+			{
+				Description = "Work",
+				DeletedDate = DateTime.MinValue
+			};
+
+			entity = repository.Create(entity);
+			mEntity = repository.Create(mEntity);
+
+			_addressTypeEntities.Add(entity);
+			_addressTypeEntities.Add(mEntity);
 		}
 
 		private static void CreateTitles()
