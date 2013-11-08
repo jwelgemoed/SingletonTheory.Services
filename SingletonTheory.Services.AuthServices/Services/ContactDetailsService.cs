@@ -71,6 +71,56 @@ namespace SingletonTheory.Services.AuthServices.Services
 			return CreateGetContact(contactEntity, entityRepository, personEntities);
 		}
 
+		public Contact Post(Contact request)
+		{
+			PersonRepository personRepository = GetPersonRepository();
+			ContactRepository contactRepository = GetContactRepository();
+			EntityRepository entityRepository = GetEntityRepository();
+
+			ContactEntity contactEntity = new ContactEntity();
+			PersonEntity personEntity = new PersonEntity();
+			EntityEntity entity = new EntityEntity();
+
+			//Create entity 
+			entity.Name = request.EntityName;
+			entity.EntityTypeId = request.EntityTypeId;
+			entity.DeletedDate = DateTime.MinValue;
+
+			entity = entityRepository.Create(entity);
+
+			contactEntity.EntityId = entity.Id;
+			contactEntity.ContactTypeId = request.ContactTypeId == null ? -1 : request.ContactTypeId;
+		  contactEntity.Value = request.Value;
+		  contactEntity.Preffered = request.Preffered;
+			contactEntity.DeletedDate = DateTime.MinValue;
+
+			contactEntity = contactRepository.Create(contactEntity);
+
+			personEntity.EntityId = entity.Id;
+			personEntity.OccupationNameId = request.OccupationNameId;
+			personEntity.TitleId = request.TitleId;
+			personEntity.SurnamePrefix = request.SurnamePrefix;
+			personEntity.Surname = request.Surname;
+			personEntity.MaidenNamePrefix = request.MaidenNamePrefix;
+			personEntity.Nationality = request.Nationality;
+			personEntity.DateOfBirth = request.DateOfBirth;
+			personEntity.PlaceOfBirth = request.PlaceOfBirth;
+			personEntity.DeletedDate = DateTime.MinValue;
+
+			try
+			{
+				personEntity = personRepository.Create(personEntity);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+			
+			List<PersonEntity> personEntities = personRepository.Read();
+
+			return CreateGetContact(contactEntity, entityRepository, personEntities);
+		}
+
 		public List<Contact> Get(Contacts request)
 		{
 			return GetContacts();
