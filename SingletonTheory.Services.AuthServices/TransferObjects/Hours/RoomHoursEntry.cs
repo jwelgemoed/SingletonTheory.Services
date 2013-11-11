@@ -25,7 +25,7 @@ namespace SingletonTheory.Services.AuthServices.TransferObjects.Hours
 		public int PersonNumber { get; set; }
 		public decimal Hours { get; set; }
 		public string Description { get; set; }
-		public DateTime Date { get; set; }
+		public DateTime DeliveryDate { get; set; }
 		public bool Deleted { get; set; }
 		public DateTime DeletedDate { get; set; }
 	}

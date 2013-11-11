@@ -61,8 +61,8 @@ namespace SingletonTheory.Services.AuthServices.Entities.Hours
 		[StringLength(22)]
 		public string Description { get; set; }
 
-		[Alias("Datum")]
-		public DateTime Date { get; set; }
+		[Alias("LewerDatum")]
+		public DateTime DeliveryDate { get; set; }
 
 		[Alias("Verwijderd")]
 		public bool Deleted { get; set; }

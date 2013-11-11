@@ -101,7 +101,7 @@ namespace SingletonTheory.Services.AuthServices.Tests.Data
 				RoomNumber = 67,
 				PersonNumber = 123456789,
 				Description = "Work on Monday",
-				Date = DateTime.UtcNow,
+				DeliveryDate = DateTime.UtcNow,
 				Deleted = true,
 				DeletedDate = DateTime.MinValue
 			};

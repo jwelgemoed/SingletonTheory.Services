@@ -118,7 +118,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 			IAuthSession session = this.GetSession();
 			UserEntity userEntity = SessionUtility.GetSessionUserEntity(session);
 			RoomHoursEntry response = entity.TranslateTo<RoomHoursEntry>();
-			response.Date = DateTimeUtility.ConvertTimeFromUtc(response.Date, userEntity.TimeZoneId);
+			response.DeliveryDate = DateTimeUtility.ConvertTimeFromUtc(response.DeliveryDate, userEntity.TimeZoneId);
 			return response;
 		}
 
@@ -127,7 +127,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 			IAuthSession session = this.GetSession();
 			UserEntity userEntity = SessionUtility.GetSessionUserEntity(session);
 			RoomHoursEntity response = request.TranslateTo<RoomHoursEntity>();
-			response.Date = DateTimeUtility.ConvertTimeToUtc(response.Date, userEntity.TimeZoneId);
+			response.DeliveryDate = DateTimeUtility.ConvertTimeToUtc(response.DeliveryDate, userEntity.TimeZoneId);
 			return response;
 		}
 
