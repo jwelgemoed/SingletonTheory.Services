@@ -154,5 +154,133 @@
 	{
 		Id: 42,
 		Name: TestPermissionEdit
+	},
+	{
+		Id: 43,
+		Name: CostCentre_Get
+	},
+	{
+		Id: 44,
+		Name: CostCentre_Post
+	},
+	{
+		Id: 45,
+		Name: CostCentre_Put
+	},
+	{
+		Id: 46,
+		Name: CostCentre_Delete
+	},
+	{
+		Id: 47,
+		Name: CostCentres_Get
+	},
+	{
+		Id: 48,
+		Name: CostCentres_Post
+	},
+	{
+		Id: 49,
+		Name: CostCentres_Put
+	},
+	{
+		Id: 50,
+		Name: CostCentres_Delete
+	},
+	{
+		Id: 51,
+		Name: HourType_Get
+	},
+	{
+		Id: 52,
+		Name: HourType_Post
+	},
+	{
+		Id: 53,
+		Name: HourType_Put
+	},
+	{
+		Id: 54,
+		Name: HourType_Delete
+	},
+	{
+		Id: 55,
+		Name: HourTypes_Get
+	},
+	{
+		Id: 56,
+		Name: HourTypes_Post
+	},
+	{
+		Id: 57,
+		Name: HourTypes_Put
+	},
+	{
+		Id: 58,
+		Name: HourTypes_Delete
+	},
+	{
+		Id: 59,
+		Name: ItemHoursEntries_Get
+	},
+	{
+		Id: 60,
+		Name: ItemHoursEntries_Post
+	},
+	{
+		Id: 61,
+		Name: ItemHoursEntries_Put
+	},
+	{
+		Id: 62,
+		Name: ItemHoursEntries_Delete
+	},
+	{
+		Id: 63,
+		Name: ItemHoursEntry_Get
+	},
+	{
+		Id: 64,
+		Name: ItemHoursEntry_Post
+	},
+	{
+		Id: 65,
+		Name: ItemHoursEntry_Put
+	},
+	{
+		Id: 66,
+		Name: ItemHoursEntry_Delete
+	},
+	{
+		Id: 67,
+		Name: RoomHoursEntries_Get
+	},
+	{
+		Id: 68,
+		Name: RoomHoursEntries_Post
+	},
+	{
+		Id: 69,
+		Name: RoomHoursEntries_Put
+	},
+	{
+		Id: 70,
+		Name: RoomHoursEntries_Delete
+	},
+	{
+		Id: 71,
+		Name: RoomHoursEntry_Get
+	},
+	{
+		Id: 72,
+		Name: RoomHoursEntry_Post
+	},
+	{
+		Id: 73,
+		Name: RoomHoursEntry_Put
+	},
+	{
+		Id: 74,
+		Name: RoomHoursEntry_Delete
 	}
 ]
