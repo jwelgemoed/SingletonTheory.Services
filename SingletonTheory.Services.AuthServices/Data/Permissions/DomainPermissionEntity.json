@@ -67,5 +67,14 @@
 			29,
 			28
 		]
+	},
+	{
+		Id: 6,
+		Label: Hours Management Domain,
+		Description: Access to hours management,
+		FunctionalPermissionIds: 
+		[
+			31
+		]
 	}
 ]
