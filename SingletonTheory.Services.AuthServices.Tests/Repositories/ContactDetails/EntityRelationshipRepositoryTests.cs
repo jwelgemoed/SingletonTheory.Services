@@ -118,13 +118,13 @@ namespace SingletonTheory.Services.AuthServices.Tests.Repositories.ContactDetail
 			EntityRelationshipEntity entity = EntityRelationshipData.GetItemForInsert();
 			repository.ClearCollection();
 			entity = repository.Create(entity);
-			entity.Preffered = true;
+			entity.Preferred = true;
 
 			// Act
 			EntityRelationshipEntity actual = repository.Update(entity);
 
 			// Assert
-			Assert.AreEqual(entity.Preffered, actual.Preffered);
+			Assert.AreEqual(entity.Preferred, actual.Preferred);
 		}
 
 		[Test]

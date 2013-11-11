@@ -41,7 +41,7 @@ namespace SingletonTheory.Services.AuthServices.Entities.ContactDetails
 		public string Value { get; set; }
 
 		[Required]
-		public bool Preffered { get; set; }
+		public bool Preferred { get; set; }
 
 		[Alias("VerwijderdDatum")]
 		[Required]

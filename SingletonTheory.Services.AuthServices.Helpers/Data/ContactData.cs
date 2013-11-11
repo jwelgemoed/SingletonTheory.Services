@@ -17,7 +17,7 @@ namespace SingletonTheory.Services.AuthServices.Helpers.Data
 				ContactTypeId = ContactDetailsHelpers.CreateContactType().Id,
 				EntityId = ContactDetailsHelpers.CreateEntity().Id,
 				Value = "Contact1",
-				Preffered = true,
+				Preferred = true,
 				DeletedDate = DateTime.MinValue
 			};
 

@@ -30,12 +30,15 @@ namespace SingletonTheory.Services.AuthServices.Data
 			CreateContactTypes();
 			CreateEntityTypes();
 			CreateOccupationNames();
-			CreateEntities();
-			CreateContacts();
-			CreatePerson();
-
 			CreateAddressTypes();
+
+			CreateEntities();
+			CreatePerson();
+			CreateContacts();
+			CreateAddresses();
+
 		}
+
 
 		private static void ClearAll()
 		{
@@ -131,16 +134,16 @@ namespace SingletonTheory.Services.AuthServices.Data
 			{
 				ContactTypeId = _contactTypeEntities[0].Id,
 				EntityId = _entityEntities[0].Id,
-				Value = "value1",
-				Preffered = true,
+				Value = "work@wrk.com",
+				Preferred = true,
 				DeletedDate = DateTime.MinValue
 			};
 			ContactEntity mEntity = new ContactEntity()
 			{
 				ContactTypeId = _contactTypeEntities[1].Id,
 				EntityId = _entityEntities[1].Id,
-				Value = "value2",
-				Preffered = true,
+				Value = "0768827423",
+				Preferred = true,
 				DeletedDate = DateTime.MinValue
 			};
 
@@ -149,6 +152,45 @@ namespace SingletonTheory.Services.AuthServices.Data
 
 			_contactEntities.Add(entity);
 			_contactEntities.Add(mEntity);
+		}
+
+
+		private static void CreateAddresses()
+		{
+			AddressRepository repository = new AddressRepository(ConfigSettings.MySqlDatabaseConnectionName);
+
+			AddressEntity entity = new AddressEntity()
+			{
+				AddressTypeId = _addressTypeEntities[0].Id,
+				EntityId = _entityEntities[0].Id,
+				Preferred = true,
+				Street = "De haag",
+				StreetNumber = "12",
+				StreetNumberAddition = "",
+				PostalCode = "3991TW",
+				City = "Houten",
+				CountryCode = "NL",
+				DeletedDate = DateTime.MinValue
+			};
+			AddressEntity mEntity = new AddressEntity()
+			{
+				AddressTypeId = _addressTypeEntities[1].Id,
+				EntityId = _entityEntities[1].Id,
+				Preferred = true,
+				Street = "De haagd",
+				StreetNumber = "122",
+				StreetNumberAddition = "d",
+				PostalCode = "3991RF",
+				City = "Utrecht",
+				CountryCode = "NL",
+				DeletedDate = DateTime.MinValue
+			};
+
+			entity = repository.Create(entity);
+			mEntity = repository.Create(mEntity);
+
+			_addressEntities.Add(entity);
+			_addressEntities.Add(mEntity);
 		}
 
 		private static void CreateOccupationNames()
@@ -202,21 +244,38 @@ namespace SingletonTheory.Services.AuthServices.Data
 			
 			ContactTypeEntity entity = new ContactTypeEntity()
 			{
-				Description = "Personal",
+				Description = "Email",
 				DeletedDate = DateTime.MinValue
 			};
 
 			ContactTypeEntity mEntity = new ContactTypeEntity()
 			{
-				Description = "Suplier",
+				Description = "Mobile",
+				DeletedDate = DateTime.MinValue
+			};
+
+			ContactTypeEntity entity3 = new ContactTypeEntity()
+			{
+				Description = "Work Phone",
+				DeletedDate = DateTime.MinValue
+			};
+
+			ContactTypeEntity entity4 = new ContactTypeEntity()
+			{
+				Description = "Home Phone",
 				DeletedDate = DateTime.MinValue
 			};
 
 			entity = repository.Create(entity);
 			mEntity = repository.Create(mEntity);
 
+			entity3 = repository.Create(entity3);
+			entity4 = repository.Create(entity4);
+
 			_contactTypeEntities.Add(entity);
 			_contactTypeEntities.Add(mEntity);
+			_contactTypeEntities.Add(entity3);
+			_contactTypeEntities.Add(entity4);
 		}
 
 		private static void CreateAddressTypes()
@@ -235,11 +294,20 @@ namespace SingletonTheory.Services.AuthServices.Data
 				DeletedDate = DateTime.MinValue
 			};
 
+
+			AddressTypeEntity entity3 = new AddressTypeEntity()
+			{
+				Description = "Postal",
+				DeletedDate = DateTime.MinValue
+			};
+
 			entity = repository.Create(entity);
 			mEntity = repository.Create(mEntity);
+			entity3 = repository.Create(entity3);
 
 			_addressTypeEntities.Add(entity);
 			_addressTypeEntities.Add(mEntity);
+			_addressTypeEntities.Add(entity3);
 		}
 
 		private static void CreateTitles()

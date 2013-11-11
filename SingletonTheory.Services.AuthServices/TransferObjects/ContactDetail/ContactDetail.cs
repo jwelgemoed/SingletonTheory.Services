@@ -15,14 +15,6 @@ namespace SingletonTheory.Services.AuthServices.TransferObjects.ContactDetail
 	//[RequiredPermission(ApplyTo.Delete, "Contact_Delete")]
 	public class ContactDetail : IReturn<ContactDetail>
 	{
-
-		//Contact
-		public long Id { get; set; }
-		public long ContactTypeId { get; set; }
-		public string Value { get; set; }
-		public bool Preffered { get; set; }
-		public DateTime DeletedDate { get; set; }
-
 		//Entity
 		public long EntityId { get; set; }
 		public string EntityName { get; set; }

@@ -122,7 +122,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories.ContactDetails
 			entityToUpdate.ContactTypeId = entity.ContactTypeId;
 			entityToUpdate.EntityId = entity.EntityId;
 			entityToUpdate.Value = entity.Value;
-			entityToUpdate.Preffered = entity.Preffered;
+			entityToUpdate.Preferred = entity.Preferred;
 			entityToUpdate.DeletedDate = entity.DeletedDate;
 
 			return entityToUpdate;

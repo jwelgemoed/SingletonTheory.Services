@@ -123,7 +123,7 @@ namespace SingletonTheory.Services.AuthServices.Repositories.ContactDetails
 			entityToUpdate.Entity2Id = entity.Entity2Id;
 			entityToUpdate.InDate = entity.InDate;
 			entityToUpdate.OutDate = entity.OutDate;
-			entityToUpdate.Preffered = entity.Preffered;
+			entityToUpdate.Preferred = entity.Preferred;
 			entityToUpdate.DeletedDate = entity.DeletedDate;
 
 			return entityToUpdate;

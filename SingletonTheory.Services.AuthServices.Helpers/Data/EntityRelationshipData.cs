@@ -18,7 +18,7 @@ namespace SingletonTheory.Services.AuthServices.Helpers.Data
 				Entity2Id = ContactDetailsHelpers.CreateEntity().Id,
 				InDate = DateTime.UtcNow,
 				OutDate = DateTime.UtcNow.AddDays(30),
-				Preffered = true,
+				Preferred = true,
 				DeletedDate = DateTime.MinValue
 			};
 
@@ -30,7 +30,7 @@ namespace SingletonTheory.Services.AuthServices.Helpers.Data
 			List<EntityRelationshipEntity> entities = new List<EntityRelationshipEntity>();
 			entities.Add(GetItemForInsert());
 			EntityRelationshipEntity entity = GetItemForInsert();
-			entity.Preffered = false;
+			entity.Preferred = false;
 			entities.Add(entity);
 
 			return entities;

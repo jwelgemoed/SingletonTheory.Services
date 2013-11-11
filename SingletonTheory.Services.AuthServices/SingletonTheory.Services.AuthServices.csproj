@@ -206,7 +206,9 @@
     <Compile Include="TransferObjects\AuthAdmin\RoleTree.cs" />
     <Compile Include="TransferObjects\ContactDetail\Address.cs" />
     <Compile Include="TransferObjects\ContactDetail\Addresses.cs" />
+    <Compile Include="TransferObjects\ContactDetail\Contact.cs" />
     <Compile Include="TransferObjects\ContactDetail\ContactDetails.cs" />
+    <Compile Include="TransferObjects\ContactDetail\Contacts.cs" />
     <Compile Include="TransferObjects\CurrentUserAuthRequest.cs" />
     <Compile Include="TransferObjects\AuthAdmin\FunctionalPermission.cs" />
     <Compile Include="TransferObjects\AuthAdmin\DomainPermission.cs" />

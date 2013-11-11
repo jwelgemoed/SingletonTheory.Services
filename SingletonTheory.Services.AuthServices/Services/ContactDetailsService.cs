@@ -22,38 +22,27 @@ namespace SingletonTheory.Services.AuthServices.Services
 		public ContactDetail Get(ContactDetail request)
 		{
 			PersonRepository personRepository = GetPersonRepository();
-			ContactRepository contactRepository = GetContactRepository();
 			EntityRepository entityRepository = GetEntityRepository();
 
-			ContactEntity contactEntity = contactRepository.Read(request.Id);
+			EntityEntity entityEntity = entityRepository.Read(request.EntityId);
 		
 
 			List<PersonEntity> personEntities = personRepository.Read();
 
-			return CreateGetContact(contactEntity, entityRepository, personEntities);
+			return CreateGetContactDetails(entityEntity, personEntities);
 		}
 
 		public ContactDetail Put(ContactDetail request)
 		{
 			PersonRepository personRepository = GetPersonRepository();
-			ContactRepository contactRepository = GetContactRepository();
 			EntityRepository entityRepository = GetEntityRepository();
 
-			ContactEntity contactEntity = contactRepository.Read(request.Id);
+
 			PersonEntity personEntity = personRepository.Read(request.PersonId);
 			EntityEntity entity = entityRepository.Read(request.EntityId);
 
-
-			contactEntity.ContactTypeId = request.ContactTypeId;
-			contactEntity.Value = request.Value;
-			contactEntity.Preffered = request.Preffered;
-			contactEntity.DeletedDate = request.DeletedDate;
-			contactEntity.EntityId = request.EntityId;
-
-
 			entity.Name = request.EntityName;
 			entity.EntityTypeId = request.EntityTypeId;
-
 
 			personEntity.OccupationNameId = request.OccupationNameId;
 			personEntity.TitleId = request.TitleId;
@@ -64,22 +53,19 @@ namespace SingletonTheory.Services.AuthServices.Services
 			personEntity.DateOfBirth = request.DateOfBirth;
 			personEntity.PlaceOfBirth = request.PlaceOfBirth;
 
-			contactRepository.Update(contactEntity);
 			personRepository.Update(personEntity);
 			entityRepository.Update(entity);
 
 			List<PersonEntity> personEntities = personRepository.Read();
-		
-			return CreateGetContact(contactEntity, entityRepository, personEntities);
+
+			return CreateGetContactDetails(entity, personEntities);
 		}
 
 		public ContactDetail Post(ContactDetail request)
 		{
 			PersonRepository personRepository = GetPersonRepository();
-			ContactRepository contactRepository = GetContactRepository();
 			EntityRepository entityRepository = GetEntityRepository();
 
-			ContactEntity contactEntity = new ContactEntity();
 			PersonEntity personEntity = new PersonEntity();
 			EntityEntity entity = new EntityEntity();
 
@@ -89,14 +75,6 @@ namespace SingletonTheory.Services.AuthServices.Services
 			entity.DeletedDate = DateTime.MinValue;
 
 			entity = entityRepository.Create(entity);
-
-			contactEntity.EntityId = entity.Id;
-			contactEntity.ContactTypeId = request.ContactTypeId == null ? -1 : request.ContactTypeId;
-		  contactEntity.Value = request.Value;
-		  contactEntity.Preffered = request.Preffered;
-			contactEntity.DeletedDate = DateTime.MinValue;
-
-			contactEntity = contactRepository.Create(contactEntity);
 
 			personEntity.EntityId = entity.Id;
 			personEntity.OccupationNameId = request.OccupationNameId;
@@ -120,7 +98,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 			
 			List<PersonEntity> personEntities = personRepository.Read();
 
-			return CreateGetContact(contactEntity, entityRepository, personEntities);
+			return CreateGetContactDetails(entity, personEntities);
 		}
 
 		public List<ContactDetail> Get(ContactDetails request)
@@ -132,15 +110,14 @@ namespace SingletonTheory.Services.AuthServices.Services
 		{
 			List<ContactDetail> contactReturnList = new List<ContactDetail>();
 			PersonRepository personRepository = GetPersonRepository();
-			ContactRepository contactRepository = GetContactRepository();
 			EntityRepository entityRepository = GetEntityRepository();
 
-			List<ContactEntity> contactEntities = contactRepository.Read();
+			List<EntityEntity> entityEntities = entityRepository.Read();
 			List<PersonEntity> personEntities = personRepository.Read();
 
-			foreach (var contactEntity in contactEntities)
+			foreach (var entityEntity in entityEntities)
 			{
-				var contact = CreateGetContact(contactEntity, entityRepository, personEntities);
+				var contact = CreateGetContactDetails(entityEntity, personEntities);
 
 				contactReturnList.Add(contact);
 			}
@@ -148,19 +125,14 @@ namespace SingletonTheory.Services.AuthServices.Services
 			return contactReturnList;
 		}
 
-		private static ContactDetail CreateGetContact(ContactEntity contactEntity, EntityRepository entityRepository,
+		private static ContactDetail CreateGetContactDetails(EntityEntity entityEntity, 
 			List<PersonEntity> personEntities)
 		{
 			ContactDetail contact = new ContactDetail
 			{
-				Id = contactEntity.Id,
-				ContactTypeId = contactEntity.ContactTypeId,
-				Value = contactEntity.Value,
-				Preffered = contactEntity.Preffered,
-				DeletedDate = contactEntity.DeletedDate,
-				EntityId = contactEntity.EntityId
+				EntityId = entityEntity.Id
 			};
-			EntityEntity entityEntity = entityRepository.Read(contactEntity.EntityId);
+
 			PersonEntity personEntity = null;
 			if (entityEntity != null)
 			{
