@@ -396,7 +396,7 @@
 			Description: Hour type heading
 		},
 		{
-			Key: _maxValueDescription,
+			Key: _maxValueDescription_,
 			Value: This field has a maximum of <0>.,
 			Description: Maximum value validation error description.
 		},

@@ -396,7 +396,7 @@
 			Description: Uren type hoofd
 		},
 		{
-			Key: _maxValueDescription,
+			Key: _maxValueDescription_,
 			Value: Heeft een maximum van <0>.,
 			Description: Maximum waarde validatie foutmelding.
 		},
