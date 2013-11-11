@@ -324,6 +324,91 @@
 			Key: _KeyHeading_,
 			Value: Key,
 			Description: 
+		},
+		{
+			Key: _HoursManagementAnchor_,
+			Value: Hours Management,
+			Description: Main Navbar heading for hours management
+		},
+		{
+			Key: _BookedHoursInputHeading_,
+			Value: Booked Hours,
+			Description: Main menu heading for Booked Hours Input
+		},
+		{
+			Key: _HoursInputHeader_,
+			Value: Hours Input,
+			Description: Main menu devider heading for Hours Input
+		},
+		{
+			Key: _HoursForHeading_,
+			Value: Hours For,
+			Description: Hours for heading
+		},
+		{
+			Key: _HoursDateHeading_,
+			Value: Date worked,
+			Description: Hours for date heading
+		},
+		{
+			Key: _PersonNumberHeading_,
+			Value: Personnel Number,
+			Description: Personnel Number heading
+		},
+		{
+			Key: _HoursDetailHeading_,
+			Value: Detail of Hours,
+			Description: Hours Detail Heading
+		},
+		{
+			Key: _CostCentreHeading_,
+			Value: Cost Centre,
+			Description: Cost Centre Heading
+		},
+		{
+			Key: _OrderNumberHeading_,
+			Value: Order Number,
+			Description: Order Number Heading
+		},
+		{
+			Key: _RoomNumberHeading_,
+			Value: Room Number,
+			Description: Room Number Heading
+		},
+		{
+			Key: _ItemNumberHeading_,
+			Value: Item Number,
+			Description: Item Number Heading
+		},
+		{
+			Key: _HoursHeading_,
+			Value: Hours,
+			Description: Hours Heading
+		},
+		{
+			Key: _HoursForCurrentPersonDateSessionHeading_,
+			Value: Hours for current session/search,
+			Description: Current session hours heading
+		},
+		{
+			Key: _HourTypeHeading_,
+			Value: Hour Type,
+			Description: Hour type heading
+		},
+		{
+			Key: _maxValueDescription,
+			Value: This field has a maximum of <0>.,
+			Description: Maximum value validation error description.
+		},
+		{
+			Key: _minValueDescription_,
+			Value: This field has a minimum of <0>.,
+			Description: Minimum value validation error description.
+		},
+		{
+			Key: _numberCheckDescription_,
+			Value: This field must be a number.,
+			Description: Number check validation error description.
 		}
 	]
 }

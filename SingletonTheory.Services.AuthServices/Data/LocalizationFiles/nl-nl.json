@@ -324,6 +324,91 @@
 			Key: _KeyHeading_,
 			Value: Sleutel,
 			Description: 
+		},
+		{
+			Key: _HoursManagementAnchor_,
+			Value: Uren Beheer,
+			Description: Hoofd voor Uren Beheer menu
+		},
+		{
+			Key: _BookedHoursInputHeading_,
+			Value: Geboekte Uren,
+			Description: Hoofd voor Geboekte Uren Invoer Menu
+		},
+		{
+			Key: _HoursInputHeader_,
+			Value: Uren Invoer,
+			Description: Hoofd voor Uren Invoer verdeler
+		},
+		{
+			Key: _HoursForHeading_,
+			Value: Uren Voor,
+			Description: Uren voor hoofd
+		},
+		{
+			Key: _HoursDateHeading_,
+			Value: Datum Gewerkt,
+			Description: Uren voor datum hoofd
+		},
+		{
+			Key: _PersonNumberHeading_,
+			Value: Persoon Nummer,
+			Description: Persoon nummer hoofd
+		},
+		{
+			Key: _HoursDetailHeading_,
+			Value: Uren Detail,
+			Description: Uren Detail hoofd
+		},
+		{
+			Key: _CostCentreHeading_,
+			Value: Kostenplaats,
+			Description: Kostenplaats hoofd
+		},
+		{
+			Key: _OrderNumberHeading_,
+			Value: Ordernummer,
+			Description: Ordernummer hoofd
+		},
+		{
+			Key: _RoomNumberHeading_,
+			Value: Ruimtenummer,
+			Description: Ruimtenummer hoofd
+		},
+		{
+			Key: _ItemNumberHeading_,
+			Value: Itemnummer,
+			Description: Itemnummer hoofd
+		},
+		{
+			Key: _HoursHeading_,
+			Value: Uren,
+			Description: Uren hoofd
+		},
+		{
+			Key: _HoursForCurrentPersonDateSessionHeading_,
+			Value: Uren voor huidige sessie/zoekopdracht,
+			Description: Huidige sessie uren hoofd
+		},
+		{
+			Key: _HourTypeHeading_,
+			Value: Uren Type,
+			Description: Uren type hoofd
+		},
+		{
+			Key: _maxValueDescription,
+			Value: Heeft een maximum van <0>.,
+			Description: Maximum waarde validatie foutmelding.
+		},
+		{
+			Key: _minValueDescription_,
+			Value: Heeft een minimum van <0>.,
+			Description: Minimum waarde validatie foutmelding.
+		},
+		{
+			Key: _numberCheckDescription_,
+			Value: Moet een nummer zijn.,
+			Description: Nummer validatie foutmelding.
 		}
 	]
 }
