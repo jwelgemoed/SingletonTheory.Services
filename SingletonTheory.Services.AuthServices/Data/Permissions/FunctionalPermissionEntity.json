@@ -249,6 +249,11 @@
 	},
 	{
 		Id: 30,
-		Name: OwnUser_Access
+		Name: OwnUser_Access,
+		PermissionIds: []
+	},
+	{
+		Id: 31,
+		Name: HoursManagement_Access
 	}
 ]

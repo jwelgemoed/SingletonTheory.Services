@@ -7,6 +7,7 @@ using SingletonTheory.Services.AuthServices.TransferObjects.Types;
 
 namespace SingletonTheory.Services.AuthServices.TransferObjects.Hours
 {
+	[Route("/hoursmanagement/roomentry")]
 	//[RequiredPermission(ApplyTo.Get, "RoomHoursEntry_Get")]
 	//[RequiredPermission(ApplyTo.Post, "RoomHoursEntry_Post")]
 	//[RequiredPermission(ApplyTo.Put, "RoomHoursEntry_Put")]
@@ -24,7 +25,7 @@ namespace SingletonTheory.Services.AuthServices.TransferObjects.Hours
 		public int PersonNumber { get; set; }
 		public decimal Hours { get; set; }
 		public string Description { get; set; }
-		public DateTime Date { get; set; }
+		public DateTime DeliveryDate { get; set; }
 		public bool Deleted { get; set; }
 		public DateTime DeletedDate { get; set; }
 	}
