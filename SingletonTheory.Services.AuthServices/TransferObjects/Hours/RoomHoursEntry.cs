@@ -7,6 +7,7 @@ using SingletonTheory.Services.AuthServices.TransferObjects.Types;
 
 namespace SingletonTheory.Services.AuthServices.TransferObjects.Hours
 {
+	[Route("/hoursmanagement/roomentry")]
 	//[RequiredPermission(ApplyTo.Get, "RoomHoursEntry_Get")]
 	//[RequiredPermission(ApplyTo.Post, "RoomHoursEntry_Post")]
 	//[RequiredPermission(ApplyTo.Put, "RoomHoursEntry_Put")]

@@ -411,6 +411,11 @@
 			Key: _numberCheckDescription_,
 			Value: This field must be a number.,
 			Description: Number check validation error description.
+		},
+		{
+			Key: _BudgetedHoursInputHeading_,
+			Value: Budgeted Hours,
+			Description: Main menu heading for Budgeted Hours Input
 		}
 	]
 }

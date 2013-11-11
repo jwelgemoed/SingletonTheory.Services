@@ -409,6 +409,11 @@
 			Key: _numberCheckDescription_,
 			Value: Moet een nummer zijn.,
 			Description: Nummer validatie foutmelding.
+		},
+		{
+			Key: _BudgetedHoursInputHeading_,
+			Value: Gebudgeteerde Uren,
+			Description: Hoofd voor Gebudgeteerde Uren Invoer Menu
 		}
 	]
 }

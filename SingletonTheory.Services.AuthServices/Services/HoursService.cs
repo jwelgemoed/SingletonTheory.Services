@@ -30,6 +30,18 @@ namespace SingletonTheory.Services.AuthServices.Services
 			return returnResponse;
 		}
 
+		public RoomHoursEntry Post(RoomHoursEntry request)
+		{
+			var repository = GetRoomHoursRepository();
+			var returnEntity = repository.Create(TranslateToRoomHoursEntity(request));
+			var costCentreRepository = GetCostCentreRepository();
+			var hourTypeRepository = GetHourTypeRepository();
+			var returnResponse = TranslateToRoomHoursResponse(returnEntity);
+			returnResponse.CostCentre = TranslateToCostCentreResponse(costCentreRepository.Read(returnEntity.CostCentreId));
+			returnResponse.HourType = TranslateToHourTypeResponse(hourTypeRepository.Read(returnEntity.HourTypeId));
+			return returnResponse;
+		}
+
 		public List<CostCentre> Get(CostCentres request)
 		{
 			var repository = GetCostCentreRepository();
@@ -52,6 +64,15 @@ namespace SingletonTheory.Services.AuthServices.Services
 			var repository = base.GetResolver().TryResolve<ItemHoursRepository>();
 			if (repository == null)
 				throw new InvalidOperationException("ItemHoursRepository not defined in IoC Container");
+
+			return repository;
+		}
+
+		private RoomHoursRepository GetRoomHoursRepository()
+		{
+			var repository = base.GetResolver().TryResolve<RoomHoursRepository>();
+			if (repository == null)
+				throw new InvalidOperationException("RoomHoursRepository not defined in IoC Container");
 
 			return repository;
 		}
@@ -89,6 +110,24 @@ namespace SingletonTheory.Services.AuthServices.Services
 			UserEntity userEntity = SessionUtility.GetSessionUserEntity(session);
 			ItemHoursEntity response = request.TranslateTo<ItemHoursEntity>();
 			response.Date = DateTimeUtility.ConvertTimeToUtc(response.Date,userEntity.TimeZoneId);
+			return response;
+		}
+
+		private RoomHoursEntry TranslateToRoomHoursResponse(RoomHoursEntity entity)
+		{
+			IAuthSession session = this.GetSession();
+			UserEntity userEntity = SessionUtility.GetSessionUserEntity(session);
+			RoomHoursEntry response = entity.TranslateTo<RoomHoursEntry>();
+			response.Date = DateTimeUtility.ConvertTimeFromUtc(response.Date, userEntity.TimeZoneId);
+			return response;
+		}
+
+		private RoomHoursEntity TranslateToRoomHoursEntity(RoomHoursEntry request)
+		{
+			IAuthSession session = this.GetSession();
+			UserEntity userEntity = SessionUtility.GetSessionUserEntity(session);
+			RoomHoursEntity response = request.TranslateTo<RoomHoursEntity>();
+			response.Date = DateTimeUtility.ConvertTimeToUtc(response.Date, userEntity.TimeZoneId);
 			return response;
 		}
 
