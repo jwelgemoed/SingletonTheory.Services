@@ -206,7 +206,7 @@
     <Compile Include="TransferObjects\AuthAdmin\RoleTree.cs" />
     <Compile Include="TransferObjects\ContactDetail\Address.cs" />
     <Compile Include="TransferObjects\ContactDetail\Addresses.cs" />
-    <Compile Include="TransferObjects\ContactDetail\Contacts.cs" />
+    <Compile Include="TransferObjects\ContactDetail\ContactDetails.cs" />
     <Compile Include="TransferObjects\CurrentUserAuthRequest.cs" />
     <Compile Include="TransferObjects\AuthAdmin\FunctionalPermission.cs" />
     <Compile Include="TransferObjects\AuthAdmin\DomainPermission.cs" />
@@ -224,7 +224,7 @@
     <Compile Include="TransferObjects\Localization\LocalizationKeyItem.cs" />
     <Compile Include="TransferObjects\Localization\LocalizationLocaleCollection.cs" />
     <Compile Include="TransferObjects\Localization\LocalizationLocaleItem.cs" />
-    <Compile Include="TransferObjects\ContactDetail\Contact.cs" />
+    <Compile Include="TransferObjects\ContactDetail\ContactDetail.cs" />
     <Compile Include="TransferObjects\Types\AddressType.cs" />
     <Compile Include="TransferObjects\Types\AddressTypes.cs" />
     <Compile Include="TransferObjects\Types\ContactType.cs" />

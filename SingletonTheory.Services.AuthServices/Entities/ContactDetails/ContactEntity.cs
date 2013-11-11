@@ -47,6 +47,9 @@ namespace SingletonTheory.Services.AuthServices.Entities.ContactDetails
 		[Required]
 		public DateTime DeletedDate { get; set; }
 
+		//[Required]
+		//public DateTime DateUpdated { get; set; }
+
 		#endregion Fields & Properties
 
 		#region IIdentifiable Members

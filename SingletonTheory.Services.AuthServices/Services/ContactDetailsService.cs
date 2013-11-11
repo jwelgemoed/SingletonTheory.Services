@@ -19,7 +19,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 		#region Contact
 
-		public Contact Get(Contact request)
+		public ContactDetail Get(ContactDetail request)
 		{
 			PersonRepository personRepository = GetPersonRepository();
 			ContactRepository contactRepository = GetContactRepository();
@@ -33,7 +33,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 			return CreateGetContact(contactEntity, entityRepository, personEntities);
 		}
 
-		public Contact Put(Contact request)
+		public ContactDetail Put(ContactDetail request)
 		{
 			PersonRepository personRepository = GetPersonRepository();
 			ContactRepository contactRepository = GetContactRepository();
@@ -73,7 +73,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 			return CreateGetContact(contactEntity, entityRepository, personEntities);
 		}
 
-		public Contact Post(Contact request)
+		public ContactDetail Post(ContactDetail request)
 		{
 			PersonRepository personRepository = GetPersonRepository();
 			ContactRepository contactRepository = GetContactRepository();
@@ -123,14 +123,14 @@ namespace SingletonTheory.Services.AuthServices.Services
 			return CreateGetContact(contactEntity, entityRepository, personEntities);
 		}
 
-		public List<Contact> Get(Contacts request)
+		public List<ContactDetail> Get(ContactDetails request)
 		{
 			return GetContacts();
 		}
 
-		private List<Contact> GetContacts()
+		private List<ContactDetail> GetContacts()
 		{
-			List<Contact> contactReturnList = new List<Contact>();
+			List<ContactDetail> contactReturnList = new List<ContactDetail>();
 			PersonRepository personRepository = GetPersonRepository();
 			ContactRepository contactRepository = GetContactRepository();
 			EntityRepository entityRepository = GetEntityRepository();
@@ -148,10 +148,10 @@ namespace SingletonTheory.Services.AuthServices.Services
 			return contactReturnList;
 		}
 
-		private static Contact CreateGetContact(ContactEntity contactEntity, EntityRepository entityRepository,
+		private static ContactDetail CreateGetContact(ContactEntity contactEntity, EntityRepository entityRepository,
 			List<PersonEntity> personEntities)
 		{
-			Contact contact = new Contact
+			ContactDetail contact = new ContactDetail
 			{
 				Id = contactEntity.Id,
 				ContactTypeId = contactEntity.ContactTypeId,
