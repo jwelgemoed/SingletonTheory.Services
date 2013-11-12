@@ -434,6 +434,11 @@
 			Key: _PermissionAdminHeading_,
 			Value: API Permission Administration,
 			Description: API Permission admin heading
+		},
+		{
+			Key: _DeliveryDateHeading_,
+			Value: Expected Delivery Date,
+			Description: Delivery date heading
 		}
 	]
 }
