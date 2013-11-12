@@ -24,12 +24,12 @@ namespace SingletonTheory.Services.AuthServices.TransferObjects.ContactDetail
 		public long PersonId { get; set; }
 		public long OccupationNameId { get; set; }
 		public long TitleId { get; set; }
+		public long GenderTypeId { get; set; }
 		public string SurnamePrefix { get; set; }
 		public string Surname { get; set; }
 		public string MaidenNamePrefix { get; set; }
 		public string Nationality { get; set; }
 		public DateTime DateOfBirth { get; set; }
 		public string PlaceOfBirth { get; set; }
-
 	}
 }

@@ -46,6 +46,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 
 			personEntity.OccupationNameId = request.OccupationNameId;
 			personEntity.TitleId = request.TitleId;
+			personEntity.GenderTypeId = request.GenderTypeId;
 			personEntity.SurnamePrefix = request.SurnamePrefix;
 			personEntity.Surname = request.Surname;
 			personEntity.MaidenNamePrefix = request.MaidenNamePrefix;
@@ -79,6 +80,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 			personEntity.EntityId = entity.Id;
 			personEntity.OccupationNameId = request.OccupationNameId;
 			personEntity.TitleId = request.TitleId;
+			personEntity.GenderTypeId = request.GenderTypeId;
 			personEntity.SurnamePrefix = request.SurnamePrefix;
 			personEntity.Surname = request.Surname;
 			personEntity.MaidenNamePrefix = request.MaidenNamePrefix;
@@ -147,6 +149,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 				contact.PersonId = personEntity.Id;
 				contact.OccupationNameId = personEntity.OccupationNameId;
 				contact.TitleId = personEntity.TitleId;
+				contact.GenderTypeId = personEntity.GenderTypeId;
 				contact.SurnamePrefix = personEntity.SurnamePrefix;
 				contact.Surname = personEntity.Surname;
 				contact.MaidenNamePrefix = personEntity.MaidenNamePrefix;

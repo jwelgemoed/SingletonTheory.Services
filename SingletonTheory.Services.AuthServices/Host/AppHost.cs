@@ -90,15 +90,7 @@ namespace SingletonTheory.Services.AuthServices.Host
 			container.Register<SSAuthInterfaces.IUserAuthRepository>(GetUserAuthRepositoryProvider());
 			container.Register<LocalizationRepository>(GetLocalizationRepositoryProvider());
 			container.Register<UserRepository>(GetUserRepositoryProvider());
-			container.Register<ContactRepository>(GetContactRepositoryProvider());
-			container.Register<AddressRepository>(GetAddressRepositoryProvider());
-			container.Register<EmployeeRepository>(GetEmployeeRepositoryProvider());
-			container.Register<EntityRelationshipRepository>(GetEntityRelationshipRepositoryProvider());
-			container.Register<EntityRepository>(GetEntityRepositoryProvider());
-			container.Register<PersonRepository>(GetPersonRepositoryProvider());
-			container.Register<ItemHoursRepository>(GetItemHoursRepositoryProvider());
-			container.Register<RoomHoursRepository>(GetRoomHoursRepositoryProvider());
-			
+
 			//Types
 			container.Register<TitleRepository>(GetTitleRepositoryProvider());
 			container.Register<ContactTypeRepository>(GetContactTypeRepositoryProvider());
@@ -108,6 +100,17 @@ namespace SingletonTheory.Services.AuthServices.Host
 			container.Register<AddressTypeRepository>(GetAddressTypeRepositoryProvider());
 			container.Register<HourTypeRepository>(GetHourTypeRepositoryProvider());
 			container.Register<CostCentreRepository>(GetCostCentreRepositoryProvider());
+
+
+			container.Register<ContactRepository>(GetContactRepositoryProvider());
+			container.Register<AddressRepository>(GetAddressRepositoryProvider());
+			container.Register<EntityRelationshipRepository>(GetEntityRelationshipRepositoryProvider());
+			container.Register<EntityRepository>(GetEntityRepositoryProvider());
+			container.Register<PersonRepository>(GetPersonRepositoryProvider());
+			container.Register<ItemHoursRepository>(GetItemHoursRepositoryProvider());
+			container.Register<RoomHoursRepository>(GetRoomHoursRepositoryProvider());
+			container.Register<EmployeeRepository>(GetEmployeeRepositoryProvider());
+
 		}
 
 		public static void CreateMockData(Funq.Container container)

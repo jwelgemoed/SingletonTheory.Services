@@ -235,6 +235,8 @@
     <Compile Include="TransferObjects\Types\CostCentres.cs" />
     <Compile Include="TransferObjects\Types\EntityType.cs" />
     <Compile Include="TransferObjects\Types\EntityTypes.cs" />
+    <Compile Include="TransferObjects\Types\GenderType.cs" />
+    <Compile Include="TransferObjects\Types\GenderTypes.cs" />
     <Compile Include="TransferObjects\Types\HourType.cs" />
     <Compile Include="TransferObjects\Types\HourTypes.cs" />
     <Compile Include="TransferObjects\Types\OccupationName.cs" />

@@ -14,6 +14,7 @@ namespace SingletonTheory.Services.AuthServices.Data
 		static List<OccupationNameEntity> _occupationNameEntities = new List<OccupationNameEntity>();
 		private static List<EntityTypeEntity> _entityTypeEntities = new List<EntityTypeEntity>();
 		private static List<ContactTypeEntity> _contactTypeEntities = new List<ContactTypeEntity>();
+		private static List<GenderTypeEntity> _genderTypeEntities = new List<GenderTypeEntity>();
 		private static List<TitleEntity> _titleEntities = new List<TitleEntity>();
 		private static List<ContactEntity> _contactEntities = new List<ContactEntity>();
 		private static List<EntityEntity> _entityEntities = new List<EntityEntity>();
@@ -31,6 +32,7 @@ namespace SingletonTheory.Services.AuthServices.Data
 			CreateEntityTypes();
 			CreateOccupationNames();
 			CreateAddressTypes();
+			CreateGenderTypes();
 
 			CreateEntities();
 			CreatePerson();
@@ -38,8 +40,7 @@ namespace SingletonTheory.Services.AuthServices.Data
 			CreateAddresses();
 
 		}
-
-
+		
 		private static void ClearAll()
 		{
 			PersonRepository repository1 = new PersonRepository(ConfigSettings.MySqlDatabaseConnectionName);
@@ -51,6 +52,7 @@ namespace SingletonTheory.Services.AuthServices.Data
 			TitleRepository repository7 = new TitleRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			AddressTypeRepository repository8 = new AddressTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
 			AddressRepository repository9 = new AddressRepository(ConfigSettings.MySqlDatabaseConnectionName);
+			GenderTypeRepository repository10 = new GenderTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
 
 			repository9.ClearCollection();
 			repository1.ClearCollection();
@@ -61,7 +63,7 @@ namespace SingletonTheory.Services.AuthServices.Data
 			repository6.ClearCollection();
 			repository7.ClearCollection();
 			repository8.ClearCollection();
-
+			repository10.ClearCollection();
 		}
 
 		private static void CreateEntities()
@@ -97,6 +99,7 @@ namespace SingletonTheory.Services.AuthServices.Data
 				EntityId = _entityEntities[0].Id,
 				OccupationNameId = _occupationNameEntities[0].Id,
 				TitleId = _titleEntities[0].Id,
+				GenderTypeId = _genderTypeEntities[0].Id,
 				SurnamePrefix = "van",
 				Surname = "Riebeeck",
 				MaidenNamePrefix = string.Empty,
@@ -110,6 +113,7 @@ namespace SingletonTheory.Services.AuthServices.Data
 				EntityId = _entityEntities[1].Id,
 				OccupationNameId = _occupationNameEntities[1].Id,
 				TitleId = _titleEntities[1].Id,
+				GenderTypeId = _genderTypeEntities[1].Id,
 				SurnamePrefix = string.Empty,
 				Surname = "Stel",
 				MaidenNamePrefix = "",
@@ -236,6 +240,29 @@ namespace SingletonTheory.Services.AuthServices.Data
 
 			_entityTypeEntities.Add(entity);
 			_entityTypeEntities.Add(mEntity);
+		}
+
+		private static void CreateGenderTypes()
+		{
+			GenderTypeRepository repository = new GenderTypeRepository(ConfigSettings.MySqlDatabaseConnectionName);
+
+			GenderTypeEntity entity = new GenderTypeEntity()
+			{
+				Description = "Manlijk",
+				DeletedDate = DateTime.MinValue
+			};
+
+			GenderTypeEntity mEntity = new GenderTypeEntity()
+			{
+				Description = "Vrouwlijk",
+				DeletedDate = DateTime.MinValue
+			};
+
+			entity = repository.Create(entity);
+			mEntity = repository.Create(mEntity);
+
+			_genderTypeEntities.Add(entity);
+			_genderTypeEntities.Add(mEntity);
 		}
 
 		private static void CreateContactTypes()

@@ -44,6 +44,11 @@ namespace SingletonTheory.Services.AuthServices.Entities.ContactDetails
 		[ReferencedEntity(typeof(TitleEntity), "TitleId")]
 		public TitleEntity TitleEnity { get; set; }
 
+		[Alias("GeslachtTypeId")]
+		[Required]
+		[References(typeof(GenderTypeEntity))]
+		public long GenderTypeId { get; set; }
+
 		[Alias("Voorvoegsel")]
 		[Required]
 		[StringLength(10)]

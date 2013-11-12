@@ -154,5 +154,35 @@ namespace SingletonTheory.Services.AuthServices.Extensions
 		}
 
 		#endregion OccupationNames
+
+		#region GenderTypes
+
+		public static GenderType TranslateToResponse(this GenderTypeEntity entity)
+		{
+			GenderType response = entity.TranslateTo<GenderType>();
+
+			return response;
+		}
+
+		public static List<GenderType> TranslateToResponse(this List<GenderTypeEntity> entities)
+		{
+			List<GenderType> response = new List<GenderType>();
+			for (int i = 0; i < entities.Count; i++)
+			{
+				response.Add(TranslateToResponse(entities[i]));
+			}
+
+			return response;
+		}
+
+		public static GenderTypeEntity TranslateToEntity(this GenderType request)
+		{
+			GenderTypeEntity response = request.TranslateTo<GenderTypeEntity>();
+
+			return response;
+		}
+
+		#endregion GenderTypes
+
 	}
 }

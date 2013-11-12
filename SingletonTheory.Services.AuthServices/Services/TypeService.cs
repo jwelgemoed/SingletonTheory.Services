@@ -72,7 +72,19 @@ namespace SingletonTheory.Services.AuthServices.Services
 			return entities.TranslateToResponse();
 		}
 
-		#endregion ContactTypes
+		#endregion AddressTypes
+
+		#region GenderTypes
+
+		public List<GenderType> Get(GenderTypes request)
+		{
+			GenderTypeRepository repository = GetGenderTypeRepository();
+			List<GenderTypeEntity> entities = repository.Read();
+
+			return entities.TranslateToResponse();
+		}
+
+		#endregion GenderTypes
 
 		#region Private Methods
 
@@ -117,6 +129,15 @@ namespace SingletonTheory.Services.AuthServices.Services
 			AddressTypeRepository repository = base.GetResolver().TryResolve<AddressTypeRepository>();
 			if (repository == null)
 				throw new InvalidOperationException("AddressType Repository not defined in IoC Container");
+
+			return repository;
+		}
+
+		private GenderTypeRepository GetGenderTypeRepository()
+		{
+			GenderTypeRepository repository = base.GetResolver().TryResolve<GenderTypeRepository>();
+			if (repository == null)
+				throw new InvalidOperationException("GenderType Repository not defined in IoC Container");
 
 			return repository;
 		}
