@@ -12,6 +12,7 @@ namespace SingletonTheory.Services.AuthServices.TransferObjects.ContactDetail
 	{
 		//Contact
 		public long Id { get; set; }
+		public long EntityId { get; set; }
 		public long ContactTypeId { get; set; }
 		public string Value { get; set; }
 		public bool Preferred { get; set; }

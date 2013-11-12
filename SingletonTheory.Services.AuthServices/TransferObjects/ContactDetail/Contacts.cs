@@ -10,5 +10,6 @@ namespace SingletonTheory.Services.AuthServices.TransferObjects.ContactDetail
 	[Route("/contactdetails/contacts/id/{Id}")]
 	public class Contacts : IReturn<List<Contact>>
 	{
+		public long EntityId { get; set; }
 	}
 }

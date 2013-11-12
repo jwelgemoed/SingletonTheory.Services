@@ -17,7 +17,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 	public class ContactDetailsService : Service
 	{
 
-		#region Contact
+		#region Contact Details
 
 		public ContactDetail Get(ContactDetail request)
 		{
@@ -157,7 +157,7 @@ namespace SingletonTheory.Services.AuthServices.Services
 			return contact;
 		}
 
-		#endregion Contact
+		#endregion Contact Details
 
 		#region Address
 
@@ -189,7 +189,107 @@ namespace SingletonTheory.Services.AuthServices.Services
 			return request.EntityId != -1 ? addressEntityResponse.TranslateToResponse() : addressEntities.TranslateToResponse();
 		}
 
+		public Address Put(Address request)
+		{
+			AddressRepository addressRepository = GetAddressRepository();
+
+			AddressEntity addressEntity = request.TranslateToEntity();
+			try
+			{
+				addressEntity = addressRepository.Update(addressEntity);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+
+			return addressEntity.TranslateToResponse();
+		}
+
+		public Address Post(Address request)
+		{
+			AddressRepository addressRepository = GetAddressRepository();
+
+			AddressEntity addressEntity = request.TranslateToEntity();
+			try
+			{
+				addressEntity = addressRepository.Create(addressEntity);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+
+			return addressEntity.TranslateToResponse();
+		}
+
 		#endregion Address
+
+		#region Contact
+
+		public Contact Get(Contact request)
+		{
+			ContactRepository repository = GetContactRepository();
+			ContactEntity entity = repository.Read(request.Id);
+
+			return entity.TranslateToResponse();
+		}
+
+		public List<Contact> Get(Contacts request)
+		{
+			ContactRepository repository = GetContactRepository();
+			List<ContactEntity> entities = repository.Read();
+			List<ContactEntity> entityResponse = new List<ContactEntity>();
+
+			if (request.EntityId != -1)
+			{
+				foreach (var entity in entities)
+				{
+					if (request.EntityId == entity.EntityId)
+					{
+						entityResponse.Add(entity);
+					}
+				}
+			}
+
+			return request.EntityId != -1 ? entityResponse.TranslateToResponse() : entities.TranslateToResponse();
+		}
+
+		public Contact Put(Contact request)
+		{
+			ContactRepository repository = GetContactRepository();
+
+			ContactEntity entity = request.TranslateToEntity();
+			try
+			{
+				entity = repository.Update(entity);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+
+			return entity.TranslateToResponse();
+		}
+
+		public Contact Post(Contact request)
+		{
+			ContactRepository repository = GetContactRepository();
+
+			ContactEntity entity = request.TranslateToEntity();
+			try
+			{
+				entity = repository.Create(entity);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+
+			return entity.TranslateToResponse();
+		}
+
+		#endregion Contact
 
 		#region Private Methods
 

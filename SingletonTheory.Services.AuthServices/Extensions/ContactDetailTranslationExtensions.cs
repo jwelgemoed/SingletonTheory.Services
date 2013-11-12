@@ -37,6 +37,35 @@ namespace SingletonTheory.Services.AuthServices.Extensions
 			return response;
 		}
 
-		#endregion Role
+		#endregion Address
+
+		#region Contact
+
+		public static Contact TranslateToResponse(this ContactEntity entity)
+		{
+			Contact response = entity.TranslateTo<Contact>();
+
+			return response;
+		}
+
+		public static List<Contact> TranslateToResponse(this List<ContactEntity> entities)
+		{
+			List<Contact> response = new List<Contact>();
+			for (int i = 0; i < entities.Count; i++)
+			{
+				response.Add(TranslateToResponse(entities[i]));
+			}
+
+			return response;
+		}
+
+		public static ContactEntity TranslateToEntity(this Contact request)
+		{
+			ContactEntity response = request.TranslateTo<ContactEntity>();
+
+			return response;
+		}
+
+		#endregion Contact
 	}
 }
