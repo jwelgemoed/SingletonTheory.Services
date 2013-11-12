@@ -414,6 +414,26 @@
 			Key: _BudgetedHoursInputHeading_,
 			Value: Budgeted Hours,
 			Description: Main menu heading for Budgeted Hours Input
+		},
+		{
+			Key: _RoleAdminHeading_,
+			Value: Role Administration,
+			Description: Role admin heading
+		},
+		{
+			Key: _DomainPermissionAdminHeading_,
+			Value: Domain Permission Administration,
+			Description: Domain permission admin heading
+		},
+		{
+			Key: _FunctionalPermissionAdminHeading_,
+			Value: Functional Permission Administration,
+			Description: Functional permission admin heading
+		},
+		{
+			Key: _PermissionAdminHeading_,
+			Value: API Permission Administration,
+			Description: API Permission admin heading
 		}
 	]
 }

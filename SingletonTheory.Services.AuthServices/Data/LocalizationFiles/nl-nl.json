@@ -414,6 +414,26 @@
 			Key: _BudgetedHoursInputHeading_,
 			Value: Gebudgeteerde Uren,
 			Description: Hoofd voor Gebudgeteerde Uren Invoer Menu
+		},
+		{
+			Key: _RoleAdminHeading_,
+			Value: Rol Administratie,
+			Description: Rol Admin hoofd
+		},
+		{
+			Key: _DomainPermissionAdminHeading_,
+			Value: Domein Permissie Administratie,
+			Description: Domein permissie admin hoofd
+		},
+		{
+			Key: _FunctionalPermissionAdminHeading_,
+			Value: Functionele Permissie Administratie,
+			Description: Functionele permissie admin hoofd
+		},
+		{
+			Key: _PermissionAdminHeading_,
+			Value: API Permissie Administratie,
+			Description: API Permissie admin hoofd
 		}
 	]
 }
